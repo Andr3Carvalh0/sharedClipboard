@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         if let button = statusItem.button {
-            button.image = NSImage(named: "StatusBarButtonImage")
+            button.image = NSImage(named: "Statusbar")
             //
             //selector <-> Is a dictionary with pointers to functions
             //more info: https://www.bignerdranch.com/blog/hannibal-selector/

@@ -40,7 +40,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         hasBeenLogged() ? showMainView() : showLoginView()
 
-        
     }
 
     

@@ -12,9 +12,11 @@ import Alamofire // See Doc: https://github.com/Alamofire/Alamofire
 class ParentViewController: NSViewController {
 
     var connectionHandler: ConnectionHandler
+    var app: AppDelegate
     
-    init?(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, connectionHandler handle: ConnectionHandler?) {
+    init?(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, connectionHandler handle: ConnectionHandler?, appDelegate delegate: AppDelegate?) {
         self.connectionHandler = handle!
+        self.app = delegate!
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     

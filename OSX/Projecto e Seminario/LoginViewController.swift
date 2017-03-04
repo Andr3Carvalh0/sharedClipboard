@@ -25,7 +25,12 @@ class LoginViewController: ParentViewController {
     }
     
     @IBAction func loginButton(_ sender: NSButton) {
-
+        //Why hiding the text field?Cause if we dont do it there will be artifacts during the viewcontroller transition
+        emailField.isHidden = true
+        passwordField.isHidden = true
+        
+        
+        app.showMainView()
         
         //self.connectionHandler.login(user: emailField.stringValue, password: passwordField.stringValue)
     }

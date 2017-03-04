@@ -16,9 +16,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     let popOver = NSPopover()
     var popOverMonitor: PopOverEvent?
+    var connectionHandler: ConnectionHandler?
     
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        connectionHandler = ConnectionHandler()
         
         if let button = statusItem.button {
             button.image = NSImage(named: "Statusbar")
@@ -36,12 +38,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
 
-        if(hasBeenLogged()){
-            popOver.contentViewController = MainViewController(nibName: "MainViewController", bundle: nil, connectionHandler: ConnectionHandler())
+        hasBeenLogged() ? showMainView() : showLoginView()
 
-        }else{
-            popOver.contentViewController = LoginViewController(nibName: "LoginViewController", bundle: nil, connectionHandler: ConnectionHandler())
-        }
         
     }
 
@@ -65,6 +63,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func closePopover(sender: AnyObject?) {
         popOver.performClose(sender)
         popOverMonitor?.stop()
+    }
+    
+    
+    func showMainView(){
+        popOver.contentViewController = MainViewController(nibName: "MainViewController", bundle: nil, connectionHandler: connectionHandler, appDelegate: self)
+    
+    }
+    
+    func showLoginView(){
+        popOver.contentViewController = LoginViewController(nibName: "LoginViewController", bundle: nil, connectionHandler: connectionHandler, appDelegate: self)
     }
 }
 

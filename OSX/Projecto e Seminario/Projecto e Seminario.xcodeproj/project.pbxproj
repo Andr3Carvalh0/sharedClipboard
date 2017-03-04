@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		653B1AF01E6A3CAA00DF9E9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B1AEF1E6A3CAA00DF9E9A /* AppDelegate.swift */; };
 		653B1AF41E6A3CAA00DF9E9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653B1AF31E6A3CAA00DF9E9A /* Assets.xcassets */; };
-		653B1AF71E6A3CAA00DF9E9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653B1AF51E6A3CAA00DF9E9A /* Main.storyboard */; };
 		6562560C1E6B31A70073EF4C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6562560B1E6B31A70073EF4C /* QuartzCore.framework */; };
 		658350821E6B02F1006EF5B5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658350801E6B02F1006EF5B5 /* LoginViewController.swift */; };
 		658350831E6B02F1006EF5B5 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658350811E6B02F1006EF5B5 /* LoginViewController.xib */; };
 		658350861E6B0306006EF5B5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658350841E6B0306006EF5B5 /* MainViewController.swift */; };
 		658350871E6B0306006EF5B5 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658350851E6B0306006EF5B5 /* MainViewController.xib */; };
 		65AF58281E6B1AF700FB4F53 /* PopOverEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF58271E6B1AF700FB4F53 /* PopOverEvent.swift */; };
+		65BDD7E01E6B52560020C955 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65BDD7DE1E6B52560020C955 /* Main.storyboard */; };
 		65C25AB91E6B3F2500C9B3D8 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C25AB81E6B3F2500C9B3D8 /* Preferences.swift */; };
 		65ECB9A81E6B1D5000ED3219 /* ConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ECB9A71E6B1D5000ED3219 /* ConnectionHandler.swift */; };
 		65F6E0741E6B0F9200D84B76 /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6E0731E6B0F9200D84B76 /* ParentViewController.swift */; };
@@ -27,7 +27,6 @@
 		653B1AEC1E6A3CAA00DF9E9A /* Projecto e Seminario.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Projecto e Seminario.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		653B1AEF1E6A3CAA00DF9E9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		653B1AF31E6A3CAA00DF9E9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		653B1AF61E6A3CAA00DF9E9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		653B1AF81E6A3CAA00DF9E9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6562560B1E6B31A70073EF4C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		658350801E6B02F1006EF5B5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ../LoginViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +34,7 @@
 		658350841E6B0306006EF5B5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ../MainViewController.swift; sourceTree = "<group>"; };
 		658350851E6B0306006EF5B5 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainViewController.xib; path = ../MainViewController.xib; sourceTree = "<group>"; };
 		65AF58271E6B1AF700FB4F53 /* PopOverEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverEvent.swift; sourceTree = "<group>"; };
+		65BDD7DF1E6B52560020C955 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		65C25AB81E6B3F2500C9B3D8 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		65ECB9A71E6B1D5000ED3219 /* ConnectionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionHandler.swift; path = ../ConnectionHandler.swift; sourceTree = "<group>"; };
 		65F6E0731E6B0F9200D84B76 /* ParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
@@ -101,8 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				658350851E6B0306006EF5B5 /* MainViewController.xib */,
+				65BDD7DE1E6B52560020C955 /* Main.storyboard */,
 				658350811E6B02F1006EF5B5 /* LoginViewController.xib */,
-				653B1AF51E6A3CAA00DF9E9A /* Main.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -206,9 +206,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				653B1AF41E6A3CAA00DF9E9A /* Assets.xcassets in Resources */,
-				653B1AF71E6A3CAA00DF9E9A /* Main.storyboard in Resources */,
 				658350831E6B02F1006EF5B5 /* LoginViewController.xib in Resources */,
 				658350871E6B0306006EF5B5 /* MainViewController.xib in Resources */,
+				65BDD7E01E6B52560020C955 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,10 +280,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		653B1AF51E6A3CAA00DF9E9A /* Main.storyboard */ = {
+		65BDD7DE1E6B52560020C955 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				653B1AF61E6A3CAA00DF9E9A /* Base */,
+				65BDD7DF1E6B52560020C955 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

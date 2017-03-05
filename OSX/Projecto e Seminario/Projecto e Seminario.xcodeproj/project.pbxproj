@@ -14,6 +14,7 @@
 		658350831E6B02F1006EF5B5 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658350811E6B02F1006EF5B5 /* LoginViewController.xib */; };
 		658350861E6B0306006EF5B5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658350841E6B0306006EF5B5 /* MainViewController.swift */; };
 		658350871E6B0306006EF5B5 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658350851E6B0306006EF5B5 /* MainViewController.xib */; };
+		65A0B0F21E6C95630035BFAC /* ClipboardWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A0B0F11E6C95630035BFAC /* ClipboardWatcher.swift */; };
 		65AF58281E6B1AF700FB4F53 /* PopOverEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF58271E6B1AF700FB4F53 /* PopOverEvent.swift */; };
 		65BDD7E01E6B52560020C955 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65BDD7DE1E6B52560020C955 /* Main.storyboard */; };
 		65C25AB91E6B3F2500C9B3D8 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C25AB81E6B3F2500C9B3D8 /* Preferences.swift */; };
@@ -33,6 +34,7 @@
 		658350811E6B02F1006EF5B5 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = ../LoginViewController.xib; sourceTree = "<group>"; };
 		658350841E6B0306006EF5B5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ../MainViewController.swift; sourceTree = "<group>"; };
 		658350851E6B0306006EF5B5 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainViewController.xib; path = ../MainViewController.xib; sourceTree = "<group>"; };
+		65A0B0F11E6C95630035BFAC /* ClipboardWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClipboardWatcher.swift; sourceTree = "<group>"; };
 		65AF58271E6B1AF700FB4F53 /* PopOverEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverEvent.swift; sourceTree = "<group>"; };
 		65BDD7DF1E6B52560020C955 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		65C25AB81E6B3F2500C9B3D8 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				6583508C1E6B07DD006EF5B5 /* Controller */,
 				653B1B021E6A3D4F00DF9E9A /* Storyboards */,
 				653B1AEF1E6A3CAA00DF9E9A /* AppDelegate.swift */,
+				65A0B0F11E6C95630035BFAC /* ClipboardWatcher.swift */,
 				653B1AF31E6A3CAA00DF9E9A /* Assets.xcassets */,
 				653B1AF81E6A3CAA00DF9E9A /* Info.plist */,
 				65C25AB81E6B3F2500C9B3D8 /* Preferences.swift */,
@@ -274,6 +277,7 @@
 				658350821E6B02F1006EF5B5 /* LoginViewController.swift in Sources */,
 				65AF58281E6B1AF700FB4F53 /* PopOverEvent.swift in Sources */,
 				653B1AF01E6A3CAA00DF9E9A /* AppDelegate.swift in Sources */,
+				65A0B0F21E6C95630035BFAC /* ClipboardWatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

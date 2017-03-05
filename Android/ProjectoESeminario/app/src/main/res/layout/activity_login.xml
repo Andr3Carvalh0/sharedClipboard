@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true"
@@ -8,7 +9,8 @@
     android:paddingEnd="16dp"
     android:orientation="vertical"
     android:background="@color/primary"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id="@+id/main">
 
     <Space
         android:layout_width="match_parent"
@@ -51,7 +53,9 @@
                 android:paddingTop="12dp"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:paddingBottom="12dp" />
+                android:paddingBottom="12dp"
+                android:contentDescription=""
+                tools:ignore="ContentDescription" />
 
             <Space
                 android:layout_height="48dp"
@@ -59,14 +63,21 @@
                 android:layout_width="2dp" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="128dp"
                 android:layout_height="match_parent"
                 android:inputType="textEmailAddress"
                 android:ems="10"
                 android:id="@+id/emailField"
                 android:hint="@string/email_hint"
-                android:layout_weight="1"
-                android:background="@android:drawable/screen_background_light_transparent" />
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:textSize="14sp"
+                android:layout_weight="0.94" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                app:srcCompat="@drawable/ic_close_24dp"
+                android:id="@+id/clearEmail"
+                android:layout_height="48dp" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
@@ -95,7 +106,8 @@
                 android:paddingTop="12dp"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:paddingBottom="12dp" />
+                android:paddingBottom="12dp"
+                tools:ignore="ContentDescription" />
 
             <Space
                 android:layout_height="48dp"
@@ -109,8 +121,16 @@
                 android:ems="10"
                 android:id="@+id/passwordField"
                 android:hint="@string/password_hint"
-                android:layout_weight="1"
-                android:background="@android:drawable/screen_background_light_transparent" />
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
+                android:textSize="14sp"
+                android:layout_weight="0.92" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                app:srcCompat="@drawable/ic_close_24dp"
+                android:id="@+id/clearPassword"
+                android:layout_height="48dp" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
@@ -121,7 +141,7 @@
         android:clickable="true"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_arrow_right_24dp"
-        android:id="@+id/floatingActionButton3"
+        android:id="@+id/proceedButton"
         app:backgroundTint="@color/accent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"

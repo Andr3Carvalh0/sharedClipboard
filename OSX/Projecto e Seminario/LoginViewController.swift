@@ -22,6 +22,9 @@ class LoginViewController: ParentViewController {
         super.viewDidLoad()
         wrongUser.isHidden = true
         wrongPassword.isHidden = true
+        
+        emailField.focusRingType = NSFocusRingType.none
+        passwordField.focusRingType=NSFocusRingType.none
     }
     
     @IBAction func loginButton(_ sender: NSButton) {

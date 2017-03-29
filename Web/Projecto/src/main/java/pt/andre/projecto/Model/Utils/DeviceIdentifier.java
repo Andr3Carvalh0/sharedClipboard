@@ -1,6 +1,4 @@
-package pt.andre.projecto.Model;
-
-import pt.andre.projecto.Model.Utils.DefaultHashMap;
+package pt.andre.projecto.Model.Utils;
 
 public class DeviceIdentifier {
     private DefaultHashMap<String, Device> devices;

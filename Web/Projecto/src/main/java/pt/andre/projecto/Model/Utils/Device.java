@@ -1,4 +1,4 @@
-package pt.andre.projecto.Model;
+package pt.andre.projecto.Model.Utils;
 
 public class Device {
 

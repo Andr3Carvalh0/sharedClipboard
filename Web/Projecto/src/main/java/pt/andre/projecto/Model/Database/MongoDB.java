@@ -1,6 +1,5 @@
 package pt.andre.projecto.Model.Database;
 
-
 import com.google.common.collect.Iterables;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -15,12 +14,11 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-
 /**
  * Implementation of the Database Interface using MongoDB
  */
 @Component
-public class MongoDB extends ParentDatabase {
+public class MongoDB implements IDatabase {
 
     private final MongoDatabase mongoDatabase;
 
@@ -98,4 +96,11 @@ public class MongoDB extends ParentDatabase {
         return mongoDatabase;
     }
 
+    String wordHashing(String word){
+        throw new NotImplementedException();
+    }
+
+    String wordDeHashing(String word){
+        throw new NotImplementedException();
+    }
 }

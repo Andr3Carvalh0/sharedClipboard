@@ -1,4 +1,4 @@
-package pt.andre.projecto.Controllers.API;
+package pt.andre.projecto.Controllers;
 
 
 public interface IAPI {

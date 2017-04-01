@@ -16,6 +16,10 @@ public class Server{
     public String root(Map<String, Object> model, @RequestHeader(value = "User-Agent") String userAgent, DeviceIdentifier deviceIdentifier) {
         Device currentDevice = deviceIdentifier.getDeviceInformation(userAgent);
 
+        //Aplication name
+        model.put("Link_2_The_Past", "[Placeholder]");
+
+        //Information related to the device that made the request
         model.put("OS", currentDevice.getOS());
         model.put("OS_Name", currentDevice.getOS_Friendly_Name());
         model.put("isSupported", currentDevice.isSupported());

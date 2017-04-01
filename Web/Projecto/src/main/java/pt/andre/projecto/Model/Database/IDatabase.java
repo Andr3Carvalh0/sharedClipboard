@@ -1,12 +1,12 @@
 package pt.andre.projecto.Model.Database;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 
 public interface IDatabase {
 
-    void push(String user, String data);
-    void pull(String user);
-    void authenticate(String user, String pass);
-    boolean createUser(String user, String pass);
+    DatabaseResponse push(String user, String data);
+    DatabaseResponse pull(String user);
+    DatabaseResponse authenticate(String user, String pass);
+    DatabaseResponse createAccount(String user, String pass);
 
 }

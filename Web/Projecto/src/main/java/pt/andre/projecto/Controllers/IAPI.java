@@ -1,8 +1,10 @@
 package pt.andre.projecto.Controllers;
 
+import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
+
 public interface IAPI {
-    String push(String account);
-    String pull(String user);
-    String createAccount(String account, String password);
-    String authenticate(String account, String password);
+    DatabaseResponse push(String account);
+    DatabaseResponse pull(String user);
+    DatabaseResponse createAccount(String account, String password);
+    DatabaseResponse authenticate(String account, String password);
 }

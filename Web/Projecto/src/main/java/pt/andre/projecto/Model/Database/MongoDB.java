@@ -4,15 +4,16 @@ import com.google.common.collect.Iterables;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.CreateCollectionOptions;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.ValidationOptions;
-import pt.andre.projecto.Model.Database.Utils.Collection;
+import com.mongodb.client.model.IndexOptions;
+import org.bson.Document;
+import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+
+//TODO: Read this https://www.mongodb.com/blog/post/password-authentication-with-mongoose-part-1
 /**
  * Implementation of the Database Interface using MongoDB
  */
@@ -20,8 +21,8 @@ public class MongoDB implements IDatabase {
 
     private final MongoDatabase mongoDatabase;
     private static final String DEFAULT_DB = "projecto";
-    private static final Collection USER_COLLECTION = new Collection("users", new ValidationOptions().validator(Filters.exists("email")));
-    private static final Collection CONTENT_COLLECTION = new Collection("content", new ValidationOptions());
+    private static final String USER_COLLECTION = "users";
+    private static final String CONTENT_COLLECTION = "content";
 
     public MongoDB(String URL, String PORT){
         Objects.requireNonNull(URL, "The URL of the database cannot be null!");
@@ -37,33 +38,52 @@ public class MongoDB implements IDatabase {
     }
 
     @Override
-    public void push(String user, String data) {
+    public DatabaseResponse push(String user, String data) {
         throw new NotImplementedException();
     }
 
     @Override
-    public void pull(String user) {
+    public DatabaseResponse pull(String user) {
         throw new NotImplementedException();
     }
 
     @Override
-    public void authenticate(String user, String pass) {
+    public DatabaseResponse authenticate(String user, String pass) {
         throw new NotImplementedException();
     }
 
     @Override
-    public boolean createUser(String user, String pass) {
-        throw new NotImplementedException();
+    public DatabaseResponse createAccount(String user, String pass) {
+        int responseCode = 200;
+        String responseMessage = "Success!";
+
+        //TODO:Remove this line from here!Its only here to test something
+        mongoDatabase.getCollection(USER_COLLECTION).createIndex(new Document("email", 1), new IndexOptions().unique(true));
+
+
+        Document document = new Document();
+        document.put("index", mongoDatabase.getCollection(USER_COLLECTION).count() + 1);
+        document.put("email", user);
+        document.put("password", pass);
+
+        try {
+            mongoDatabase.getCollection(USER_COLLECTION).insertOne(document);
+        }catch (Exception e){
+            responseCode = 406;
+            responseMessage = e.getMessage();
+        }
+
+        return new DatabaseResponse(responseCode, responseMessage);
     }
 
     /**
      * Checks if the default collections are created.If not, delegates the creation of the same
      */
-    private void initializeCollections(Collection... collections){
+    private void initializeCollections(String... collections){
         String[] existingCollections = Iterables.toArray(getExistingCollections(), String.class);
 
         Arrays.stream(collections)
-                .filter(collection -> checkIfCollectionAlreadyExists(collection.getName(), Arrays.stream(existingCollections)))
+                .filter(collection -> checkIfCollectionAlreadyExists(collection, Arrays.stream(existingCollections)))
                 .forEach(this::createCollection);
 
     }
@@ -71,8 +91,9 @@ public class MongoDB implements IDatabase {
     /**
      * Handles the creation of one collection @param collection
      */
-    private void createCollection(Collection collection) {
-        mongoDatabase.createCollection(collection.getName(), new CreateCollectionOptions().validationOptions(collection.getOptions()));
+    private void createCollection(String collection) {
+        mongoDatabase.createCollection(collection);
+
     }
 
     /**

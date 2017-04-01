@@ -1,0 +1,26 @@
+<div id="signup_Modal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Sign up</h2>
+        <form id="createUserForm">
+            <div>
+                <div class="uk-inline uk-width-1-1">
+                    <span class="uk-form-icon" uk-icon="icon: mail" ></span>
+                    <input onclick='resetErrorClues("email")' id="emailTextView" class="uk-input" type="text" placeholder="Email">
+                </div>
+            </div>
+            <br/>
+            <div>
+                <div class="uk-inline uk-width-1-1">
+                    <span class="uk-form-icon" uk-icon="icon: lock" ></span>
+                    <input onclick='resetErrorClues("password")' id="passwordTextView"  class="uk-input" type="password" placeholder="Password">
+                </div>
+            </div>
+        </form>
+        <p id="errorLabel"></p>
+        <div class="uk-padding-remove uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <button class="uk-button uk-button-primary" type="button" onclick="createAccount()">Create</button>
+        </div>
+    </div>
+</div>

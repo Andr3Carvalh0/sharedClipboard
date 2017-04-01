@@ -1,7 +1,6 @@
 package pt.andre.projecto.Controllers.URIs;
 
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,10 +8,8 @@ import pt.andre.projecto.Model.Utils.Device;
 import pt.andre.projecto.Model.Utils.DeviceIdentifier;
 import java.util.Map;
 
-
 @Controller
 @AutoConfigureBefore
-@ComponentScan
 public class Server{
 
     @RequestMapping("/")

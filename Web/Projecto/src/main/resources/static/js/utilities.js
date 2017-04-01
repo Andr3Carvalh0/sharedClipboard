@@ -67,6 +67,12 @@ function displayErrors(emailValid, passwordValid) {
     messageField.innerHTML = message
 }
 
-function resetErrorClues(type) {
+function resetErrorClues(type, resetErrorTips) {
     resetMap[type]()
+
+    if(resetErrorTips){
+        document.getElementById("emailTextView").value = ""
+        document.getElementById("passwordTextView").value = ""
+        document.getElementById("errorLabel").innerHTML = ""
+    }
 }

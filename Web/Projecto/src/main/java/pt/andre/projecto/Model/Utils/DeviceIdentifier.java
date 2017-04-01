@@ -4,12 +4,9 @@ public class DeviceIdentifier {
     private DefaultHashMap<String, Device> devices;
 
     public DeviceIdentifier(){
-        devices = new DefaultHashMap<>(new Device("WIN", "Windows",  true));
+        devices = new DefaultHashMap<>(new Device("WIN", "Windows",  false));
         devices.put("Macintosh", new Device("OSX", "Mac",  true));
         devices.put("Windows", new Device("WIN", "Windows", true));
-        devices.put("iPhone", new Device("OSX", "Mac",  false));
-        devices.put("iPod", new Device("OSX", "Mac", false));
-        devices.put("iPad", new Device("OSX", "Mac", false));
 
     }
 

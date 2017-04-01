@@ -5,17 +5,18 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import pt.andre.projecto.Model.Database.IDatabase;
+import pt.andre.projecto.Model.Database.MongoDB;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Arrays;
 
 public class MongoDBTests {
 
-    private static IDatabase databaseConnector;
+    private static MongoDB databaseConnector;
 
     @BeforeClass
     public static void setup(){
-        databaseConnector = new IDatabase("localhost:27017");
+        databaseConnector = new MongoDB("localhost:27017");
 
     }
 

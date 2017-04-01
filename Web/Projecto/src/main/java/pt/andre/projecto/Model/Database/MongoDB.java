@@ -17,7 +17,6 @@ import java.util.stream.Stream;
 /**
  * Implementation of the Database Interface using MongoDB
  */
-@Component
 public class MongoDB implements IDatabase {
 
     private final MongoDatabase mongoDatabase;
@@ -26,13 +25,6 @@ public class MongoDB implements IDatabase {
 
     private static final Collection USER_COLLECTION = new Collection("users", new ValidationOptions().validator(Filters.exists("email")));
     private static final Collection CONTENT_COLLECTION = new Collection("content", new ValidationOptions().validator(Filters.exists("email")));
-
-    /*
-    * Automatically called by the SpringFramework.
-    * */
-    public MongoDB(){
-        this(System.getenv("MONGO_URL"));
-    }
 
     /*
     *  Only use this contructor for tests.You should always use the parameterless ctor.

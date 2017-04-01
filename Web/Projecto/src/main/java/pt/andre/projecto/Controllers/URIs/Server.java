@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pt.andre.projecto.Model.Utils.Device;
 import pt.andre.projecto.Model.Utils.DeviceIdentifier;
-
 import java.util.Map;
 
 

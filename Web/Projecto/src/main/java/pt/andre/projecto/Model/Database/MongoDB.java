@@ -7,7 +7,6 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.CreateCollectionOptions;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ValidationOptions;
-import org.springframework.stereotype.Component;
 import pt.andre.projecto.Model.Database.Utils.Collection;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.Arrays;
@@ -20,19 +19,15 @@ import java.util.stream.Stream;
 public class MongoDB implements IDatabase {
 
     private final MongoDatabase mongoDatabase;
-
     private static final String DEFAULT_DB = "projecto";
-
     private static final Collection USER_COLLECTION = new Collection("users", new ValidationOptions().validator(Filters.exists("email")));
-    private static final Collection CONTENT_COLLECTION = new Collection("content", new ValidationOptions().validator(Filters.exists("email")));
+    private static final Collection CONTENT_COLLECTION = new Collection("content", new ValidationOptions());
 
-    /*
-    *  Only use this contructor for tests.You should always use the parameterless ctor.
-    * */
-    public MongoDB(String URL){
-        Objects.requireNonNull(URL, "You must have the 'MONGO_URL' environment variable set.This variable must be in the following format: [URI]:[PORT]");
+    public MongoDB(String URL, String PORT){
+        Objects.requireNonNull(URL, "The URL of the database cannot be null!");
+        Objects.requireNonNull(URL, "The PORT of the database cannot be null!");
 
-        MongoClientURI connectionString = new MongoClientURI("mongodb://" + System.getenv("MONGO_URL"));
+        MongoClientURI connectionString = new MongoClientURI("mongodb://" + URL + ":" + PORT);
 
         MongoClient mongoClient = new MongoClient(connectionString);
         mongoDatabase = mongoClient.getDatabase(DEFAULT_DB);
@@ -61,6 +56,9 @@ public class MongoDB implements IDatabase {
         throw new NotImplementedException();
     }
 
+    /**
+     * Checks if the default collections are created.If not, delegates the creation of the same
+     */
     private void initializeCollections(Collection... collections){
         String[] existingCollections = Iterables.toArray(getExistingCollections(), String.class);
 
@@ -70,10 +68,17 @@ public class MongoDB implements IDatabase {
 
     }
 
+    /**
+     * Handles the creation of one collection @param collection
+     */
     private void createCollection(Collection collection) {
         mongoDatabase.createCollection(collection.getName(), new CreateCollectionOptions().validationOptions(collection.getOptions()));
     }
 
+    /**
+     * Checks if the collection named @param collection exists.
+     * @param existingCollections the existing collections
+     */
     private boolean checkIfCollectionAlreadyExists(String collection, Stream<String> existingCollections) {
         return existingCollections
                 .filter(collection::equals)
@@ -88,11 +93,4 @@ public class MongoDB implements IDatabase {
         return mongoDatabase;
     }
 
-    String wordHashing(String word){
-        throw new NotImplementedException();
-    }
-
-    String wordDeHashing(String word){
-        throw new NotImplementedException();
-    }
 }

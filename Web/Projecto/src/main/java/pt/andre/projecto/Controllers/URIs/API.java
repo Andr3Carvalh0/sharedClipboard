@@ -25,7 +25,7 @@ public class API implements IAPI {
 
     @Override
     @RequestMapping(value = "/api/push", method = RequestMethod.POST)
-    public void push() {
+    public void push(@RequestBody String account) {
         throw new NotImplementedException();
     }
 
@@ -37,11 +37,12 @@ public class API implements IAPI {
 
     @Override
     @RequestMapping(value = "/api/account", method = RequestMethod.POST)
-    public void createAccount() {
+    public void createAccount(@RequestBody String account, @RequestBody String password) {
         throw new NotImplementedException();
     }
 
     //TODO ask which method to use on authentication
+    //TODO ask if we need to verify account for every operation(check password, for instance)
     @Override
     @RequestMapping(value = "/api/account", params = {"account", "password"}, method = RequestMethod.GET)
     public void authenticate(@RequestParam(value = "account") String account, @RequestParam(value = "password") String password) {
@@ -55,7 +56,7 @@ public class API implements IAPI {
 
         @Bean
         public IDatabase createDatabase(){
-            return new MongoDB(System.getenv("MONGO_URL"));
+            return new MongoDB(System.getenv("MONGO_URL"), System.getenv("MONGO_PORT"));
         }
 
 

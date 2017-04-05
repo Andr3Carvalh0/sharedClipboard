@@ -7,6 +7,6 @@ public interface IDatabase {
     DatabaseResponse push(String user, String data);
     DatabaseResponse pull(String user);
     DatabaseResponse authenticate(String user, String pass);
-    DatabaseResponse createAccount(String user, String pass);
+    DatabaseResponse createAccount(String user, String password);
 
 }

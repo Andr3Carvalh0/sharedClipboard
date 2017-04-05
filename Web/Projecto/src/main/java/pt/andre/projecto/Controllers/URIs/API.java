@@ -44,12 +44,10 @@ public class API implements IAPI {
         return database.createAccount(account, password);
     }
 
-    //TODO ask which method to use on authentication
-    //TODO ask if we need to verify account for every operation(check password, for instance)
     @Override
     @RequestMapping(value = "/api/account", params = {"account", "password"}, method = RequestMethod.GET)
     public DatabaseResponse authenticate(@RequestParam(value = "account") String account, @RequestParam(value = "password") String password) {
-        throw new NotImplementedException();
+        return database.authenticate(account, password);
     }
 
 
@@ -58,7 +56,7 @@ public class API implements IAPI {
     public static class Configuration{
 
         @Bean
-        @Scope("prototype") //By default is sigleton, but can be request or prototype
+        @Scope("prototype") //By default is singleton, but can be request(To be request we have to change the component scope or create a proxy on this bean) or prototype
         public IDatabase createDatabase(){
             return new MongoDB(System.getenv("MONGO_URL"), System.getenv("MONGO_PORT"));
         }

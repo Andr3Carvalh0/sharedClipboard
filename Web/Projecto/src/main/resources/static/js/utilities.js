@@ -43,7 +43,6 @@ function verifyEmail(email) {
 }
 
 function verifyPassword(password) {
-    console.log(password.length >= 6)
     return password.length >= 6
 }
 
@@ -65,6 +64,11 @@ function displayErrors(emailValid, passwordValid) {
     }
 
     messageField.innerHTML = message
+}
+
+function displayMessage(message) {
+    let messageField = document.getElementById("errorLabel")
+    messageField.innerHTML = '<li>' + message + '</li>'
 }
 
 function resetErrorClues(type, resetErrorTips) {

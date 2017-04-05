@@ -28,6 +28,7 @@ dependencies {
 	compile('org.mongodb:mongodb-driver:3.4.2')
 	compile('io.springfox:springfox-swagger2:2.4.0')
 	compile('io.springfox:springfox-swagger-ui:2.4.0')
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')

@@ -13,6 +13,17 @@ function createAccount(){
 
     let data = 'account=' + email + '&password=' + password
     ajaxRequest('PUT', CREATE_ACCOUNT_URL, data)
-        .then((response) => {console.log(response)})
-        .catch((error) => {console.log(error)})
+        .then((response) => {
+            let JSON_response = JSON.parse(response)
+
+            if (200 != JSON_response.responseCode) {
+                displayMessage(JSON_response.responseMessage)
+            }else{
+                //This is a hack.Since the stupid UIKIT doesnt support closing modal via javascript.Simulate a button click
+                $("#modal_Cancel_Button").click()
+
+                //Show a notification alerting the user that the creation of the account was a success
+                UIkit.notification(JSON_response.responseMessage , {pos: 'top-right', status:'success'});
+            }
+        })
 }

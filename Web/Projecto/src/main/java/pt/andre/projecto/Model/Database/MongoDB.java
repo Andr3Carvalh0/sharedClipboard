@@ -1,19 +1,25 @@
 package pt.andre.projecto.Model.Database;
 
 import com.google.common.collect.Iterables;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.mongodb.*;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.IndexOptions;
 import org.bson.Document;
+import org.bson.conversions.Bson;
+import pt.andre.projecto.Model.Database.Utils.DatabaseOption;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
+import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
+import pt.andre.projecto.Model.Utils.Security;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import java.util.Arrays;
-import java.util.Objects;
+
+import java.util.*;
 import java.util.stream.Stream;
 
 
-//TODO: Read this https://www.mongodb.com/blog/post/password-authentication-with-mongoose-part-1
+//TODO: Handle exceptions related to db(when we cannot connect to db, etc...
+
 /**
  * Implementation of the Database Interface using MongoDB
  */
@@ -21,12 +27,14 @@ public class MongoDB implements IDatabase {
 
     private final MongoDatabase mongoDatabase;
     private static final String DEFAULT_DB = "projecto";
-    private static final String USER_COLLECTION = "users";
-    private static final String CONTENT_COLLECTION = "content";
+    private static final DatabaseOption USER_COLLECTION = new DatabaseOption("users", "email");
+    private static final DatabaseOption CONTENT_COLLECTION = new DatabaseOption("content", "id");
+    private static final String FIRST_TIME_CONTENT_MESSAGE = "Welcome!";
 
-    public MongoDB(String URL, String PORT){
+    public MongoDB(String URL, String PORT) {
         Objects.requireNonNull(URL, "The URL of the database cannot be null!");
         Objects.requireNonNull(URL, "The PORT of the database cannot be null!");
+
 
         MongoClientURI connectionString = new MongoClientURI("mongodb://" + URL + ":" + PORT);
 
@@ -48,42 +56,71 @@ public class MongoDB implements IDatabase {
     }
 
     @Override
-    public DatabaseResponse authenticate(String user, String pass) {
-        throw new NotImplementedException();
+    public DatabaseResponse authenticate(String user, String password) {
+        final int[] count = {0};
+        final String[] userID = new String[1];
+
+        try {
+            String hashedPassword = Security.hashString(password);
+
+            MongoCollection<Document> users = mongoDatabase.getCollection(USER_COLLECTION.getName());
+
+            Bson filter = Filters.and(
+                    Filters.eq("email", user),
+                    Filters.eq("password", hashedPassword)
+            );
+
+            users.find(filter).forEach((Block<Document>) (
+                    document) -> {
+                        userID[0] = String.valueOf(document.get("id"));
+                        count[0]++;
+                    }
+            );
+
+            if(count[0] == 0){
+                return ResponseFormater.createResponse("User not valid");
+            }
+
+            return ResponseFormater.displayInformation(userID[0]);
+
+        }catch (Exception e){
+            return ResponseFormater.createResponse(e.getMessage());
+        }
     }
 
     @Override
-    public DatabaseResponse createAccount(String user, String pass) {
-        int responseCode = 200;
-        String responseMessage = "Success!";
-
-        //TODO:Remove this line from here!Its only here to test something
-        mongoDatabase.getCollection(USER_COLLECTION).createIndex(new Document("email", 1), new IndexOptions().unique(true));
-
-
-        Document document = new Document();
-        document.put("index", mongoDatabase.getCollection(USER_COLLECTION).count() + 1);
-        document.put("email", user);
-        document.put("password", pass);
+    public DatabaseResponse createAccount(String user, String password) {
+        String hashedPassword = Security.hashString(password);
 
         try {
-            mongoDatabase.getCollection(USER_COLLECTION).insertOne(document);
-        }catch (Exception e){
-            responseCode = 406;
-            responseMessage = e.getMessage();
-        }
+            long id = mongoDatabase.getCollection(USER_COLLECTION.getName()).count() + 1;
 
-        return new DatabaseResponse(responseCode, responseMessage);
+            Document document = new Document();
+            document.put("id", id);
+            document.put("email", user);
+            document.put("password", hashedPassword);
+            mongoDatabase.getCollection(USER_COLLECTION.getName()).insertOne(document);
+
+            document = new Document();
+            document.put("id", id);
+            document.put("value", FIRST_TIME_CONTENT_MESSAGE);
+            mongoDatabase.getCollection(CONTENT_COLLECTION.getName()).insertOne(document);
+
+            return ResponseFormater.createResponse(null);
+        } catch (Exception e) {
+            return ResponseFormater.createResponse(e.getMessage());
+        }
     }
 
     /**
      * Checks if the default collections are created.If not, delegates the creation of the same
      */
-    private void initializeCollections(String... collections){
+    private void initializeCollections(DatabaseOption... collections) {
+
         String[] existingCollections = Iterables.toArray(getExistingCollections(), String.class);
 
         Arrays.stream(collections)
-                .filter(collection -> checkIfCollectionAlreadyExists(collection, Arrays.stream(existingCollections)))
+                .filter(collection -> checkIfCollectionAlreadyExists(collection.getName(), Arrays.stream(existingCollections)))
                 .forEach(this::createCollection);
 
     }
@@ -91,13 +128,14 @@ public class MongoDB implements IDatabase {
     /**
      * Handles the creation of one collection @param collection
      */
-    private void createCollection(String collection) {
-        mongoDatabase.createCollection(collection);
-
+    private void createCollection(DatabaseOption collection) {
+        mongoDatabase.createCollection(collection.getName());
+        mongoDatabase.getCollection(collection.getName()).createIndex(new Document(collection.getPrimaryKey(), 1), new IndexOptions().unique(true));
     }
 
     /**
      * Checks if the collection named @param collection exists.
+     *
      * @param existingCollections the existing collections
      */
     private boolean checkIfCollectionAlreadyExists(String collection, Stream<String> existingCollections) {
@@ -106,7 +144,7 @@ public class MongoDB implements IDatabase {
                 .count() == 0;
     }
 
-    private Iterable<String> getExistingCollections(){
+    private Iterable<String> getExistingCollections() {
         return mongoDatabase.listCollectionNames();
     }
 

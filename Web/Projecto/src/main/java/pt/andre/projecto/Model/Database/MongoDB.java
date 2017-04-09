@@ -29,7 +29,7 @@ public class MongoDB implements IDatabase {
     private final static DatabaseOption CONTENT_COLLECTION = new DatabaseOption("content", "id");
     private final static String FIRST_TIME_CONTENT_MESSAGE = "Welcome!";
 
-    
+
     public MongoDB(String Host, String Port, String Database) {
         this(Host, Port, Database, null, null);
 

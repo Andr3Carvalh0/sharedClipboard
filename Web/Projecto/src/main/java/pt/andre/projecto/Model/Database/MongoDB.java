@@ -13,7 +13,6 @@ import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Model.Utils.Security;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -26,24 +25,40 @@ import java.util.stream.Stream;
 public class MongoDB implements IDatabase {
 
     private final MongoDatabase mongoDatabase;
-    private static final String DEFAULT_DB = "projecto";
-    private static final DatabaseOption USER_COLLECTION = new DatabaseOption("users", "email");
-    private static final DatabaseOption CONTENT_COLLECTION = new DatabaseOption("content", "id");
-    private static final String FIRST_TIME_CONTENT_MESSAGE = "Welcome!";
+    private final static DatabaseOption USER_COLLECTION = new DatabaseOption("users", "email");
+    private final static DatabaseOption CONTENT_COLLECTION = new DatabaseOption("content", "id");
+    private final static String FIRST_TIME_CONTENT_MESSAGE = "Welcome!";
 
-    public MongoDB(String URL, String PORT) {
-        Objects.requireNonNull(URL, "The URL of the database cannot be null!");
-        Objects.requireNonNull(URL, "The PORT of the database cannot be null!");
+    
+    public MongoDB(String Host, String Port, String Database) {
+        this(Host, Port, Database, null, null);
 
+    }
 
-        MongoClientURI connectionString = new MongoClientURI("mongodb://" + URL + ":" + PORT);
+    /**
+     * Constructor to be used when the MongoDB has authentication.
+     * In case of a simple install of the mongoDB, and you dont need to authenticate use the above constructor
+     */
+    public MongoDB(String Host, String Port, String Database, String User, String Password) {
+        Objects.requireNonNull(Host, "The Host of the database cannot be null!");
+        Objects.requireNonNull(Port, "The Port of the database cannot be null!");
+        Objects.requireNonNull(Database, "The Database cannot be null!");
 
-        MongoClient mongoClient = new MongoClient(connectionString);
-        mongoDatabase = mongoClient.getDatabase(DEFAULT_DB);
+        MongoClientURI uri;
 
+        if(User == null) {
+            uri = new MongoClientURI("mongodb://" + Host + ":" + Port + "/" + Database);
+        }else{
+            uri = new MongoClientURI("mongodb://" + User + ":" + Password + "@" + Host + ":" + Port + "/" + Database);
+        }
+
+        MongoClient mongoClient = new MongoClient(uri);
+
+        mongoDatabase = mongoClient.getDatabase(uri.getDatabase());
         initializeCollections(USER_COLLECTION, CONTENT_COLLECTION);
 
     }
+
 
     @Override
     public DatabaseResponse push(String user, String data) {

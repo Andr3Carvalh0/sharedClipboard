@@ -50,7 +50,6 @@ public class API implements IAPI {
         return database.authenticate(account, password);
     }
 
-
     @Component
     @ComponentScan
     public static class Configuration{
@@ -58,10 +57,7 @@ public class API implements IAPI {
         @Bean
         @Scope("prototype") //By default is singleton, but can be request(To be request we have to change the component scope or create a proxy on this bean) or prototype
         public IDatabase createDatabase(){
-            return new MongoDB(System.getenv("MONGO_URL"), System.getenv("MONGO_PORT"));
+            return System.getenv("MONGO_USER") == null ? new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), "Projecto") : new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), System.getenv("MONGO_DATABASE"), System.getenv("MONGO_USER"), System.getenv("MONGO_PASSWORD"));
         }
-
-
     }
-
 }

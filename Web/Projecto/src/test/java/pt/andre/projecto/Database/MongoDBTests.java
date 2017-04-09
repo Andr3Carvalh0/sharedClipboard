@@ -4,7 +4,6 @@ import com.google.common.collect.Iterables;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.MongoDB;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -13,17 +12,24 @@ import java.util.Arrays;
 public class MongoDBTests {
 
     private static MongoDB databaseConnector;
+    private static String TEST_USER = "test";
+    private static String TEST_PASSWORD = "test";
 
     @BeforeClass
     public static void setup(){
-        databaseConnector = new MongoDB("localhost:27017");
-
+        databaseConnector = new MongoDB("localhost", "27017", "Testes");
+        databaseConnector.createAccount(TEST_USER, TEST_PASSWORD);
     }
 
     @Test
     public void canConnectToDatabase(){
         String[] existingCollections = Iterables.toArray(databaseConnector.getMongoDatabase().listCollectionNames(), String.class);
         Assert.assertTrue(Arrays.stream(existingCollections).count() > 1);
+    }
+
+    @Test
+    public void canDetectAccountCreationWithSameCredentials(){
+        Assert.assertEquals(409, databaseConnector.createAccount(TEST_USER, TEST_PASSWORD).getResponseCode());
     }
 
     @Test
@@ -34,6 +40,12 @@ public class MongoDBTests {
     @Test
     public void canPullDataFromDatabase(){
         throw new NotImplementedException();
+    }
+
+    @Test
+    public void canAuthenticateUserFromDatabase(){
+        Assert.assertEquals(200, databaseConnector.authenticate(TEST_USER, TEST_PASSWORD).getResponseCode());
+        Assert.assertEquals("1", databaseConnector.authenticate(TEST_USER, TEST_PASSWORD).getResponseMessage());
     }
 
 }

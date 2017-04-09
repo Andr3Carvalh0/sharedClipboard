@@ -3,4 +3,6 @@
     <string name="app">Projecto e Seminário</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
+    <string name="welcome_message">Welcome!</string>
+
 </resources>

@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class DefaultHashMap<T, T1> extends HashMap<T, T1>{
     private final T1 defaultValue;
 
-    DefaultHashMap(T1 defaultValue){
+    public DefaultHashMap(T1 defaultValue){
         this.defaultValue = defaultValue;
     }
 

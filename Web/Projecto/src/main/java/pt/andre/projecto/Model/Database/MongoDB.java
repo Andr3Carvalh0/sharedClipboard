@@ -80,12 +80,26 @@ public class MongoDB implements IDatabase {
 
             MongoCollection<Document> users = mongoDatabase.getCollection(USER_COLLECTION.getName());
 
-            Bson filter = Filters.and(
+            Bson accountFilter = Filters.eq("email", user);
+
+            Bson passwordFilter = Filters.and(
                     Filters.eq("email", user),
                     Filters.eq("password", hashedPassword)
             );
 
-            users.find(filter).forEach((Block<Document>) (
+
+            users.find(accountFilter).forEach((Block<Document>) (
+                    document) -> {
+                        count[0]++;
+                    }
+            );
+
+            //If we dont find an account return immediately.We do this so we can handle login/create account on our native app
+            if(count[0] == 0){
+                return ResponseFormater.createResponse("No such account");
+            }
+
+            users.find(passwordFilter).forEach((Block<Document>) (
                     document) -> {
                         userID[0] = String.valueOf(document.get("id"));
                         count[0]++;
@@ -93,7 +107,7 @@ public class MongoDB implements IDatabase {
             );
 
             if(count[0] == 0){
-                return ResponseFormater.createResponse("User not valid");
+                return ResponseFormater.createResponse("Password not valid");
             }
 
             return ResponseFormater.displayInformation(userID[0]);

@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import pt.andre.projecto.Controllers.IAPI;
@@ -27,27 +28,28 @@ public class API implements IAPI {
 
     @Override
     @RequestMapping(value = "/api/push", method = RequestMethod.PUT)
-    public DatabaseResponse push(@RequestParam String account) {
+    public ResponseEntity push(@RequestParam String account) {
         throw new NotImplementedException();
     }
 
     @Override
     @RequestMapping(value = "/api/pull", params = {"account"}, method = RequestMethod.GET)
-    public DatabaseResponse pull(@RequestParam(value = "account") String user) {
+    public ResponseEntity pull(@RequestParam(value = "account") String user) {
         throw new NotImplementedException();
     }
 
     @Override
     @RequestMapping(value = "/api/account", method = RequestMethod.PUT)
-    public DatabaseResponse createAccount(@RequestParam String account, @RequestParam String password) {
-
-        return database.createAccount(account, password);
+    public ResponseEntity createAccount(@RequestParam String account, @RequestParam String password) {
+        DatabaseResponse resp = database.createAccount(account, password);
+        return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 
     @Override
     @RequestMapping(value = "/api/account", params = {"account", "password"}, method = RequestMethod.GET)
-    public DatabaseResponse authenticate(@RequestParam(value = "account") String account, @RequestParam(value = "password") String password) {
-        return database.authenticate(account, password);
+    public ResponseEntity authenticate(@RequestParam(value = "account") String account, @RequestParam(value = "password") String password) {
+        DatabaseResponse resp = database.authenticate(account, password);
+        return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 
     @Component

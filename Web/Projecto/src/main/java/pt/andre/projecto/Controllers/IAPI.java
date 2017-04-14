@@ -1,10 +1,10 @@
 package pt.andre.projecto.Controllers;
 
-import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
+import org.springframework.http.ResponseEntity;
 
 public interface IAPI {
-    DatabaseResponse push(String account);
-    DatabaseResponse pull(String user);
-    DatabaseResponse createAccount(String account, String password);
-    DatabaseResponse authenticate(String account, String password);
+    ResponseEntity push(String account);
+    ResponseEntity pull(String user);
+    ResponseEntity createAccount(String account, String password);
+    ResponseEntity authenticate(String account, String password);
 }

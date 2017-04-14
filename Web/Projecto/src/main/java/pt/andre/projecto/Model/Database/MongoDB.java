@@ -99,6 +99,9 @@ public class MongoDB implements IDatabase {
                 return ResponseFormater.createResponse("No such account");
             }
 
+            //Reset our counter.
+            count[0] = 0;
+
             users.find(passwordFilter).forEach((Block<Document>) (
                     document) -> {
                         userID[0] = String.valueOf(document.get("id"));

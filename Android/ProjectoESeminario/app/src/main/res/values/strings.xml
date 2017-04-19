@@ -4,5 +4,25 @@
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="welcome_message">Welcome!</string>
+    <string name="Error403_Title">Oh-Oh!</string>
+    <string name="Loading_Message">Loading...</string>
+    <string name="Error403_Message">The password is wrong!</string>
+    <string name="Error409_Title">Ups</string>
+    <string name="Error409_Message">It seems like an account with this email, already exists!</string>
+    <string name="Error500_Title">Sorry!</string>
+    <string name="Error500_Message">We cannot handle your request right now.Try again, later!</string>
+    <string name="GenericError_Title">Ups</string>
+    <string name="WrongEmail_Message">The email that you have inputted isn\'t valid.</string>
+    <string name="WrongPassword_Message">The password must be at least 6 letters.</string>
+    <string name="PositiveButton_Title">OK</string>
+    <string name="CreateAccount_Title">This may be your lucky day!</string>
+    <string name="CreateAccout_Message">There seems that there isn\'t any account with this email.\nWould you like to create an account with this information?</string>
+    <string name="PositiveButton_Default_Title">Sure!</string>
+    <string name="NegativeButton_Default_Title">No, Thanks</string>
+    <string name="sharedPreferencesKey">andre.pt.projectoeseminario</string>
+
+
+    <string name="Service_Running_Option_Title">Enabled:</string>
+    <string name="Service_Running_Option_Description">When selected the service will be on.</string>
 
 </resources>

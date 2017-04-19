@@ -1,10 +1,11 @@
 package andre.pt.projectoeseminario.Data;
 
+import android.content.Context;
 import java.util.regex.Pattern;
-
-import andre.pt.projectoeseminario.Activities.IResponse;
+import andre.pt.projectoeseminario.Data.Interface.IResponse;
 import andre.pt.projectoeseminario.Data.Interface.IAPI;
 import andre.pt.projectoeseminario.Data.Interface.ProjectoAPI;
+import andre.pt.projectoeseminario.R;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,10 +15,12 @@ public class APIRequest {
 
     private IAPI mAPI;
     private IResponse iResponse;
+    private Context ctx;
 
-    public APIRequest(IResponse resp){
+    public APIRequest(IResponse resp, Context ctx){
         mAPI = ProjectoAPI.getAPI();
         iResponse = resp;
+        this.ctx = ctx;
     }
 
     private boolean isEmailValid(String email){
@@ -32,46 +35,48 @@ public class APIRequest {
 
     public void handleAuthentication(String email, String password){
         if(!isEmailValid(email)) {
-            iResponse.handleError("Ups", "The email that you have inputted isn't valid.");
+            iResponse.handleError(getResourceString(R.string.GenericError_Title), getResourceString(R.string.WrongEmail_Message));
             return;
         }
 
         if(!isPasswordValid(password)) {
-            iResponse.handleError("Ups", "The password must be at least 6 letters.");
+            iResponse.handleError(getResourceString(R.string.GenericError_Title), getResourceString(R.string.WrongPassword_Message));
             return;
         }
 
-        iResponse.displayWaitingDialog();
+        iResponse.showProgressDialog();
 
-        mAPI.authenticate(email, password).enqueue(new Callback<ResponseBody>() {
+        mAPI.authenticate(email, password).enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                iResponse.hideWaitingDialog();
-                handleHTTPResponse(response.code());
+            public void onResponse(Call<String> call, Response<String> response) {
+                iResponse.hideProgressDialog();
+                handleHTTPResponse(response.code(), Integer.parseInt(response.body().toString()));
+
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                iResponse.hideWaitingDialog();
-                handleHTTPResponse(500);
+            public void onFailure(Call<String> call, Throwable t) {
+                iResponse.hideProgressDialog();
+                handleHTTPResponse(500, 0);
             }
         });
+
     }
 
     public void handleAccountCreation(String email, String password){
-        iResponse.displayWaitingDialog();
+        iResponse.showProgressDialog();
 
         mAPI.createAccount(email, password).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                iResponse.hideWaitingDialog();
-                handleHTTPResponse(response.code());
+                iResponse.hideProgressDialog();
+                handleHTTPResponse(response.code(), 0);
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                iResponse.hideWaitingDialog();
-                handleHTTPResponse(500);
+                iResponse.hideProgressDialog();
+                handleHTTPResponse(500, 0);
             }
         });
     }
@@ -80,9 +85,9 @@ public class APIRequest {
      * Handles what to do, on the HTTP response.
      * Why not use a hashmap, that for value has a method reference?Thats Java 8...Android only supports up to Java 7 :(
      */
-    private void handleHTTPResponse(int code){
+    private void handleHTTPResponse(int code, int userID){
         if(code == 200){
-            iResponse.handleSuccessfullyLogin();
+            iResponse.handleSuccessfullyLogin(userID);
             return;
         }
 
@@ -92,17 +97,21 @@ public class APIRequest {
         }
 
         if(code == 403){
-            iResponse.handleError("Oh-Oh!", "The password is wrong!");
+            iResponse.handleError(getResourceString(R.string.Error403_Title), getResourceString(R.string.Error403_Message));
             return;
         }
 
         if(code == 409){
-            iResponse.handleError("Ups", "It seems like an account with this email, already exists!");
+            iResponse.handleError(getResourceString(R.string.Error409_Title), getResourceString(R.string.Error409_Message));
             return;
         }
 
-        iResponse.handleError("Sorry!", "We cannot handle your request right now.Try again, later!");
+        iResponse.handleError(getResourceString(R.string.Error500_Title), getResourceString(R.string.Error500_Message));
 
+    }
+    
+    private String getResourceString(int id){
+        return ctx.getResources().getString(id);
     }
 
 }

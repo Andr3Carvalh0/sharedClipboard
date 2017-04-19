@@ -4,6 +4,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ *
+ * Watch the input fields on the login.
+ * Used to show or hide the clear button.
+ */
 public class CustomFocusListener implements View.OnFocusChangeListener {
     private ImageView mClearButton;
     private TextView mTextView;

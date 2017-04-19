@@ -1,8 +1,7 @@
-package andre.pt.projectoeseminario.Activities;
+package andre.pt.projectoeseminario.Activities.Not;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import andre.pt.projectoeseminario.R;
 
 public class SetupActivity extends AppCompatActivity {

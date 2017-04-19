@@ -8,6 +8,10 @@ import android.widget.TextView;
 
 import andre.pt.projectoeseminario.Interfaces.LoginMethods;
 
+/**
+ *
+ * Used to show or hide the proceed button, that is displayed on the login screen.
+ */
 public class CustomTextWatcher implements TextWatcher {
     private TextView other;
     private LoginMethods loginMethods;

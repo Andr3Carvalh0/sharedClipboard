@@ -10,6 +10,10 @@ public class DatabaseResponse {
         this.responseMessage = responseMessage;
     }
 
+    public DatabaseResponse(int responseCode, long responseMessage) {
+        this(responseCode, responseMessage + "");
+    }
+
     public String getResponseMessage(){
         return responseMessage;
     }

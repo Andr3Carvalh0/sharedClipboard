@@ -8,11 +8,13 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.IndexOptions;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import pt.andre.projecto.Model.DTOs.User;
 import pt.andre.projecto.Model.Database.Utils.DatabaseOption;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Model.Utils.Security;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -46,9 +48,9 @@ public class MongoDB implements IDatabase {
 
         MongoClientURI uri;
 
-        if(User == null) {
+        if (User == null) {
             uri = new MongoClientURI("mongodb://" + Host + ":" + Port + "/" + Database);
-        }else{
+        } else {
             uri = new MongoClientURI("mongodb://" + User + ":" + Password + "@" + Host + ":" + Port + "/" + Database);
         }
 
@@ -72,8 +74,6 @@ public class MongoDB implements IDatabase {
 
     @Override
     public DatabaseResponse authenticate(String user, String password) {
-        final int[] count = {0};
-        final String[] userID = new String[1];
 
         try {
             String hashedPassword = Security.hashString(password);
@@ -82,40 +82,25 @@ public class MongoDB implements IDatabase {
 
             Bson accountFilter = Filters.eq("email", user);
 
-            Bson passwordFilter = Filters.and(
-                    Filters.eq("email", user),
-                    Filters.eq("password", hashedPassword)
-            );
-
+            List<User> userList = new LinkedList<>();
 
             users.find(accountFilter).forEach((Block<Document>) (
-                    document) -> {
-                        count[0]++;
+                            document) -> {
+                        userList.add(new User(document.getLong("id"), document.getString("email"), document.getString("password")));
                     }
             );
 
             //If we dont find an account return immediately.We do this so we can handle login/create account on our native app
-            if(count[0] == 0){
+            if (userList.size() == 0) {
                 return ResponseFormater.createResponse("No such account");
             }
 
-            //Reset our counter.
-            count[0] = 0;
+            if (hashedPassword.equals(userList.get(0).getPassword()))
+                return ResponseFormater.displayInformation(userList.get(0).getId());
 
-            users.find(passwordFilter).forEach((Block<Document>) (
-                    document) -> {
-                        userID[0] = String.valueOf(document.get("id"));
-                        count[0]++;
-                    }
-            );
+            return ResponseFormater.createResponse("Password not valid");
 
-            if(count[0] == 0){
-                return ResponseFormater.createResponse("Password not valid");
-            }
-
-            return ResponseFormater.displayInformation(userID[0]);
-
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseFormater.createResponse(e.getMessage());
         }
     }

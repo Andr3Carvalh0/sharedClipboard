@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import pt.andre.projecto.Model.Database.MongoDB;
+import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Arrays;
@@ -44,7 +45,10 @@ public class MongoDBTests {
 
     @Test
     public void canAuthenticateUserFromDatabase(){
-        Assert.assertEquals(200, databaseConnector.authenticate(TEST_USER, TEST_PASSWORD).getResponseCode());
+        System.out.println();
+        DatabaseResponse authenticate = databaseConnector.authenticate(TEST_USER, TEST_PASSWORD);
+        System.out.println();
+        Assert.assertEquals(200, authenticate.getResponseCode());
         Assert.assertEquals("1", databaseConnector.authenticate(TEST_USER, TEST_PASSWORD).getResponseMessage());
     }
 

@@ -51,4 +51,8 @@ public class ResponseFormater {
         return new DatabaseResponse(VALID_REQUEST, message);
     }
 
+    public static DatabaseResponse displayInformation(long message){
+        return new DatabaseResponse(VALID_REQUEST, message);
+    }
+
 }

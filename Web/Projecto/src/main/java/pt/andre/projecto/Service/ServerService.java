@@ -15,7 +15,7 @@ public class ServerService implements IServerService{
     public String handleRootRequest(Map<String, Object> model, String userAgent, DeviceIdentifier deviceIdentifier) {
         Device currentDevice = deviceIdentifier.getDeviceInformation(userAgent);
 
-        //Aplication name
+        //Application name
         model.put("Link_2_The_Past", "[Placeholder]");
 
         //Information related to the device that made the request

@@ -50,8 +50,13 @@ public class APIRequest {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 iResponse.hideProgressDialog();
-                handleHTTPResponse(response.code(), Integer.parseInt(response.body().toString()));
 
+                if(response.body() != null){
+                    handleHTTPResponse(response.code(), Integer.parseInt(response.body()));
+                }else{
+                    handleHTTPResponse(response.code(), -1);
+                }
+                
             }
 
             @Override

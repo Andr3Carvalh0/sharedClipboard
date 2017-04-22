@@ -14,7 +14,7 @@ function ajaxRequest(method, path, data) {
                     resolve(xmlhttp.responseText)
                 }
                 else {
-                    reject(new Error(xmlhttp.statusText))
+                    reject(new Error(xmlhttp.responseText))
                 }
             }
         }

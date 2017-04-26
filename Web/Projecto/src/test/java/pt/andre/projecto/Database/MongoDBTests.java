@@ -2,12 +2,11 @@ package pt.andre.projecto.Database;
 
 import com.google.common.collect.Iterables;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import pt.andre.projecto.Model.Database.MongoDB;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.Arrays;
 
 public class MongoDBTests {
@@ -17,9 +16,15 @@ public class MongoDBTests {
     private static String TEST_PASSWORD = "test";
 
     @BeforeClass
-    public static void setup(){
+    public static void preSetup(){
         databaseConnector = new MongoDB("localhost", "27017", "Testes");
         databaseConnector.createAccount(TEST_USER, TEST_PASSWORD);
+    }
+
+    @Before
+    public void setup(){
+        databaseConnector.push(1, "Ola");
+
     }
 
     @Test
@@ -35,19 +40,20 @@ public class MongoDBTests {
 
     @Test
     public void canPushDataToDatabase(){
-        throw new NotImplementedException();
+        databaseConnector.push(1, "Adeus");
+
+        Assert.assertEquals("Adeus", databaseConnector.pull(1).getResponseMessage());
     }
 
     @Test
     public void canPullDataFromDatabase(){
-        throw new NotImplementedException();
+        Assert.assertEquals("Ola", databaseConnector.pull(1).getResponseMessage());
+
     }
 
     @Test
     public void canAuthenticateUserFromDatabase(){
-        System.out.println();
         DatabaseResponse authenticate = databaseConnector.authenticate(TEST_USER, TEST_PASSWORD);
-        System.out.println();
         Assert.assertEquals(200, authenticate.getResponseCode());
         Assert.assertEquals("1", databaseConnector.authenticate(TEST_USER, TEST_PASSWORD).getResponseMessage());
     }

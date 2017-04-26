@@ -8,6 +8,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.IndexOptions;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import pt.andre.projecto.Model.DTOs.Content;
 import pt.andre.projecto.Model.DTOs.User;
 import pt.andre.projecto.Model.Database.Utils.DatabaseOption;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
@@ -32,8 +33,8 @@ public class MongoDB implements IDatabase {
     private final static String FIRST_TIME_CONTENT_MESSAGE = "Welcome!";
 
 
-    public MongoDB(String Host, String Port, String Database) {
-        this(Host, Port, Database, null, null);
+    public MongoDB(String host, String port, String database) {
+        this(host, port, database, null, null);
 
     }
 
@@ -41,17 +42,17 @@ public class MongoDB implements IDatabase {
      * Constructor to be used when the MongoDB has authentication.
      * In case of a simple install of the mongoDB, and you dont need to authenticate use the above constructor
      */
-    public MongoDB(String Host, String Port, String Database, String User, String Password) {
-        Objects.requireNonNull(Host, "The Host of the database cannot be null!");
-        Objects.requireNonNull(Port, "The Port of the database cannot be null!");
-        Objects.requireNonNull(Database, "The Database cannot be null!");
+    public MongoDB(String host, String port, String database, String user, String password) {
+        Objects.requireNonNull(host, "The Host of the database cannot be null!");
+        Objects.requireNonNull(port, "The Port of the database cannot be null!");
+        Objects.requireNonNull(database, "The Database cannot be null!");
 
         MongoClientURI uri;
 
-        if (User == null) {
-            uri = new MongoClientURI("mongodb://" + Host + ":" + Port + "/" + Database);
+        if (user == null) {
+            uri = new MongoClientURI("mongodb://" + host + ":" + port + "/" + database);
         } else {
-            uri = new MongoClientURI("mongodb://" + User + ":" + Password + "@" + Host + ":" + Port + "/" + Database);
+            uri = new MongoClientURI("mongodb://" + user + ":" + password + "@" + host + ":" + port + "/" + database);
         }
 
         MongoClient mongoClient = new MongoClient(uri);
@@ -63,13 +64,41 @@ public class MongoDB implements IDatabase {
 
 
     @Override
-    public DatabaseResponse push(String user, String data) {
-        throw new NotImplementedException();
+    public DatabaseResponse push(long token, String data) {
+        try {
+            MongoCollection<Document> contentDocument = mongoDatabase.getCollection(CONTENT_COLLECTION.getName());
+            Bson accountFilter = Filters.eq("id", token);
+
+            Document document = new Document();
+            document.put("id", token);
+            document.put("value", data);
+
+            contentDocument.updateOne(accountFilter, new Document("$set", document));
+
+            return ResponseFormater.displayInformation("Ok!");
+        }catch (Exception e){
+            return ResponseFormater.createResponse(e.getMessage());
+        }
     }
 
     @Override
-    public DatabaseResponse pull(String user) {
-        throw new NotImplementedException();
+    public DatabaseResponse pull(long token) {
+
+        try {
+            MongoCollection<Document> contentDocument = mongoDatabase.getCollection(CONTENT_COLLECTION.getName());
+            Bson accountFilter = Filters.eq("id", token);
+
+            final Content[] content = new Content[1];
+
+            contentDocument.find(accountFilter)
+                    .forEach((Block<Document>) (
+                            document) -> content[0] = new Content(document.getLong("id"), document.getString("value"))
+                    );
+
+            return ResponseFormater.displayInformation(content[0].getContent());
+        }catch (Exception e){
+            return ResponseFormater.createResponse(e.getMessage());
+        }
     }
 
     @Override
@@ -84,21 +113,20 @@ public class MongoDB implements IDatabase {
 
             List<User> userList = new LinkedList<>();
 
-            users.find(accountFilter).forEach((Block<Document>) (
-                            document) -> {
-                        userList.add(new User(document.getLong("id"), document.getString("email"), document.getString("password")));
-                    }
+            users.find(accountFilter)
+                    .forEach((Block<Document>) (
+                            document) -> userList.add(new User(document.getLong("id"), document.getString("email"), document.getString("password")))
             );
 
             //If we dont find an account return immediately.We do this so we can handle login/create account on our native app
             if (userList.size() == 0) {
-                return ResponseFormater.createResponse("No such account");
+                return ResponseFormater.createResponse("No such account.");
             }
 
             if (hashedPassword.equals(userList.get(0).getPassword()))
                 return ResponseFormater.displayInformation(userList.get(0).getId());
 
-            return ResponseFormater.createResponse("Password not valid");
+            return ResponseFormater.createResponse("Password not valid.");
 
         } catch (Exception e) {
             return ResponseFormater.createResponse(e.getMessage());

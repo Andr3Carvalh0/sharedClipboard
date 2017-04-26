@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.MongoDB;
 import pt.andre.projecto.Service.APIService;
@@ -47,7 +48,7 @@ public class Main {
     }
 
     @Bean
-    @Scope("prototype") //By default is singleton, but can be request(To be request we have to change the component scope or create a proxy on this bean) or prototype
+    @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS) //By default is singleton, but can be request(To be request we have to change the component scope or create a proxy on this bean) or prototype
     public IDatabase createDatabase(){
         return System.getenv("MONGO_USER") == null ? new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), "Projecto") : new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), System.getenv("MONGO_DATABASE"), System.getenv("MONGO_USER"), System.getenv("MONGO_PASSWORD"));
     }

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by Andre on 22/04/2017.
@@ -16,13 +15,13 @@ public class APIService implements IAPIService{
 
 
     @Override
-    public DatabaseResponse push(String account) {
-        throw new NotImplementedException();
+    public DatabaseResponse push(Integer token, String data) {
+        return database.push(token, data);
     }
 
     @Override
-    public DatabaseResponse pull(String user) {
-        throw new NotImplementedException();
+    public DatabaseResponse pull(Integer token) {
+        return database.pull(token);
     }
 
     @Override

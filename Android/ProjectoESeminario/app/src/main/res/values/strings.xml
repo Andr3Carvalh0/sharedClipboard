@@ -24,5 +24,6 @@
 
     <string name="Service_Running_Option_Title">Enabled:</string>
     <string name="Service_Running_Option_Description">When selected the service will be on.</string>
+    <string name="Service_Description">Enable this service to automatically sync text from your multiple devices.</string>
 
 </resources>

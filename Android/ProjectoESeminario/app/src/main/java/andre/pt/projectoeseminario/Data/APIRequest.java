@@ -1,8 +1,10 @@
 package andre.pt.projectoeseminario.Data;
 
 import android.content.Context;
+
+import java.io.IOException;
 import java.util.regex.Pattern;
-import andre.pt.projectoeseminario.Data.Interface.IResponse;
+import andre.pt.projectoeseminario.Data.Interface.Responses.IResponse;
 import andre.pt.projectoeseminario.Data.Interface.IAPI;
 import andre.pt.projectoeseminario.Data.Interface.ProjectoAPI;
 import andre.pt.projectoeseminario.R;
@@ -21,6 +23,25 @@ public class APIRequest {
         mAPI = ProjectoAPI.getAPI();
         iResponse = resp;
         this.ctx = ctx;
+    }
+
+    public void fetchInformation(Integer token){
+        mAPI.pull(token).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    iResponse.handlePull(response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                throw new NullPointerException("Fuck it");
+            }
+        });
+
     }
 
     private boolean isEmailValid(String email){

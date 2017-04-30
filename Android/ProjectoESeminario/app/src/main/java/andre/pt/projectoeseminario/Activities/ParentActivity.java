@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -21,7 +22,7 @@ public abstract class ParentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        shared = getSharedPreferences(getString(R.string.sharedPreferencesKey), Context.MODE_PRIVATE);
+        shared = PreferenceManager.getDefaultSharedPreferences(this);
         editor = shared.edit();
 
         init();

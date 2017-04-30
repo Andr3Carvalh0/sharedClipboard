@@ -18,7 +18,7 @@ public interface IAPI {
     Call<ResponseBody> push(@Body String account);
 
     @GET(pull)
-    Call<ResponseBody> pull(@Query("account") String account);
+    Call<ResponseBody> pull(@Query("account") int account);
 
     @GET(accountManagement)
     Call<String> authenticate(@Query("account") String username, @Query("password") String password);

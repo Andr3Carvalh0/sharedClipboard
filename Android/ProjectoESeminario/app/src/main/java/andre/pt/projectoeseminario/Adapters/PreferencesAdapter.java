@@ -23,7 +23,6 @@ public class PreferencesAdapter extends RecyclerView.Adapter<PreferencesAdapter.
         this.switchActions = switchActions;
     }
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout.preference_item, parent, false);

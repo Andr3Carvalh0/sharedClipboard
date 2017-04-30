@@ -7,15 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.CompoundButton;
-
 import java.util.HashMap;
-
 import andre.pt.projectoeseminario.Adapters.Entities.Preference;
 import andre.pt.projectoeseminario.Adapters.PreferencesAdapter;
 import andre.pt.projectoeseminario.R;
-import andre.pt.projectoeseminario.Services.ClipboardWatcher;
+import andre.pt.projectoeseminario.Services.CopyMenuListener;
 
 public class PreferencesActivity extends ParentActivity {
+
     private int userToken;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
@@ -79,7 +78,7 @@ public class PreferencesActivity extends ParentActivity {
     private boolean isServiceRunning() {
         ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
-            if(ClipboardWatcher.class.getName().equals(service.service.getClassName())) {
+            if(CopyMenuListener.class.getName().equals(service.service.getClassName())) {
                 return true;
             }
         }
@@ -88,11 +87,11 @@ public class PreferencesActivity extends ParentActivity {
 
     private void startService(){
         if(!isServiceRunning()){
-            startService(new Intent(this, ClipboardWatcher.class));
+            startService(new Intent(this, CopyMenuListener.class));
         }
     }
 
     private void stopService(){
-        stopService(new Intent(this, ClipboardWatcher.class));
+        stopService(new Intent(this, CopyMenuListener.class));
     }
 }

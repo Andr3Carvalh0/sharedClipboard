@@ -22,8 +22,8 @@ public class ResponseFormater {
 
 
     static{
-        responses.put("No such account", new DatabaseResponse(NO_SUCH_ACCOUNT_EXISTS, NO_SUCH_ACCOUNT_EXISTS_MESSAGE));
-        responses.put("Password not valid", new DatabaseResponse(PASSWORD_AUTHENTICATION_FAILED, PASSWORD_AUTHENTICATION_FAILED_MESSAGE));
+        responses.put("No such account.", new DatabaseResponse(NO_SUCH_ACCOUNT_EXISTS, NO_SUCH_ACCOUNT_EXISTS_MESSAGE));
+        responses.put("Password not valid.", new DatabaseResponse(PASSWORD_AUTHENTICATION_FAILED, PASSWORD_AUTHENTICATION_FAILED_MESSAGE));
         responses.put("Exception receiving message", new DatabaseResponse(CONNECTION_DATABASE_FAILED, CONNECTION_DATABASE_FAILED_MESSAGE));
 
     }

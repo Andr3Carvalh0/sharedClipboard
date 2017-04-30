@@ -32,10 +32,27 @@
         <activity
             android:name=".Activities.PreferencesActivity"
             android:theme="@style/AppThemeWhite"
-            />
+            android:label="Copy from other devices">
+            <intent-filter>
+
+                <action android:name="android.intent.action.PROCESS_TEXT"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".Activities.Not.SetupActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:label="Share with other devices"
+            >
+            <intent-filter>
+
+                <action android:name="android.intent.action.PROCESS_TEXT"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            </activity>
 
         <receiver android:name=".BroadcastReceiver.AutoStart">
             <intent-filter>

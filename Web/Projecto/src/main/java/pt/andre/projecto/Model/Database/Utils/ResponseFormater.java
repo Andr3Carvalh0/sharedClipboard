@@ -38,6 +38,9 @@ public class ResponseFormater {
         if(message != null && message.contains("duplicate key"))
             return new DatabaseResponse(ACCOUNT_CREATION_FAILED, ACCOUNT_CREATION_FAILED_MESSAGE);
 
+        if(message.contains("cannot be cast"))
+            return responses.get("Exception receiving message");
+
         return responses.get(message);
     }
 

@@ -58,4 +58,8 @@ public class MongoDBTests {
         Assert.assertEquals("1", databaseConnector.authenticate(TEST_USER, TEST_PASSWORD).getResponseMessage());
     }
 
+    @Test
+    public void cdsase(){
+        databaseConnector.registerAndroidDevice(1, "ABC");
+    }
 }

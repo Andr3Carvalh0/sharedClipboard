@@ -15,12 +15,17 @@ public class APIService implements IAPIService{
 
 
     @Override
-    public DatabaseResponse push(Integer token, String data) {
+    public DatabaseResponse push(long token, String data) {
         return database.push(token, data);
     }
 
     @Override
-    public DatabaseResponse pull(Integer token) {
+    public DatabaseResponse registerAndroidDevice(long token, String firebaseID) {
+        return database.registerAndroidDevice(token, firebaseID);
+    }
+
+    @Override
+    public DatabaseResponse pull(long token) {
         return database.pull(token);
     }
 

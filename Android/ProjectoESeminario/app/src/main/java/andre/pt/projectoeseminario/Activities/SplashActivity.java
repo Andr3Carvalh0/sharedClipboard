@@ -8,6 +8,8 @@ import andre.pt.projectoeseminario.R;
 
 public class SplashActivity extends ParentActivity {
 
+    private final String TAG = "Portugal:Splash";
+
     @Override
     protected void init() {
         setContentView(R.layout.activity_splash);
@@ -19,7 +21,6 @@ public class SplashActivity extends ParentActivity {
 
                 if(hasCompletedSetup()){
                     it = new Intent(getBaseContext(), PreferencesActivity.class);
-                    Log.v("Andre", getIntPreference("user_token") + "");
                     it.putExtra("token", getIntPreference("user_token"));
                 }else{
                     it = new Intent(getApplicationContext(), LoginActivity.class);

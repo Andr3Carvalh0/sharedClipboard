@@ -10,20 +10,17 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
 
 public abstract class ParentActivity extends AppCompatActivity {
-
-    private SharedPreferences.Editor editor;
-    private SharedPreferences shared;
-
+    private Preferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        shared = PreferenceManager.getDefaultSharedPreferences(this);
-        editor = shared.edit();
+        mPreferences = new Preferences(this);
 
         init();
         setupEvents();
@@ -34,7 +31,7 @@ public abstract class ParentActivity extends AppCompatActivity {
     protected abstract void setupEvents();
 
     protected boolean hasCompletedSetup(){
-        return getBooleanPreference("authenticated");
+        return mPreferences.getBooleanPreference(Preferences.HASCOMPLETEDSETUP);
     }
 
     protected ProgressDialog waitingDialog;
@@ -69,21 +66,20 @@ public abstract class ParentActivity extends AppCompatActivity {
     }
 
     protected void saveIntPreference(String key, int value){
-        editor.putInt(key, value);
-        editor.apply();
+        mPreferences.saveIntPreference(key, value);
     }
 
     protected void saveBooleanPreference(String key, boolean value){
-        editor.putBoolean(key, value);
-        editor.apply();
+        mPreferences.saveBooleanPreference(key, value);
     }
 
     protected int getIntPreference(String key){
-        return shared.getInt(key, 0);
+       return mPreferences.getIntPreference(key);
     }
 
     protected boolean getBooleanPreference(String key){
-        return shared.getBoolean(key, false);
+       return mPreferences.getBooleanPreference(key);
     }
+
 
 }

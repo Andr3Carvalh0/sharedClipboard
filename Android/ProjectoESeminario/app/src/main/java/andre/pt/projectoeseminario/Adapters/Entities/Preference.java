@@ -8,6 +8,7 @@ public class Preference {
     public Preference(String title, String description, boolean switchState) {
         this.title = title;
         this.description = description;
+        this.switchState = switchState;
     }
 
     public String getTitle() {

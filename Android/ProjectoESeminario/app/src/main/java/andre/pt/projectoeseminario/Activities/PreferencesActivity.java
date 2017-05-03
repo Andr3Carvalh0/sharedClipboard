@@ -6,23 +6,20 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.CompoundButton;
 import java.util.HashMap;
 import andre.pt.projectoeseminario.Adapters.Entities.Preference;
 import andre.pt.projectoeseminario.Adapters.PreferencesAdapter;
+import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
 import andre.pt.projectoeseminario.Services.CopyMenuListener;
 
 public class PreferencesActivity extends ParentActivity {
 
-    private int userToken;
+    private final String TAG = "Portugal:Preferences";
+    private boolean service_state;
     private Toolbar toolbar;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager layoutManager;
-    private PreferencesAdapter adapter;
-
-    private Preference preferences[];
-    private HashMap<String, CompoundButton.OnCheckedChangeListener> preferencesActions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,45 +30,48 @@ public class PreferencesActivity extends ParentActivity {
     @Override
     protected void init() {
         setContentView(R.layout.activity_preferences);
-        userToken = getIntent().getIntExtra("token", 0);
 
         //Setup preferences
-        preferences = new Preference[]{new Preference(getString(R.string.Service_Running_Option_Title), getString(R.string.Service_Running_Option_Description), getBooleanPreference("Service_Running_Option"))};
-        preferencesActions = new HashMap<>();
+        service_state = getBooleanPreference(Preferences.SERVICERUNNING);
+
+        Preference[] preferences = new Preference[]{new Preference(getString(R.string.Service_Running_Option_Title), getString(R.string.Service_Running_Option_Description), service_state)};
+        HashMap<String, CompoundButton.OnCheckedChangeListener> preferencesActions = new HashMap<>();
         preferencesActions.put(getString(R.string.Service_Running_Option_Title), new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    System.out.println("OFF");
+                if(!isChecked){
                     stopService();
                 }else{
-
-                    System.out.println("ON");
                     startService();
                 }
+
+                //Why doing this here?Because on Pause/OnDestroy is not reliable.
+                saveBooleanPreference(Preferences.SERVICERUNNING, isChecked);
             }
         });
 
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new PreferencesAdapter(preferences, preferencesActions);
+        PreferencesAdapter adapter = new PreferencesAdapter(preferences, preferencesActions);
 
         recyclerView.setAdapter(adapter);
 
         toolbar.setTitle(getString(R.string.app));
 
-
-
     }
 
     @Override
     protected void setupEvents() {
-        startService();
-        setSupportActionBar(toolbar);
+        if(service_state)
+            startService();
+        else
+            stopService();
 
+        Log.d(TAG, "is Service Running: " + isServiceRunning());
+
+        setSupportActionBar(toolbar);
 
     }
 

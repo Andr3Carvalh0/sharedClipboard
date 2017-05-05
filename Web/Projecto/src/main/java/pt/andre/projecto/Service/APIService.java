@@ -5,9 +5,6 @@ import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
-/**
- * Created by Andre on 22/04/2017.
- */
 public class APIService implements IAPIService{
 
     @Autowired
@@ -15,17 +12,22 @@ public class APIService implements IAPIService{
 
 
     @Override
-    public DatabaseResponse push(long token, String data) {
+    public DatabaseResponse push(int token, String data) {
         return database.push(token, data);
     }
 
     @Override
-    public DatabaseResponse registerAndroidDevice(long token, String firebaseID) {
+    public DatabaseResponse push(int token, String data, boolean isMIME) {
+        return database.push(token, data, isMIME);
+    }
+
+    @Override
+    public DatabaseResponse registerAndroidDevice(int token, String firebaseID) {
         return database.registerAndroidDevice(token, firebaseID);
     }
 
     @Override
-    public DatabaseResponse pull(long token) {
+    public DatabaseResponse pull(int token) {
         return database.pull(token);
     }
 

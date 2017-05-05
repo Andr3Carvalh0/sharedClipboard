@@ -6,6 +6,14 @@ import pt.andre.projecto.Model.Utils.DefaultHashMap;
 * Used to convert MongoDB errors to a more user friendly messages
 */
 public class ResponseFormater {
+    public final static int NO_ACCOUNT = 1;
+    public final static int PASSWORD_INVALID = 2;
+    public final static int ACCOUNT_EXISTS_EXCEPTION = 3;
+    public final static int EXCEPTION = 4;
+
+    public final static int SUCCESS = 27;
+
+
     private final static int VALID_REQUEST = 200;
     private final static int NO_SUCH_ACCOUNT_EXISTS = 400;
     private final static int PASSWORD_AUTHENTICATION_FAILED = 403;
@@ -18,13 +26,14 @@ public class ResponseFormater {
     private final static String ACCOUNT_CREATION_FAILED_MESSAGE = "There is already one account with this email.";
     private final static String CONNECTION_DATABASE_FAILED_MESSAGE = "Cannot process this request right now. Try later.";
 
-    private static DefaultHashMap<String, DatabaseResponse> responses = new DefaultHashMap<>(new DatabaseResponse(VALID_REQUEST, VALID_REQUEST_MESSAGE));
+    private static DefaultHashMap<Integer, DatabaseResponse> responses = new DefaultHashMap<>(new DatabaseResponse(VALID_REQUEST, VALID_REQUEST_MESSAGE));
 
 
     static{
-        responses.put("No such account.", new DatabaseResponse(NO_SUCH_ACCOUNT_EXISTS, NO_SUCH_ACCOUNT_EXISTS_MESSAGE));
-        responses.put("Password not valid.", new DatabaseResponse(PASSWORD_AUTHENTICATION_FAILED, PASSWORD_AUTHENTICATION_FAILED_MESSAGE));
-        responses.put("Exception receiving message", new DatabaseResponse(CONNECTION_DATABASE_FAILED, CONNECTION_DATABASE_FAILED_MESSAGE));
+        responses.put(NO_ACCOUNT, new DatabaseResponse(NO_SUCH_ACCOUNT_EXISTS, NO_SUCH_ACCOUNT_EXISTS_MESSAGE));
+        responses.put(PASSWORD_INVALID, new DatabaseResponse(PASSWORD_AUTHENTICATION_FAILED, PASSWORD_AUTHENTICATION_FAILED_MESSAGE));
+        responses.put(EXCEPTION, new DatabaseResponse(CONNECTION_DATABASE_FAILED, CONNECTION_DATABASE_FAILED_MESSAGE));
+        responses.put(ACCOUNT_EXISTS_EXCEPTION, new DatabaseResponse(ACCOUNT_CREATION_FAILED, ACCOUNT_CREATION_FAILED_MESSAGE));
 
     }
 
@@ -34,13 +43,7 @@ public class ResponseFormater {
      * For instance when the user creates successfully an account we dont have to return information back to him.
      * So we can use this method just to say that the creation was successfully
      */
-    public static DatabaseResponse createResponse(String message){
-        if(message != null && message.contains("duplicate key"))
-            return new DatabaseResponse(ACCOUNT_CREATION_FAILED, ACCOUNT_CREATION_FAILED_MESSAGE);
-
-        if(message.contains("cannot be cast"))
-            return responses.get("Exception receiving message");
-
+    public static DatabaseResponse createResponse(int message){
         return responses.get(message);
     }
 

@@ -8,15 +8,14 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.IndexOptions;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import pt.andre.projecto.Controllers.URIs.FirebaseServer;
 import pt.andre.projecto.Model.DTOs.Content;
 import pt.andre.projecto.Model.DTOs.User;
-import pt.andre.projecto.Model.DTOs.Wrapper;
+import pt.andre.projecto.Model.DTOs.ContentWrapper;
 import pt.andre.projecto.Model.Database.Utils.DatabaseOption;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Model.Utils.Security;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
@@ -30,6 +29,7 @@ import java.util.stream.Stream;
 public class MongoDB implements IDatabase {
 
     private final MongoDatabase mongoDatabase;
+    private final FirebaseServer firebaseServer;
     private final static DatabaseOption USER_COLLECTION = new DatabaseOption("users", "email");
     private final static DatabaseOption CONTENT_COLLECTION = new DatabaseOption("content", "id");
     private final static String FIRST_TIME_CONTENT_MESSAGE = "Welcome!";
@@ -49,6 +49,8 @@ public class MongoDB implements IDatabase {
         Objects.requireNonNull(port, "The Port of the database cannot be null!");
         Objects.requireNonNull(database, "The Database cannot be null!");
 
+        firebaseServer = new FirebaseServer();
+
         MongoClientURI uri;
 
         if (user == null) {
@@ -64,9 +66,8 @@ public class MongoDB implements IDatabase {
 
     }
 
-
     @Override
-    public DatabaseResponse registerAndroidDevice(long token, String firebaseID) {
+    public DatabaseResponse registerAndroidDevice(int token, String firebaseID) {
         try{
             return updateContentDatabase(token, (wrapper, collection) -> {
 
@@ -74,34 +75,39 @@ public class MongoDB implements IDatabase {
 
                 BasicDBObject updateCommand = new BasicDBObject("$addToSet", new BasicDBObject("androidClients", document));
 
-
                 collection.updateOne(wrapper.getAccountFilter(), updateCommand);
 
-                return ResponseFormater.displayInformation("Ok!");
+                return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
             });
         }catch (Exception e){
-            return ResponseFormater.createResponse(e.getMessage());
+            return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
     }
 
     @Override
-    public DatabaseResponse push(long token, String data) {
+    public DatabaseResponse push(int token, String data) {
+        return push(token, data, false);
+    }
+
+    @Override
+    public DatabaseResponse push(int token, String data, boolean isMIME) {
         return updateContentDatabase(token, (wrapper, collection) -> {
 
             Document document = new Document();
             document.put("id", token);
             document.put("value", data);
+            document.put("isMIME", isMIME);
             document.put("androidClients", wrapper.getContent().getAndroidClients());
 
             collection.updateOne(wrapper.getAccountFilter(), new Document("$set", document));
 
-            return ResponseFormater.displayInformation("Ok!");
+            return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
         });
     }
 
     @Override
-    public DatabaseResponse pull(long token) {
-        return updateContentDatabase(token, (wrapper, collection) -> ResponseFormater.displayInformation(wrapper.getContent().getContent()));
+    public DatabaseResponse pull(int token) {
+        return updateContentDatabase(token, (wrapper, collection) -> ResponseFormater.displayInformation(wrapper.getContent().getValue()));
     }
 
     @Override
@@ -123,16 +129,16 @@ public class MongoDB implements IDatabase {
 
             //If we dont find an account return immediately.We do this so we can handle login/create account on our native app
             if (userList.size() == 0) {
-                return ResponseFormater.createResponse("No such account.");
+                return ResponseFormater.createResponse(ResponseFormater.NO_ACCOUNT);
             }
 
             if (hashedPassword.equals(userList.get(0).getPassword()))
                 return ResponseFormater.displayInformation(userList.get(0).getId());
 
-            return ResponseFormater.createResponse("Password not valid.");
+            return ResponseFormater.createResponse(ResponseFormater.PASSWORD_INVALID);
 
         } catch (Exception e) {
-            return ResponseFormater.createResponse(e.getMessage());
+            return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
     }
 
@@ -152,12 +158,16 @@ public class MongoDB implements IDatabase {
             document = new Document();
             document.put("id", id);
             document.put("value", FIRST_TIME_CONTENT_MESSAGE);
+            document.put("isMIME", false);
             document.put("androidClients", new ArrayList<BasicDBObject>());
             mongoDatabase.getCollection(CONTENT_COLLECTION.getName()).insertOne(document);
 
-            return ResponseFormater.createResponse("Ok");
+            return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
         } catch (Exception e) {
-            return ResponseFormater.createResponse(e.getMessage());
+            if(e.getMessage().contains("duplicate key"))
+                return ResponseFormater.createResponse(ResponseFormater.ACCOUNT_EXISTS_EXCEPTION);
+
+            return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
     }
 
@@ -201,7 +211,7 @@ public class MongoDB implements IDatabase {
         return mongoDatabase;
     }
 
-    private DatabaseResponse updateContentDatabase(long token, BiFunction<Wrapper, MongoCollection, DatabaseResponse> func) {
+    private DatabaseResponse updateContentDatabase(long token, BiFunction<ContentWrapper, MongoCollection, DatabaseResponse> func) {
         try {
             final MongoCollection<Document> contentDocument = mongoDatabase.getCollection(CONTENT_COLLECTION.getName());
             Bson accountFilter = Filters.eq("id", token);
@@ -209,12 +219,12 @@ public class MongoDB implements IDatabase {
             final Content[] content = new Content[1];
             contentDocument.find(accountFilter)
                     .forEach((Block<Document>) (
-                            document) -> content[0] = new Content(document.getLong("id"), document.getString("value"), (List<BasicDBObject>)document.get("androidClients"))
+                            document) -> content[0] = new Content(document.getInteger("id"), document.getString("value"), document.getBoolean("isMIME"), (List<BasicDBObject>)document.get("androidClients"))
                     );
 
-            return func.apply(new Wrapper(content[0], accountFilter), contentDocument);
+            return func.apply(new ContentWrapper(content[0], accountFilter), contentDocument);
         }catch (Exception e){
-            return ResponseFormater.createResponse(e.getMessage());
+            return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
     }
 

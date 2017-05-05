@@ -45,4 +45,11 @@ public class API implements IAPI {
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 
+    @Override
+    @RequestMapping(value = "/api/registerAndroid", method = RequestMethod.PUT)
+    public ResponseEntity registerAndroidDevice(@RequestParam Integer account, @RequestParam String deviceID) {
+        final DatabaseResponse resp = service.registerAndroidDevice(account, deviceID);
+        return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
+    }
+
 }

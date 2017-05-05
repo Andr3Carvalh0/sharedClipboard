@@ -6,9 +6,6 @@ import pt.andre.projecto.Service.Interfaces.IServerService;
 
 import java.util.Map;
 
-/**
- * Created by Andre on 22/04/2017.
- */
 public class ServerService implements IServerService{
 
     @Override

@@ -1,8 +1,6 @@
 package pt.andre.projecto.Model.DTOs;
 
-/**
- * Created by Andre on 22/04/2017.
- */
+
 public class User {
     private final long id;
     private final String email;

@@ -52,6 +52,7 @@ public class DownloadService extends IntentService implements IResponse {
             return;
 
 
+
         Log.v(TAG, "FirebaseID = " + FirebaseInstanceId.getInstance().getToken());
     }
 

@@ -7,4 +7,8 @@ public interface IAPI {
     ResponseEntity pull(Integer token);
     ResponseEntity createAccount(String account, String password);
     ResponseEntity authenticate(String account, String password);
+    ResponseEntity registerAndroidDevice(Integer account, String deviceID);
+
+
+
 }

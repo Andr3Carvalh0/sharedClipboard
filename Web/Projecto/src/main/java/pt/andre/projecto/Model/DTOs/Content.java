@@ -4,26 +4,29 @@ import com.mongodb.BasicDBObject;
 
 import java.util.List;
 
-/**
- * Created by Andre on 26/04/2017.
- */
 public class Content {
     private long token;
-    private String content;
+    private String value;
+    private boolean isMIME;
     private List<BasicDBObject> androidClients;
 
-    public Content(long token, String content, List<BasicDBObject> androidClients) {
+    public Content(long token, String content, boolean isMIME, List<BasicDBObject> androidClients) {
         this.token = token;
-        this.content = content;
+        this.value = content;
+        this.isMIME = isMIME;
         this.androidClients = androidClients;
+    }
+
+    public boolean isMIME() {
+        return isMIME;
     }
 
     public long getToken() {
         return token;
     }
 
-    public String getContent() {
-        return content;
+    public String getValue() {
+        return value;
     }
 
     public List<BasicDBObject> getAndroidClients() {

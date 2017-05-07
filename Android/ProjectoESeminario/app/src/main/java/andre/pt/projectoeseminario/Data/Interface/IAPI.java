@@ -13,17 +13,21 @@ public interface IAPI {
     String push = "push";
     String pull = "pull";
     String accountManagement = "account";
+    String androidRegister = "registerAndroid";
 
     @PUT(push)
-    Call<ResponseBody> push(@Body String account);
+    Call<ResponseBody> push(@Query("token") long account, @Query("data") String data);
 
     @GET(pull)
-    Call<ResponseBody> pull(@Query("account") int account);
+    Call<ResponseBody> pull(@Query("account") long account);
 
     @GET(accountManagement)
     Call<String> authenticate(@Query("account") String username, @Query("password") String password);
 
     @PUT(accountManagement)
-    Call<ResponseBody> createAccount(@Query("account") String account, @Query("password") String password);
+    Call<String> createAccount(@Query("account") String account, @Query("password") String password);
+
+    @PUT(androidRegister)
+    Call<ResponseBody> registerAndroid(@Query("account") long account, @Query("deviceID") String firebaseID);
 
 }

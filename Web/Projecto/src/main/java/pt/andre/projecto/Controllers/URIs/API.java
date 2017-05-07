@@ -17,7 +17,7 @@ public class API implements IAPI {
 
     @Override
     @RequestMapping(value = "/api/push", method = RequestMethod.PUT)
-    public ResponseEntity push(@RequestParam Integer token, @RequestParam String data) {
+    public ResponseEntity push(@RequestParam long token, @RequestParam String data) {
         final DatabaseResponse resp = service.push(token, data);
 
         return ResponseEntity.status(resp.getResponseCode()).build();
@@ -25,7 +25,7 @@ public class API implements IAPI {
 
     @Override
     @RequestMapping(value = "/api/pull", params = {"account"}, method = RequestMethod.GET)
-    public ResponseEntity pull(@RequestParam(value = "account") Integer token) {
+    public ResponseEntity pull(@RequestParam(value = "account") long token) {
         final DatabaseResponse resp = service.pull(token);
 
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
@@ -47,7 +47,7 @@ public class API implements IAPI {
 
     @Override
     @RequestMapping(value = "/api/registerAndroid", method = RequestMethod.PUT)
-    public ResponseEntity registerAndroidDevice(@RequestParam Integer account, @RequestParam String deviceID) {
+    public ResponseEntity registerAndroidDevice(@RequestParam long account, @RequestParam String deviceID) {
         final DatabaseResponse resp = service.registerAndroidDevice(account, deviceID);
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }

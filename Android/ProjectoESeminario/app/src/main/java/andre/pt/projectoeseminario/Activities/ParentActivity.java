@@ -73,12 +73,20 @@ public abstract class ParentActivity extends AppCompatActivity {
         mPreferences.saveBooleanPreference(key, value);
     }
 
+    protected void saveStringPreference(String key, String value){
+        mPreferences.saveStringPreference(key, value);
+    }
+
     protected int getIntPreference(String key){
        return mPreferences.getIntPreference(key);
     }
 
     protected boolean getBooleanPreference(String key){
        return mPreferences.getBooleanPreference(key);
+    }
+
+    protected String getStringPreference(String key){
+        return mPreferences.getStringPreference(key);
     }
 
 

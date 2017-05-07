@@ -41,7 +41,7 @@
             android:name=".Services.CopyMenuListener"
             android:exported="false" />
         <service
-            android:name=".Services.DownloadService"
+            android:name=".Services.ClipboardManagerService"
             android:exported="false" />
 
         <service

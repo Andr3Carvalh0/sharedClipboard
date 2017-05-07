@@ -8,6 +8,7 @@ public class Preferences {
     public static String USER_TOKEN = "user_token";
     public static String HASCOMPLETEDSETUP = "authenticated";
     public static String SERVICERUNNING = "run_service";
+    public static String FIREBASEID = "firebaseID";
 
     private SharedPreferences.Editor editor;
     private SharedPreferences shared;
@@ -27,6 +28,11 @@ public class Preferences {
         editor.apply();
     }
 
+    public void saveStringPreference(String key, String value) {
+        editor.putString(key, value);
+        editor.apply();
+    }
+
     public int getIntPreference(String key){
         return shared.getInt(key, 0);
     }
@@ -34,5 +40,10 @@ public class Preferences {
     public boolean getBooleanPreference(String key){
         return shared.getBoolean(key, false);
     }
+
+    public String getStringPreference(String key) {
+        return shared.getString(key, null);
+    }
+
 
 }

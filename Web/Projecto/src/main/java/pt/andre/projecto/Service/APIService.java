@@ -12,22 +12,22 @@ public class APIService implements IAPIService{
 
 
     @Override
-    public DatabaseResponse push(int token, String data) {
-        return database.push(token, data);
+    public DatabaseResponse push(long token, String data) {
+        return this.push(token, data, false);
     }
 
     @Override
-    public DatabaseResponse push(int token, String data, boolean isMIME) {
+    public DatabaseResponse push(long token, String data, boolean isMIME) {
         return database.push(token, data, isMIME);
     }
 
     @Override
-    public DatabaseResponse registerAndroidDevice(int token, String firebaseID) {
+    public DatabaseResponse registerAndroidDevice(long token, String firebaseID) {
         return database.registerAndroidDevice(token, firebaseID);
     }
 
     @Override
-    public DatabaseResponse pull(int token) {
+    public DatabaseResponse pull(long token) {
         return database.pull(token);
     }
 

@@ -19,7 +19,7 @@ function createAccount() {
             $("#modal_Cancel_Button").click()
 
             //Show a notification alerting the user that the creation of the account was a success
-            UIkit.notification(response, {pos: 'top-right', status: 'success'});
+            UIkit.notification("Success!", {pos: 'top-right', status: 'success'});
 
         })
         .catch((response) => {

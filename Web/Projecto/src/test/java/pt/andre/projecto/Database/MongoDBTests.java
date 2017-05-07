@@ -23,7 +23,7 @@ public class MongoDBTests {
 
     @Before
     public void setup(){
-        databaseConnector.push(1, "Ola");
+        databaseConnector.push(1, "Ola", false);
 
     }
 
@@ -40,7 +40,7 @@ public class MongoDBTests {
 
     @Test
     public void canPushDataToDatabase(){
-        databaseConnector.push(1, "Adeus");
+        databaseConnector.push(1, "Adeus", false);
 
         Assert.assertEquals("Adeus", databaseConnector.pull(1).getResponseMessage());
     }

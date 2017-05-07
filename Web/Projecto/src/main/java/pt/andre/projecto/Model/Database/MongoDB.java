@@ -67,7 +67,7 @@ public class MongoDB implements IDatabase {
     }
 
     @Override
-    public DatabaseResponse registerAndroidDevice(int token, String firebaseID) {
+    public DatabaseResponse registerAndroidDevice(long token, String firebaseID) {
         try{
             return updateContentDatabase(token, (wrapper, collection) -> {
 
@@ -85,12 +85,7 @@ public class MongoDB implements IDatabase {
     }
 
     @Override
-    public DatabaseResponse push(int token, String data) {
-        return push(token, data, false);
-    }
-
-    @Override
-    public DatabaseResponse push(int token, String data, boolean isMIME) {
+    public DatabaseResponse push(long token, String data, boolean isMIME) {
         return updateContentDatabase(token, (wrapper, collection) -> {
 
             Document document = new Document();
@@ -106,7 +101,7 @@ public class MongoDB implements IDatabase {
     }
 
     @Override
-    public DatabaseResponse pull(int token) {
+    public DatabaseResponse pull(long token) {
         return updateContentDatabase(token, (wrapper, collection) -> ResponseFormater.displayInformation(wrapper.getContent().getValue()));
     }
 
@@ -162,7 +157,8 @@ public class MongoDB implements IDatabase {
             document.put("androidClients", new ArrayList<BasicDBObject>());
             mongoDatabase.getCollection(CONTENT_COLLECTION.getName()).insertOne(document);
 
-            return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
+
+            return authenticate(user, password);
         } catch (Exception e) {
             if(e.getMessage().contains("duplicate key"))
                 return ResponseFormater.createResponse(ResponseFormater.ACCOUNT_EXISTS_EXCEPTION);
@@ -219,7 +215,7 @@ public class MongoDB implements IDatabase {
             final Content[] content = new Content[1];
             contentDocument.find(accountFilter)
                     .forEach((Block<Document>) (
-                            document) -> content[0] = new Content(document.getInteger("id"), document.getString("value"), document.getBoolean("isMIME"), (List<BasicDBObject>)document.get("androidClients"))
+                            document) -> content[0] = new Content(document.getLong("id"), document.getString("value"), document.getBoolean("isMIME"), (List<BasicDBObject>)document.get("androidClients"))
                     );
 
             return func.apply(new ContentWrapper(content[0], accountFilter), contentDocument);

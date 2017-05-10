@@ -1,9 +1,10 @@
 C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\obj\Debug\Projecto.csprojResolveAssemblyReference.cache
 C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\obj\Debug\Projecto.Properties.Resources.resources
-C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\obj\Debug\Projecto.Statusbar.resources
 C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\obj\Debug\Projecto.csproj.GenerateResource.Cache
 C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\bin\Debug\Projecto.exe.config
 C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\bin\Debug\Projecto.exe
 C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\bin\Debug\Projecto.pdb
 C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\obj\Debug\Projecto.exe
 C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\obj\Debug\Projecto.pdb
+C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\obj\Debug\Projecto.UI.LoginWindow.resources
+C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\obj\Debug\Projecto.UI.SettingsWindow.resources

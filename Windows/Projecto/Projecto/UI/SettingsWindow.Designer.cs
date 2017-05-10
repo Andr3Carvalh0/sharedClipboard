@@ -1,6 +1,6 @@
-﻿namespace Projecto
+﻿namespace Projecto.UI
 {
-    partial class Statusbar
+    partial class SettingsWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // Statusbar
+            // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(863, 436);
-            this.Name = "Statusbar";
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(1148, 523);
+            this.Name = "SettingsWindow";
+            this.Text = "SettingsWindow";
             this.ResumeLayout(false);
 
         }
@@ -44,4 +44,3 @@
         #endregion
     }
 }
-

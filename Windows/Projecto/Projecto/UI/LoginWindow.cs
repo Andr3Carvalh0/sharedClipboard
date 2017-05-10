@@ -24,7 +24,8 @@ namespace Projecto.UI
 
         private void ProceedButton_Click(object sender, EventArgs e)
         {
-            
+            controller.handleLoginAsync("andre.daniel.carvalhoPORTUGAL@gmail.com", "macosx");
         }
+
     }
 }

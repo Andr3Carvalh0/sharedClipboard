@@ -21,15 +21,17 @@ namespace Projecto.Service
             this.httpClient = new HttpClient();
         }
 
-        public async Task<HttpResponseMessage> Authenticate(string username, string password)
+        public async Task<String> Authenticate(string username, string password)
         {
             if (!IsValidEmail(username) || !IsValidPassword(password))
                 return null;
 
-            return await httpClient.GetAsync(mainServer + accountManagement + "?account=" + username + "&password=" + password);
+            var result = await httpClient.GetAsync(mainServer + accountManagement + "?account=" + username + "&password=" + password);
+
+            return await result.Content.ReadAsStringAsync();
         }
 
-        public async Task<HttpResponseMessage> CreateAccount(string username, string password)
+        public async Task<String> CreateAccount(string username, string password)
         {
             if (!IsValidEmail(username) || !IsValidPassword(password))
                 return null;
@@ -38,7 +40,9 @@ namespace Projecto.Service
             parameters["account"] = username;
             parameters["password"] = password;
 
-            return await httpClient.PutAsync(mainServer + accountManagement, new FormUrlEncodedContent(parameters));
+            var result = await httpClient.PutAsync(mainServer + accountManagement, new FormUrlEncodedContent(parameters));
+
+            return await result.Content.ReadAsStringAsync();
         }
 
         public async Task<HttpResponseMessage> Pull(long account)

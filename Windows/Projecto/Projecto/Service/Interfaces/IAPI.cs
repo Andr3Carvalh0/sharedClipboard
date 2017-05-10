@@ -13,8 +13,8 @@ namespace Projecto.Service
     {
         void Push(long account, String data);
         Task<HttpResponseMessage> Pull(long account);
-        Task<HttpResponseMessage> Authenticate(String username, String password);
-        Task<HttpResponseMessage> CreateAccount(String username, String password);
+        Task<String> Authenticate(String username, String password);
+        Task<String> CreateAccount(String username, String password);
 
     }
 }

@@ -16,19 +16,22 @@ namespace Projecto.Controllers
             this.mAPI = new ProjectoAPI();
         }
 
-        public async void handleLoginAsync(String username, String password)
+
+        public async long handleLoginAsync(String username, String password)
         {
             var response = await mAPI.Authenticate(username, password);
-            int token;
-            bool isNumeric = int.TryParse(response, out token);
-
-            if (isNumeric)
-            {
-                Properties.Settings.Default.userToken = token;
-                return;
-
+            
+            if(response.StatusCode != 200){
+                throw new Exception();
             }
 
+            response = await result.Content.ReadAsStringAsync();
+
+            long token;
+            long.TryParse(response, out token);
+
+            return token;
         }
+        
     }
 }

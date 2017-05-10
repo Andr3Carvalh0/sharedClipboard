@@ -9,16 +9,22 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import andre.pt.projectoeseminario.Data.APIRequest;
 import andre.pt.projectoeseminario.Preferences;
 
 public class CopyMenuListener extends Service {
-    private Context context;
     private int userToken;
     public final String TAG = "Portugal:CopyMenu";
+    private APIRequest mApi;
+
     @Override
     public void onCreate() {
-        context = this;
-        userToken = new Preferences(context).getIntPreference(Preferences.USER_TOKEN);
+        mApi = new APIRequest(null, this);
+        userToken = new Preferences(this).getIntPreference(Preferences.USER_TOKEN);
+
+        //We cannot update when the user token isnt valid or when we cannot get the copied text
+        if(userToken == 0)
+            return;
 
         ((ClipboardManager) getSystemService(CLIPBOARD_SERVICE)).addPrimaryClipChangedListener(new ClipboardManager.OnPrimaryClipChangedListener() {
 
@@ -28,16 +34,14 @@ public class CopyMenuListener extends Service {
 
                 if (clipboardManager.hasPrimaryClip()) {
                     ClipData.Item clipboardItem = clipboardManager.getPrimaryClip().getItemAt(0);
+
                     //For now we only support text
                     if (clipboardItem.getText() != null) {
-                        Intent intent = new Intent(context, ClipboardManagerService.class);
+                        String text = clipboardItem.getText() + "";
 
                         Log.v(TAG, "Uploading text to server");
+                        mApi.pushTextInformation(userToken, text);
 
-                        intent.setAction("andre.pt.projectoeseminario.COPY_ACTION");
-                        intent.putExtra("token", userToken);
-                        intent.putExtra("text", clipboardItem.getText() + "");
-                        startService(intent);
                     }
                 }
             }

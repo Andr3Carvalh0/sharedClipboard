@@ -40,9 +40,6 @@
         <service
             android:name=".Services.CopyMenuListener"
             android:exported="false" />
-        <service
-            android:name=".Services.ClipboardManagerService"
-            android:exported="false" />
 
         <service
             android:name=".Firebase.FirebaseMessageHandler">

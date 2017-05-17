@@ -24,17 +24,11 @@ namespace Projecto.Service
 
         public async Task<HttpResponseMessage> Authenticate(string username, string password)
         {
-            if (!IsValidEmail(username) || !IsValidPassword(password))
-                return null;
-
             return await httpClient.GetAsync(mainServer + accountManagement + "?account=" + username + "&password=" + password);
         }
 
         public async Task<HttpResponseMessage> CreateAccount(string username, string password)
-        {
-            if (!IsValidEmail(username) || !IsValidPassword(password))
-                return null;
-
+        { 
             var parameters = new Dictionary<string, string>();
             parameters["account"] = username;
             parameters["password"] = password;
@@ -60,20 +54,5 @@ namespace Projecto.Service
             return await httpClient.PutAsync(mainServer + push, new FormUrlEncodedContent(parameters));
 
         }
-
-        private bool IsValidEmail(string username)
-        {
-            //let configuration = "/^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/";
-            // Regex r = new Regex(configuration);
-
-            return false;
-            //return r.IsMatch(username);
-        }
-
-        private bool IsValidPassword(string password)
-        {
-            return password.Length > 6;
-        }
-
     }
 }

@@ -23,21 +23,27 @@ namespace Projecto.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public long userToken {
             get {
                 return ((long)(this["userToken"]));
             }
+            set {
+                this["userToken"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("null")]
-        public string serviceEnabled {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool serviceEnabled {
             get {
-                return ((string)(this["serviceEnabled"]));
+                return ((bool)(this["serviceEnabled"]));
+            }
+            set {
+                this["serviceEnabled"] = value;
             }
         }
     }

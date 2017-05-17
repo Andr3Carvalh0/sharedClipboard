@@ -9,7 +9,6 @@ namespace Projecto
 {
     static class EntryPoint
     {
-
         [STAThread]
         static void Main()
         {
@@ -23,8 +22,11 @@ namespace Projecto
             {
                 Application.Run(new SettingsWindow());
             }
+        }
 
-
+        public static void switchToSettings()
+        {
+            Application.Restart();
         }
     }
 }

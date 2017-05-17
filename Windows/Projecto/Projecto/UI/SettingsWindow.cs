@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Projecto.UI
 {
-    public partial class SettingsWindow : Form
+    public partial class SettingsWindow : MetroFramework.Forms.MetroForm
     {
         public SettingsWindow()
         {

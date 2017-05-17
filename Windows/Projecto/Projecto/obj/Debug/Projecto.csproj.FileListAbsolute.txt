@@ -8,3 +8,15 @@ C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\ob
 C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\obj\Debug\Projecto.pdb
 C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\obj\Debug\Projecto.UI.LoginWindow.resources
 C:\Users\André Carvalho\Documents\1617-2-LI41N-G28\Windows\Projecto\Projecto\obj\Debug\Projecto.UI.SettingsWindow.resources
+\\Mac\Home\Documents\Faculdade\PS\Windows\Projecto\Projecto\obj\Debug\Projecto.csprojResolveAssemblyReference.cache
+\\Mac\Home\Documents\Faculdade\PS\Windows\Projecto\Projecto\obj\Debug\Projecto.Properties.Resources.resources
+\\Mac\Home\Documents\Faculdade\PS\Windows\Projecto\Projecto\obj\Debug\Projecto.UI.LoginWindow.resources
+\\Mac\Home\Documents\Faculdade\PS\Windows\Projecto\Projecto\obj\Debug\Projecto.UI.SettingsWindow.resources
+\\Mac\Home\Documents\Faculdade\PS\Windows\Projecto\Projecto\obj\Debug\Projecto.csproj.GenerateResource.Cache
+\\Mac\Home\Documents\Faculdade\PS\Windows\Projecto\Projecto\obj\Debug\Projecto.exe
+\\Mac\Home\Documents\Faculdade\PS\Windows\Projecto\Projecto\obj\Debug\Projecto.pdb
+\\Mac\Home\Documents\Faculdade\PS\Windows\Projecto\Projecto\bin\Debug\Projecto.exe.config
+\\Mac\Home\Documents\Faculdade\PS\Windows\Projecto\Projecto\bin\Debug\Projecto.exe
+\\Mac\Home\Documents\Faculdade\PS\Windows\Projecto\Projecto\bin\Debug\Projecto.pdb
+\\Mac\Home\Documents\Faculdade\PS\Windows\Projecto\Projecto\bin\Debug\MetroFramework.dll
+\\Mac\Home\Documents\Faculdade\PS\Windows\Projecto\Projecto\bin\Debug\MetroFramework.Fonts.dll

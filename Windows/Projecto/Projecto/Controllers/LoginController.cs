@@ -17,12 +17,13 @@ namespace Projecto.Controllers
         }
 
 
-        public async long handleLoginAsync(String username, String password)
+        public async Task HandleLoginAsync(String username, String password)
         {
+            /*
             var response = await mAPI.Authenticate(username, password);
             
             if(response.StatusCode != 200){
-                throw new Exception();
+                throw new Exception(response.StatusCode);
             }
 
             response = await result.Content.ReadAsStringAsync();
@@ -31,6 +32,8 @@ namespace Projecto.Controllers
             long.TryParse(response, out token);
 
             return token;
+            */
+
         }
         
     }

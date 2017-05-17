@@ -1,17 +1,9 @@
 ﻿using Projecto.Controllers;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Projecto.UI
 {
-    public partial class LoginWindow : Form
+    public partial class LoginWindow : MetroFramework.Forms.MetroForm
     {
         LoginController controller;
 
@@ -19,7 +11,7 @@ namespace Projecto.UI
         {
             InitializeComponent();
             controller = new LoginController();
-
+            ProceedButton.Enabled = false;
         }
 
         private void ProceedButton_Click(object sender, EventArgs e)
@@ -28,11 +20,25 @@ namespace Projecto.UI
             String password = PasswordField.Text;
 
             try{
-                controller.handleLoginAsync(email, password);
-            }catch(Exception e){
+                controller.HandleLoginAsync(email, password);
+            }catch(Exception){
                 //Show message here
             }
         }
 
+        private void EmailField_TextChanged(object sender, EventArgs e)
+        {
+            ProceedButton.Enabled = HandleProceedButtonVisibility();
+        }
+
+        private void PasswordField_TextChanged(object sender, EventArgs e)
+        {
+            ProceedButton.Enabled = HandleProceedButtonVisibility();
+        }
+
+        private bool HandleProceedButtonVisibility()
+        {
+            return EmailField.TextLength > 0 && PasswordField.TextLength > 0;
+        }
     }
 }

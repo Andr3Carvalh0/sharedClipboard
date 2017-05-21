@@ -5,6 +5,7 @@ using Projecto.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,6 +25,9 @@ namespace ProjectoESeminario
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+
+        
+       
         LoginController controller;
         Dictionary<Type, Action<Exception>> actionsOnException = new Dictionary<Type, Action<Exception>>();
         Dictionary<System.Net.HttpStatusCode, Action> handleServerResponse = new Dictionary<System.Net.HttpStatusCode, Action>();
@@ -31,6 +35,9 @@ namespace ProjectoESeminario
         public MainWindow()
         {
             InitializeComponent();
+
+            ClipboardListener a = new ClipboardListener();
+
             controller = new LoginController();
 
             //Setup
@@ -103,6 +110,13 @@ namespace ProjectoESeminario
                 NextButton.IsEnabled = true;
             }
         }
+    }
+
+
+    internal static class NativeMethods
+    {
+
+
     }
 
 }

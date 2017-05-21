@@ -30,19 +30,23 @@ public class CopyMenuListener extends Service {
 
             @Override
             public void onPrimaryClipChanged() {
-                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                try{
+                    ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 
-                if (clipboardManager.hasPrimaryClip()) {
-                    ClipData.Item clipboardItem = clipboardManager.getPrimaryClip().getItemAt(0);
+                    if (clipboardManager.hasPrimaryClip()) {
+                        ClipData.Item clipboardItem = clipboardManager.getPrimaryClip().getItemAt(0);
 
-                    //For now we only support text
-                    if (clipboardItem.getText() != null) {
-                        String text = clipboardItem.getText() + "";
+                        //For now we only support text
+                        if (clipboardItem.getText() != null) {
+                            String text = clipboardItem.getText() + "";
 
-                        Log.v(TAG, "Uploading text to server");
-                        mApi.pushTextInformation(userToken, text);
+                            Log.v(TAG, "Uploading text to server");
+                            mApi.pushTextInformation(userToken, text);
 
+                        }
                     }
+                }catch(Exception e){
+                    Log.v(TAG, "Cannot communicate with the server");
                 }
             }
         });

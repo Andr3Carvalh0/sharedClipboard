@@ -81,7 +81,12 @@ public class PreferencesActivity extends ParentActivity{
     }
 
     private void handleNewFirebaseID(long token, String firebaseID) {
-        new APIRequest(null, this).registerDevice(token, firebaseID);
+        try {
+            new APIRequest(null, this).registerDevice(token, firebaseID);
+            saveStringPreference(Preferences.FIREBASEID, firebaseID);
+        }catch (Exception e){
+            Log.v(TAG, "Cannot communicate with server right now!");
+        }
     }
 
     @Override

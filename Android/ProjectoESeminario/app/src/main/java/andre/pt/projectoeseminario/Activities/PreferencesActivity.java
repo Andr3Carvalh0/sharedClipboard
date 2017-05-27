@@ -1,6 +1,7 @@
 package andre.pt.projectoeseminario.Activities;
 
 import android.app.ActivityManager;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +37,8 @@ public class PreferencesActivity extends ParentActivity{
     protected void init() {
         setContentView(R.layout.activity_preferences);
         firebaseMessageHandler = new FirebaseMessageHandler();
+
+
 
         //Setup preferences
         user = getIntPreference(Preferences.USER_TOKEN);
@@ -120,6 +123,8 @@ public class PreferencesActivity extends ParentActivity{
 
     private void stopService(){
         stopService(new Intent(this, CopyMenuListener.class));
+
+
     }
 
 }

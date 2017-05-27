@@ -9,22 +9,24 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import andre.pt.projectoeseminario.BroadcastReceiver.ClipboardEventHandler;
 import andre.pt.projectoeseminario.Data.APIRequest;
 import andre.pt.projectoeseminario.Preferences;
 
 public class CopyMenuListener extends Service {
     private int userToken;
     public final String TAG = "Portugal:CopyMenu";
-    private APIRequest mApi;
 
     @Override
     public void onCreate() {
-        mApi = new APIRequest(null, this);
+
         userToken = new Preferences(this).getIntPreference(Preferences.USER_TOKEN);
 
         //We cannot update when the user token isnt valid or when we cannot get the copied text
         if(userToken == 0)
             return;
+
+        final Context ctx = this;
 
         ((ClipboardManager) getSystemService(CLIPBOARD_SERVICE)).addPrimaryClipChangedListener(new ClipboardManager.OnPrimaryClipChangedListener() {
 
@@ -41,7 +43,12 @@ public class CopyMenuListener extends Service {
                             String text = clipboardItem.getText() + "";
 
                             Log.v(TAG, "Uploading text to server");
-                            mApi.pushTextInformation(userToken, text);
+                            Intent intent = new Intent(ctx, ClipboardEventHandler.class);
+                            intent.putExtra("content", text);
+                            intent.putExtra("upload", true);
+                            intent.putExtra("token", userToken);
+
+                            sendBroadcast(intent);
 
                         }
                     }

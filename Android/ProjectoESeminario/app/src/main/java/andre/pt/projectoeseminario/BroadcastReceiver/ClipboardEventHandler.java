@@ -7,24 +7,43 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-public class ClipboardEventHandler extends BroadcastReceiver {
+import andre.pt.projectoeseminario.ClipboardControllerFactory;
+import andre.pt.projectoeseminario.Data.APIRequest;
+import andre.pt.projectoeseminario.State.ClipboardController;
 
+public class ClipboardEventHandler extends BroadcastReceiver {
 
     private static final String TAG = "Portugal:ClipHandler";
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        final ClipboardController clipboardController = ClipboardControllerFactory.getSingleton();
+
         final String content = intent.getStringExtra("content");
         final boolean isMIME = intent.getBooleanExtra("isMIME", false);
+        final boolean upload = intent.getBooleanExtra("upload", false);
+        final int token = intent.getIntExtra("token", 0);
 
         Log.v(TAG, "onReceive");
-        
-        if(isMIME){
-            handleMultimediaContent(context, content);
-            return;
-        }
+        if(upload){
+            if(clipboardController.releaseWork()) {
+                new Thread(() -> {
+                    APIRequest mApi = new APIRequest(null, context);
+                    mApi.pushTextInformation(token, content);
+                });
+            }
 
-        handleTextContent(context, content);
+        }else{
+            clipboardController.acquireWork();
+
+            if(isMIME){
+                handleMultimediaContent(context, content);
+                return;
+            }
+
+            handleTextContent(context, content);
+
+        }
     }
 
     private void handleTextContent(Context context, String content) {
@@ -36,4 +55,6 @@ public class ClipboardEventHandler extends BroadcastReceiver {
     private void handleMultimediaContent(Context context, String content) {
 
     }
+
+
 }

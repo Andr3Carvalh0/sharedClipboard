@@ -5,6 +5,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -22,29 +23,29 @@ public class FirebaseServer {
         Objects.requireNonNull(key, "You must define a System Environment named FIREBASE_KEY with your Firebase key");
     }
 
-    public boolean notify(String message,boolean isMIME, String... devices){
+    public boolean notify(String message, boolean isMIME, String... devices){
         HttpClient httpClient = HttpClientBuilder.create().build();
 
         try {
-
             for (int i = 0; i < devices.length; i++) {
-                HttpPost request = new HttpPost(google_server);
 
-                StringEntity params =new StringEntity(
-                    "{" +
-                        "data:{" +
-                            "content:" + message +
-                            "isMIME:" + isMIME +
-                        "}," +
-                        "to:{" +
-                            "to:" + devices[i] +
-                        "}" +
-                    "}");
-                request.addHeader("Content-Type", "application/json");
-                request.addHeader("Authorization", key);
-                request.setEntity(params);
+                HttpClient client = HttpClientBuilder.create().build();
+                HttpPost post = new HttpPost(google_server);
+                post.setHeader("Content-type", "application/json");
+                post.setHeader("Authorization", "key=" + key);
 
-                HttpResponse response = httpClient.execute(request);
+                JSONObject jsonOBJ = new JSONObject();
+                jsonOBJ.put("to", devices[i]);
+
+                JSONObject data = new JSONObject();
+                data.put("content", message);
+                data.put("isMIME", isMIME);
+
+                jsonOBJ.put("data", data);
+
+                post.setEntity(new StringEntity(jsonOBJ.toString(), "UTF-8"));
+                HttpResponse response = client.execute(post);
+                System.out.println(response);
 
                 sleep(1000);
                 //handle response here...

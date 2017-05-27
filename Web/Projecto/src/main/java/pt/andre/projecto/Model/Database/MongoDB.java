@@ -166,7 +166,19 @@ public class MongoDB implements IDatabase {
 
     @Override
     public String[] getDevices(long token) {
-        return new String[0];
+        final List<Document> res = new LinkedList<>();
+        List<String> toReturn = new LinkedList<>();
+
+        updateContentDatabase(token,
+                (wrapper, collection) -> {
+                    res.addAll(wrapper.getContent().getMobileClients());
+                    return null;
+            }
+        );
+
+        res.stream().forEach(s -> toReturn.add(s.getString("_main")));
+
+        return toReturn.stream().toArray(String[]::new);
     }
 
     /**
@@ -217,7 +229,7 @@ public class MongoDB implements IDatabase {
             final Content[] content = new Content[1];
             contentDocument.find(accountFilter)
                     .forEach((Block<Document>) (
-                            document) -> content[0] = new Content(document.getLong("id"), document.getString("value"), document.getBoolean("isMIME"), (List<BasicDBObject>)document.get("mobileClients"))
+                            document) -> content[0] = new Content(document.getLong("id"), document.getString("value"), document.getBoolean("isMIME"), (List<Document>) document.get("mobileClients"))
                     );
 
             return func.apply(new ContentWrapper(content[0], accountFilter), contentDocument);

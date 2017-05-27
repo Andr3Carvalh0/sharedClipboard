@@ -22,6 +22,9 @@ namespace ProjectoESeminario.UI
         public SettingsWindow()
         {
             InitializeComponent();
+
+            ClipboardListener lister = new ClipboardListener();
+
         }
     }
 }

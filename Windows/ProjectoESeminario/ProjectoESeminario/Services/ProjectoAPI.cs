@@ -10,7 +10,7 @@ namespace Projecto.Service
 {
     public class ProjectoAPI : IAPI
     {
-        private readonly static String mainServer = "http://projecto-testes.herokuapp.com/api/";
+        private readonly static String mainServer = "http://projecto1617.herokuapp.com/api/";
         private readonly static String push = "push";
         private readonly static String pull = "pull";
         private readonly static String accountManagement = "account";

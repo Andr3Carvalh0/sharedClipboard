@@ -51,6 +51,8 @@ namespace ProjectoESeminario
             });
 
             handleServerResponse.Add(System.Net.HttpStatusCode.Forbidden, async () => await this.ShowMessageAsync("Ops...", "The password isn't valid."));
+
+
             handleServerResponse.Add(System.Net.HttpStatusCode.BadRequest, async () =>
             {
                 //Show create account dialog

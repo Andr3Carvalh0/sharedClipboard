@@ -5,8 +5,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -39,6 +41,11 @@ namespace ProjectoESeminario
         public ClipboardListener()
         {
             AddClipboardFormatListener(this.Handle);
+            Thread workingThread = new Thread(() => fetchInformation())
+            { IsBackground = true };
+
+
+            workingThread.Start();
         }
 
         protected override void WndProc(ref Message m)
@@ -58,12 +65,7 @@ namespace ProjectoESeminario
                     string text = (string)iData.GetData(DataFormats.Text);
 
                     if (!isUploading)
-                    {
-                        uploadData(text);
-
-                    }
-
-                    // do something with it
+                        uploadTextData(text);
                 }
                 else if (iData.GetDataPresent(DataFormats.Bitmap))
                 {
@@ -74,12 +76,22 @@ namespace ProjectoESeminario
         }
 
 
-        private async void uploadData(String text) {
+        private async void uploadTextData(String text) {
             Console.WriteLine(text);
             isUploading = true;
-            await api.Push(ProjectoESeminario.Properties.Settings.Default.userToken, text);
+            await api.Push(Properties.Settings.Default.userToken, text);
             isUploading = false;
 
+        }
+
+        public async void fetchInformation()
+        {
+            while (true) { 
+                HttpResponseMessage response = await api.Pull(Properties.Settings.Default.userToken);
+
+                Console.WriteLine(response.Content);
+                Thread.Sleep(5000);
+            }
         }
    
     }

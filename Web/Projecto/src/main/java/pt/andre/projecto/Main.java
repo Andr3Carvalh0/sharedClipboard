@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import pt.andre.projecto.Controllers.URIs.FirebaseServer;
 import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.MongoDB;
 import pt.andre.projecto.Service.APIService;
@@ -41,6 +42,12 @@ public class Main {
     public IServerService getServerService(){
         return new ServerService();
     }
+
+    @Bean
+    public FirebaseServer getFirebaseService(){
+        return new FirebaseServer();
+    }
+
 
     @Bean
     public IAPIService getAPIService(){

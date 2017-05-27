@@ -11,4 +11,5 @@ public interface IDatabase {
     DatabaseResponse authenticate(String user, String pass);
     DatabaseResponse createAccount(String user, String password);
 
+    String[] getDevices(long token);
 }

@@ -8,13 +8,13 @@ public class Content {
     private long token;
     private String value;
     private boolean isMIME;
-    private List<BasicDBObject> androidClients;
+    private List<BasicDBObject> mobileClients;
 
-    public Content(long token, String content, boolean isMIME, List<BasicDBObject> androidClients) {
+    public Content(long token, String content, boolean isMIME, List<BasicDBObject> mobileClients) {
         this.token = token;
         this.value = content;
         this.isMIME = isMIME;
-        this.androidClients = androidClients;
+        this.mobileClients = mobileClients;
     }
 
     public boolean isMIME() {
@@ -29,7 +29,9 @@ public class Content {
         return value;
     }
 
-    public List<BasicDBObject> getAndroidClients() {
-        return androidClients;
+    public List<BasicDBObject> getMobileClients() {
+        return mobileClients;
     }
+
+
 }

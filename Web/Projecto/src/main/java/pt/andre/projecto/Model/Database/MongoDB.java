@@ -29,7 +29,6 @@ import java.util.stream.Stream;
 public class MongoDB implements IDatabase {
 
     private final MongoDatabase mongoDatabase;
-    private final FirebaseServer firebaseServer;
     private final static DatabaseOption USER_COLLECTION = new DatabaseOption("users", "email");
     private final static DatabaseOption CONTENT_COLLECTION = new DatabaseOption("content", "id");
     private final static String FIRST_TIME_CONTENT_MESSAGE = "Welcome!";
@@ -48,8 +47,6 @@ public class MongoDB implements IDatabase {
         Objects.requireNonNull(host, "The Host of the database cannot be null!");
         Objects.requireNonNull(port, "The Port of the database cannot be null!");
         Objects.requireNonNull(database, "The Database cannot be null!");
-
-        firebaseServer = new FirebaseServer();
 
         MongoClientURI uri;
 
@@ -73,7 +70,7 @@ public class MongoDB implements IDatabase {
 
                 BasicDBObject document = new BasicDBObject("_main", firebaseID);
 
-                BasicDBObject updateCommand = new BasicDBObject("$addToSet", new BasicDBObject("androidClients", document));
+                BasicDBObject updateCommand = new BasicDBObject("$addToSet", new BasicDBObject("mobileClients", document));
 
                 collection.updateOne(wrapper.getAccountFilter(), updateCommand);
 
@@ -92,7 +89,7 @@ public class MongoDB implements IDatabase {
             document.put("id", token);
             document.put("value", data);
             document.put("isMIME", isMIME);
-            document.put("androidClients", wrapper.getContent().getAndroidClients());
+            document.put("mobileClients", wrapper.getContent().getMobileClients());
 
             collection.updateOne(wrapper.getAccountFilter(), new Document("$set", document));
 
@@ -154,7 +151,7 @@ public class MongoDB implements IDatabase {
             document.put("id", id);
             document.put("value", FIRST_TIME_CONTENT_MESSAGE);
             document.put("isMIME", false);
-            document.put("androidClients", new ArrayList<BasicDBObject>());
+            document.put("mobileClients", new ArrayList<BasicDBObject>());
             mongoDatabase.getCollection(CONTENT_COLLECTION.getName()).insertOne(document);
 
 
@@ -165,6 +162,11 @@ public class MongoDB implements IDatabase {
 
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
+    }
+
+    @Override
+    public String[] getDevices(long token) {
+        return new String[0];
     }
 
     /**
@@ -215,7 +217,7 @@ public class MongoDB implements IDatabase {
             final Content[] content = new Content[1];
             contentDocument.find(accountFilter)
                     .forEach((Block<Document>) (
-                            document) -> content[0] = new Content(document.getLong("id"), document.getString("value"), document.getBoolean("isMIME"), (List<BasicDBObject>)document.get("androidClients"))
+                            document) -> content[0] = new Content(document.getLong("id"), document.getString("value"), document.getBoolean("isMIME"), (List<BasicDBObject>)document.get("mobileClients"))
                     );
 
             return func.apply(new ContentWrapper(content[0], accountFilter), contentDocument);

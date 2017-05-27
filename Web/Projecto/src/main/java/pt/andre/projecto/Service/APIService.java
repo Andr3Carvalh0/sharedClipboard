@@ -1,6 +1,7 @@
 package pt.andre.projecto.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import pt.andre.projecto.Controllers.URIs.FirebaseServer;
 import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
@@ -10,6 +11,9 @@ public class APIService implements IAPIService{
     @Autowired
     private IDatabase database;
 
+    @Autowired
+    private FirebaseServer firebaseServer;
+
 
     @Override
     public DatabaseResponse push(long token, String data) {
@@ -18,7 +22,10 @@ public class APIService implements IAPIService{
 
     @Override
     public DatabaseResponse push(long token, String data, boolean isMIME) {
-        return database.push(token, data, isMIME);
+        DatabaseResponse push = database.push(token, data, isMIME);
+
+        firebaseServer.notify(data, isMIME, database.getDevices(token));
+        return push;
     }
 
     @Override

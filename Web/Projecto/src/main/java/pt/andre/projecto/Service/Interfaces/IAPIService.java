@@ -1,12 +1,13 @@
 package pt.andre.projecto.Service.Interfaces;
 
+import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 
 
 public interface IAPIService {
 
     DatabaseResponse push(long token, String data);
-    DatabaseResponse push(long token, String data, boolean isMIME);
+    DatabaseResponse push(long token, MultipartFile data);
 
     //Only used by the android client notification
     DatabaseResponse registerAndroidDevice(long token, String firebaseID);

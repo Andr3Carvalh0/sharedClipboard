@@ -3,10 +3,16 @@ package pt.andre.projecto.Controllers.URIs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.IAPI;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
 @RestController
 @AutoConfigureBefore
@@ -52,4 +58,11 @@ public class API implements IAPI {
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 
+    @Override
+    @RequestMapping(value = "/api/pushMIME", method = RequestMethod.POST)
+    public ResponseEntity push(@RequestParam(name = "file") MultipartFile file, @RequestParam long token) {
+        final DatabaseResponse resp = service.push(token, file);
+        return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
+
+    }
 }

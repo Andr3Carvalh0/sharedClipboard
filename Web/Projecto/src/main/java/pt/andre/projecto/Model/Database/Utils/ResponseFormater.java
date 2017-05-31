@@ -18,13 +18,13 @@ public class ResponseFormater {
     private final static int NO_SUCH_ACCOUNT_EXISTS = 400;
     private final static int PASSWORD_AUTHENTICATION_FAILED = 403;
     private final static int ACCOUNT_CREATION_FAILED = 409;
-    private final static int CONNECTION_DATABASE_FAILED = 500;
+    private final static int SERVER_FAILED = 500;
 
     private final static String VALID_REQUEST_MESSAGE = "Success!";
     private final static String NO_SUCH_ACCOUNT_EXISTS_MESSAGE = "There isn't a account associated with this email.";
     private final static String PASSWORD_AUTHENTICATION_FAILED_MESSAGE = "The credentials passed aren't valid.";
     private final static String ACCOUNT_CREATION_FAILED_MESSAGE = "There is already one account with this email.";
-    private final static String CONNECTION_DATABASE_FAILED_MESSAGE = "Cannot process this request right now. Try later.";
+    private final static String SERVER_FAILED_MESSAGE = "Cannot process this request right now. Try later.";
 
     private static DefaultHashMap<Integer, DatabaseResponse> responses = new DefaultHashMap<>(new DatabaseResponse(VALID_REQUEST, VALID_REQUEST_MESSAGE));
 
@@ -32,7 +32,7 @@ public class ResponseFormater {
     static{
         responses.put(NO_ACCOUNT, new DatabaseResponse(NO_SUCH_ACCOUNT_EXISTS, NO_SUCH_ACCOUNT_EXISTS_MESSAGE));
         responses.put(PASSWORD_INVALID, new DatabaseResponse(PASSWORD_AUTHENTICATION_FAILED, PASSWORD_AUTHENTICATION_FAILED_MESSAGE));
-        responses.put(EXCEPTION, new DatabaseResponse(CONNECTION_DATABASE_FAILED, CONNECTION_DATABASE_FAILED_MESSAGE));
+        responses.put(EXCEPTION, new DatabaseResponse(SERVER_FAILED, SERVER_FAILED_MESSAGE));
         responses.put(ACCOUNT_EXISTS_EXCEPTION, new DatabaseResponse(ACCOUNT_CREATION_FAILED, ACCOUNT_CREATION_FAILED_MESSAGE));
 
     }

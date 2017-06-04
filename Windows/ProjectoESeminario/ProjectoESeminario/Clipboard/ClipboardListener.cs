@@ -1,4 +1,4 @@
-﻿using Projecto.Service;
+using Projecto.Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,12 +11,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace ProjectoESeminario
 {
     public partial class ClipboardListener : Form
     {
-        bool isUploading = false;
+        //For some unknown reason the clipboard is notified twice.This helps handeling that.
+        volatile bool isUploading = false;
         ProjectoAPI api = new ProjectoAPI();
 
         /// <summary>
@@ -70,11 +72,22 @@ namespace ProjectoESeminario
                 else if (iData.GetDataPresent(DataFormats.Bitmap))
                 {
                     Bitmap image = (Bitmap)iData.GetData(DataFormats.Bitmap);
-                    // do something with it
+                    MemoryStream stream = new MemoryStream();
+                    image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+
+                    if (!isUploading)
+                        uploadMediaData(stream);
+
                 }
             }
         }
 
+        private async void uploadMediaData(MemoryStream data)
+        {
+            isUploading = true;
+            await api.Push(Properties.Settings.Default.userToken, data);
+            isUploading = false;
+        }
 
         private async void uploadTextData(String text) {
             Console.WriteLine(text);
@@ -86,6 +99,9 @@ namespace ProjectoESeminario
 
         public async void fetchInformation()
         {
+            if (Properties.Settings.Default.userToken == 0)
+                return;
+
             while (true) { 
                 HttpResponseMessage response = await api.Pull(Properties.Settings.Default.userToken);
 

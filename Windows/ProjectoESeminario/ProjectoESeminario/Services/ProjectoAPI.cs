@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Projecto.Service
     {
         private readonly static String mainServer = "http://projecto1617.herokuapp.com/api/";
         private readonly static String push = "push";
+        private readonly static String pushMIME = "pushMIME";
         private readonly static String pull = "pull";
         private readonly static String accountManagement = "account";
 
@@ -52,6 +54,23 @@ namespace Projecto.Service
             parameters["token"] = account + "";
             parameters["data"] = data;
             return await httpClient.PutAsync(mainServer + push, new FormUrlEncodedContent(parameters));
+
+        }
+
+        public async Task<HttpResponseMessage> Push(long account, MemoryStream data)
+        {
+            if (account == 0)
+                return null;
+
+
+            MultipartFormDataContent content = new MultipartFormDataContent();
+
+            content.Add(new StreamContent(data));
+            
+            var parameters = new Dictionary<object, object>();
+            parameters["token"] = account;
+            parameters["file"] = content;
+            return await httpClient.PostAsync(mainServer + pushMIME, content);
 
         }
     }

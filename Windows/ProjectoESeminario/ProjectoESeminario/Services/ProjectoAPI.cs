@@ -62,6 +62,8 @@ namespace Projecto.Service
             if (account == 0)
                 return null;
 
+            Console.WriteLine("Pushing....");
+
 
             MultipartFormDataContent content = new MultipartFormDataContent();
 

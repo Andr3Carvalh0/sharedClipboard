@@ -20,6 +20,7 @@ namespace ProjectoESeminario
         //For some unknown reason the clipboard is notified twice.This helps handeling that.
         volatile bool isUploading = false;
         ProjectoAPI api = new ProjectoAPI();
+        Dictionary<string, System.Drawing.Imaging.ImageFormat> supported_formats = new Dictionary<string, System.Drawing.Imaging.ImageFormat>();
 
         /// <summary>
         /// Places the given window in the system-maintained clipboard format listener list.
@@ -42,6 +43,10 @@ namespace ProjectoESeminario
 
         public ClipboardListener()
         {
+
+            supported_formats.Add(".png", System.Drawing.Imaging.ImageFormat.Png);
+            supported_formats.Add(".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
             AddClipboardFormatListener(this.Handle);
             Thread workingThread = new Thread(() => fetchInformation())
             { IsBackground = true };
@@ -60,6 +65,9 @@ namespace ProjectoESeminario
             {
                 IDataObject iData = Clipboard.GetDataObject();      // Clipboard's data.
 
+                String[] a = iData.GetFormats();
+                bool b = Clipboard.ContainsImage();
+
                 /* Depending on the clipboard's current data format we can process the data differently. 
                  * Feel free to add more checks if you want to process more formats. */
                 if (iData.GetDataPresent(DataFormats.Text))
@@ -69,11 +77,15 @@ namespace ProjectoESeminario
                     if (!isUploading)
                         uploadTextData(text);
                 }
-                else if (iData.GetDataPresent(DataFormats.Bitmap))
+
+                else if (iData.GetDataPresent(DataFormats.FileDrop))
                 {
-                    Bitmap image = (Bitmap)iData.GetData(DataFormats.Bitmap);
+                    String[] image_path = (string[])iData.GetData(DataFormats.FileDrop);
+
+                    
+
                     MemoryStream stream = new MemoryStream();
-                    image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                    //image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
 
                     if (!isUploading)
                         uploadMediaData(stream);

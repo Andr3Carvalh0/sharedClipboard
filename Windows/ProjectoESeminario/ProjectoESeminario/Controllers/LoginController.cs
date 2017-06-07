@@ -50,6 +50,9 @@ namespace Projecto.Controllers
             long token;
             long.TryParse(responseBody, out token);
 
+            if (token == 0)
+                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
+
             return token;
         }
 

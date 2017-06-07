@@ -47,35 +47,58 @@ namespace Projecto.Service
         }
 
         public async Task<HttpResponseMessage> Authenticate(string username, string password){
-            return await httpClient.GetAsync(mainServer + accountManagement + "?account=" + username + "&password=" + password);
+            try
+            {
+                return await httpClient.GetAsync(mainServer + accountManagement + "?account=" + username + "&password=" + password);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public async Task<HttpResponseMessage> CreateAccount(string username, string password)
         {
-            var parameters = new Dictionary<string, string>();
-            parameters["account"] = username;
-            parameters["password"] = password;
-            return await httpClient.PutAsync(mainServer + accountManagement, new FormUrlEncodedContent(parameters));
+            try { 
+                var parameters = new Dictionary<string, string>();
+                parameters["account"] = username;
+                parameters["password"] = password;
+                return await httpClient.PutAsync(mainServer + accountManagement, new FormUrlEncodedContent(parameters));
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public async Task<HttpResponseMessage> Pull(long account)
         {
             if (account == 0)
                 return null;
-
-            return await httpClient.GetAsync(mainServer + pull + "?account=" + account);
+            try { 
+                return await httpClient.GetAsync(mainServer + pull + "?account=" + account);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public async Task<HttpResponseMessage> Push(long account, string data)
         {
             if (account == 0)
                 return null;
-
-            var parameters = new Dictionary<string, string>();
-            parameters["token"] = account + "";
-            parameters["data"] = data;
-            return await httpClient.PutAsync(mainServer + push, new FormUrlEncodedContent(parameters));
-
+            try
+            {
+                var parameters = new Dictionary<string, string>();
+                parameters["token"] = account + "";
+                parameters["data"] = data;
+                return await httpClient.PutAsync(mainServer + push, new FormUrlEncodedContent(parameters));
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public async Task<HttpResponseMessage> Push(long account, MemoryStream data)
@@ -83,15 +106,22 @@ namespace Projecto.Service
             if (account == 0)
                 return null;
 
-            MultipartFormDataContent content = new MultipartFormDataContent();
+            try { 
+                MultipartFormDataContent content = new MultipartFormDataContent();
 
-            content.Add(new StreamContent(data));
+                content.Add(new StreamContent(data));
             
-            var parameters = new Dictionary<object, object>();
-            parameters["token"] = account;
-            parameters["file"] = content;
-            return await httpClient.PostAsync(mainServer + pushMIME, content);
+                var parameters = new Dictionary<object, object>();
+                parameters["token"] = account;
+                parameters["file"] = content;
+                return await httpClient.PostAsync(mainServer + pushMIME, content);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
         }
+
     }
 }

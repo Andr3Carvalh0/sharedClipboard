@@ -5,19 +5,8 @@ using Projecto.UI;
 using ProjectoESeminario.UI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProjectoESeminario
 {
@@ -26,9 +15,6 @@ namespace ProjectoESeminario
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-
-        
-       
         LoginController controller;
         Dictionary<Type, Action<Exception>> actionsOnException = new Dictionary<Type, Action<Exception>>();
         Dictionary<System.Net.HttpStatusCode, Action> handleServerResponse = new Dictionary<System.Net.HttpStatusCode, Action>();
@@ -39,7 +25,7 @@ namespace ProjectoESeminario
 
             controller = new LoginController();
 
-            //Setup
+            //Setup to handle all the exceptions
             actionsOnException.Add(typeof(UserExceptions), (ex) => System.Windows.MessageBox.Show(((UserExceptions)ex).simplerMessage));
             actionsOnException.Add(typeof(WebExceptions), (ex) =>
             {
@@ -49,18 +35,21 @@ namespace ProjectoESeminario
                 action.Invoke();
             });
 
+            //Setup every action to every possible status code returned by the server
             handleServerResponse.Add(System.Net.HttpStatusCode.Forbidden, async () => await this.ShowMessageAsync("Ops...", "The password isn't valid."));
-
-
             handleServerResponse.Add(System.Net.HttpStatusCode.BadRequest, async () =>
             {
                 //Show create account dialog
-                MessageBoxResult dialogResult = System.Windows.MessageBox.Show("It looks like an account with this email, doesn't exist.\nWould you like to create one", "", MessageBoxButton.OKCancel);
+                MessageBoxResult dialogResult = MessageBox.Show("It looks like an account with this email, doesn't exist.\nWould you like to create one", "", MessageBoxButton.OKCancel);
                 if (dialogResult == MessageBoxResult.OK)
                 {
                     long userToken = await controller.HandleCreateAccountAsync(EmailField.Text, PasswordField.Password);
                     HandleSuccessfulLogin(userToken);
                 }
+            });
+            handleServerResponse.Add(System.Net.HttpStatusCode.InternalServerError, async () =>
+            {
+                await this.ShowMessageAsync("Ops...", "The server isn't operational.Contact the dumbass the made this app");
             });
         }
 
@@ -73,7 +62,7 @@ namespace ProjectoESeminario
 
             SettingsWindow settings = new SettingsWindow();
             App.Current.MainWindow = settings;
-            //this.Close();
+            this.Close();
             settings.Show();
         }
 

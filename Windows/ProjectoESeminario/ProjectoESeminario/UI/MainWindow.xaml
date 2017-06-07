@@ -11,8 +11,7 @@
         <Button x:Name="NextButton" Content="Next" Style="{DynamicResource SquareButtonStyle}" Margin="0,0,16,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="NextButton_Click" IsEnabled="False"/>
         <TextBox x:Name="EmailField" HorizontalAlignment="Left" Height="23" Controls:TextBoxHelper.Watermark="Email" Controls:TextBoxHelper.ClearTextButton="True"  Margin="10,0,0,114" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="411" TextChanged="EmailField_TextChanged"/>
         <PasswordBox x:Name="PasswordField" HorizontalAlignment="Left" Height="23" Controls:TextBoxHelper.Watermark="Password" Controls:TextBoxHelper.ClearTextButton="True" Margin="10,0,0,67"  VerticalAlignment="Bottom" Width="411" PasswordChanged="PasswordField_PasswordChanged" />
-        <ProgressBar HorizontalAlignment="Left" Margin="10,289,0,0" VerticalAlignment="Top" Width="100" Height="12"/>
-
+        <Controls:ProgressRing x:Name="ProgressCircle" IsActive="False" Foreground="{DynamicResource AccentColorBrush}" Margin="10,289,391,10" Height="28" Width="30"/>
 
     </Grid>
 </Controls:MetroWindow>

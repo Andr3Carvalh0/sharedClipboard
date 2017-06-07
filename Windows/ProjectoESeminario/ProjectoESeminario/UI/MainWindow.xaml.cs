@@ -83,9 +83,11 @@ namespace ProjectoESeminario
 
         private async void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            NextButton.IsEnabled = false;
+            
             String email = EmailField.Text;
             String password = PasswordField.Password;
+
+            lockControllers(true);
 
             try
             {
@@ -104,8 +106,16 @@ namespace ProjectoESeminario
             }
             finally
             {
-                NextButton.IsEnabled = true;
+                lockControllers(false);
             }
+        }
+
+        private void lockControllers(bool showProgressCircle)
+        {
+            EmailField.IsEnabled = !showProgressCircle;
+            PasswordField.IsEnabled = !showProgressCircle;
+            NextButton.IsEnabled = !showProgressCircle;
+            ProgressCircle.IsActive = showProgressCircle;
         }
     }
 }

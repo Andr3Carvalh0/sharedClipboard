@@ -2,6 +2,7 @@
 using MahApps.Metro.Controls.Dialogs;
 using Projecto.Controllers;
 using Projecto.UI;
+using ProjectoESeminario.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +37,6 @@ namespace ProjectoESeminario
         {
             InitializeComponent();
 
-            ClipboardListener a = new ClipboardListener();
-
             controller = new LoginController();
 
             //Setup
@@ -67,8 +66,15 @@ namespace ProjectoESeminario
 
         private void HandleSuccessfulLogin(long userToken)
         {
+
             Properties.Settings.Default.userToken = userToken;
             Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+
+            SettingsWindow settings = new SettingsWindow();
+            App.Current.MainWindow = settings;
+            //this.Close();
+            settings.Show();
         }
 
         private void EmailField_TextChanged(object sender, TextChangedEventArgs e)
@@ -113,12 +119,4 @@ namespace ProjectoESeminario
             }
         }
     }
-
-
-    internal static class NativeMethods
-    {
-
-
-    }
-
 }

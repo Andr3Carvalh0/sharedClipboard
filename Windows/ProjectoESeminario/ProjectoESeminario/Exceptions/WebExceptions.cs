@@ -2,7 +2,9 @@
 using System.Runtime.Serialization;
 
 namespace Projecto.UI
-{
+{   /// <summary>
+    /// This exception is launched when we have a server error(500), authentication error(403), or any other error 
+    /// </summary>
     [Serializable]
     internal class WebExceptions : Exception
     {

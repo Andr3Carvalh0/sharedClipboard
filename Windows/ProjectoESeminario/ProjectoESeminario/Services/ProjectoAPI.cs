@@ -9,23 +9,44 @@ using System.Threading.Tasks;
 
 namespace Projecto.Service
 {
+
     public class ProjectoAPI : IAPI
     {
+        /// <summary>
+        /// Server location
+        /// </summary>
         private readonly static String mainServer = "http://projecto1617.herokuapp.com/api/";
+
+        /// <summary>
+        /// URI for the textual push
+        /// </summary>
         private readonly static String push = "push";
+
+        /// <summary>
+        /// URI for the MIME push
+        /// </summary>
         private readonly static String pushMIME = "pushMIME";
+
+        /// <summary>
+        /// URI for pulling data
+        /// </summary>
         private readonly static String pull = "pull";
+
+        /// <summary>
+        /// URI used to create/authenticate user
+        /// </summary>
         private readonly static String accountManagement = "account";
 
+        /// <summary>
+        /// Object to do the HTTP requests
+        /// </summary>
         private readonly HttpClient httpClient;
 
-        public ProjectoAPI()
-        {
+        public ProjectoAPI() {
             this.httpClient = new HttpClient();
         }
 
-        public async Task<HttpResponseMessage> Authenticate(string username, string password)
-        {
+        public async Task<HttpResponseMessage> Authenticate(string username, string password){
             return await httpClient.GetAsync(mainServer + accountManagement + "?account=" + username + "&password=" + password);
         }
 
@@ -61,9 +82,6 @@ namespace Projecto.Service
         {
             if (account == 0)
                 return null;
-
-            Console.WriteLine("Pushing....");
-
 
             MultipartFormDataContent content = new MultipartFormDataContent();
 

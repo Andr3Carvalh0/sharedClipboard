@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="SettingsWindow" Height="300" Width="300">
     <Grid>
-        
+        <Label Content="Nothing to see here... 
+" HorizontalAlignment="Left" Margin="116,133,0,0" VerticalAlignment="Top"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="380,115,-188,0" VerticalAlignment="Top" Width="100"/>
+
     </Grid>
 </Window>

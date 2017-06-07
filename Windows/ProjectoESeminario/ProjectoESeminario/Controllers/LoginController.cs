@@ -1,20 +1,19 @@
 ﻿using Projecto.Service;
 using Projecto.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Projecto.Controllers
 {
+    /// <summary>
+    /// Responsable for the authentication/creation of an account
+    /// </summary>
     public class LoginController
     {
         private readonly ProjectoAPI mAPI;
 
-        public LoginController()
-        {
+        public LoginController() {
             this.mAPI = new ProjectoAPI();
         }
 
@@ -54,14 +53,26 @@ namespace Projecto.Controllers
             return token;
         }
 
+        /// <summary>
+        /// Used to check if the inputted email is a valid email.
+        /// The regex expression was taken out the chromium source code
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         private bool IsValidEmail(string username)
         {
-            var configuration = @"^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$";
-            Regex r = new Regex(configuration);
+            String configuration = @"^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$";
+            Regex rgx = new Regex(configuration);
 
-            return r.IsMatch(username);
+            return rgx.IsMatch(username);
         }
 
+        /// <summary>
+        /// Used to check if the password that user inputted is valid.
+        /// We just validate if the password length is greater that 6.
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
         private bool IsValidPassword(string password)
         {
             return password.Length > 6;

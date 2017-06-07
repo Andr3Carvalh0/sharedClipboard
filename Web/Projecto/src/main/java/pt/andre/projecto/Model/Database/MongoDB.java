@@ -117,7 +117,12 @@ public class MongoDB implements IDatabase {
     * */
     @Override
     public DatabaseResponse pull(long token) {
-        return updateContentDatabase(token, (wrapper, collection) -> ResponseFormater.displayInformation(wrapper.getContent().getValue()));
+        return updateContentDatabase(token, (wrapper, collection) -> ResponseFormater.displayInformation(
+                        "{" +
+                            "content: " + wrapper.getContent().getValue() + "," +
+                            "isMIME: " + wrapper.getContent().isMIME() +
+                        "}"
+        ));
     }
 
     @Override

@@ -92,19 +92,21 @@ namespace ProjectoESeminario
 
 
         /// <summary>
-        /// Work done by the background thread.Every 5 second the thread will do a pull from the server
+        /// Work done by the background thread.Every 30 second the thread will do a pull from the server
         /// and check if the content of the clipboard has changed!
         /// </summary>
         public async void fetchInformation()
         {
-            if (Properties.Settings.Default.userToken == 0)
-                return;
-
             while (true) { 
                 HttpResponseMessage response = await api.Pull(Properties.Settings.Default.userToken);
 
-                Console.WriteLine(response.Content);
-                Thread.Sleep(5000);
+                if(response.StatusCode == System.Net.HttpStatusCode.OK){
+                    var body = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine(body);
+                }
+               
+
+                Thread.Sleep(30000);
             }
         }
    

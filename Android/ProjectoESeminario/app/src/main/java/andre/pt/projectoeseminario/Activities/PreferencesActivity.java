@@ -38,8 +38,6 @@ public class PreferencesActivity extends ParentActivity{
         setContentView(R.layout.activity_preferences);
         firebaseMessageHandler = new FirebaseMessageHandler();
 
-
-
         //Setup preferences
         user = getIntPreference(Preferences.USER_TOKEN);
         service_state = getBooleanPreference(Preferences.SERVICERUNNING);
@@ -83,6 +81,9 @@ public class PreferencesActivity extends ParentActivity{
 
     }
 
+    /*
+    *   Uploads the device firebase ID if we detect that it may not be present in the server
+    */
     private void handleNewFirebaseID(long token, String firebaseID) {
         try {
             new APIRequest(null, this).registerDevice(token, firebaseID);
@@ -105,6 +106,9 @@ public class PreferencesActivity extends ParentActivity{
 
     }
 
+    /*
+    *   Checks if the clipboard listener service is running
+    */
     private boolean isServiceRunning() {
         ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
@@ -115,12 +119,18 @@ public class PreferencesActivity extends ParentActivity{
         return false;
     }
 
+    /*
+    *   Starts the clipboard listener service
+    */
     private void startService(){
         if(!isServiceRunning()){
             startService(new Intent(this, CopyMenuListener.class));
         }
     }
 
+    /*
+    *   Stops the clipboard listener service
+    */
     private void stopService(){
         stopService(new Intent(this, CopyMenuListener.class));
 

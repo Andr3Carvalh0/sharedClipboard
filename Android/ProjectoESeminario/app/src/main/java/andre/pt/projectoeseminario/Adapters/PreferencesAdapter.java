@@ -13,6 +13,9 @@ import java.util.HashMap;
 import andre.pt.projectoeseminario.Adapters.Entities.Preference;
 import andre.pt.projectoeseminario.R;
 
+/*
+*   Represents one preference Item that will be shown by the RecyclerView
+*/
 public class PreferencesAdapter extends RecyclerView.Adapter<PreferencesAdapter.ViewHolder>{
 
     private final Preference[] preferences;

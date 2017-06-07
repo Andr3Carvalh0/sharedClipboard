@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+/*
+*   Handles everything related to user preferences, and the SharedPreferences Objects
+*/
 public class Preferences {
     public static String USER_TOKEN = "user_token";
     public static String HASCOMPLETEDSETUP = "authenticated";

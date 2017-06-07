@@ -6,8 +6,8 @@ import android.widget.TextView;
 
 /**
  *
- * Watch the input fields on the login.
- * Used to show or hide the clear button.
+ * Watch the input fields on the login activity.
+ * Used to show or hide the field's clear button.
  */
 public class CustomFocusListener implements View.OnFocusChangeListener {
     private ImageView mClearButton;

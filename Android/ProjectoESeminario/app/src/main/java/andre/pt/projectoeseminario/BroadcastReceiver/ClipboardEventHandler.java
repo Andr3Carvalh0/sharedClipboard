@@ -11,6 +11,9 @@ import andre.pt.projectoeseminario.ClipboardControllerFactory;
 import andre.pt.projectoeseminario.Data.APIRequest;
 import andre.pt.projectoeseminario.State.ClipboardController;
 
+/*
+* Handles what to do when, the firebase service receives an notification
+*/
 public class ClipboardEventHandler extends BroadcastReceiver {
 
     private static final String TAG = "Portugal:ClipHandler";
@@ -46,12 +49,18 @@ public class ClipboardEventHandler extends BroadcastReceiver {
         }
     }
 
+    /*
+    *   Stores the text into the device clipboard
+    */
     private void handleTextContent(Context context, String content) {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(content, content);
         clipboard.setPrimaryClip(clip);
     }
 
+    /*
+    *   Stores the image into the device clipboard
+    */
     private void handleMultimediaContent(Context context, String content) {
 
     }

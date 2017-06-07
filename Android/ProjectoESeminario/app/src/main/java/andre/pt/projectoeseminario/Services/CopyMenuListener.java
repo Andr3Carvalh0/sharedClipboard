@@ -13,6 +13,10 @@ import andre.pt.projectoeseminario.BroadcastReceiver.ClipboardEventHandler;
 import andre.pt.projectoeseminario.Data.APIRequest;
 import andre.pt.projectoeseminario.Preferences;
 
+
+/*
+* Service responsable for creating the clipboard listener, and handle the change of the same
+*/
 public class CopyMenuListener extends Service {
     private int userToken;
     public final String TAG = "Portugal:CopyMenu";

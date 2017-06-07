@@ -7,6 +7,9 @@ import android.util.Log;
 import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
 
+/*
+* Splash Activity. Used to decide which activity to launch
+*/
 public class SplashActivity extends ParentActivity {
 
     private final String TAG = "Portugal:Splash";

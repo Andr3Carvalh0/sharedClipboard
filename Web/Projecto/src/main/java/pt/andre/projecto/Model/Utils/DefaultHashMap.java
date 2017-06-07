@@ -4,7 +4,7 @@ package pt.andre.projecto.Model.Utils;
 import java.util.HashMap;
 
 /**
- * A implementation of a HashMap that in case of the key doenst exist, it return a default value
+ * A implementation of a HashMap, that has a default value, in case of the key not being valid
  */
 public class DefaultHashMap<T, T1> extends HashMap<T, T1>{
     private final T1 defaultValue;

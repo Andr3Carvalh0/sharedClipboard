@@ -1,10 +1,16 @@
 package pt.andre.projecto.Model.Utils;
 
+/*
+* Represents an Device
+* */
 public class Device {
-
+    //String contained in the userAgent String
     private final String OS;
+
+    //String that can be showed to the user(Windows, OS X, Android, etc...)
     private final String OS_Friendly;
 
+    //Indicates whether or not we support the OS
     private final Boolean Supported;
 
     Device(String OS, String OS_Friendly_Name, Boolean Supported){

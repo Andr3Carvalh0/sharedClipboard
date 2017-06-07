@@ -38,10 +38,11 @@ public class ResponseFormater {
     }
 
     /**
-     *
      * Used for error situations, or when we dont have to deliver important information to the user.
      * For instance when the user creates successfully an account we dont have to return information back to him.
      * So we can use this method just to say that the creation was successfully
+     *
+     * @param message : HTTP code
      */
     public static DatabaseResponse createResponse(int message){
         return responses.get(message);
@@ -49,14 +50,17 @@ public class ResponseFormater {
 
 
     /**
-     *
      * Used for cases like, when we have to return information to the user
-     * EG: user id, contented that he copyied, etc...
+     * EG: user id, contented that he copied, etc...
      */
     public static DatabaseResponse displayInformation(String message){
         return new DatabaseResponse(VALID_REQUEST, message);
     }
 
+    /*
+    * Overload of the method above.
+    * Same function, diferent input
+    * */
     public static DatabaseResponse displayInformation(long message){
         return new DatabaseResponse(VALID_REQUEST, message);
     }

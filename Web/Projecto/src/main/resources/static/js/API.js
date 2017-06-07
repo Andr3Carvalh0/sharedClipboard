@@ -1,5 +1,6 @@
 const CREATE_ACCOUNT_URL = '/api/account'
 
+//@todo: change the ajax Request to fetch
 function createAccount() {
     let email = document.getElementById("emailTextView").value
     let password = document.getElementById("passwordTextView").value
@@ -15,7 +16,8 @@ function createAccount() {
     ajaxRequest('PUT', CREATE_ACCOUNT_URL, data)
         .then((response) => {
 
-            //This is a hack.Since the stupid UIKIT doesnt support closing modal via javascript.Simulate a button click
+            //This is a hack.Since this stupid version of the UIKIT doesn't support closing modal via javascript.
+            //Simulate a button click
             $("#modal_Cancel_Button").click()
 
             //Show a notification alerting the user that the creation of the account was a success

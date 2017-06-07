@@ -8,10 +8,7 @@ public interface IAPIService {
 
     DatabaseResponse push(long token, String data);
     DatabaseResponse push(long token, MultipartFile data);
-
-    //Only used by the android client notification
-    DatabaseResponse registerAndroidDevice(long token, String firebaseID);
-
+    DatabaseResponse registerMobileDevice(long token, String firebaseID);
     DatabaseResponse pull(long token);
     DatabaseResponse createAccount(String account, String password);
     DatabaseResponse authenticate(String account, String password);

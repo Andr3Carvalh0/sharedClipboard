@@ -2,6 +2,9 @@ package pt.andre.projecto.Model.DTOs;
 
 import org.bson.conversions.Bson;
 
+/*
+* Used to represent a table, and its items creation filter
+* */
 public class ContentWrapper {
 
     private final Content content;

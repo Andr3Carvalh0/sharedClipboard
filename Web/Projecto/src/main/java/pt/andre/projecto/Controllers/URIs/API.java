@@ -3,19 +3,18 @@ package pt.andre.projecto.Controllers.URIs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.IAPI;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-
 @RestController
 @AutoConfigureBefore
+/*
+* Controller that handles every request to the API.
+* Implementation of the IAPI Class.The methods functions are described in the IAPI interface
+* */
 public class API implements IAPI {
 
     @Autowired
@@ -54,7 +53,7 @@ public class API implements IAPI {
     @Override
     @RequestMapping(value = "/api/registerAndroid", method = RequestMethod.PUT)
     public ResponseEntity registerAndroidDevice(@RequestParam long account, @RequestParam String deviceID) {
-        final DatabaseResponse resp = service.registerAndroidDevice(account, deviceID);
+        final DatabaseResponse resp = service.registerMobileDevice(account, deviceID);
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 

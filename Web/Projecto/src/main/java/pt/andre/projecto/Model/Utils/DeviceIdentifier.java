@@ -1,5 +1,8 @@
 package pt.andre.projecto.Model.Utils;
 
+/*
+* Class that knows how to transform an UserAgent string into an Device object that we know how to handle.
+* */
 public class DeviceIdentifier {
     private DefaultHashMap<String, Device> devices;
 

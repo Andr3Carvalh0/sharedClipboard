@@ -21,8 +21,6 @@ import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 
-//TODO: Handle exceptions related to db(when we cannot connect to db, etc...
-
 /**
  * Implementation of the Database Interface using MongoDB
  */
@@ -34,14 +32,16 @@ public class MongoDB implements IDatabase {
     private final static String FIRST_TIME_CONTENT_MESSAGE = "Welcome!";
 
 
+    /*
+    * Default contructor.Used to debug server on the local machine
+    * */
     public MongoDB(String host, String port, String database) {
         this(host, port, database, null, null);
-
     }
 
     /**
      * Constructor to be used when the MongoDB has authentication.
-     * In case of a simple install of the mongoDB, and you dont need to authenticate use the above constructor
+     * In case of a simple install of the MongoDB, and you dont need to be authenticated use the above constructor
      */
     public MongoDB(String host, String port, String database, String user, String password) {
         Objects.requireNonNull(host, "The Host of the database cannot be null!");
@@ -63,8 +63,14 @@ public class MongoDB implements IDatabase {
 
     }
 
+    /*
+    * Adds to the user Account the device ID.
+    *
+    * @param token : the user account token
+    * @param firebaseID: the device ID, that is return by the firebase service
+    * */
     @Override
-    public DatabaseResponse registerAndroidDevice(long token, String firebaseID) {
+    public DatabaseResponse registerMobileDevice(long token, String firebaseID) {
         try{
             return updateContentDatabase(token, (wrapper, collection) -> {
 
@@ -81,6 +87,13 @@ public class MongoDB implements IDatabase {
         }
     }
 
+    /*
+    * Stores the content into the database.
+    *
+    * @param token : the user account token
+    * @param data : the data.It can the the resource it self, or a URL to the resouce
+    * @param isMIME : indicates whether @param data is a resource(false) or a URL to a resource(true)
+    * */
     @Override
     public DatabaseResponse push(long token, String data, boolean isMIME) {
         return updateContentDatabase(token, (wrapper, collection) -> {
@@ -97,6 +110,11 @@ public class MongoDB implements IDatabase {
         });
     }
 
+    /*
+    * Get the information that the user @param token has stores
+    *
+    * @param token : the user account token
+    * */
     @Override
     public DatabaseResponse pull(long token) {
         return updateContentDatabase(token, (wrapper, collection) -> ResponseFormater.displayInformation(wrapper.getContent().getValue()));
@@ -205,7 +223,7 @@ public class MongoDB implements IDatabase {
     /**
      * Checks if the collection named @param collection exists.
      *
-     * @param existingCollections the existing collections
+     * @param existingCollections : the existing collections
      */
     private boolean checkIfCollectionAlreadyExists(String collection, Stream<String> existingCollections) {
         return existingCollections
@@ -221,6 +239,11 @@ public class MongoDB implements IDatabase {
         return mongoDatabase;
     }
 
+    /*
+    * Gets the item in the Content Table.
+    * From the obtain value, e can do operations, using the @param func
+    * @todo: Rename this method since the pull method also uses this methods, and with this name can be confusing.
+    * */
     private DatabaseResponse updateContentDatabase(long token, BiFunction<ContentWrapper, MongoCollection, DatabaseResponse> func) {
         try {
             final MongoCollection<Document> contentDocument = mongoDatabase.getCollection(CONTENT_COLLECTION.getName());

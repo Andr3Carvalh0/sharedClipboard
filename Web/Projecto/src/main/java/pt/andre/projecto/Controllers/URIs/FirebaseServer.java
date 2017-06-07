@@ -12,8 +12,10 @@ import java.util.Objects;
 
 import static java.lang.Thread.sleep;
 
-
-//Documentation: https://developers.google.com/cloud-messaging/http
+/*
+* Class dedicated to handle the push of new information to the user mobile devices.
+* Documentation: https://developers.google.com/cloud-messaging/http
+* */
 public class FirebaseServer {
 
     private final String key;
@@ -24,6 +26,15 @@ public class FirebaseServer {
         Objects.requireNonNull(key, "You must define a System Environment named FIREBASE_KEY with your Firebase key");
     }
 
+    /*
+    * Makes a request to the Google servers for them to send our data to the @devices
+    *
+    * @param message: The content of the user that is stored on the database.This can be text or an URL to a file.
+    * @param isMIME: Indicates if the message is a multimedia one, or not.
+    * @param devices: The devices that will receive the message.
+    *
+    * @return if the operation ended without any exception
+    * */
     public boolean notify(String message, boolean isMIME, String... devices){
         HttpClient httpClient = HttpClientBuilder.create().build();
 
@@ -48,8 +59,7 @@ public class FirebaseServer {
                 HttpResponse response = client.execute(post);
                 System.out.println(response);
 
-                sleep(1000);
-                //handle response here...
+                sleep(5000);
             }
             return true;
         }catch (Exception ex) {

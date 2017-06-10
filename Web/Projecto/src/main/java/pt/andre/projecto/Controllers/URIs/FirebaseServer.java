@@ -22,14 +22,14 @@ public class FirebaseServer {
 
     private final String key;
     private final String google_server = "https://gcm-http.googleapis.com/gcm/send";
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    //private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: Firebase ";
 
     public FirebaseServer(){
         key = System.getenv("FIREBASE_KEY");
         Objects.requireNonNull(key, "You must define a System Environment named FIREBASE_KEY with your Firebase key");
 
-        logger.info(TAG + "CTOR" );
+        //logger.info(TAG + "CTOR" );
     }
 
     /*
@@ -62,12 +62,12 @@ public class FirebaseServer {
                 post.setEntity(new StringEntity(jsonOBJ.toString(), "UTF-8"));
                 HttpResponse response = client.execute(post);
 
-                logger.info(TAG + "Firebase Response: " + response);
+               // logger.info(TAG + "Firebase Response: " + response);
 
             }
             return true;
         }catch (Exception ex) {
-            logger.error(TAG + ex.getMessage());
+            //logger.error(TAG + ex.getMessage());
 
             return false;
         }

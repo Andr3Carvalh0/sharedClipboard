@@ -9,8 +9,6 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import andre.pt.projectoeseminario.BroadcastReceiver.ClipboardEventHandler;
-import andre.pt.projectoeseminario.Data.APIRequest;
 import andre.pt.projectoeseminario.Preferences;
 
 
@@ -52,7 +50,7 @@ public class CopyMenuListener extends Service {
                             intent.putExtra("upload", true);
                             intent.putExtra("token", userToken);
 
-                            sendBroadcast(intent);
+                            startService(intent);
 
                         }
                     }

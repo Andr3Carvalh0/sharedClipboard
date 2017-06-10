@@ -25,7 +25,7 @@ public class Server{
     @Autowired
     IServerService service;
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+   // private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: Server ";
 
 
@@ -38,7 +38,7 @@ public class Server{
     * */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root(Map<String, Object> model, @RequestHeader(value = "User-Agent") String userAgent, DeviceIdentifier deviceIdentifier) {
-        logger.info(TAG + "Requested Main");
+        //logger.info(TAG + "Requested Main");
         return service.handleRootRequest(model, userAgent, deviceIdentifier);
     }
 

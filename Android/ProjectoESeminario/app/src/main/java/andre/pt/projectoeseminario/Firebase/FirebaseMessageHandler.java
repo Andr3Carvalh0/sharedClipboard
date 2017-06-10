@@ -1,17 +1,12 @@
 package andre.pt.projectoeseminario.Firebase;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.HashMap;
-
-import andre.pt.projectoeseminario.BroadcastReceiver.ClipboardEventHandler;
+import andre.pt.projectoeseminario.Services.ClipboardEventHandler;
 
 public class FirebaseMessageHandler extends FirebaseMessagingService {
 
@@ -29,7 +24,7 @@ public class FirebaseMessageHandler extends FirebaseMessagingService {
             intent.putExtra("content", content);
             intent.putExtra("isMIME", isMIME);
 
-            sendBroadcast(intent);
+            startService(intent);
 
         }
     }

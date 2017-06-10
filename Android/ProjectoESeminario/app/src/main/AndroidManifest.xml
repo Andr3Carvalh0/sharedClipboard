@@ -46,10 +46,9 @@
             </intent-filter>
         </service>
 
-        <receiver
-            android:name=".BroadcastReceiver.ClipboardEventHandler"
-            android:enabled="true"
-            android:exported="true"></receiver>
+        <service
+            android:name=".Services.ClipboardEventHandler"
+            android:exported="true"></service>
     </application>
 
 </manifest>

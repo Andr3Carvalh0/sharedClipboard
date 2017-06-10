@@ -28,21 +28,22 @@ public class API implements IAPI {
     @Override
     @RequestMapping(value = "/api/push", method = RequestMethod.PUT)
     public ResponseEntity push(@RequestParam long token, @RequestParam String data) {
-        logger.info(TAG + "push method");
+        //logger.info(TAG + "push method");
         final DatabaseResponse resp = service.push(token, data);
 
-        logger.info(TAG + "Push: response will have the following code:" + resp.getResponseCode());
+        //logger.info(TAG + "Push: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).build();
     }
 
     @Override
     @RequestMapping(value = "/api/pull", params = {"account"}, method = RequestMethod.GET)
     public ResponseEntity pull(@RequestParam(value = "account") long token) {
-        logger.info(TAG + "pull method");
+
+        //logger.info(TAG + "pull method");
 
         final DatabaseResponse resp = service.pull(token);
 
-        logger.info(TAG + "Pull: response will have the following code:" + resp.getResponseCode());
+        //logger.info(TAG + "Pull: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 

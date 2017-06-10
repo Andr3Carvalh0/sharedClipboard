@@ -1,5 +1,7 @@
 package pt.andre.projecto.Controllers.URIs;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,9 @@ public class Server{
     @Autowired
     IServerService service;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final String TAG = "Portugal: Server ";
+
 
     /*
     * Main URL
@@ -32,7 +36,9 @@ public class Server{
     * @param userAgent: the user agent of the device that is accessing the website
     * @param deviceIdentifies: Object that knows how to transform an userAgent into a Object Device that we know how to handle
     * */
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root(Map<String, Object> model, @RequestHeader(value = "User-Agent") String userAgent, DeviceIdentifier deviceIdentifier) {
+        logger.info(TAG + "Requested Main");
         return service.handleRootRequest(model, userAgent, deviceIdentifier);
     }
 

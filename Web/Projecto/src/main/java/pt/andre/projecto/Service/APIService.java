@@ -1,5 +1,7 @@
 package pt.andre.projecto.Service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.URIs.FirebaseServer;
@@ -22,6 +24,9 @@ public class APIService implements IAPIService{
 
     @Autowired
     private FirebaseServer firebaseServer;
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final String TAG = "Portugal: APIService ";
 
     /*
     * Handles a textual(only string) push request
@@ -109,21 +114,25 @@ public class APIService implements IAPIService{
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
-
+                logger.info(TAG + "Attempting to create directories");
                 // Create the directory structure if it isn't already created.
                 File outFile = new File("build/resources/main/static/content/" + token + "/");
                 outFile.mkdirs();
 
+
+                logger.info(TAG + "Directories created!");
                 // Writes the file
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File("build/resources/main/static/content/" + token + "/" + file.getOriginalFilename())));
                 stream.write(bytes);
                 stream.close();
+                logger.info(TAG + "File created!");
                 return System.getenv("SERVER") + "/content/" + token + "/" + file.getOriginalFilename();
             } catch (Exception e) {
+                logger.error(TAG + e.getMessage());
                 return null;
             }
         }
-
+        logger.error(TAG + "file is empty");
         return null;
     }
 
@@ -138,6 +147,7 @@ public class APIService implements IAPIService{
     private DatabaseResponse push(long token, String data, boolean isMIME) {
         DatabaseResponse push = database.push(token, data, isMIME);
 
+        logger.info(TAG + "Sharing with devices");
         firebaseServer.notify(data, isMIME, database.getDevices(token));
         return push;
     }

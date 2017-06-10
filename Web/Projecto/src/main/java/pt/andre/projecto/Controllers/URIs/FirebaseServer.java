@@ -6,6 +6,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.util.Objects;
@@ -20,10 +22,14 @@ public class FirebaseServer {
 
     private final String key;
     private final String google_server = "https://gcm-http.googleapis.com/gcm/send";
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final String TAG = "Portugal: Firebase ";
 
     public FirebaseServer(){
         key = System.getenv("FIREBASE_KEY");
         Objects.requireNonNull(key, "You must define a System Environment named FIREBASE_KEY with your Firebase key");
+
+        logger.info(TAG + "CTOR" );
     }
 
     /*
@@ -36,8 +42,6 @@ public class FirebaseServer {
     * @return if the operation ended without any exception
     * */
     public boolean notify(String message, boolean isMIME, String... devices){
-        HttpClient httpClient = HttpClientBuilder.create().build();
-
         try {
             for (int i = 0; i < devices.length; i++) {
 
@@ -57,14 +61,14 @@ public class FirebaseServer {
 
                 post.setEntity(new StringEntity(jsonOBJ.toString(), "UTF-8"));
                 HttpResponse response = client.execute(post);
-                System.out.println(response);
 
-                sleep(5000);
+                logger.info(TAG + "Firebase Response: " + response);
+
             }
             return true;
         }catch (Exception ex) {
-            System.out.println(ex);
-            //handle exception here
+            logger.error(TAG + ex.getMessage());
+
             return false;
         }
     }

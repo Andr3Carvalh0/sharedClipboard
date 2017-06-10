@@ -8,6 +8,8 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.IndexOptions;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pt.andre.projecto.Controllers.URIs.FirebaseServer;
 import pt.andre.projecto.Model.DTOs.Content;
 import pt.andre.projecto.Model.DTOs.User;
@@ -25,6 +27,9 @@ import java.util.stream.Stream;
  * Implementation of the Database Interface using MongoDB
  */
 public class MongoDB implements IDatabase {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final String TAG = "Portugal: Mongo ";
 
     private final MongoDatabase mongoDatabase;
     private final static DatabaseOption USER_COLLECTION = new DatabaseOption("users", "email");
@@ -51,8 +56,10 @@ public class MongoDB implements IDatabase {
         MongoClientURI uri;
 
         if (user == null) {
+            logger.info(TAG + "the database doesnt have authentication");
             uri = new MongoClientURI("mongodb://" + host + ":" + port + "/" + database);
         } else {
+            logger.info(TAG + "the database does have authentication");
             uri = new MongoClientURI("mongodb://" + user + ":" + password + "@" + host + ":" + port + "/" + database);
         }
 
@@ -74,6 +81,7 @@ public class MongoDB implements IDatabase {
         try{
             return updateContentDatabase(token, (wrapper, collection) -> {
 
+                logger.info(TAG + "attempting to add device to user account");
                 BasicDBObject document = new BasicDBObject("_main", firebaseID);
 
                 BasicDBObject updateCommand = new BasicDBObject("$addToSet", new BasicDBObject("mobileClients", document));
@@ -97,6 +105,7 @@ public class MongoDB implements IDatabase {
     @Override
     public DatabaseResponse push(long token, String data, boolean isMIME) {
         return updateContentDatabase(token, (wrapper, collection) -> {
+            logger.info(TAG + "attempting to add content to user account, content Type:" + isMIME);
 
             Document document = new Document();
             document.put("id", token);
@@ -117,6 +126,7 @@ public class MongoDB implements IDatabase {
     * */
     @Override
     public DatabaseResponse pull(long token) {
+        logger.info(TAG + "pulling user info");
         return updateContentDatabase(token, (wrapper, collection) -> ResponseFormater.displayInformation(
                         "{" +
                             "content: " + wrapper.getContent().getValue() + "," +
@@ -127,7 +137,7 @@ public class MongoDB implements IDatabase {
 
     @Override
     public DatabaseResponse authenticate(String user, String password) {
-
+        logger.info(TAG + "authenticating...");
         try {
             String hashedPassword = Security.hashString(password);
 
@@ -144,21 +154,28 @@ public class MongoDB implements IDatabase {
 
             //If we dont find an account return immediately.We do this so we can handle login/create account on our native app
             if (userList.size() == 0) {
+                logger.info(TAG + "it's a new user");
                 return ResponseFormater.createResponse(ResponseFormater.NO_ACCOUNT);
             }
 
-            if (hashedPassword.equals(userList.get(0).getPassword()))
+            if (hashedPassword.equals(userList.get(0).getPassword())) {
+                logger.info(TAG + "valid user");
                 return ResponseFormater.displayInformation(userList.get(0).getId());
 
+            }
+
+            logger.info(TAG + "password didnt match");
             return ResponseFormater.createResponse(ResponseFormater.PASSWORD_INVALID);
 
         } catch (Exception e) {
+            logger.error(TAG + "cannot communicate with DB");
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
     }
 
     @Override
     public DatabaseResponse createAccount(String user, String password) {
+        logger.info(TAG + "creating account....");
         String hashedPassword = Security.hashString(password);
 
         try {
@@ -180,15 +197,18 @@ public class MongoDB implements IDatabase {
 
             return authenticate(user, password);
         } catch (Exception e) {
-            if(e.getMessage().contains("duplicate key"))
+            if(e.getMessage().contains("duplicate key")) {
+                logger.error(TAG + "account already exists.");
                 return ResponseFormater.createResponse(ResponseFormater.ACCOUNT_EXISTS_EXCEPTION);
-
+            }
+            logger.error(TAG + "cannot communicate with DB");
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
     }
 
     @Override
     public String[] getDevices(long token) {
+        logger.info(TAG + "getting devices..........");
         final List<Document> res = new LinkedList<>();
         List<String> toReturn = new LinkedList<>();
 
@@ -208,6 +228,7 @@ public class MongoDB implements IDatabase {
      * Checks if the default collections are created.If not, delegates the creation of the same
      */
     private void initializeCollections(DatabaseOption... collections) {
+        logger.info(TAG + "initializing Collection");
 
         String[] existingCollections = Iterables.toArray(getExistingCollections(), String.class);
 
@@ -221,6 +242,7 @@ public class MongoDB implements IDatabase {
      * Handles the creation of one collection @param collection
      */
     private void createCollection(DatabaseOption collection) {
+        logger.info(TAG + "creating Collection");
         mongoDatabase.createCollection(collection.getName());
         mongoDatabase.getCollection(collection.getName()).createIndex(new Document(collection.getPrimaryKey(), 1), new IndexOptions().unique(true));
     }
@@ -231,6 +253,8 @@ public class MongoDB implements IDatabase {
      * @param existingCollections : the existing collections
      */
     private boolean checkIfCollectionAlreadyExists(String collection, Stream<String> existingCollections) {
+        logger.info(TAG + "checking if Collection:" + collection + " exists");
+
         return existingCollections
                 .filter(collection::equals)
                 .count() == 0;

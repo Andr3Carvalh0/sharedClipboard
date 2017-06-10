@@ -26,7 +26,7 @@ namespace ProjectoESeminario
             controller = new LoginController();
 
             //Setup to handle all the exceptions
-            actionsOnException.Add(typeof(UserExceptions), (ex) => System.Windows.MessageBox.Show(((UserExceptions)ex).simplerMessage));
+            actionsOnException.Add(typeof(UserExceptions), async (ex) => await this.ShowMessageAsync("Ops...", ((UserExceptions)ex).simplerMessage));
             actionsOnException.Add(typeof(WebExceptions), (ex) =>
             {
                 Action action = () => { };
@@ -49,7 +49,7 @@ namespace ProjectoESeminario
             });
             handleServerResponse.Add(System.Net.HttpStatusCode.InternalServerError, async () =>
             {
-                await this.ShowMessageAsync("Ops...", "The server isn't operational.Contact the dumbass the made this app");
+                await this.ShowMessageAsync("Ops...", "The server isn't operational. Contact the dumbass the made this app.");
             });
         }
 

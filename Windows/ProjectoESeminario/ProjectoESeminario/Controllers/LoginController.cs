@@ -11,18 +11,27 @@ namespace Projecto.Controllers
     /// </summary>
     public class LoginController
     {
+        private readonly String TAG = "Portugal: LoginController";
         private readonly ProjectoAPI mAPI;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public LoginController() {
+            log.Debug(TAG + " - Ctor");
             this.mAPI = new ProjectoAPI();
         }
 
         public async Task<long> HandleCreateAccountAsync(String username, String password)
         {
+            log.Debug(TAG + " method HandleCreateAccount called!");
+
+            log.Debug(TAG + " Attempting to create an account");
             var response = await mAPI.CreateAccount(username, password);
 
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode != System.Net.HttpStatusCode.OK) {
+                log.Error(TAG + " - WebException, statusCode:" + response.StatusCode);
                 throw new WebExceptions(response.StatusCode);
+
+            }
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
@@ -34,25 +43,33 @@ namespace Projecto.Controllers
 
         public async Task<long> HandleLoginAsync(String username, String password)
         {
+            log.Debug(TAG + " method HandleLoginAsync called!");
+
             bool isEmailValid = IsValidEmail(username);
             bool isPasswordValid = IsValidPassword(username);
 
             if (!isEmailValid || !isPasswordValid)
+            {
+                log.Error(TAG + " - UserException");
                 throw new UserExceptions(isEmailValid, isPasswordValid);
-
+            }
             var response = await mAPI.Authenticate(username, password);
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                log.Error(TAG + " - WebException, statusCode:" + response.StatusCode);
                 throw new WebExceptions(response.StatusCode);
+            }
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
             long token;
             long.TryParse(responseBody, out token);
 
-            if (token == 0)
+            if (token == 0) {
+                log.Error(TAG + " - Heroku exception(probably), the server is sleeping, and the response was 200, but it isnt valid, since we dont have content");
                 throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
-
+            }
             return token;
         }
 

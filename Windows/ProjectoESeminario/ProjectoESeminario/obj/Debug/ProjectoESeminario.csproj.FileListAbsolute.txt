@@ -83,3 +83,6 @@ C:\Users\Diogo\Documents\1617-2-LI41N-G28\Windows\ProjectoESeminario\ProjectoESe
 C:\Users\Diogo\Documents\1617-2-LI41N-G28\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\ProjectoESeminario.csproj.GenerateResource.Cache
 C:\Users\Diogo\Documents\1617-2-LI41N-G28\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\ProjectoESeminario.exe
 C:\Users\Diogo\Documents\1617-2-LI41N-G28\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\ProjectoESeminario.pdb
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\log4net.config
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\log4net.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\log4net.xml

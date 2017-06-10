@@ -15,6 +15,8 @@ namespace ProjectoESeminario
         Dictionary<string, System.Drawing.Imaging.ImageFormat> supported_formats = new Dictionary<string, System.Drawing.Imaging.ImageFormat>();
         long user_token = Properties.Settings.Default.userToken;
 
+        private readonly String TAG = "Portugal: ClipboardListener";
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// Places the given window in the system-maintained clipboard format listener list.
@@ -37,6 +39,7 @@ namespace ProjectoESeminario
 
         public ClipboardListener()
         {
+            log.Info(TAG + " ctor");
             supported_formats.Add(".png", System.Drawing.Imaging.ImageFormat.Png);
             supported_formats.Add(".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
 
@@ -53,11 +56,13 @@ namespace ProjectoESeminario
 
             if (m.Msg == WM_CLIPBOARDUPDATE)
             {
-                IDataObject iData = Clipboard.GetDataObject();// Clipboard's data.
+                log.Debug(TAG + " Changes where detected in the clipboard");
+                IDataObject iData = Clipboard.GetDataObject(); // Clipboard's data.
 
                 /* Depending on the clipboard's current data format we can process the data differently. */
                 if (iData.GetDataPresent(DataFormats.Text))
                 {
+                    log.Debug(TAG + " It was text");
                     string text = (string)iData.GetData(DataFormats.Text);
 
                     uploadTextData(text);
@@ -65,16 +70,16 @@ namespace ProjectoESeminario
 
                 else if (iData.GetDataPresent(DataFormats.FileDrop))
                 {
-                    String image_path = ((string[])iData.GetData(DataFormats.FileDrop))[0];
-                    string[] tmp = image_path.Split('.');
-                    System.Drawing.Imaging.ImageFormat format = null;
-                    supported_formats.TryGetValue(tmp[tmp.Length - 1], out format);
+                    log.Debug(TAG + " It could be an format that we support");
+                    //String image_path = ((string[])iData.GetData(DataFormats.FileDrop))[0];
+                    //string[] tmp = image_path.Split('.');
+                    //System.Drawing.Imaging.ImageFormat format = null;
+                    //supported_formats.TryGetValue(tmp[tmp.Length - 1], out format);
 
-                    MemoryStream stream = new MemoryStream();
-                    //image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                    //MemoryStream stream = new MemoryStream();
 
 
-                    uploadMediaData(stream);
+                    //uploadMediaData(stream);
 
                 }
             }
@@ -86,7 +91,15 @@ namespace ProjectoESeminario
         }
 
         private async void uploadTextData(String text) {
-            await api.Push(user_token, text);
+            log.Info(TAG + " uploading text to the server");
+
+            var response = await api.Push(user_token, text);
+
+            if(response == null)
+            {
+                log.Error(TAG + " the upload FAILED!");
+                //should we try again?
+            }
          
         }
 
@@ -98,14 +111,15 @@ namespace ProjectoESeminario
         public async void fetchInformation()
         {
             while (true) { 
-                HttpResponseMessage response = await api.Pull(Properties.Settings.Default.userToken);
+                HttpResponseMessage response = await api.Pull(user_token);
 
                 if(response.StatusCode == System.Net.HttpStatusCode.OK){
+                    log.Debug(TAG + "Thread: Obtain something");
                     var body = await response.Content.ReadAsStringAsync();
                     Console.WriteLine(body);
                 }
-               
 
+                log.Debug(TAG + "Thread: Going to sleep a little, bye.");
                 Thread.Sleep(30000);
             }
         }

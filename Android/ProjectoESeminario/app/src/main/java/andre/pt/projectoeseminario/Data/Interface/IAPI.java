@@ -13,7 +13,7 @@ public interface IAPI {
     String push = "push";
     String pull = "pull";
     String accountManagement = "account";
-    String androidRegister = "registerAndroid";
+    String androidRegister = "registerDevice";
 
     @PUT(push)
     Call<ResponseBody> push(@Query("token") long account, @Query("data") String data);

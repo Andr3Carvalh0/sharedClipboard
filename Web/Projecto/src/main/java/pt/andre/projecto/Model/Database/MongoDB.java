@@ -129,7 +129,7 @@ public class MongoDB implements IDatabase {
         logger.info(TAG + "pulling user info");
         return updateContentDatabase(token, (wrapper, collection) -> ResponseFormater.displayInformation(
                         "{" +
-                            "content: " + wrapper.getContent().getValue() + "," +
+                            "content: '" + wrapper.getContent().getValue() + "'," +
                             "isMIME: " + wrapper.getContent().isMIME() +
                         "}"
         ));

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,7 +16,9 @@ namespace Projecto.Service
         /// <summary>
         /// Server location
         /// </summary>
-        private readonly static String mainServer = "http://projecto1617.herokuapp.com/api/";
+//        private readonly static String mainServer = "http://projecto1617.herokuapp.com/api/";
+        private readonly static String mainServer = "http://localhost:3000/api/";
+
 
         /// <summary>
         /// URI for the textual push
@@ -101,27 +104,32 @@ namespace Projecto.Service
             }
         }
 
-        public async Task<HttpResponseMessage> Push(long account, MemoryStream data)
+        public async Task<HttpResponseMessage> Push(long account, StreamContent data, byte[] image)
         {
             if (account == 0)
                 return null;
 
-            try { 
-                MultipartFormDataContent content = new MultipartFormDataContent();
-
-                content.Add(new StreamContent(data));
-            
-                var parameters = new Dictionary<object, object>();
-                parameters["token"] = account;
-                parameters["file"] = content;
-                return await httpClient.PostAsync(mainServer + pushMIME, content);
-            }
-            catch (Exception)
+            try
             {
+                MultipartFormDataContent form = new MultipartFormDataContent();
+
+                form.Add(new StringContent(account + ""), "token");
+                form.Add(data, "file");
+                form.Add(new ByteArrayContent(image, 0, image.Count()), "file");
+
+                return await httpClient.PostAsync(mainServer + pushMIME, form);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 return null;
             }
 
         }
 
+        public Task<HttpResponseMessage> Push(long account, byte[] data)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

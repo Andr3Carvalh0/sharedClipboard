@@ -111,7 +111,7 @@ public class APIService implements IAPIService{
     * @param file: the user file
     * */
     private String storeFile(long token, MultipartFile file){
-        if (!file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
                 logger.info(TAG + "Attempting to create directories");

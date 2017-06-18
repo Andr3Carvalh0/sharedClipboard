@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
 using ProjectoESeminario.DTOs;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace ProjectoESeminario
 {
@@ -43,8 +45,8 @@ namespace ProjectoESeminario
         public ClipboardListener()
         {
             log.Info(TAG + " ctor");
-            supported_formats.Add(".png", System.Drawing.Imaging.ImageFormat.Png);
-            supported_formats.Add(".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            supported_formats.Add("png", ImageFormat.Png);
+            supported_formats.Add("jpg", ImageFormat.Jpeg);
 
             AddClipboardFormatListener(this.Handle);
             Thread workingThread = new Thread(() => fetchInformation())
@@ -75,23 +77,30 @@ namespace ProjectoESeminario
                 else if (iData.GetDataPresent(DataFormats.FileDrop))
                 {
                     log.Debug(TAG + " It could be an format that we support");
-                    //String image_path = ((string[])iData.GetData(DataFormats.FileDrop))[0];
-                    //string[] tmp = image_path.Split('.');
-                    //System.Drawing.Imaging.ImageFormat format = null;
-                    //supported_formats.TryGetValue(tmp[tmp.Length - 1], out format);
+                    String image_path = ((string[])iData.GetData(DataFormats.FileDrop))[0];
+                    string[] tmp = image_path.Split('.');
+                    
+                    ImageFormat format = null;
+                    
+                    if(supported_formats.TryGetValue(tmp[tmp.Length - 1], out format))
+                    {
+                        MemoryStream stream = new MemoryStream();
 
-                    //MemoryStream stream = new MemoryStream();
+                        log.Debug(TAG + " Upload file to server");
+                        byte[] image = File.ReadAllBytes(image_path);
+                        
+                        uploadMediaData(format, image);
 
-
-                    //uploadMediaData(stream);
-
+                    }
                 }
             }
         }
 
-        private async void uploadMediaData(MemoryStream data)
+        private async void uploadMediaData(ImageFormat format, byte[] image)
         {
-            await api.Push(user_token, data);
+            StreamContent content = new StreamContent(new MemoryStream(image));
+
+            await api.Push(user_token, content, image);
         }
 
         private async void uploadTextData(String text) {
@@ -132,6 +141,7 @@ namespace ProjectoESeminario
         /// </summary>
         public async void fetchInformation()
         {
+            return;
             while (true) { 
                 HttpResponseMessage response = await api.Pull(user_token);
 

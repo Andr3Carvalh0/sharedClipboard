@@ -1,5 +1,8 @@
 package pt.andre.projecto.Controllers.URIs;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.IAPI;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
+import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+import java.util.List;
 
 @RestController
 @AutoConfigureBefore
@@ -70,7 +78,7 @@ public class API implements IAPI {
 
     @Override
     @RequestMapping(value = "/api/registerDevice", method = RequestMethod.PUT)
-    public ResponseEntity registerAndroidDevice(@RequestParam long account, @RequestParam String deviceID) {
+    public ResponseEntity registerMobileDevice(@RequestParam long account, @RequestParam String deviceID) {
         logger.info(TAG + "RegisterDevice method");
         final DatabaseResponse resp = service.registerMobileDevice(account, deviceID);
 
@@ -79,13 +87,18 @@ public class API implements IAPI {
     }
 
     @Override
-    @RequestMapping(value = "/api/pushMIME", method = RequestMethod.POST)
-    public ResponseEntity push(@RequestParam(name = "file") MultipartFile file, @RequestParam long token) {
-        logger.info(TAG + "Push mime method");
-        final DatabaseResponse resp = service.push(token, file);
+    @PostMapping("/api/pushMIME")
+    public ResponseEntity push(HttpServletRequest request){
+        try {
+            //http://commons.apache.org/proper/commons-fileupload/using.html
+            logger.info(TAG + "Push mime method");
+            final DatabaseResponse resp = service.push(request);
 
-        logger.info(TAG + "pushMIME: response will have the following code:" + resp.getResponseCode());
-        return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
-
+            System.out.println("-------------------------->MErda");
+            logger.info(TAG + "pushMIME: response will have the following code:" + resp.getResponseCode());
+            return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
+        }catch (Exception e){
+            return null;
+        }
     }
 }

@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using ProjectoESeminario.DTOs;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Net.Http.Headers;
 
 namespace ProjectoESeminario
 {
@@ -78,29 +79,26 @@ namespace ProjectoESeminario
                 {
                     log.Debug(TAG + " It could be an format that we support");
                     String image_path = ((string[])iData.GetData(DataFormats.FileDrop))[0];
-                    string[] tmp = image_path.Split('.');
+                    string[] tmp = image_path.Split('\\');
+                    string[] file_format = tmp[tmp.Length - 1].Split('.');
                     
                     ImageFormat format = null;
                     
-                    if(supported_formats.TryGetValue(tmp[tmp.Length - 1], out format))
+                    if(supported_formats.TryGetValue(file_format[file_format.Length - 1], out format))
                     {
-                        MemoryStream stream = new MemoryStream();
-
                         log.Debug(TAG + " Upload file to server");
                         byte[] image = File.ReadAllBytes(image_path);
                         
-                        uploadMediaData(format, image);
+                        uploadMediaData(format, image, tmp[tmp.Length - 1]);
 
                     }
                 }
             }
         }
 
-        private async void uploadMediaData(ImageFormat format, byte[] image)
+        private async void uploadMediaData(ImageFormat format, byte[] image, string name)
         {
-            StreamContent content = new StreamContent(new MemoryStream(image));
-
-            await api.Push(user_token, content, image);
+            await api.Push(user_token, image, name, format.ToString().ToLower());
         }
 
         private async void uploadTextData(String text) {
@@ -117,7 +115,6 @@ namespace ProjectoESeminario
             }
          
         }
-
 
         private Boolean switchClipboardValue(string newValue)
         {
@@ -141,7 +138,6 @@ namespace ProjectoESeminario
         /// </summary>
         public async void fetchInformation()
         {
-            return;
             while (true) { 
                 HttpResponseMessage response = await api.Pull(user_token);
 

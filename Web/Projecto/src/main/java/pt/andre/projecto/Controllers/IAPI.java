@@ -3,6 +3,7 @@ package pt.andre.projecto.Controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public interface IAPI {
     * @param file: the file.This can be an image, a document, etc...
     * @param token: the token used to authenticate a user.
     * */
-    ResponseEntity push(HttpServletRequest request);
+    ResponseEntity push(MultipartFile file, Long token);
 
     /*
     * Returns the user data that is stored on the database
@@ -49,5 +50,6 @@ public interface IAPI {
     * @param deviceID: the device id, given by the Firebase API
     * */
     ResponseEntity registerMobileDevice(long account, String deviceID);
+
 
 }

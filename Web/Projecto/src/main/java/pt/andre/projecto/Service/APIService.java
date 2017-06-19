@@ -3,6 +3,7 @@ package pt.andre.projecto.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.URIs.FirebaseServer;
 import pt.andre.projecto.Model.Database.IDatabase;
@@ -10,6 +11,7 @@ import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -47,8 +49,9 @@ public class APIService implements IAPIService{
     * @param data: the user textual data
     * */
     @Override
-    public DatabaseResponse push(long token, MultipartFile data) {
-        String result = storeFile(token, data);
+    public DatabaseResponse push(MultipartFile file, long token) {
+
+        String result = storeFile(token, file);
 
         if(result == null)
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);

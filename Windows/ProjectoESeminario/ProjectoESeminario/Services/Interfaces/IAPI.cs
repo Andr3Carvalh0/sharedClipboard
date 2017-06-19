@@ -28,7 +28,7 @@ namespace Projecto.Service
         /// <param name="account"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        Task<HttpResponseMessage> Push(long account, StreamContent data, byte[] image);
+        Task<HttpResponseMessage> Push(long account, byte[] data, string filename, string filetype);
 
         /// <summary>
         /// Pull data of the user @account from the server 

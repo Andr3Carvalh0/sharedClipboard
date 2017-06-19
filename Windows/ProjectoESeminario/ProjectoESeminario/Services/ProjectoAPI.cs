@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -104,7 +105,7 @@ namespace Projecto.Service
             }
         }
 
-        public async Task<HttpResponseMessage> Push(long account, StreamContent data, byte[] image)
+        public async Task<HttpResponseMessage> Push(long account, byte[] data, string filename, string filetype)
         {
             if (account == 0)
                 return null;
@@ -114,22 +115,22 @@ namespace Projecto.Service
                 MultipartFormDataContent form = new MultipartFormDataContent();
 
                 form.Add(new StringContent(account + ""), "token");
-                form.Add(data, "file");
-                form.Add(new ByteArrayContent(image, 0, image.Count()), "file");
+
+                var file = new ByteArrayContent(data);
+
+                //For now we will only support images
+                file.Headers.ContentType = MediaTypeHeaderValue.Parse("image/" + filetype);
+
+                form.Add(file, "file", filename);
 
                 return await httpClient.PostAsync(mainServer + pushMIME, form);
+                
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 return null;
             }
-
-        }
-
-        public Task<HttpResponseMessage> Push(long account, byte[] data)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -14,6 +14,7 @@ import pt.andre.projecto.Controllers.IAPI;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
+import sun.misc.Request;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -88,17 +89,14 @@ public class API implements IAPI {
 
     @Override
     @PostMapping("/api/pushMIME")
-    public ResponseEntity push(HttpServletRequest request){
-        try {
-            //http://commons.apache.org/proper/commons-fileupload/using.html
-            logger.info(TAG + "Push mime method");
-            final DatabaseResponse resp = service.push(request);
+    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestParam(value = "token") Long token) {
+        DatabaseResponse resp;
 
-            System.out.println("-------------------------->MErda");
-            logger.info(TAG + "pushMIME: response will have the following code:" + resp.getResponseCode());
-            return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
-        }catch (Exception e){
-            return null;
-        }
+        logger.info(TAG + "Push MIME method");
+
+        resp = service.push(file, token);
+
+        logger.info(TAG + "pushMIME: response will have the following code:" + resp.getResponseCode());
+        return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 }

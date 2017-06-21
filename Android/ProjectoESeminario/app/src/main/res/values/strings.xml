@@ -27,5 +27,10 @@
     <string name="Service_Description">Enable this service to automatically sync text from your multiple devices.</string>
     <string name="No_Wifi">Dude...You aren\'t connected to the world</string>
     <string name="Notification_Description">Check the clipboard history</string>
+    <string name="Clipboard_Category_Text">Text</string>
+    <string name="Clipboard_Category_Images">Images</string>
+    <string name="Clipboard_Category_Contacts">Contacts</string>
+    <string name="Clipboard_Category_Links">Links</string>
+    <string name="history">History</string>
 
 </resources>

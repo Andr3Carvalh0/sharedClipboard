@@ -34,7 +34,7 @@ public class PreferencesAdapter extends ParentAdapter {
 
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    private static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView setting_title;
         TextView setting_description;

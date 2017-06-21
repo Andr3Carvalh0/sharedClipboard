@@ -11,7 +11,7 @@ import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
-import andre.pt.projectoeseminario.Adapters.Clipboard.ClipboardAdapter;
+import andre.pt.projectoeseminario.Adapters.Clipboard.ClipboardCategoriesAdapter;
 import andre.pt.projectoeseminario.Adapters.Entities.Preference;
 import andre.pt.projectoeseminario.R;
 
@@ -31,13 +31,13 @@ public class ClipboardContentChooser extends Activity {
         setContentView(R.layout.activity_clipboard_content_chooser);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle(getString(R.string.app_name));
+        mToolbar.setTitle(getString(R.string.history));
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        //Placeholdet to test
-        ClipboardAdapter adapter = new ClipboardAdapter(new Preference[]{new Preference(null, null, false)}, R.layout.clipboard_class_item);
+
+        ClipboardCategoriesAdapter adapter = new ClipboardCategoriesAdapter(this);
 
         recyclerView.setAdapter(adapter);
 

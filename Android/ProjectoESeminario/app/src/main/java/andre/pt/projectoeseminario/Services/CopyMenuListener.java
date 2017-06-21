@@ -17,7 +17,7 @@ import andre.pt.projectoeseminario.Preferences;
 */
 public class CopyMenuListener extends Service {
     private int userToken;
-    public final String TAG = "Portugal:CopyMenu";
+    public static final String TAG = "Portugal:CopyMenu";
 
     @Override
     public void onCreate() {
@@ -30,33 +30,29 @@ public class CopyMenuListener extends Service {
 
         final Context ctx = this;
 
-        ((ClipboardManager) getSystemService(CLIPBOARD_SERVICE)).addPrimaryClipChangedListener(new ClipboardManager.OnPrimaryClipChangedListener() {
+        ((ClipboardManager) getSystemService(CLIPBOARD_SERVICE)).addPrimaryClipChangedListener(() -> {
+            try{
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 
-            @Override
-            public void onPrimaryClipChanged() {
-                try{
-                    ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                if (clipboardManager.hasPrimaryClip()) {
+                    ClipData.Item clipboardItem = clipboardManager.getPrimaryClip().getItemAt(0);
 
-                    if (clipboardManager.hasPrimaryClip()) {
-                        ClipData.Item clipboardItem = clipboardManager.getPrimaryClip().getItemAt(0);
+                    //For now we only support text
+                    if (clipboardItem.getText() != null) {
+                        String text = clipboardItem.getText() + "";
 
-                        //For now we only support text
-                        if (clipboardItem.getText() != null) {
-                            String text = clipboardItem.getText() + "";
+                        Log.v(TAG, "Uploading text to server");
+                        Intent intent = new Intent(ctx, ClipboardEventHandler.class);
+                        intent.putExtra("content", text);
+                        intent.putExtra("upload", true);
+                        intent.putExtra("token", userToken);
 
-                            Log.v(TAG, "Uploading text to server");
-                            Intent intent = new Intent(ctx, ClipboardEventHandler.class);
-                            intent.putExtra("content", text);
-                            intent.putExtra("upload", true);
-                            intent.putExtra("token", userToken);
+                        startService(intent);
 
-                            startService(intent);
-
-                        }
                     }
-                }catch(Exception e){
-                    Log.v(TAG, "Cannot communicate with the server");
                 }
+            }catch(Exception e){
+                Log.v(TAG, "Cannot communicate with the server");
             }
         });
     }

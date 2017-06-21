@@ -12,28 +12,26 @@ import andre.pt.projectoeseminario.R;
 */
 public class SplashActivity extends ParentActivity {
 
-    private final String TAG = "Portugal:Splash";
+    private static final String TAG = "Portugal:Splash";
 
     @Override
     protected void init() {
         setContentView(R.layout.activity_splash);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent it;
+        new Handler().postDelayed(() -> {
+            Intent it;
 
-                if(hasCompletedSetup()){
-                    it = new Intent(getBaseContext(), PreferencesActivity.class);
-                    it.putExtra("token", getIntPreference(Preferences.USER_TOKEN));
-                }else{
-                    it = new Intent(getApplicationContext(), LoginActivity.class);
-
-                }
-
-                startActivity(it);
-                finish();
+            if(hasCompletedSetup()){
+                Log.v(TAG, "Loading preferences activity");
+                it = new Intent(getBaseContext(), PreferencesActivity.class);
+                it.putExtra("token", getIntPreference(Preferences.USER_TOKEN));
+            }else{
+                Log.v(TAG, "Loading login activity");
+                it = new Intent(getApplicationContext(), LoginActivity.class);
             }
+
+            startActivity(it);
+            finish();
         }, 1000);
     }
 

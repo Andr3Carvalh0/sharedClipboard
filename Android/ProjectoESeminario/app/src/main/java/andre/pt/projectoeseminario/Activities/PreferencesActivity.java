@@ -1,7 +1,10 @@
 package andre.pt.projectoeseminario.Activities;
 
 import android.app.ActivityManager;
-import android.content.ClipboardManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,20 +15,21 @@ import android.widget.CompoundButton;
 import com.google.firebase.iid.FirebaseInstanceId;
 import java.util.HashMap;
 import andre.pt.projectoeseminario.Adapters.Entities.Preference;
-import andre.pt.projectoeseminario.Adapters.PreferencesAdapter;
+import andre.pt.projectoeseminario.Adapters.Settings.PreferencesAdapter;
 import andre.pt.projectoeseminario.Data.APIRequest;
-import andre.pt.projectoeseminario.Firebase.FirebaseMessageHandler;
 import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
 import andre.pt.projectoeseminario.Services.CopyMenuListener;
 
 public class PreferencesActivity extends ParentActivity{
 
-    private final String TAG = "Portugal:Preferences";
+    private static final String TAG = "Portugal:Preferences";
+    private static final int NOTIFICATION_SUPER_SECRET_ID = 1;
+
     private boolean service_state;
     private int user;
-    private FirebaseMessageHandler firebaseMessageHandler;
     private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,6 @@ public class PreferencesActivity extends ParentActivity{
     @Override
     protected void init() {
         setContentView(R.layout.activity_preferences);
-        firebaseMessageHandler = new FirebaseMessageHandler();
 
         //Setup preferences
         user = getIntPreference(Preferences.USER_TOKEN);
@@ -46,27 +49,30 @@ public class PreferencesActivity extends ParentActivity{
         String tmp = getStringPreference(Preferences.FIREBASEID);
 
         //On this case its our first launch
-        if(tmp == null)
+        if(tmp == null) {
             service_state = true;
+            saveBooleanPreference(Preferences.SERVICERUNNING, true);
+        }
 
+        //Upload of the firebaseID, when it changed, or when we know that it isnt registered
         if(tmp == null || !tmp.equals(firebaseID))
             handleNewFirebaseID(user, firebaseID);
 
+        //Launch notification so we can invoke the clipboard chooser
+        if(service_state)
+            launchNotification();
 
         Preference[] preferences = new Preference[]{new Preference(getString(R.string.Service_Running_Option_Title), getString(R.string.Service_Running_Option_Description), service_state)};
         HashMap<String, CompoundButton.OnCheckedChangeListener> preferencesActions = new HashMap<>();
-        preferencesActions.put(getString(R.string.Service_Running_Option_Title), new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!isChecked){
-                    stopService();
-                }else{
-                    startService();
-                }
-
-                //Why doing this here?Because on Pause/OnDestroy is not reliable.
-                saveBooleanPreference(Preferences.SERVICERUNNING, isChecked);
+        preferencesActions.put(getString(R.string.Service_Running_Option_Title), (buttonView, isChecked) -> {
+            if(!isChecked){
+                stopService();
+            }else{
+                startService();
             }
+
+            //Why are we saving this here?Because on Pause/OnDestroy is not reliable.
+            saveBooleanPreference(Preferences.SERVICERUNNING, isChecked);
         });
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -79,6 +85,26 @@ public class PreferencesActivity extends ParentActivity{
 
         toolbar.setTitle(getString(R.string.app));
 
+    }
+
+    //Creates a non-dismissable notification so that we can launch the clipboard chooser
+    private void launchNotification() {
+        //Intent it =
+        //Major requirement - Without this flags
+        //it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+        Notification.Builder notification = new Notification.Builder(this)
+            .setContentTitle(getString(R.string.app_name))
+            .setSmallIcon(android.R.color.transparent)
+            .setContentText(getString(R.string.Notification_Description))
+            .setOngoing(true)
+            .setContentIntent(PendingIntent.getActivity(getApplicationContext(), NOTIFICATION_SUPER_SECRET_ID, new Intent(getApplicationContext(), ClipboardContentChooser.class), PendingIntent.FLAG_UPDATE_CURRENT));
+
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mNotificationManager.notify(NOTIFICATION_SUPER_SECRET_ID, notification.build());
+        //finish();
     }
 
     /*

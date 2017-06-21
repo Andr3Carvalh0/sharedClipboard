@@ -1,9 +1,7 @@
-package andre.pt.projectoeseminario.Adapters;
+package andre.pt.projectoeseminario.Adapters.Settings;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -11,40 +9,29 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 import andre.pt.projectoeseminario.Adapters.Entities.Preference;
+import andre.pt.projectoeseminario.Adapters.ParentAdapter;
 import andre.pt.projectoeseminario.R;
 
 /*
 *   Represents one preference Item that will be shown by the RecyclerView
 */
-public class PreferencesAdapter extends RecyclerView.Adapter<PreferencesAdapter.ViewHolder>{
+public class PreferencesAdapter extends ParentAdapter {
 
-    private final Preference[] preferences;
     private final HashMap<String, CompoundButton.OnCheckedChangeListener> switchActions;
 
     public PreferencesAdapter(Preference[] preferences, HashMap<String, CompoundButton.OnCheckedChangeListener> switchActions){
-        this.preferences = preferences;
+        super(preferences, R.layout.preference_item, (v) -> new PreferencesAdapter.ViewHolder((View)v));
         this.switchActions = switchActions;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout.preference_item, parent, false);
-        return new ViewHolder(inflatedView);
-    }
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        ((ViewHolder)holder).setting_title.setText(((Preference)items[position]).getTitle());
+        ((ViewHolder)holder).setting_description.setText(((Preference)items[position]).getDescription());
+        ((ViewHolder)holder).setting_switch.setChecked(((Preference)items[position]).getSwitchState());
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setting_title.setText(preferences[position].getTitle());
-        holder.setting_description.setText(preferences[position].getDescription());
-        holder.setting_switch.setChecked(preferences[position].getSwitchState());
+        ((ViewHolder)holder).setting_switch.setOnCheckedChangeListener(switchActions.get(((Preference)items[position]).getTitle()));
 
-        holder.setting_switch.setOnCheckedChangeListener(switchActions.get(preferences[position].getTitle()));
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return preferences.length;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -38,7 +38,7 @@ public class APIRequest {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                throw new NullPointerException("Fuck it");
+               //Should we try again?
             }
         });
 
@@ -62,12 +62,12 @@ public class APIRequest {
         mAPI.push(token, information).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                System.out.println("dasdasd");
+                //Nothing to do here!
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                System.out.println("dasdasd");
+                //Should we retry?
             }
         });
 

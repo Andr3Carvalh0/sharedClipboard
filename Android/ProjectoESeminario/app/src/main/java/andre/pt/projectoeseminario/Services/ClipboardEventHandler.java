@@ -1,14 +1,12 @@
 package andre.pt.projectoeseminario.Services;
 
 import android.app.IntentService;
-import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
-
 import andre.pt.projectoeseminario.ClipboardControllerFactory;
 import andre.pt.projectoeseminario.Data.APIRequest;
 import andre.pt.projectoeseminario.State.ClipboardController;
@@ -55,6 +53,7 @@ public class ClipboardEventHandler extends IntentService {
         final ClipboardController clipboardController = ClipboardControllerFactory.getSingleton();
         final Context context = this.getApplicationContext();
 
+        assert intent != null;
         final String content = intent.getStringExtra("content");
         final boolean isMIME = intent.getBooleanExtra("isMIME", false);
         final boolean upload = intent.getBooleanExtra("upload", false);

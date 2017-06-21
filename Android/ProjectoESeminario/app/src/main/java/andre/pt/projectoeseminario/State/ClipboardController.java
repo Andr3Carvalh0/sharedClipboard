@@ -1,22 +1,15 @@
 package andre.pt.projectoeseminario.State;
 
-import android.util.Log;
-
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
-
-/**
- * Created by André Carvalho on 27/05/2017.
- */
 
 public class ClipboardController {
     private volatile AtomicBoolean doingWork;
-    private volatile AtomicReference lastClipboardContent;
+    private volatile AtomicReference<String> lastClipboardContent;
 
     public ClipboardController(){
         doingWork = new AtomicBoolean(false);
-        lastClipboardContent = new AtomicReference();
+        lastClipboardContent = new AtomicReference<>();
     }
 
     public boolean releaseWork(){
@@ -49,11 +42,11 @@ public class ClipboardController {
     {
         while (!newValue.equals(lastClipboardContent.get()))
         {
-            String initialValue = (String) lastClipboardContent.get();
+            String initialValue = lastClipboardContent.get();
 
             if(lastClipboardContent.compareAndSet(initialValue, newValue)){
                 return true;
-            };
+            }
         }
 
         return false;

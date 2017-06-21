@@ -26,6 +26,6 @@
     <string name="Service_Running_Option_Description">When selected the service will be on.</string>
     <string name="Service_Description">Enable this service to automatically sync text from your multiple devices.</string>
     <string name="No_Wifi">Dude...You aren\'t connected to the world</string>
-    <string name="Notification_Description">Choose the clipboard value</string>
+    <string name="Notification_Description">Check the clipboard history</string>
 
 </resources>

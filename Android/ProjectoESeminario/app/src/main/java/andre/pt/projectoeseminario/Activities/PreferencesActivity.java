@@ -89,22 +89,24 @@ public class PreferencesActivity extends ParentActivity{
 
     //Creates a non-dismissable notification so that we can launch the clipboard chooser
     private void launchNotification() {
-        //Intent it =
-        //Major requirement - Without this flags
-        //it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        Intent it = new Intent(getApplicationContext(), ClipboardContentChooser.class);
 
-        Notification.Builder notification = new Notification.Builder(this)
-            .setContentTitle(getString(R.string.app_name))
-            .setSmallIcon(android.R.color.transparent)
-            .setContentText(getString(R.string.Notification_Description))
-            .setOngoing(true)
-            .setContentIntent(PendingIntent.getActivity(getApplicationContext(), NOTIFICATION_SUPER_SECRET_ID, new Intent(getApplicationContext(), ClipboardContentChooser.class), PendingIntent.FLAG_UPDATE_CURRENT));
+        Notification.Builder
+                notification = new Notification.Builder(this)
+                .setContentTitle(getString(R.string.app))
+                .setSmallIcon(R.drawable.ic_assignment_red_400_24dp)
+                .setContentText(getString(R.string.Notification_Description))
+                .setOngoing(true)
+                .setContentIntent(PendingIntent.getActivity(getApplicationContext(), NOTIFICATION_SUPER_SECRET_ID, it, PendingIntent.FLAG_UPDATE_CURRENT));
+
+        notification.setColor(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
+                                ? getColor(R.color.primary)
+                                : getResources().getColor(R.color.primary));
 
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         mNotificationManager.notify(NOTIFICATION_SUPER_SECRET_ID, notification.build());
-        //finish();
     }
 
     /*

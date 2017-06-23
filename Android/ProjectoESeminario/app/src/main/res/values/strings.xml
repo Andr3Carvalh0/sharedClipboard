@@ -20,17 +20,20 @@
     <string name="PositiveButton_Default_Title">Sure!</string>
     <string name="NegativeButton_Default_Title">No, Thanks</string>
     <string name="sharedPreferencesKey">andre.pt.projectoeseminario</string>
-
-
     <string name="Service_Running_Option_Title">Enabled:</string>
     <string name="Service_Running_Option_Description">When selected the service will be on.</string>
     <string name="Service_Description">Enable this service to automatically sync text from your multiple devices.</string>
     <string name="No_Wifi">Dude...You aren\'t connected to the world</string>
-    <string name="Notification_Description">Check the clipboard history</string>
     <string name="Clipboard_Category_Text">Text</string>
     <string name="Clipboard_Category_Images">Images</string>
     <string name="Clipboard_Category_Contacts">Contacts</string>
     <string name="Clipboard_Category_Links">Links</string>
-    <string name="history">History</string>
+    <string name="History">History</string>
+    <string name="History_Description">Check the clipboard history</string>
+    <string name="History_Settings">History:</string>
+    <string name="History_Description_Settings">Show a persistent notification for fast access.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

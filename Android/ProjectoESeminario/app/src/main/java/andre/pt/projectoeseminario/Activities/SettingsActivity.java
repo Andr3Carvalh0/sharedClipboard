@@ -7,21 +7,25 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.CompoundButton;
+
 import com.google.firebase.iid.FirebaseInstanceId;
-import java.util.HashMap;
-import andre.pt.projectoeseminario.Adapters.Entities.Preference;
-import andre.pt.projectoeseminario.Adapters.Settings.PreferencesAdapter;
+
+import java.util.List;
+
+import andre.pt.projectoeseminario.Activities.Abstract.History;
+import andre.pt.projectoeseminario.Adapters.TabViewPager;
 import andre.pt.projectoeseminario.Data.APIRequest;
+import andre.pt.projectoeseminario.Interfaces.SettingsActions;
 import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
 import andre.pt.projectoeseminario.Services.CopyMenuListener;
 
-public class PreferencesActivity extends ParentActivity{
+public class SettingsActivity extends History implements TabLayout.OnTabSelectedListener, SettingsActions{
 
     private static final String TAG = "Portugal:Preferences";
     private static final int NOTIFICATION_SUPER_SECRET_ID = 1;
@@ -29,7 +33,8 @@ public class PreferencesActivity extends ParentActivity{
     private boolean service_state;
     private int user;
     private Toolbar toolbar;
-
+    private RecyclerView recyclerView;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,10 @@ public class PreferencesActivity extends ParentActivity{
     @Override
     protected void init() {
         setContentView(R.layout.activity_preferences);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.app));
+        setSupportActionBar(toolbar);
 
         //Setup preferences
         user = getIntPreference(Preferences.USER_TOKEN);
@@ -55,58 +64,15 @@ public class PreferencesActivity extends ParentActivity{
         }
 
         //Upload of the firebaseID, when it changed, or when we know that it isnt registered
+
         if(tmp == null || !tmp.equals(firebaseID))
             handleNewFirebaseID(user, firebaseID);
 
-        //Launch notification so we can invoke the clipboard chooser
-        if(service_state)
-            launchNotification();
+            //Launch notification so we can invoke the clipboard chooser
+            if(service_state && getBooleanPreference(Preferences.NOTIFICATION_STATE))
+                launchNotification();
 
-        Preference[] preferences = new Preference[]{new Preference(getString(R.string.Service_Running_Option_Title), getString(R.string.Service_Running_Option_Description), service_state)};
-        HashMap<String, CompoundButton.OnCheckedChangeListener> preferencesActions = new HashMap<>();
-        preferencesActions.put(getString(R.string.Service_Running_Option_Title), (buttonView, isChecked) -> {
-            if(!isChecked){
-                stopService();
-            }else{
-                startService();
-            }
-
-            //Why are we saving this here?Because on Pause/OnDestroy is not reliable.
-            saveBooleanPreference(Preferences.SERVICERUNNING, isChecked);
-        });
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        PreferencesAdapter adapter = new PreferencesAdapter(preferences, preferencesActions);
-
-        recyclerView.setAdapter(adapter);
-
-        toolbar.setTitle(getString(R.string.app));
-
-    }
-
-    //Creates a non-dismissable notification so that we can launch the clipboard chooser
-    private void launchNotification() {
-        Intent it = new Intent(getApplicationContext(), ClipboardContentChooser.class);
-
-        Notification.Builder
-                notification = new Notification.Builder(this)
-                .setContentTitle(getString(R.string.app))
-                .setSmallIcon(R.drawable.ic_assignment_red_400_24dp)
-                .setContentText(getString(R.string.Notification_Description))
-                .setOngoing(true)
-                .setContentIntent(PendingIntent.getActivity(getApplicationContext(), NOTIFICATION_SUPER_SECRET_ID, it, PendingIntent.FLAG_UPDATE_CURRENT));
-
-        notification.setColor(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
-                                ? getColor(R.color.primary)
-                                : getResources().getColor(R.color.primary));
-
-
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        mNotificationManager.notify(NOTIFICATION_SUPER_SECRET_ID, notification.build());
+        initViewPager();
     }
 
     /*
@@ -121,6 +87,55 @@ public class PreferencesActivity extends ParentActivity{
         }
     }
 
+
+    /*
+    * Everything related with the initialization of the tablayout
+    * */
+    private void initViewPager() {
+        TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+
+        mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_settings_white_24dp, null)));
+        mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_restore_white_24dp, null)));
+        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+
+        TabViewPager adapter = new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount(), this);
+
+        mViewPager.setAdapter(adapter);
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        mTabLayout.addOnTabSelectedListener(this);
+
+    }
+
+    //Cancels the notification
+    public void cancelNotification() {
+        ((NotificationManager)getSystemService(NOTIFICATION_SERVICE)).cancel(NOTIFICATION_SUPER_SECRET_ID);
+    }
+
+    //Creates a non-dismissable notification so that we can launch the clipboard chooser
+    public void launchNotification() {
+        Intent it = new Intent(getApplicationContext(), ClipboardContentChooser.class);
+        it.putExtra("floating", true);
+
+        Notification.Builder
+                notification = new Notification.Builder(this)
+                .setContentTitle(getString(R.string.app))
+                .setSmallIcon(R.drawable.ic_assignment_red_400_24dp)
+                .setContentText(getString(R.string.History_Description))
+                .setOngoing(true)
+                .setContentIntent(PendingIntent.getActivity(getApplicationContext(), NOTIFICATION_SUPER_SECRET_ID, it, PendingIntent.FLAG_UPDATE_CURRENT));
+
+        notification.setColor(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
+                                ? getColor(R.color.primary)
+                                : getResources().getColor(R.color.primary));
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mNotificationManager.notify(NOTIFICATION_SUPER_SECRET_ID, notification.build());
+    }
+
     @Override
     protected void setupEvents() {
         if(service_state)
@@ -129,10 +144,8 @@ public class PreferencesActivity extends ParentActivity{
             stopService();
 
         Log.d(TAG, "is Service Running: " + isServiceRunning());
-
-        setSupportActionBar(toolbar);
-
     }
+
 
     /*
     *   Checks if the clipboard listener service is running
@@ -150,7 +163,7 @@ public class PreferencesActivity extends ParentActivity{
     /*
     *   Starts the clipboard listener service
     */
-    private void startService(){
+    public void startService(){
         if(!isServiceRunning()){
             startService(new Intent(this, CopyMenuListener.class));
         }
@@ -159,10 +172,40 @@ public class PreferencesActivity extends ParentActivity{
     /*
     *   Stops the clipboard listener service
     */
-    private void stopService(){
+    public void stopService(){
         stopService(new Intent(this, CopyMenuListener.class));
+    }
 
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        mViewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
 
     }
 
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+
+    public boolean getServiceState() {
+        return service_state;
+    }
+
+    public void savePreference(String key, boolean isChecked) {
+        saveBooleanPreference(key, isChecked);
+    }
+
+    public boolean getNotificationState() {
+        return getBooleanPreference(Preferences.NOTIFICATION_STATE);
+    }
+
+    @Override
+    public List<String> getCategoryElements(String category) {
+        return null;
+    }
 }

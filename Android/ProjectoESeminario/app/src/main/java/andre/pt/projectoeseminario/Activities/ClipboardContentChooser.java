@@ -1,45 +1,48 @@
 package andre.pt.projectoeseminario.Activities;
 
-import android.app.Activity;
+
+import android.support.v4.app.FragmentManager;
 import android.graphics.Point;
 import android.os.Bundle;
-
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
-import andre.pt.projectoeseminario.Adapters.Clipboard.ClipboardCategoriesAdapter;
-import andre.pt.projectoeseminario.Adapters.Entities.Preference;
+import java.util.List;
+
+import andre.pt.projectoeseminario.Activities.Abstract.History;
+import andre.pt.projectoeseminario.Fragments.HistoryFragment;
 import andre.pt.projectoeseminario.R;
 
-
 //Modified version of: https://github.com/klinker24/FloatingWindowDemo
-public class ClipboardContentChooser extends Activity {
-
+public class ClipboardContentChooser extends History {
     private Toolbar mToolbar;
-    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
+    @Override
+    protected void init() {
         openFloatingWindow();
 
         setContentView(R.layout.activity_clipboard_content_chooser);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle(getString(R.string.history));
+        mToolbar.setTitle(getString(R.string.History));
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        HistoryFragment historyFragment = new HistoryFragment();
+        fragmentTransaction.add(R.id.fragment_container, historyFragment, "history");
+        fragmentTransaction.commit();
+    }
 
-        ClipboardCategoriesAdapter adapter = new ClipboardCategoriesAdapter(this);
-
-        recyclerView.setAdapter(adapter);
+    @Override
+    protected void setupEvents() {
 
     }
 
@@ -63,11 +66,15 @@ public class ClipboardContentChooser extends Activity {
         int width = size.x;
         int height = size.y;
 
-        // You could also easily used an integer value from the shared preferences to set the percent
         if (height > width) {
             getWindow().setLayout((int) (width * .9), (int) (height * .7));
         } else {
             getWindow().setLayout((int) (width * .7), (int) (height * .8));
         }
+    }
+
+    @Override
+    public List<String> getCategoryElements(String category) {
+        return null;
     }
 }

@@ -12,6 +12,7 @@ public class Preferences {
     public static String HASCOMPLETEDSETUP = "authenticated";
     public static String SERVICERUNNING = "run_service";
     public static String FIREBASEID = "firebaseID";
+    public static String NOTIFICATION_STATE = "show_notification";
 
     private SharedPreferences.Editor editor;
     private SharedPreferences shared;

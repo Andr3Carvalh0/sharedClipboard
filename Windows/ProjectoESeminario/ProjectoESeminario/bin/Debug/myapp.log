@@ -1847,3 +1847,6 @@
 2017-06-23 19:20:29,374 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener uploading text to the server
 2017-06-23 19:20:30,639 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener wont switch clipboard variable state
 2017-06-23 19:20:30,714 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener wont switch clipboard variable state
+2017-06-23 19:20:59,524 [14] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListenerThread: Obtain something
+2017-06-23 19:20:59,524 [14] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener wont switch clipboard variable state
+2017-06-23 19:20:59,524 [14] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListenerThread: Going to sleep a little, bye.

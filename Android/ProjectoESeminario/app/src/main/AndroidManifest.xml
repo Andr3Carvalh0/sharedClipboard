@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.PreferencesActivity"
+            android:name=".Activities.SettingsActivity"
             android:theme="@style/AppThemeWhite" />
 
         <receiver android:name=".BroadcastReceiver.AutoStart">

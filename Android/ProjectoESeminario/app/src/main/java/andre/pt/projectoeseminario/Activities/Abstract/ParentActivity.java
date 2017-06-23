@@ -1,4 +1,4 @@
-package andre.pt.projectoeseminario.Activities;
+package andre.pt.projectoeseminario.Activities.Abstract;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;

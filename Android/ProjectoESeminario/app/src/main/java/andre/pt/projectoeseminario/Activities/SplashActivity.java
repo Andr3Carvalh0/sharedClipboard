@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 
+import andre.pt.projectoeseminario.Activities.Abstract.ParentActivity;
 import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
 
@@ -23,7 +24,7 @@ public class SplashActivity extends ParentActivity {
 
             if(hasCompletedSetup()){
                 Log.v(TAG, "Loading preferences activity");
-                it = new Intent(getBaseContext(), PreferencesActivity.class);
+                it = new Intent(getBaseContext(), SettingsActivity.class);
                 it.putExtra("token", getIntPreference(Preferences.USER_TOKEN));
             }else{
                 Log.v(TAG, "Loading login activity");

@@ -16,8 +16,8 @@ namespace ProjectoESeminario
     public partial class MainWindow : MetroWindow
     {
         LoginController controller;
-        Dictionary<Type, Action<Exception>> actionsOnException = new Dictionary<Type, Action<Exception>>();
-        Dictionary<System.Net.HttpStatusCode, Action> handleServerResponse = new Dictionary<System.Net.HttpStatusCode, Action>();
+        private Dictionary<Type, Action<Exception>> actionsOnException = new Dictionary<Type, Action<Exception>>();
+        private Dictionary<System.Net.HttpStatusCode, Action> handleServerResponse = new Dictionary<System.Net.HttpStatusCode, Action>();
 
         public MainWindow()
         {
@@ -49,7 +49,7 @@ namespace ProjectoESeminario
             });
             handleServerResponse.Add(System.Net.HttpStatusCode.InternalServerError, async () =>
             {
-                await this.ShowMessageAsync("Ops...", "The server isn't operational. Contact the dumbass the made this app.");
+                await this.ShowMessageAsync("Ops...", "The server isn't operational. Contact the dumbass that made this app.");
             });
         }
 

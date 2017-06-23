@@ -1783,3 +1783,67 @@
 2017-06-19 18:12:20,546 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener Changes where detected in the clipboard
 2017-06-19 18:12:20,549 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener It could be an format that we support
 2017-06-19 18:12:23,121 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener Upload file to server
+2017-06-23 18:47:43,574 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 18:47:44,104 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 18:48:35,529 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 18:49:21,677 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 18:49:21,813 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 18:49:41,715 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 18:50:38,034 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 18:50:38,171 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 18:51:11,996 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 18:51:12,147 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 18:51:30,251 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 18:52:11,566 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 18:52:11,714 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 18:52:30,519 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 18:53:14,432 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 18:53:14,577 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 18:55:24,642 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 18:55:24,780 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 18:55:38,766 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 18:56:21,402 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 18:56:21,548 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 18:56:35,685 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 19:07:42,728 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 19:07:42,862 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 19:07:54,328 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 19:08:26,621 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 19:08:26,755 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 19:08:39,312 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 19:09:21,247 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 19:09:21,383 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 19:09:30,352 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 19:09:44,933 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 19:09:45,067 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 19:09:56,737 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 19:14:41,419 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 19:14:41,560 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 19:14:50,199 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 19:15:03,656 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 19:15:03,791 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 19:15:12,863 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 19:18:37,954 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 19:18:38,096 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 19:18:50,351 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 19:19:53,621 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-06-23 19:19:53,773 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-06-23 19:20:06,239 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 19:20:07,131 [1] ERROR Projecto.Controllers.LoginController - Portugal: LoginController - WebException, statusCode:Forbidden
+2017-06-23 19:20:15,787 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 19:20:15,995 [1] ERROR Projecto.Controllers.LoginController - Portugal: LoginController - WebException, statusCode:BadRequest
+2017-06-23 19:20:28,547 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-06-23 19:20:28,781 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-23 19:20:29,166 [10] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListenerThread: Obtain something
+2017-06-23 19:20:29,314 [10] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener will altering clipboard value
+2017-06-23 19:20:29,314 [10] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListenerAltering clipboard value
+2017-06-23 19:20:29,315 [10] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListenercopying text to clipboard
+2017-06-23 19:20:29,331 [10] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListenerThread: Going to sleep a little, bye.
+2017-06-23 19:20:29,331 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener Changes where detected in the clipboard
+2017-06-23 19:20:29,333 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener It was text
+2017-06-23 19:20:29,335 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener uploading text to the server
+2017-06-23 19:20:29,337 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener Changes where detected in the clipboard
+2017-06-23 19:20:29,337 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener It was text
+2017-06-23 19:20:29,374 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener uploading text to the server
+2017-06-23 19:20:30,639 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener wont switch clipboard variable state
+2017-06-23 19:20:30,714 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener wont switch clipboard variable state

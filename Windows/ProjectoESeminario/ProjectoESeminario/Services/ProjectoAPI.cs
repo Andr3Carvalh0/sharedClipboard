@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Projecto.UI;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Mime;
@@ -17,8 +19,8 @@ namespace Projecto.Service
         /// <summary>
         /// Server location
         /// </summary>
-//        private readonly static String mainServer = "http://projecto1617.herokuapp.com/api/";
-        private readonly static String mainServer = "http://localhost:3000/api/";
+        private readonly static String mainServer = "http://projecto1617.herokuapp.com/api/";
+//        private readonly static String mainServer = "http://localhost:3000/api/";
 
 
         /// <summary>
@@ -57,7 +59,7 @@ namespace Projecto.Service
             }
             catch (Exception)
             {
-                return null;
+                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
             }
         }
 
@@ -71,7 +73,7 @@ namespace Projecto.Service
             }
             catch (Exception)
             {
-                return null;
+                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
             }
         }
 
@@ -84,7 +86,7 @@ namespace Projecto.Service
             }
             catch (Exception)
             {
-                return null;
+                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
             }
         }
 
@@ -101,7 +103,7 @@ namespace Projecto.Service
             }
             catch (Exception)
             {
-                return null;
+                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
             }
         }
 
@@ -128,8 +130,7 @@ namespace Projecto.Service
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                return null;
+                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
             }
         }
     }

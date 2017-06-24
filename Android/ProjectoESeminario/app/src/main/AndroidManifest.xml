@@ -49,9 +49,16 @@
             android:name=".Services.ClipboardEventHandler"
             android:exported="true" />
 
-        <activity android:name=".Activities.ClipboardContentChooser"
-            android:theme="@style/FloatingWindow"
-            android:launchMode = "singleInstance"/>
+        <activity
+            android:name=".Activities.ClipboardContentChooser"
+            android:launchMode="singleInstance"
+            android:theme="@style/FloatingWindow" />
+
+        <provider
+            android:name=".ContentProvider.ClipboardContentProvider"
+            android:authorities="andre.pt.projectoeseminario"
+            android:enabled="true"
+            android:exported="true"></provider>
     </application>
 
 </manifest>

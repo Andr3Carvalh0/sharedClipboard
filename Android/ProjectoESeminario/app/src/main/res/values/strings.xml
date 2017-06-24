@@ -29,11 +29,10 @@
     <string name="Clipboard_Category_Contacts">Contacts</string>
     <string name="Clipboard_Category_Links">Links</string>
     <string name="History">History</string>
+    <string name="Settings">Settings</string>
     <string name="History_Description">Check the clipboard history</string>
     <string name="History_Settings">History:</string>
     <string name="History_Description_Settings">Show a persistent notification for fast access.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

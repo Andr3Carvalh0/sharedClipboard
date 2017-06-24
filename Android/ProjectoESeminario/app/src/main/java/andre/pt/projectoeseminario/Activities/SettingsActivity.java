@@ -94,8 +94,8 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
     private void initViewPager() {
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
-        mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_settings_white_24dp, null)));
-        mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_restore_white_24dp, null)));
+        mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_restore_white_24dp, null)).setText(getString(R.string.History)));
+        mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_settings_white_24dp, null)).setText(getString(R.string.Settings)));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -117,7 +117,7 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
     //Creates a non-dismissable notification so that we can launch the clipboard chooser
     public void launchNotification() {
         Intent it = new Intent(getApplicationContext(), ClipboardContentChooser.class);
-        it.putExtra("floating", true);
+        it.setFlags(it.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
 
         Notification.Builder
                 notification = new Notification.Builder(this)

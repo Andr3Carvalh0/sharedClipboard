@@ -16,7 +16,7 @@ import andre.pt.projectoeseminario.Activities.Abstract.History;
 import andre.pt.projectoeseminario.Fragments.HistoryFragment;
 import andre.pt.projectoeseminario.R;
 
-//Modified version of: https://github.com/klinker24/FloatingWindowDemo
+//Floating Activity: https://github.com/klinker24/FloatingWindowDemo
 public class ClipboardContentChooser extends History {
     private Toolbar mToolbar;
 
@@ -76,5 +76,11 @@ public class ClipboardContentChooser extends History {
     @Override
     public List<String> getCategoryElements(String category) {
         return null;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

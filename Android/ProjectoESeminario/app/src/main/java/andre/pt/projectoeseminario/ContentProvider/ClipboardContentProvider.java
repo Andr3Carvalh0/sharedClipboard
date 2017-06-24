@@ -4,6 +4,7 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
@@ -38,29 +39,37 @@ public class ClipboardContentProvider extends ContentProvider {
     private static final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     public static final int RECENT = 1;
-    public static final int HISTORY = 2;
-    public static final int HISTORY_ELEMENT = 3;
+    public static final int HISTORY_TEXT = 2;
+    public static final int HISTORY_TEXT_ELEMENT = 3;
+    public static final int HISTORY_IMAGES = 4;
+    public static final int HISTORY_IMAGES_ELEMENT = 5;
+    public static final int HISTORY_CONTACTS = 6;
+    public static final int HISTORY_CONTACTS_ELEMENT = 7;
+    public static final int HISTORY_LINKS = 8;
+    public static final int HISTORY_LINKS_ELEMENT = 10;
 
+
+    private Database db;
     static {
         matcher.addURI(AUTHORITY, RECENT_TABLE, RECENT);
 
         //Every table related to history
-        matcher.addURI(AUTHORITY, HISTORY_TEXT_TABLE, HISTORY);
-        matcher.addURI(AUTHORITY, HISTORY_TEXT_TABLE + "/#", HISTORY_ELEMENT);
+        matcher.addURI(AUTHORITY, HISTORY_TEXT_TABLE, HISTORY_TEXT);
+        matcher.addURI(AUTHORITY, HISTORY_TEXT_TABLE + "/#", HISTORY_TEXT_ELEMENT);
 
-        matcher.addURI(AUTHORITY, HISTORY_IMAGES_TABLE, HISTORY);
-        matcher.addURI(AUTHORITY, HISTORY_IMAGES_TABLE + "/#", HISTORY_ELEMENT);
+        matcher.addURI(AUTHORITY, HISTORY_IMAGES_TABLE, HISTORY_IMAGES);
+        matcher.addURI(AUTHORITY, HISTORY_IMAGES_TABLE + "/#", HISTORY_IMAGES_ELEMENT);
 
-        matcher.addURI(AUTHORITY, HISTORY_LINKS_TABLE, HISTORY);
-        matcher.addURI(AUTHORITY, HISTORY_LINKS_TABLE + "/#", HISTORY_ELEMENT);
+        matcher.addURI(AUTHORITY, HISTORY_LINKS_TABLE, HISTORY_LINKS);
+        matcher.addURI(AUTHORITY, HISTORY_LINKS_TABLE + "/#", HISTORY_LINKS_ELEMENT);
 
-        matcher.addURI(AUTHORITY, HISTORY_CONTACTS_TABLE, HISTORY);
-        matcher.addURI(AUTHORITY, HISTORY_CONTACTS_TABLE + "/#", HISTORY_ELEMENT);
+        matcher.addURI(AUTHORITY, HISTORY_CONTACTS_TABLE, HISTORY_CONTACTS);
+        matcher.addURI(AUTHORITY, HISTORY_CONTACTS_TABLE + "/#", HISTORY_CONTACTS_ELEMENT);
     }
 
     @Override
     public boolean onCreate() {
-        Database db = new Database(getContext(), tablesToCreate);
+        db = new Database(getContext(), tablesToCreate);
         return false;
     }
 
@@ -79,7 +88,23 @@ public class ClipboardContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        // TODO: Implement this to handle requests to insert a new row.
+       /* int uriType = matcher.match(uri);
+
+        SQLiteDatabase sqlDB = db.getWritableDatabase();
+
+        long id = 0;
+
+        switch (uriType) {
+            case RECENT:
+                id = sqlDB.insert()
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return Uri.parse(PRODUCTS_TABLE + "/" + id);*/
+
+        // TODO: Implement this to handle query requests from clients.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 

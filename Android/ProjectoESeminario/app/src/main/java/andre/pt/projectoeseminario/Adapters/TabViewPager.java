@@ -14,13 +14,14 @@ import andre.pt.projectoeseminario.Interfaces.SettingsActions;
 * */
 public class TabViewPager extends FragmentStatePagerAdapter {
     private int mTabCount;
-    private ParentFragment fragments[] = {new PreferencesFragment(), new HistoryFragment()};
+    private ParentFragment fragments[] = {new HistoryFragment(), new PreferencesFragment()};
     private SettingsActions ctx;
 
     public TabViewPager(FragmentManager fm, int tabCount, SettingsActions ctx) {
         super(fm);
         mTabCount = tabCount;
         this.ctx = ctx;
+
     }
 
     @Override

@@ -52,6 +52,7 @@
         <activity
             android:name=".Activities.ClipboardContentChooser"
             android:launchMode="singleInstance"
+            android:noHistory="true"
             android:theme="@style/FloatingWindow" />
 
         <provider

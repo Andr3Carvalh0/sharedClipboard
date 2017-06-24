@@ -30,8 +30,9 @@ public class ServerService implements IServerService{
         Device currentDevice = deviceIdentifier.getDeviceInformation(userAgent);
 
         logger.info(TAG + "OS Detected: " + currentDevice.getOS() + ", based on:" + userAgent);
+
         //Application name(The key is Link_2_The_Past, because why not?Its one of my favourite games...)
-        model.put("Link_2_The_Past", "[Placeholder]");
+        model.put("Link_2_The_Past", "Shared Clipboard");
 
         //Information related to the device that made the request
         model.put("OS", currentDevice.getOS());

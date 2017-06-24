@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import pt.andre.projecto.Controllers.URIs.FirebaseServer;
 import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.MongoDB;
@@ -23,6 +24,8 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Collections;
 
 @SpringBootApplication
 @Configuration
@@ -69,5 +72,4 @@ public class Main {
     public CommonsMultipartResolver multipartResolver() {
         return new CommonsMultipartResolver();
     }
-
 }

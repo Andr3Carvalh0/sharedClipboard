@@ -17,8 +17,9 @@ namespace ProjectoESeminario
     public partial class ClipboardListener : Form
     {
         private ProjectoAPI api = new ProjectoAPI();
-        private Dictionary<string, System.Drawing.Imaging.ImageFormat> supported_formats = new Dictionary<string, System.Drawing.Imaging.ImageFormat>();
+        private Dictionary<string, ImageFormat> supported_formats = new Dictionary<string, ImageFormat>();
         private long user_token = Properties.Settings.Default.userToken;
+        private string deviceID = Properties.Settings.Default.deviceID;
         private volatile String lastClipboardContent = "";
 
         private readonly String TAG = "Portugal: ClipboardListener";
@@ -98,13 +99,13 @@ namespace ProjectoESeminario
 
         private async void uploadMediaData(ImageFormat format, byte[] image, string name)
         {
-            await api.Push(user_token, image, name, format.ToString().ToLower());
+            await api.Push(user_token, image, name, format.ToString().ToLower(), deviceID);
         }
 
         private async void uploadTextData(String text) {
             log.Info(TAG + " uploading text to the server");
 
-            var response = await api.Push(user_token, text);
+            var response = await api.Push(user_token, text, deviceID);
 
             switchClipboardValue(text);
 
@@ -139,7 +140,7 @@ namespace ProjectoESeminario
         public async void fetchInformation()
         {
             while (true) { 
-                HttpResponseMessage response = await api.Pull(user_token);
+                HttpResponseMessage response = await api.Pull(user_token, deviceID);
 
                 if(response.StatusCode == System.Net.HttpStatusCode.OK){
                     log.Debug(TAG + "Thread: Obtain something");

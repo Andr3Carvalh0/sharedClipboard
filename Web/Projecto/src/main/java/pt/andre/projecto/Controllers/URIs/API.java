@@ -15,6 +15,7 @@ import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 import sun.misc.Request;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -34,28 +35,11 @@ public class API implements IAPI {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: API ";
 
-    @Override
-    @RequestMapping(value = "/api/push", method = RequestMethod.PUT)
-    public ResponseEntity push(@RequestParam long token, @RequestParam String data) {
-        logger.info(TAG + "push method");
-        final DatabaseResponse resp = service.push(token, data);
-
-        logger.info(TAG + "Push: response will have the following code:" + resp.getResponseCode());
-        return ResponseEntity.status(resp.getResponseCode()).build();
-    }
-
-    @Override
-    @RequestMapping(value = "/api/pull", params = {"account"}, method = RequestMethod.GET)
-    public ResponseEntity pull(@RequestParam(value = "account") long token) {
-
-        logger.info(TAG + "pull method");
-
-        final DatabaseResponse resp = service.pull(token);
-
-        logger.info(TAG + "Pull: response will have the following code:" + resp.getResponseCode());
-        return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
-    }
-
+    /*
+    * Creates a new user account.
+    * @param account: A email that identifies the user.
+    * @param password: The password for the account.
+    * */
     @Override
     @RequestMapping(value = "/api/account", method = RequestMethod.PUT)
     public ResponseEntity createAccount(@RequestParam String account, @RequestParam String password) {
@@ -67,6 +51,11 @@ public class API implements IAPI {
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 
+    /*
+    * Authenticates the user.If the @account and @password, match an account we return the user token.
+    * @param account: the user email
+    * @param password: the user password
+    * */
     @Override
     @RequestMapping(value = "/api/account", params = {"account", "password"}, method = RequestMethod.GET)
     public ResponseEntity authenticate(@RequestParam(value = "account") String account, @RequestParam(value = "password") String password) {
@@ -77,19 +66,15 @@ public class API implements IAPI {
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 
-    @Override
-    @RequestMapping(value = "/api/registerDevice", method = RequestMethod.PUT)
-    public ResponseEntity registerMobileDevice(@RequestParam long account, @RequestParam String deviceID) {
-        logger.info(TAG + "RegisterDevice method");
-        final DatabaseResponse resp = service.registerMobileDevice(account, deviceID);
-
-        logger.info(TAG + "resgisterDevice: response will have the following code:" + resp.getResponseCode());
-        return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
-    }
-
+    /*
+    * Handle a MIME file push.
+    * @param file: the file.This can be an image, a document, etc...
+    * @param token: the token used to authenticate a user.
+    * @param deviceIdentifier: String to identify the device that made the request
+    * */
     @Override
     @PostMapping("/api/pushMIME")
-    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestParam(value = "token") Long token) {
+    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestParam(value = "token") Long token, @RequestParam(value = "deviceIdentifier") String deviceIdentifier) {
         DatabaseResponse resp;
 
         logger.info(TAG + "Push MIME method");
@@ -98,5 +83,67 @@ public class API implements IAPI {
 
         logger.info(TAG + "pushMIME: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
+    }
+
+    /*
+    * Handle a textual push.
+    * @param token: the token used to authenticate a user.
+    * @param data: the data that gets pushed.
+    * @param deviceIdentifier: String to identify the device that made the request
+    * */
+    @Override
+    @RequestMapping(value = "/api/push", method = RequestMethod.PUT)
+    public ResponseEntity push(@RequestParam long token, @RequestParam String data, @RequestParam(value = "deviceIdentifier") String deviceIdentifier) {
+        logger.info(TAG + "push method");
+        final DatabaseResponse resp = service.push(token, data);
+
+        logger.info(TAG + "Push: response will have the following code:" + resp.getResponseCode());
+        return ResponseEntity.status(resp.getResponseCode()).build();
+    }
+
+    /*
+    * Returns the user data that is stored on the database
+    * @param token: the token used to authenticate a user.
+    * */
+    @Override
+    @RequestMapping(value = "/api/pull", params = {"account", "deviceIdentifier"}, method = RequestMethod.GET)
+    public ResponseEntity pull(@RequestParam(value = "account") long token,  @RequestParam(value = "deviceIdentifier") String deviceIdentifier) {
+
+        logger.info(TAG + "pull method");
+
+        final DatabaseResponse resp = service.pull(token);
+
+        logger.info(TAG + "Pull: response will have the following code:" + resp.getResponseCode());
+        return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
+    }
+
+    /*
+    * Associate a mobile Device ID(iOS/Android), so we can use the Firebase Service to push new content to that device
+    * @param account: the user account token
+    * @param deviceID: the device id, given by the Firebase API
+    * */
+    private ResponseEntity registerMobileDevice(long account, String deviceID) {
+        logger.info(TAG + "RegisterDevice method");
+        final DatabaseResponse resp = service.registerMobileDevice(account, deviceID);
+
+        logger.info(TAG + "resgisterDevice: response will have the following code:" + resp.getResponseCode());
+        return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
+    }
+
+    /*
+    * Associate device to the account so we can remove it later
+    * @param account: the user account token
+    * @param deviceIdentifier: the device id
+    * @param deviceType: true: mobile, false:desktop
+    * */
+    @Override
+    @RequestMapping(value = "/api/registerDevice", method = RequestMethod.PUT)
+    public ResponseEntity associateDeviceWithAccount(@RequestParam long account, @RequestParam String deviceIdentifier, @RequestParam boolean deviceType) {
+
+
+        if(deviceType)
+            registerMobileDevice(account, deviceIdentifier);
+
+        throw new NotImplementedException();
     }
 }

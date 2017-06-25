@@ -11,15 +11,11 @@ import retrofit2.http.Query;
 public interface IAPI {
 
     String push = "push";
-    String pull = "pull";
     String accountManagement = "account";
-    String androidRegister = "registerDevice";
+    String deviceRegister = "registerDevice";
 
     @PUT(push)
-    Call<ResponseBody> push(@Query("token") long account, @Query("data") String data);
-
-    @GET(pull)
-    Call<ResponseBody> pull(@Query("account") long account);
+    Call<ResponseBody> push(@Query("token") long account, @Query("data") String data, @Query("deviceIdentifier") String firebaseID);
 
     @GET(accountManagement)
     Call<String> authenticate(@Query("account") String username, @Query("password") String password);
@@ -27,7 +23,7 @@ public interface IAPI {
     @PUT(accountManagement)
     Call<String> createAccount(@Query("account") String account, @Query("password") String password);
 
-    @PUT(androidRegister)
-    Call<ResponseBody> registerAndroid(@Query("account") long account, @Query("deviceID") String firebaseID);
+    @PUT(deviceRegister)
+    Call<ResponseBody> registerDevice(@Query("account") long account, @Query("deviceIdentifier") String firebaseID,  @Query("deviceType") boolean deviceType);
 
 }

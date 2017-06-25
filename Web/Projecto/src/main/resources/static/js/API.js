@@ -27,7 +27,7 @@ function loginAccount() {
         let data = 'account=' + email + '&password=' + password
         ajaxRequest('PUT', CREATE_ACCOUNT_URL, data)
             .then((response) => {
-                
+
                 //Show a notification alerting the user that the creation of the account was a success
                 UIkit.notification("Success!", {pos: 'top-right', status: 'success'});
 

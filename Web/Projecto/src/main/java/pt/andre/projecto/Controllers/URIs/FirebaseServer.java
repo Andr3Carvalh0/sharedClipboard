@@ -29,7 +29,7 @@ public class FirebaseServer {
         key = System.getenv("FIREBASE_KEY");
         Objects.requireNonNull(key, "You must define a System Environment named FIREBASE_KEY with your Firebase key");
 
-        //logger.info(TAG + "CTOR" );
+        logger.info(TAG + "CTOR" );
     }
 
     /*

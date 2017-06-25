@@ -1,8 +1,12 @@
 package andre.pt.projectoeseminario.Data;
 
 import android.content.Context;
+import android.content.Intent;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import andre.pt.projectoeseminario.Data.Interface.Responses.IResponse;
 import andre.pt.projectoeseminario.Data.Interface.IAPI;
@@ -18,48 +22,33 @@ public class APIRequest {
     private IAPI mAPI;
     private IResponse iResponse;
     private Context ctx;
+    private HashMap<Integer, Consumer<Integer>> respondeHandler;
 
     public APIRequest(IResponse resp, Context ctx){
         mAPI = ProjectoAPI.getAPI();
         iResponse = resp;
         this.ctx = ctx;
-    }
+        this.respondeHandler = new HashMap<>();
 
-    public void fetchInformation(Integer token){
-        mAPI.pull(token).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    iResponse.handlePull(response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-               //Should we try again?
-            }
-        });
+        respondeHandler.put(200, (user) -> iResponse.handleSuccessfullyLogin(user));
+        respondeHandler.put(400, (user) -> iResponse.handleNonExistingAccount());
+        respondeHandler.put(403, (user) -> iResponse.handleError(getResourceString(R.string.Error403_Title), getResourceString(R.string.Error403_Message)));
+        respondeHandler.put(409, (user) -> iResponse.handleError(getResourceString(R.string.Error409_Title), getResourceString(R.string.Error409_Message)));
 
     }
 
     public void registerDevice(long token, String firebase){
-        mAPI.registerAndroid(token, firebase).enqueue(new Callback<ResponseBody>() {
+        mAPI.registerDevice(token, firebase, true).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    //@Todo do something here
-            }
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {}
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                throw new NullPointerException("Fuck it");
-            }
+            public void onFailure(Call<ResponseBody> call, Throwable t) {}
         });
     }
 
-    public void pushTextInformation(long token, String information){
-        mAPI.push(token, information).enqueue(new Callback<ResponseBody>() {
+    public void pushTextInformation(long token, String information, String firebase){
+        mAPI.push(token, information, firebase).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 //Nothing to do here!
@@ -84,7 +73,6 @@ public class APIRequest {
 
     public void handleAuthentication(String email, String password){
         if(!isEmailValid(email)) {
-            iResponse.handleError(getResourceString(R.string.GenericError_Title), getResourceString(R.string.WrongEmail_Message));
             return;
         }
 
@@ -105,7 +93,6 @@ public class APIRequest {
                 }else{
                     handleHTTPResponse(response.code(), -1);
                 }
-
             }
 
             @Override
@@ -142,26 +129,10 @@ public class APIRequest {
 
     /**
      * Handles what to do, on the HTTP response.
-     * Why not use a hashmap, that for value has a method reference?Thats Java 8...Android only supports up to Java 7 :(
      */
     private void handleHTTPResponse(int code, int userID){
-        if(code == 200){
-            iResponse.handleSuccessfullyLogin(userID);
-            return;
-        }
-
-        if(code == 400){
-            iResponse.handleNonExistingAccount();
-            return;
-        }
-
-        if(code == 403){
-            iResponse.handleError(getResourceString(R.string.Error403_Title), getResourceString(R.string.Error403_Message));
-            return;
-        }
-
-        if(code == 409){
-            iResponse.handleError(getResourceString(R.string.Error409_Title), getResourceString(R.string.Error409_Message));
+        if(respondeHandler.containsKey(code)) {
+            respondeHandler.get(code).accept(userID);
             return;
         }
 

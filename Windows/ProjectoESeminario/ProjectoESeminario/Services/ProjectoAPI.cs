@@ -39,6 +39,11 @@ namespace Projecto.Service
         private readonly static String pull = "pull";
 
         /// <summary>
+        /// URI for registerDevice
+        /// </summary>
+        private readonly static String registerDevice = "registerDevice";
+
+        /// <summary>
         /// URI used to create/authenticate user
         /// </summary>
         private readonly static String accountManagement = "account";
@@ -77,7 +82,7 @@ namespace Projecto.Service
             }
         }
 
-        public async Task<HttpResponseMessage> Pull(long account)
+        public async Task<HttpResponseMessage> Pull(long account, string deviceID)
         {
             if (account == 0)
                 return null;
@@ -90,7 +95,7 @@ namespace Projecto.Service
             }
         }
 
-        public async Task<HttpResponseMessage> Push(long account, string data)
+        public async Task<HttpResponseMessage> Push(long account, string data, string deviceID)
         {
             if (account == 0)
                 return null;
@@ -107,7 +112,7 @@ namespace Projecto.Service
             }
         }
 
-        public async Task<HttpResponseMessage> Push(long account, byte[] data, string filename, string filetype)
+        public async Task<HttpResponseMessage> Push(long account, byte[] data, string filename, string filetype, string deviceID)
         {
             if (account == 0)
                 return null;
@@ -132,6 +137,11 @@ namespace Projecto.Service
             {
                 throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
             }
+        }
+
+        Task<HttpResponseMessage> IAPI.registerDevice(long account, string deviceID, bool deviceType)
+        {
+            throw new NotImplementedException();
         }
     }
 }

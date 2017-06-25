@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import andre.pt.projectoeseminario.Adapters.Entities.Preference;
 import andre.pt.projectoeseminario.Preferences;
 
 
@@ -17,12 +18,15 @@ import andre.pt.projectoeseminario.Preferences;
 */
 public class CopyMenuListener extends Service {
     private int userToken;
+    private String deviceID;
     public static final String TAG = "Portugal:CopyMenu";
 
     @Override
     public void onCreate() {
+        Preferences pref = new Preferences(this);
 
-        userToken = new Preferences(this).getIntPreference(Preferences.USER_TOKEN);
+        userToken = pref.getIntPreference(Preferences.USER_TOKEN);
+        deviceID = pref.getStringPreference(Preferences.FIREBASEID);
 
         //We cannot update when the user token isnt valid or when we cannot get the copied text
         if(userToken == 0)
@@ -44,6 +48,7 @@ public class CopyMenuListener extends Service {
                         Log.v(TAG, "Uploading text to server");
                         Intent intent = new Intent(ctx, ClipboardEventHandler.class);
                         intent.putExtra("content", text);
+                        intent.putExtra("deviceID", deviceID);
                         intent.putExtra("upload", true);
                         intent.putExtra("token", userToken);
 

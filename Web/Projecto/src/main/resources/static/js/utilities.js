@@ -1,6 +1,6 @@
 let resetMap = {
-    'email' : () => { document.getElementById("emailTextView").className = 'uk-input' },
-    'password' : () => { document.getElementById("passwordTextView").className = 'uk-input' }
+    'email' : (modal) => { document.getElementById("emailTextView" + modal).className = 'uk-input' },
+    'password' : (modal) => { document.getElementById("passwordTextView" + modal).className = 'uk-input' }
 
 
 }
@@ -46,10 +46,10 @@ function verifyPassword(password) {
     return password.length >= 6
 }
 
-function displayErrors(emailValid, passwordValid) {
-    let emailField = document.getElementById("emailTextView")
-    let passwordField = document.getElementById("passwordTextView")
-    let messageField = document.getElementById("errorLabel")
+function displayErrors(emailValid, passwordValid, modal) {
+    let emailField = document.getElementById("emailTextView" + modal)
+    let passwordField = document.getElementById("passwordTextView" + modal)
+    let messageField = document.getElementById("errorLabel" + modal)
     let message = " "
 
 
@@ -66,17 +66,17 @@ function displayErrors(emailValid, passwordValid) {
     messageField.innerHTML = message
 }
 
-function displayMessage(message) {
-    let messageField = document.getElementById("errorLabel")
+function displayMessage(message, modal) {
+    let messageField = document.getElementById("errorLabel" + modal)
     messageField.innerHTML = '<li>' + message + '</li>'
 }
 
-function resetErrorClues(type, resetErrorTips) {
-    resetMap[type]()
+function resetErrorClues(type, resetErrorTips, modal) {
+    resetMap[type](modal)
 
     if(resetErrorTips){
-        document.getElementById("emailTextView").value = ""
-        document.getElementById("passwordTextView").value = ""
-        document.getElementById("errorLabel").innerHTML = ""
+        document.getElementById("emailTextView" + modal).value = ""
+        document.getElementById("passwordTextView" + modal).value = ""
+        document.getElementById("errorLabel" + modal).innerHTML = ""
     }
 }

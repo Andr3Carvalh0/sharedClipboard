@@ -11,5 +11,5 @@ public interface IServerService {
     */
     String handleRootRequest(Map<String, Object> model, @RequestHeader(value = "User-Agent") String userAgent, DeviceIdentifier deviceIdentifier);
 
-    String[] getDevices(long token);
+    String getDevices(Map<String, Object> model, long token);
 }

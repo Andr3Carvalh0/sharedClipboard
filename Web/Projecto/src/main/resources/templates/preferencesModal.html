@@ -1,26 +1,27 @@
-<div id="preferences_Modal" class="uk-modal-container" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body">
+<div id="preferences_Modal"  uk-modal>
+    <div id="main_body" class="uk-modal-dialog uk-modal-body">
         <button class="uk-modal-close-default" type="button" uk-close></button>
-        <h2 class="uk-modal-title">Login</h2>
-        <form id="loginForm">
-            <div>
-                <div class="uk-inline uk-width-1-1">
-                    <span class="uk-form-icon" uk-icon="icon: mail" ></span>
-                    <input onclick='resetErrorClues("email", false, "_preferences")' id="emailTextView_preferences" class="uk-input" type="text" placeholder="Email">
-                </div>
-            </div>
-            <br/>
-            <div>
-                <div class="uk-inline uk-width-1-1">
-                    <span class="uk-form-icon" uk-icon="icon: lock" ></span>
-                    <input onclick='resetErrorClues("password", false, "_preferences")' id="passwordTextView_preferences"  class="uk-input" type="password" placeholder="Password">
-                </div>
-            </div>
-        </form>
-        <p id="errorLabel_preferences"></p>
-        <div class="uk-padding-remove uk-text-right">
-            <button class="uk-button uk-button-default uk-modal-close" type="button" id="modal_Cancel_Button">Cancel</button>
-            <button class="uk-button uk-button-primary" type="button" onclick="loginAccount();">Login</button>
-        </div>
+         <h2 class="uk-modal-title">Login</h2>
+         <form id="loginForm">
+             <div>
+                 <div class="uk-inline uk-width-1-1">
+                     <span class="uk-form-icon" uk-icon="icon: mail" ></span>
+                     <input onclick='resetErrorClues("email", false, "_preferences")' id="emailTextView_preferences" class="uk-input" type="text" placeholder="Email">
+                 </div>
+             </div>
+             <br/>
+             <div>
+                 <div class="uk-inline uk-width-1-1">
+                     <span class="uk-form-icon" uk-icon="icon: lock" ></span>
+                     <input onclick='resetErrorClues("password", false, "_preferences")' id="passwordTextView_preferences"  class="uk-input" type="password" placeholder="Password">
+                 </div>
+             </div>
+         </form>
+         <p id="errorLabel_preferences"></p>
+         <div class="uk-padding-remove uk-text-right">
+             <button class="uk-button uk-button-default uk-modal-close" type="button" id="modal_Cancel_Button">Cancel</button>
+             <button class="uk-button uk-button-primary" type="button" onclick="loginAccount();">Login</button>
+         </div>
     </div>
+
 </div>

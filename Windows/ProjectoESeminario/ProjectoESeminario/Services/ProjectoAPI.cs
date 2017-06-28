@@ -34,7 +34,7 @@ namespace Projecto.Service
         /// <summary>
         /// URI for registerDevice
         /// </summary>
-        private readonly static String registerDevice = "registerDevice";
+        private readonly static String registerDevice_URL = "registerDevice";
 
         /// <summary>
         /// URI used to create/authenticate user
@@ -71,19 +71,6 @@ namespace Projecto.Service
                 parameters["account"] = username;
                 parameters["password"] = password;
                 return await httpClient.PutAsync(mainServer + accountManagement, new FormUrlEncodedContent(parameters));
-            }
-            catch (Exception)
-            {
-                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
-            }
-        }
-
-        public async Task<HttpResponseMessage> Pull(long account, string deviceID)
-        {
-            if (account == 0)
-                return null;
-            try { 
-                return await httpClient.GetAsync(mainServer + pull + "?account=" + account);
             }
             catch (Exception)
             {
@@ -135,7 +122,7 @@ namespace Projecto.Service
             }
         }
 
-        Task<HttpResponseMessage> IAPI.registerDevice(long account, string deviceID, bool deviceType)
+        public Task<HttpResponseMessage> registerDevice(long account, string deviceID, bool deviceType)
         {
             throw new NotImplementedException();
         }

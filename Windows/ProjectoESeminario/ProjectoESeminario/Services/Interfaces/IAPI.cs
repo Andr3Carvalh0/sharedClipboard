@@ -31,13 +31,6 @@ namespace Projecto.Service
         Task<HttpResponseMessage> Push(long account, byte[] data, string filename, string filetype, string deviceID);
 
         /// <summary>
-        /// Pull data of the user @account from the server 
-        /// </summary>
-        /// <param name="account"></param>
-        /// <returns></returns>
-        Task<HttpResponseMessage> Pull(long account, string deviceID);
-
-        /// <summary>
         /// Try to authenticate user @username with password @password
         /// </summary>
         /// <param name="username"></param>

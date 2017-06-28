@@ -55,7 +55,11 @@ namespace ProjectoESeminario
 
         private void HandleSuccessfulLogin(long userToken)
         {
+            String GUID = Guid.NewGuid().ToString().ToUpper();
 
+            controller.registerDevice(userToken, GUID);
+
+            Properties.Settings.Default.deviceID = GUID;
             Properties.Settings.Default.userToken = userToken;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();

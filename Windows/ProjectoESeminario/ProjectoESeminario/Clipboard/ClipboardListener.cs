@@ -12,6 +12,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Net.Http.Headers;
 using WebSocketSharp;
+using System.Configuration;
 
 namespace ProjectoESeminario
 {
@@ -143,28 +144,38 @@ namespace ProjectoESeminario
         /// </summary>
         public async void fetchInformation()
         {
-            using (ws = new WebSocket(ProjectoAPI.socketURL))
-            {
-                ws.OnMessage += (sender, e) => {
-                    
-                    log.Debug(TAG + "Thread: Obtain something");
-                    PullResponse resp = JsonConvert.DeserializeObject<PullResponse>(e.Data);
-
-                    if (switchClipboardValue(resp.content))
-                    {
-                        log.Debug(TAG + "Altering clipboard value");
-                        storeText(resp.content);
-                    }
-                };
-
-                ws.Connect();
-
-                //Hack to make the connection persistent
-                //
-                while (true)
+            try { 
+                using (ws = new WebSocket(ProjectoAPI.socketURL))
                 {
-                    ws.Ping();
+                    ws.OnMessage += (sender, e) => {
+                    
+                        log.Debug(TAG + "Thread: Obtain something");
+                        PullResponse resp = JsonConvert.DeserializeObject<PullResponse>(e.Data);
+
+                        if (switchClipboardValue(resp.content))
+                        {
+                            log.Debug(TAG + "Altering clipboard value");
+                            storeText(resp.content);
+                        }
+                    };
+
+                    ws.Connect();
+                
+                    //Send device id on the first connection 
+                    ws.Send(Properties.Settings.Default.deviceID);
+                
+                    //Hack to make the connection persistent
+                    //
+                    while (true)
+                    {
+                        ws.Ping();
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                Thread.Sleep(30000);
+                fetchInformation();
             }
         }
 

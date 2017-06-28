@@ -41,6 +41,18 @@ namespace Projecto.Controllers
             return token;
         }
 
+        public async void registerDevice(long userToken, String GUID)
+        {
+            var response = await mAPI.registerDevice(userToken, GUID, true);
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                log.Error(TAG + " - WebException, statusCode:" + response.StatusCode);
+                throw new WebExceptions(response.StatusCode);
+            }
+            
+        }
+
         public async Task<long> HandleLoginAsync(String username, String password)
         {
             log.Debug(TAG + " method HandleLoginAsync called!");

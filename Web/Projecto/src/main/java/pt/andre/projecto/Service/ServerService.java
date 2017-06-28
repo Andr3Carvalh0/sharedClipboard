@@ -51,22 +51,12 @@ public class ServerService implements IServerService{
     }
 
     @Override
-    public String[] getDevices(long token) {
-        List<DeviceWrapper> desktop = database.getDesktopDevices(token);
-        List<DeviceWrapper> mobile = database.getMobileDevices(token);
-        List<String> devices = new LinkedList<>();
+    public String getDevices(Map<String, Object> model, long token) {
+        List<DeviceWrapper> devices = database.getDesktopDevices(token);
+        devices.addAll(database.getMobileDevices(token));
 
-        /*
-        for (List<DeviceWrapper> desk : desktop) {
-            devices.add(desk);
-        }
+        model.put("devices", devices);
 
-        for (String desk : mobile) {
-            devices.add(desk);
-        }
-
-        return devices.stream().toArray(String[]::new);*/
-
-        throw new NotImplementedException();
+        return "devicesList";
     }
 }

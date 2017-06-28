@@ -1,6 +1,17 @@
-<div>
-    <div class="uk-card uk-card-default uk-card-body">
-        <h3 class="uk-card-title">Default</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+<div id="{{id}}">
+    <div class="uk-card uk-card-body uk-background-muted uk-card uk-card-hover">
+        <h3 class="uk-card-title">
+            {{#isMobile}}
+            <span style="float:left;" uk-icon="icon: phone; ratio: 2"></span>
+            {{/isMobile}}
+            {{^isMobile}}
+            <span style="float:left;" uk-icon="icon: laptop; ratio: 2"></span>
+            {{/isMobile}}
+
+            <span style="display:inline-block; width: 24px"></span>{{name}}
+        </h3>
+
+        <a href="handleDelete('{{id}}, {{isMobile}}')" title="Delete"  uk-tooltip="pos: bottom" style="float: right; bottom: 8px" class="uk-icon-link" uk-icon="icon: trash"></a>
+
     </div>
 </div>

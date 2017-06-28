@@ -46,11 +46,8 @@ public class Server{
     }
 
     @RequestMapping(value = "/devices", method = RequestMethod.GET)
-    public String getDevices(@RequestParam("token") long token){
-
-        String[] a = service.getDevices(token);
-        return "ola";
-
+    public String getDevices(Map<String, Object> model, @RequestParam("token") long token){
+        return service.getDevices(model, token);
     }
 
 }

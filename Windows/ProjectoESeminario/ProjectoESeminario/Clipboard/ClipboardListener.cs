@@ -107,30 +107,34 @@ namespace ProjectoESeminario
         private async void uploadTextData(String text) {
             log.Info(TAG + " uploading text to the server");
 
-            var response = await api.Push(user_token, text, deviceID);
 
-            switchClipboardValue(text);
+            if (switchClipboardValue(text)) { 
+                var response = await api.Push(user_token, text, deviceID);
 
-            if(response == null)
-            {
-                log.Error(TAG + " the upload FAILED!");
-                //should we try again?
+
+                if(response == null)
+                {
+                    log.Error(TAG + " the upload FAILED!");
+                    //should we try again?
+                }
             }
-         
+
         }
 
         private Boolean switchClipboardValue(string newValue)
         {
-            while (lastClipboardContent != newValue)
-            {
-                var initialValue = Interlocked.CompareExchange(ref lastClipboardContent, null, null);
+            string initialValue = lastClipboardContent;
 
-                if (Interlocked.CompareExchange(ref lastClipboardContent, newValue, initialValue) == initialValue)
+            while (!initialValue.Equals(newValue))
+            {
+
+                if (!Interlocked.CompareExchange(ref lastClipboardContent, newValue, initialValue).Equals(initialValue))
                 {
                     log.Debug(TAG + " will altering clipboard value");
                     return true;
                 }
             }
+
             log.Debug(TAG + " wont switch clipboard variable state");
             return false;
         }
@@ -141,9 +145,10 @@ namespace ProjectoESeminario
         /// </summary>
         public async void fetchInformation()
         {
-            using (ws = new WebSocket("ws://localhost:3000/desktop"))
+            using (ws = new WebSocket(ProjectoAPI.socketURL))
             {
                 ws.OnMessage += (sender, e) => {
+                    
                     log.Debug(TAG + "Thread: Obtain something");
                     PullResponse resp = JsonConvert.DeserializeObject<PullResponse>(e.Data);
 
@@ -157,6 +162,7 @@ namespace ProjectoESeminario
                 ws.Connect();
 
                 //Hack to make the connection persistent
+                //
                 while (true)
                 {
                     ws.Ping();

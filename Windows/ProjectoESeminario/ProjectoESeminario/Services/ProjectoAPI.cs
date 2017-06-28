@@ -1,14 +1,9 @@
 ﻿using Projecto.UI;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
+using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Mime;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Projecto.Service
@@ -19,9 +14,7 @@ namespace Projecto.Service
         /// <summary>
         /// Server location
         /// </summary>
-        private readonly static String mainServer = "http://projecto1617.herokuapp.com/api/";
-//        private readonly static String mainServer = "http://localhost:3000/api/";
-
+        private readonly static String mainServer = ConfigurationManager.AppSettings["serverURL"];
 
         /// <summary>
         /// URI for the textual push
@@ -47,6 +40,9 @@ namespace Projecto.Service
         /// URI used to create/authenticate user
         /// </summary>
         private readonly static String accountManagement = "account";
+
+
+        public readonly static String socketURL = ConfigurationManager.AppSettings["socketURL"];
 
         /// <summary>
         /// Object to do the HTTP requests

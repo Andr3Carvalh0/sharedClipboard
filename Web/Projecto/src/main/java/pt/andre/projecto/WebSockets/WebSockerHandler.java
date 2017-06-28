@@ -37,6 +37,24 @@ public class WebSockerHandler extends TextWebSocketHandler {
         });
     }
 
+    //USED TO DEBUG
+    //SHOULD NOT BE HERE
+    public void sendMessage(WebSocketSession session, int retry) throws InterruptedException {
+        if(retry == 0)
+            return;
+
+        try {
+            session.sendMessage(new TextMessage("ola"));
+        } catch (IOException e) {
+            System.out.println("MERDA");
+            e.printStackTrace();
+        }
+
+        sleep(5000);
+        sendMessage(session, --retry);
+    }
+
+
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage jsonTextMessage) throws Exception {
         System.out.println(("message received: " + jsonTextMessage.getPayload()));
@@ -51,6 +69,8 @@ public class WebSockerHandler extends TextWebSocketHandler {
 
         if(!contains[0])
             sessions.add(new Session(session, jsonTextMessage.getPayload()));
+
+        sendMessage(session, 10);
     }
 
 }

@@ -2199,3 +2199,27 @@
 2017-06-28 03:20:25,222 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener It was text
 2017-06-28 03:20:25,262 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener uploading text to the server
 2017-06-28 03:20:26,113 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener will altering clipboard value
+2017-06-28 10:30:15,071 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 10:30:15,246 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 10:32:32,607 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 10:32:32,762 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 10:33:16,023 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 10:33:16,175 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 10:33:16,253 [6] DEBUG ProjectoESeminario.ClipboardListener - Received : ola
+2017-06-28 10:33:21,238 [5] DEBUG ProjectoESeminario.ClipboardListener - Received : ola
+2017-06-28 10:33:26,238 [6] DEBUG ProjectoESeminario.ClipboardListener - Received : ola
+2017-06-28 10:33:31,239 [6] DEBUG ProjectoESeminario.ClipboardListener - Received : ola
+2017-06-28 10:33:36,240 [6] DEBUG ProjectoESeminario.ClipboardListener - Received : ola
+2017-06-28 10:33:41,242 [6] DEBUG ProjectoESeminario.ClipboardListener - Received : ola
+2017-06-28 10:33:46,244 [9] DEBUG ProjectoESeminario.ClipboardListener - Received : ola
+2017-06-28 10:33:51,241 [6] DEBUG ProjectoESeminario.ClipboardListener - Received : ola
+2017-06-28 10:33:56,241 [6] DEBUG ProjectoESeminario.ClipboardListener - Received : ola
+2017-06-28 10:34:01,241 [9] DEBUG ProjectoESeminario.ClipboardListener - Received : ola
+2017-06-28 10:34:31,676 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 10:34:31,866 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 10:34:39,025 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 10:34:39,160 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 10:43:31,540 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 10:43:31,722 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 10:54:52,458 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 10:54:52,643 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor

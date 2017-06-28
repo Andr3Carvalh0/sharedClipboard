@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 public class WebSockerHandler extends TextWebSocketHandler {
 
     private List<Session> sessions = new ArrayList<>();
@@ -16,7 +18,6 @@ public class WebSockerHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         sessions.forEach(s -> {
-
             if(s.getSocket().getId().equals(session.getId())){
                 sessions.remove(s);
             }
@@ -24,7 +25,7 @@ public class WebSockerHandler extends TextWebSocketHandler {
         });
     }
 
-    public void sendMessage(String token, String message){
+    public void sendMessage(String token, String message) throws InterruptedException {
         sessions.forEach(s -> {
 
             if(s.getSocket().getId().equals(token))
@@ -50,7 +51,6 @@ public class WebSockerHandler extends TextWebSocketHandler {
 
         if(!contains[0])
             sessions.add(new Session(session, jsonTextMessage.getPayload()));
-
     }
 
 }

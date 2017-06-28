@@ -2175,3 +2175,27 @@
 2017-06-24 21:35:58,899 [23] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListenerThread: Obtain something
 2017-06-24 21:35:58,899 [23] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener wont switch clipboard variable state
 2017-06-24 21:35:58,899 [23] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListenerThread: Going to sleep a little, bye.
+2017-06-28 02:53:22,635 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 02:53:23,581 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 02:58:55,151 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 02:58:55,323 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 03:01:35,819 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 03:01:35,963 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 03:01:48,419 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 03:01:48,596 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 03:04:14,922 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 03:04:15,176 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 03:04:46,400 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener Changes where detected in the clipboard
+2017-06-28 03:04:46,503 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener It was text
+2017-06-28 03:04:46,518 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener uploading text to the server
+2017-06-28 03:05:07,052 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener will altering clipboard value
+2017-06-28 03:05:36,504 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 03:05:36,682 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 03:17:53,594 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 03:17:53,775 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 03:19:31,299 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-06-28 03:19:31,541 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-06-28 03:20:24,981 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener Changes where detected in the clipboard
+2017-06-28 03:20:25,222 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener It was text
+2017-06-28 03:20:25,262 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener uploading text to the server
+2017-06-28 03:20:26,113 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener will altering clipboard value

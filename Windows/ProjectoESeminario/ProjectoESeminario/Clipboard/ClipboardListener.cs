@@ -11,11 +11,13 @@ using ProjectoESeminario.DTOs;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Net.Http.Headers;
+using WebSocketSharp;
 
 namespace ProjectoESeminario
 {
     public partial class ClipboardListener : Form
     {
+        private WebSocket ws;
         private ProjectoAPI api = new ProjectoAPI();
         private Dictionary<string, ImageFormat> supported_formats = new Dictionary<string, ImageFormat>();
         private long user_token = Properties.Settings.Default.userToken;
@@ -139,24 +141,26 @@ namespace ProjectoESeminario
         /// </summary>
         public async void fetchInformation()
         {
-            while (true) { 
-                HttpResponseMessage response = await api.Pull(user_token, deviceID);
-
-                if(response.StatusCode == System.Net.HttpStatusCode.OK){
+            using (ws = new WebSocket("ws://localhost:3000/desktop"))
+            {
+                ws.OnMessage += (sender, e) => {
                     log.Debug(TAG + "Thread: Obtain something");
-                    var body = await response.Content.ReadAsStringAsync();
-
-                    PullResponse resp = JsonConvert.DeserializeObject<PullResponse>(body);
+                    PullResponse resp = JsonConvert.DeserializeObject<PullResponse>(e.Data);
 
                     if (switchClipboardValue(resp.content))
                     {
                         log.Debug(TAG + "Altering clipboard value");
                         storeText(resp.content);
                     }
-                }
+                };
 
-                log.Debug(TAG + "Thread: Going to sleep a little, bye.");
-                Thread.Sleep(30000);
+                ws.Connect();
+
+                //Hack to make the connection persistent
+                while (true)
+                {
+                    ws.Ping();
+                }
             }
         }
 

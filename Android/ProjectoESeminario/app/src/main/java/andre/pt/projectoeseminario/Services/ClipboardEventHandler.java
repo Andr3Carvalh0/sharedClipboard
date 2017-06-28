@@ -65,10 +65,6 @@ public class ClipboardEventHandler extends IntentService {
             Log.v(TAG, "onHandleIntent");
 
             new Handler().post(() -> {
-                while(!clipboardController.acquireWork()){
-                    Log.v(TAG, "waiting...");
-                }
-
                 if(upload){
                     APIRequest mApi = new APIRequest(null, context);
                     mApi.pushTextInformation(token, content, deviceID);
@@ -77,10 +73,10 @@ public class ClipboardEventHandler extends IntentService {
                         handleMultimediaContent(context, content);
                         return;
                     }
+
                     handleTextContent(context, content);
                 }
 
-                clipboardController.releaseWork();
             });
         }
     }

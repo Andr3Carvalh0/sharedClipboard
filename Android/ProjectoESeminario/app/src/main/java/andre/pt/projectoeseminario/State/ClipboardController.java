@@ -40,13 +40,14 @@ public class ClipboardController {
 
     public Boolean switchClipboardValue(String newValue)
     {
-        while (!newValue.equals(lastClipboardContent.get()))
-        {
-            String initialValue = lastClipboardContent.get();
+        String oldvalue = lastClipboardContent.get();
 
-            if(lastClipboardContent.compareAndSet(initialValue, newValue)){
+        while (!newValue.equals(oldvalue))
+        {
+
+            if(lastClipboardContent.compareAndSet(oldvalue, newValue))
                 return true;
-            }
+
         }
 
         return false;

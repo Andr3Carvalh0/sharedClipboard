@@ -107,10 +107,8 @@ namespace ProjectoESeminario
         private async void uploadTextData(String text) {
             log.Info(TAG + " uploading text to the server");
 
-
             if (switchClipboardValue(text)) { 
                 var response = await api.Push(user_token, text, deviceID);
-
 
                 if(response == null)
                 {

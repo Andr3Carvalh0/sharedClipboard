@@ -2,16 +2,24 @@ package pt.andre.projecto.Service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
+import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Utils.Device;
 import pt.andre.projecto.Model.Utils.DeviceIdentifier;
 import pt.andre.projecto.Service.Interfaces.IServerService;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /*
 * Handles the representation of the website main page
 * */
 public class ServerService implements IServerService{
+    @Autowired
+    private IDatabase database;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: ServerService ";
@@ -40,5 +48,25 @@ public class ServerService implements IServerService{
         model.put("isSupported", currentDevice.isSupported());
 
         return "index";
+    }
+
+    @Override
+    public String[] getDevices(long token) {
+        List<DeviceWrapper> desktop = database.getDesktopDevices(token);
+        List<DeviceWrapper> mobile = database.getMobileDevices(token);
+        List<String> devices = new LinkedList<>();
+
+        /*
+        for (List<DeviceWrapper> desk : desktop) {
+            devices.add(desk);
+        }
+
+        for (String desk : mobile) {
+            devices.add(desk);
+        }
+
+        return devices.stream().toArray(String[]::new);*/
+
+        throw new NotImplementedException();
     }
 }

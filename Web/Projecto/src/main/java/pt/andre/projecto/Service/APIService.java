@@ -3,18 +3,19 @@ package pt.andre.projecto.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.URIs.FirebaseServer;
+import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
 import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
-
-import javax.servlet.http.HttpServletRequest;
+import pt.andre.projecto.WebSockets.WebSocket;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 * Service that handles every action to our API URLs
@@ -23,6 +24,9 @@ public class APIService implements IAPIService{
 
     @Autowired
     private IDatabase database;
+
+    @Autowired
+    WebSocket webSocket;
 
     @Autowired
     private FirebaseServer firebaseServer;
@@ -38,6 +42,7 @@ public class APIService implements IAPIService{
     * */
     @Override
     public DatabaseResponse push(long token, String data) {
+
         return this.push(token, data, false);
     }
 
@@ -56,7 +61,7 @@ public class APIService implements IAPIService{
         if(result == null)
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
 
-        return database.push(token, result, true);
+        return this.push(token, result, true);
     }
 
     /*
@@ -69,8 +74,13 @@ public class APIService implements IAPIService{
     * @return DatabaseResponse: Object that contains the server HTTP code, and a Message.
     * */
     @Override
-    public DatabaseResponse registerMobileDevice(long token, String firebaseID) {
-        return database.registerMobileDevice(token, firebaseID);
+    public DatabaseResponse registerMobileDevice(long token, String firebaseID, String deviceName) {
+        return database.registerMobileDevice(token, firebaseID, deviceName);
+    }
+
+    @Override
+    public DatabaseResponse registerDesktopDevice(long token, String deviceID, String deviceName) {
+        return database.registerDesktopDevice(token, deviceID, deviceName);
     }
 
     /*
@@ -152,12 +162,32 @@ public class APIService implements IAPIService{
 
         logger.info(TAG + "Sharing with devices");
 
+        String[] devices = database.getDesktopDevices(token)
+                .stream()
+                .map(DeviceWrapper::getId)
+                .collect(Collectors.toList())
+                .toArray(new String[0]);
 
-        firebaseServer.notify(data, isMIME, database.getMobileDevices(token));
 
-        // TODO: 28/06/2017 Send websocket message
+        firebaseServer.notify(data, isMIME, devices);
+
+        sendMessageToDesktopDevices(token, data, isMIME);
 
         return push;
+    }
+
+    private void sendMessageToDesktopDevices(long token, String data, boolean isMIME) {
+        List<DeviceWrapper> devices = database.getDesktopDevices(token);
+        String message = "{" + "\n\rcontent: " + data + ", " + "\n\risMIME: " + isMIME + "}";
+
+        for (DeviceWrapper device : devices) {
+
+            try {
+                webSocket.getHandler().sendMessage(device.getId(), message);
+            } catch (InterruptedException e) {
+                logger.info("Cannot send message to: " + device);
+            }
+        }
     }
 
 

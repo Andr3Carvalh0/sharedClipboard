@@ -14,6 +14,7 @@ import pt.andre.projecto.Controllers.IAPI;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
+import pt.andre.projecto.WebSockets.WebSocket;
 import sun.misc.Request;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -74,7 +75,7 @@ public class API implements IAPI {
     * */
     @Override
     @PostMapping("/api/pushMIME")
-    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestParam(value = "token") Long token, @RequestParam(value = "deviceIdentifier") String deviceIdentifier) {
+    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestParam(value = "token") Long token) {
         DatabaseResponse resp;
 
         logger.info(TAG + "Push MIME method");
@@ -93,7 +94,7 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/push", method = RequestMethod.PUT)
-    public ResponseEntity push(@RequestParam long token, @RequestParam String data, @RequestParam(value = "deviceIdentifier") String deviceIdentifier) {
+    public ResponseEntity push(@RequestParam long token, @RequestParam String data) {
         logger.info(TAG + "push method");
         final DatabaseResponse resp = service.push(token, data);
 
@@ -106,8 +107,8 @@ public class API implements IAPI {
     * @param token: the token used to authenticate a user.
     * */
     @Override
-    @RequestMapping(value = "/api/pull", params = {"account", "deviceIdentifier"}, method = RequestMethod.GET)
-    public ResponseEntity pull(@RequestParam(value = "account") long token,  @RequestParam(value = "deviceIdentifier") String deviceIdentifier) {
+    @RequestMapping(value = "/api/pull", params = {"account"}, method = RequestMethod.GET)
+    public ResponseEntity pull(@RequestParam(value = "account") long token) {
 
         logger.info(TAG + "pull method");
 
@@ -118,13 +119,13 @@ public class API implements IAPI {
     }
 
     /*
-    * Associate a mobile Device ID(iOS/Android), so we can use the Firebase Service to push new content to that device
+    * Associate a mobile DeviceWrapper ID(iOS/Android), so we can use the Firebase Service to push new content to that device
     * @param account: the user account token
     * @param deviceID: the device id, given by the Firebase API
     * */
-    private ResponseEntity registerMobileDevice(long account, String deviceID) {
+    private ResponseEntity registerMobileDevice(long account, String deviceID, String deviceName) {
         logger.info(TAG + "RegisterDevice method");
-        final DatabaseResponse resp = service.registerMobileDevice(account, deviceID);
+        final DatabaseResponse resp = service.registerMobileDevice(account, deviceID, deviceName);
 
         logger.info(TAG + "resgisterDevice: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
@@ -138,12 +139,18 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/registerDevice", method = RequestMethod.PUT)
-    public ResponseEntity associateDeviceWithAccount(@RequestParam long account, @RequestParam String deviceIdentifier, @RequestParam boolean deviceType) {
-
-
+    public ResponseEntity associateDeviceWithAccount(@RequestParam long account, @RequestParam String deviceIdentifier, @RequestParam boolean deviceType, @RequestParam String deviceName) {
         if(deviceType)
-            registerMobileDevice(account, deviceIdentifier);
+            return registerMobileDevice(account, deviceIdentifier, deviceName);
 
-        throw new NotImplementedException();
+        return registerDesktopDevice(account, deviceIdentifier,  deviceName);
+    }
+
+    private ResponseEntity registerDesktopDevice(long account, String deviceIdentifier, String deviceName) {
+        logger.info(TAG + "RegisterDevice method");
+        final DatabaseResponse resp = service.registerDesktopDevice(account, deviceIdentifier, deviceName);
+
+        logger.info(TAG + "resgisterDevice: response will have the following code:" + resp.getResponseCode());
+        return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 }

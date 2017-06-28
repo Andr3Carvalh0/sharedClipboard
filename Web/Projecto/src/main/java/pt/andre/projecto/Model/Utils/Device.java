@@ -1,7 +1,7 @@
 package pt.andre.projecto.Model.Utils;
 
 /*
-* Represents an Device
+* Represents an DeviceWrapper
 * */
 public class Device {
     //String contained in the userAgent String

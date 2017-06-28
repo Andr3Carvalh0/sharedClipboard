@@ -11,7 +11,8 @@ public interface IAPIService {
 
     DatabaseResponse push(long token, String data);
     DatabaseResponse push(MultipartFile file, long token);
-    DatabaseResponse registerMobileDevice(long token, String firebaseID);
+    DatabaseResponse registerMobileDevice(long token, String firebaseID, String deviceName);
+    DatabaseResponse registerDesktopDevice(long token, String deviceID, String deviceName);
     DatabaseResponse pull(long token);
     DatabaseResponse createAccount(String account, String password);
     DatabaseResponse authenticate(String account, String password);

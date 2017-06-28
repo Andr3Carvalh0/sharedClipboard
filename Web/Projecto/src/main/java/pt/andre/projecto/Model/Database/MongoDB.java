@@ -13,13 +13,12 @@ import org.slf4j.LoggerFactory;
 import pt.andre.projecto.Model.DTOs.Content;
 import pt.andre.projecto.Model.DTOs.User;
 import pt.andre.projecto.Model.DTOs.Wrappers.ContentWrapper;
+import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
 import pt.andre.projecto.Model.DTOs.Wrappers.UserWrapper;
 import pt.andre.projecto.Model.Database.Utils.DatabaseOption;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Model.Utils.Security;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
@@ -81,13 +80,13 @@ public class MongoDB implements IDatabase {
     * @param firebaseID: the device ID, that is return by the firebase service
     * */
     @Override
-    public DatabaseResponse registerMobileDevice(long token, String firebaseID) {
-        return registerDevice(token, firebaseID, MOBILE_CLIENTS);
+    public DatabaseResponse registerMobileDevice(long token, String firebaseID, String deviceName) {
+        return registerDevice(token, firebaseID, MOBILE_CLIENTS, deviceName);
     }
 
     @Override
-    public DatabaseResponse registerDesktopDevice(long token, String deviceID) {
-        return registerDevice(token, deviceID, DESKTOP_CLIENTS);
+    public DatabaseResponse registerDesktopDevice(long token, String deviceID, String deviceName) {
+        return registerDevice(token, deviceID, DESKTOP_CLIENTS, deviceName);
     }
 
 
@@ -204,23 +203,23 @@ public class MongoDB implements IDatabase {
     }
 
     @Override
-    public String[] getMobileDevices(long token) {
+    public List<DeviceWrapper> getMobileDevices(long token) {
         logger.info(TAG + "getting mobile devices devices..........");
 
-        return getDevices(token, userWrapper -> userWrapper.getUser().getMobileClients());
+        return getDevices(token, userWrapper -> userWrapper.getUser().getMobileClients(), true);
     }
 
     @Override
-    public String[] getDesktopDevices(long token) {
+    public List<DeviceWrapper> getDesktopDevices(long token) {
         logger.info(TAG + "getting desktop devices devices..........");
 
-        return getDevices(token, userWrapper -> userWrapper.getUser().getDesktopClients());
+        return getDevices(token, userWrapper -> userWrapper.getUser().getDesktopClients(), false);
     }
 
-    private String[] getDevices(long token, Function<UserWrapper, List<Document>> func){
+    private List<DeviceWrapper> getDevices(long token, Function<UserWrapper, List<Document>> func, boolean isMobile){
 
         final List<Document> res = new LinkedList<>();
-        List<String> toReturn = new LinkedList<>();
+        List<DeviceWrapper> toReturn = new LinkedList<>();
 
         transformationToUserDatabase(token,
                 (wrapper, collection) -> {
@@ -229,9 +228,9 @@ public class MongoDB implements IDatabase {
                 }
         );
 
-        res.stream().forEach(s -> toReturn.add(s.getString("_main")));
+        res.stream().forEach(s -> toReturn.add(new DeviceWrapper(s.getString("_main"), s.getString("name"), isMobile)));
 
-        return toReturn.stream().toArray(String[]::new);
+        return toReturn;
 
     }
 
@@ -319,12 +318,13 @@ public class MongoDB implements IDatabase {
 
 
 
-    private DatabaseResponse registerDevice(long token, String device, String type){
+    private DatabaseResponse registerDevice(long token, String device, String type, String deviceName){
         try{
             return transformationToUserDatabase(token, (wrapper, collection) -> {
 
                 logger.info(TAG + "attempting to add device to user account");
                 BasicDBObject document = new BasicDBObject("_main", device);
+                document.append("name", deviceName);
 
                 BasicDBObject updateCommand = new BasicDBObject("$addToSet", new BasicDBObject(type, document));
 

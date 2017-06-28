@@ -6,18 +6,12 @@ import org.springframework.web.multipart.MultipartFile;
 public interface IAPI {
 
 
-    ResponseEntity push(long token, String data, String deviceIdentifier);
-
-
-    ResponseEntity push(MultipartFile file, Long token, String deviceIdentifier);
-
-
-    ResponseEntity pull(long token, String deviceIdentifier);
-
-
+    ResponseEntity push(long token, String data);
+    ResponseEntity push(MultipartFile file, Long token);
+    ResponseEntity pull(long token);
     ResponseEntity createAccount(String account, String password);
     ResponseEntity authenticate(String account, String password);
-    ResponseEntity associateDeviceWithAccount(long account, String deviceIdentifier, boolean deviceType);
+    ResponseEntity associateDeviceWithAccount(long account, String deviceIdentifier, boolean deviceType, String deviceName);
 
 
 

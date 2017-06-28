@@ -23,4 +23,8 @@ public class WebSocket implements WebSocketConfigurer {
     public WebSockerHandler getWebSocketHandler(){
         return new WebSockerHandler();
     }
+
+    public WebSockerHandler getHandler(){
+        return webSocketHandler;
+    }
 }

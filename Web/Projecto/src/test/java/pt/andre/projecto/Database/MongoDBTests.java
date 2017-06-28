@@ -5,10 +5,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
 import pt.andre.projecto.Model.Database.MongoDB;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class MongoDBTests {
 
@@ -61,11 +63,11 @@ public class MongoDBTests {
 
     @Test
     public void canRegisterMobileDevice() {
-        databaseConnector.registerMobileDevice(1, "TEST");
-        String[] allDevices = databaseConnector.getMobileDevices(1);
+        databaseConnector.registerMobileDevice(1, "TEST", "iPhonen");
+        List<DeviceWrapper> allDevices = databaseConnector.getMobileDevices(1);
 
-        for (String device : allDevices) {
-            if (device.equals("TEST")) {
+        for (DeviceWrapper device : allDevices) {
+            if (device.getId().equals("TEST")) {
                 Assert.assertTrue(true);
                 return;
             }
@@ -76,12 +78,12 @@ public class MongoDBTests {
 
     @Test
     public void canReg1isterMobileDevice() {
-        databaseConnector.registerDesktopDevice(1, "TEST");
+        databaseConnector.registerDesktopDevice(1, "TEST", "MAC");
 
-        String[] allDevices = databaseConnector.getDesktopDevices(1);
+        List<DeviceWrapper> allDevices = databaseConnector.getDesktopDevices(1);
 
-        for (String device : allDevices) {
-            if (device.equals("TEST")) {
+        for (DeviceWrapper device : allDevices) {
+            if (device.getId().equals("TEST")) {
                 Assert.assertTrue(true);
                 return;
             }

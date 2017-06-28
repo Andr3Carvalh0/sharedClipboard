@@ -151,7 +151,12 @@ public class APIService implements IAPIService{
         DatabaseResponse push = database.push(token, data, isMIME);
 
         logger.info(TAG + "Sharing with devices");
-        firebaseServer.notify(data, isMIME, database.getDevices(token));
+
+
+        firebaseServer.notify(data, isMIME, database.getMobileDevices(token));
+
+        // TODO: 28/06/2017 Send websocket message
+
         return push;
     }
 

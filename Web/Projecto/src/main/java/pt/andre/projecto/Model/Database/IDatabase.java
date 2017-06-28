@@ -6,10 +6,13 @@ public interface IDatabase {
 
 
     DatabaseResponse registerMobileDevice(long token, String firebaseID);
+    DatabaseResponse registerDesktopDevice(long token, String deviceID);
     DatabaseResponse push(long token, String data, boolean isMIME);
     DatabaseResponse pull(long token);
     DatabaseResponse authenticate(String user, String pass);
     DatabaseResponse createAccount(String user, String password);
 
-    String[] getDevices(long token);
+    String[] getMobileDevices(long token);
+    String[] getDesktopDevices(long token);
+
 }

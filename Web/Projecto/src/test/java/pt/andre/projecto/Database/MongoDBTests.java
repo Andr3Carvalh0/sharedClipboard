@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import pt.andre.projecto.Model.Database.MongoDB;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
+
 import java.util.Arrays;
 
 public class MongoDBTests {
@@ -16,45 +17,76 @@ public class MongoDBTests {
     private static String TEST_PASSWORD = "test";
 
     @BeforeClass
-    public static void preSetup(){
+    public static void preSetup() {
         databaseConnector = new MongoDB("localhost", "27017", "Testes");
         databaseConnector.createAccount(TEST_USER, TEST_PASSWORD);
     }
 
     @Before
-    public void setup(){
+    public void setup() {
         databaseConnector.push(1, "Ola", false);
 
     }
 
     @Test
-    public void canConnectToDatabase(){
+    public void canConnectToDatabase() {
         String[] existingCollections = Iterables.toArray(databaseConnector.getMongoDatabase().listCollectionNames(), String.class);
         Assert.assertTrue(Arrays.stream(existingCollections).count() > 1);
     }
 
     @Test
-    public void canDetectAccountCreationWithSameCredentials(){
+    public void canDetectAccountCreationWithSameCredentials() {
         Assert.assertEquals(409, databaseConnector.createAccount(TEST_USER, TEST_PASSWORD).getResponseCode());
     }
 
     @Test
-    public void canPushDataToDatabase(){
+    public void canPushDataToDatabase() {
         databaseConnector.push(1, "Adeus", false);
 
         Assert.assertEquals("Adeus", databaseConnector.pull(1).getResponseMessage());
     }
 
     @Test
-    public void canPullDataFromDatabase(){
+    public void canPullDataFromDatabase() {
         Assert.assertEquals("Ola", databaseConnector.pull(1).getResponseMessage());
 
     }
 
     @Test
-    public void canAuthenticateUserFromDatabase(){
+    public void canAuthenticateUserFromDatabase() {
         DatabaseResponse authenticate = databaseConnector.authenticate(TEST_USER, TEST_PASSWORD);
         Assert.assertEquals(200, authenticate.getResponseCode());
         Assert.assertEquals("1", databaseConnector.authenticate(TEST_USER, TEST_PASSWORD).getResponseMessage());
+    }
+
+    @Test
+    public void canRegisterMobileDevice() {
+        databaseConnector.registerMobileDevice(1, "TEST");
+        String[] allDevices = databaseConnector.getMobileDevices(1);
+
+        for (String device : allDevices) {
+            if (device.equals("TEST")) {
+                Assert.assertTrue(true);
+                return;
+            }
+        }
+
+        Assert.assertTrue(false);
+    }
+
+    @Test
+    public void canReg1isterMobileDevice() {
+        databaseConnector.registerDesktopDevice(1, "TEST");
+
+        String[] allDevices = databaseConnector.getDesktopDevices(1);
+
+        for (String device : allDevices) {
+            if (device.equals("TEST")) {
+                Assert.assertTrue(true);
+                return;
+            }
+        }
+
+        Assert.assertTrue(false);
     }
 }

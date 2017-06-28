@@ -17,14 +17,10 @@ public class Content {
     //Indicates whether id a URL to a resource, or the resource itself
     private boolean isMIME;
 
-    //List of the user's firebase ids.One id corresponds to a different mobile device
-    private List<Document> mobileClients;
-
-    public Content(long token, String content, boolean isMIME, List<Document> mobileClients) {
+    public Content(long token, String content, boolean isMIME) {
         this.token = token;
         this.value = content;
         this.isMIME = isMIME;
-        this.mobileClients = mobileClients;
     }
 
     public boolean isMIME() {
@@ -38,10 +34,5 @@ public class Content {
     public String getValue() {
         return value;
     }
-
-    public List<Document> getMobileClients() {
-        return mobileClients;
-    }
-
 
 }

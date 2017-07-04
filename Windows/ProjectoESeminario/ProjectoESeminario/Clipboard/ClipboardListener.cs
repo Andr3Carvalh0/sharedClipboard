@@ -13,6 +13,10 @@ using System.Drawing.Imaging;
 using System.Net.Http.Headers;
 using WebSocketSharp;
 using System.Configuration;
+using Ultralight.Listeners;
+using Ultralight;
+using Ultralight.Client;
+using Ultralight.Client.Transport;
 
 namespace ProjectoESeminario
 {
@@ -102,14 +106,14 @@ namespace ProjectoESeminario
 
         private async void uploadMediaData(ImageFormat format, byte[] image, string name)
         {
-            await api.Push(user_token, image, name, format.ToString().ToLower(), deviceID);
+            await api.Push(user_token, image, name, format.ToString().ToLower());
         }
 
         private async void uploadTextData(String text) {
             log.Info(TAG + " uploading text to the server");
 
             if (switchClipboardValue(text)) { 
-                var response = await api.Push(user_token, text, deviceID);
+                var response = await api.Push(user_token, text);
 
                 if(response == null)
                 {
@@ -142,41 +146,9 @@ namespace ProjectoESeminario
         /// Work done by the background thread.Every 30 second the thread will do a pull from the server
         /// and check if the content of the clipboard has changed!
         /// </summary>
-        public async void fetchInformation()
+        public void fetchInformation()
         {
-            try { 
-                using (ws = new WebSocket(ProjectoAPI.socketURL))
-                {
-                    ws.OnMessage += (sender, e) => {
-                    
-                        log.Debug(TAG + "Thread: Obtain something");
-                        PullResponse resp = JsonConvert.DeserializeObject<PullResponse>(e.Data);
 
-                        if (switchClipboardValue(resp.content))
-                        {
-                            log.Debug(TAG + "Altering clipboard value");
-                            storeText(resp.content);
-                        }
-                    };
-
-                    ws.Connect();
-                
-                    //Send device id on the first connection 
-                    ws.Send(Properties.Settings.Default.deviceID);
-                
-                    //Hack to make the connection persistent
-                    //
-                    while (true)
-                    {
-                        ws.Ping();
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                Thread.Sleep(30000);
-                fetchInformation();
-            }
         }
 
         private void storeText(string content)

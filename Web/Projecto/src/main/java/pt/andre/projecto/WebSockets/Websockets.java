@@ -1,4 +1,4 @@
-package pt.andre.projecto.Controllers.URIs;
+package pt.andre.projecto.WebSockets;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -12,11 +12,15 @@ public class Websockets extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
+       // config.enableSimpleBroker("/test");
+        //registry.enableStompBrokerRelay("/queue/", "/topic/", "/exchange/");
+        //config.setApplicationDestinationPrefixes("/app");
+
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/desktop_socket").setAllowedOrigins("*").withSockJS();
+        registry.addEndpoint("/desktop_socket").setAllowedOrigins("*");
     }
 
 }

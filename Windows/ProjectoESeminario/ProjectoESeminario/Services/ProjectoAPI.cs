@@ -78,7 +78,7 @@ namespace Projecto.Service
             }
         }
 
-        public async Task<HttpResponseMessage> Push(long account, string data, string deviceID)
+        public async Task<HttpResponseMessage> Push(long account, string data)
         {
             if (account == 0)
                 return null;
@@ -95,7 +95,7 @@ namespace Projecto.Service
             }
         }
 
-        public async Task<HttpResponseMessage> Push(long account, byte[] data, string filename, string filetype, string deviceID)
+        public async Task<HttpResponseMessage> Push(long account, byte[] data, string filename, string filetype)
         {
             if (account == 0)
                 return null;
@@ -122,9 +122,26 @@ namespace Projecto.Service
             }
         }
 
-        public Task<HttpResponseMessage> registerDevice(long account, string deviceID, bool deviceType)
+        public async Task<HttpResponseMessage> registerDevice(long account, string deviceID, bool deviceType, String deviceName)
         {
-            throw new NotImplementedException();
+            if (account == 0)
+                return null;
+
+            try
+            {
+                var parameters = new Dictionary<string, string>();
+                parameters["account"] = account + "";
+                parameters["deviceIdentifier"] = deviceID;
+                parameters["deviceType"] = false + "";
+                parameters["deviceName"] = deviceName;
+
+                return await httpClient.PutAsync(mainServer + registerDevice_URL, new FormUrlEncodedContent(parameters));
+
+            }
+            catch (Exception e)
+            {
+                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ public interface IAPI {
     String deviceRegister = "registerDevice";
 
     @PUT(push)
-    Call<ResponseBody> push(@Query("token") long account, @Query("data") String data, @Query("deviceIdentifier") String firebaseID);
+    Call<ResponseBody> push(@Query("token") long account, @Query("data") String data);
 
     @GET(accountManagement)
     Call<String> authenticate(@Query("account") String username, @Query("password") String password);
@@ -24,6 +24,6 @@ public interface IAPI {
     Call<String> createAccount(@Query("account") String account, @Query("password") String password);
 
     @PUT(deviceRegister)
-    Call<ResponseBody> registerDevice(@Query("account") long account, @Query("deviceIdentifier") String firebaseID,  @Query("deviceType") boolean deviceType);
+    Call<ResponseBody> registerDevice(@Query("account") long account, @Query("deviceIdentifier") String firebaseID, @Query("deviceType") boolean deviceType, @Query("deviceName") String deviceName);
 
 }

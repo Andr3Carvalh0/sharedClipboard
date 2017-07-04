@@ -20,7 +20,7 @@ namespace Projecto.Service
         /// <param name="account"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        Task<HttpResponseMessage> Push(long account, string data, string deviceID);
+        Task<HttpResponseMessage> Push(long account, string data);
 
         /// <summary>
         /// Used when we need to push MIME(Multimedia: images, docs) to the server
@@ -28,7 +28,7 @@ namespace Projecto.Service
         /// <param name="account"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        Task<HttpResponseMessage> Push(long account, byte[] data, string filename, string filetype, string deviceID);
+        Task<HttpResponseMessage> Push(long account, byte[] data, string filename, string filetype);
 
         /// <summary>
         /// Try to authenticate user @username with password @password
@@ -52,8 +52,9 @@ namespace Projecto.Service
         /// <param name="account"></param>
         /// <param name="deviceID"></param>
         /// <param name="deviceType"> false: Desktop, true mobile</param>
+        /// <param name="deviceName"> This device names</param>
         /// <returns></returns>
-        Task<HttpResponseMessage> registerDevice(long account, string deviceID, bool deviceType);
+        Task<HttpResponseMessage> registerDevice(long account, string deviceID, bool deviceType, String deviceName);
 
 
     }

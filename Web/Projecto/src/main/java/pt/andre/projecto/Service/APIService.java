@@ -10,12 +10,10 @@ import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
-import pt.andre.projecto.WebSockets.WebSocket;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /*
 * Service that handles every action to our API URLs
@@ -24,9 +22,6 @@ public class APIService implements IAPIService{
 
     @Autowired
     private IDatabase database;
-
-    @Autowired
-    WebSocket webSocket;
 
     @Autowired
     private FirebaseServer firebaseServer;
@@ -162,28 +157,32 @@ public class APIService implements IAPIService{
 
         logger.info(TAG + "Sharing with devices");
 
-        String[] devices = database.getDesktopDevices(token)
+
+        final String[] mobileDevices = database.getMobileDevices(token)
+                .stream().map(DeviceWrapper::getId)
+                .toArray(String[]::new);
+
+        final String[] desktopDevices = database.getDesktopDevices(token)
                 .stream()
                 .map(DeviceWrapper::getId)
-                .collect(Collectors.toList())
-                .toArray(new String[0]);
+                .toArray(String[]::new);
 
 
-        firebaseServer.notify(data, isMIME, devices);
+        firebaseServer.notify(data, isMIME, mobileDevices);
 
-        sendMessageToDesktopDevices(token, data, isMIME);
+        sendMessageToDesktopDevices(data, isMIME, desktopDevices);
 
         return push;
     }
 
-    private void sendMessageToDesktopDevices(long token, String data, boolean isMIME) {
-        List<DeviceWrapper> devices = database.getDesktopDevices(token);
+    private void sendMessageToDesktopDevices(String data, boolean isMIME, String...devices) {
         String message = "{" + "\n\rcontent: " + data + ", " + "\n\risMIME: " + isMIME + "}";
 
-        for (DeviceWrapper device : devices) {
+        for (String device : devices) {
 
             try {
-                webSocket.getHandler().sendMessage(device.getId(), message);
+               // webSocket.getHandler().sendMessage(device, message);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 logger.info("Cannot send message to: " + device);
             }

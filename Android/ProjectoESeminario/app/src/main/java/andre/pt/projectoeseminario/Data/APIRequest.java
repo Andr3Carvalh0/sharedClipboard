@@ -1,12 +1,9 @@
 package andre.pt.projectoeseminario.Data;
 
 import android.content.Context;
-import android.content.Intent;
-
-import java.io.IOException;
+import android.os.Build;
 import java.util.HashMap;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.regex.Pattern;
 import andre.pt.projectoeseminario.Data.Interface.Responses.IResponse;
 import andre.pt.projectoeseminario.Data.Interface.IAPI;
@@ -38,7 +35,7 @@ public class APIRequest {
     }
 
     public void registerDevice(long token, String firebase){
-        mAPI.registerDevice(token, firebase, true).enqueue(new Callback<ResponseBody>() {
+        mAPI.registerDevice(token, firebase, true, Build.MODEL).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {}
 
@@ -47,16 +44,19 @@ public class APIRequest {
         });
     }
 
-    public void pushTextInformation(long token, String information, String firebase){
-        mAPI.push(token, information, firebase).enqueue(new Callback<ResponseBody>() {
+    public void pushTextInformation(long token, String information){
+        System.out.println();
+        mAPI.push(token, information).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 //Nothing to do here!
+                System.out.println("dasdasd");
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 //Should we retry?
+                System.out.println("dasdasdsadasdasdasd");
             }
         });
 

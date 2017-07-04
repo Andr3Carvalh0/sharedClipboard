@@ -50,6 +50,11 @@ public class Server{
         return service.getDevices(model, token);
     }
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String broker(){
+        return "ola";
+    }
+
 }
 
 

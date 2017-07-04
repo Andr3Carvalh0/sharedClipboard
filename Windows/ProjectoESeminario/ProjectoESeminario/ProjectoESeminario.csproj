@@ -38,6 +38,9 @@
     <ApplicationIcon>ic_launcher.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fleck">
+      <HintPath>Extras\Fleck.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Apis, Version=1.27.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.27.1\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
@@ -61,6 +64,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StompNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StompNet.1.0.0.0\lib\net45\StompNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -93,9 +99,15 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Ultralight">
+      <HintPath>Extras\Ultralight.dll</HintPath>
+    </Reference>
+    <Reference Include="Ultralight.Client">
+      <HintPath>Extras\Ultralight.Client.dll</HintPath>
+    </Reference>
     <Reference Include="websocket-sharp, Version=1.0.2.18752, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\websocket-sharp.dll</HintPath>
+      <HintPath>Extras\websocket-sharp.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -106,6 +118,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConsoleWriterObserver.cs" />
+    <Compile Include="Classifiers\Classifiers.cs" />
     <Compile Include="Clipboard\ClipboardListener.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,13 +178,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ic_launcher.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="websocket-sharp.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

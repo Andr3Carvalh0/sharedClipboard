@@ -1,8 +1,5 @@
 package pt.andre.projecto.Controllers.URIs;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.IAPI;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
-import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
-import pt.andre.projecto.WebSockets.WebSocket;
-import sun.misc.Request;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
-import java.util.List;
 
 @RestController
 @AutoConfigureBefore

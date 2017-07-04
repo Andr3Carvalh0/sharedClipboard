@@ -43,7 +43,7 @@ namespace Projecto.Controllers
 
         public async void registerDevice(long userToken, String GUID)
         {
-            var response = await mAPI.registerDevice(userToken, GUID, true);
+            var response = await mAPI.registerDevice(userToken, GUID, true, Environment.MachineName);
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {

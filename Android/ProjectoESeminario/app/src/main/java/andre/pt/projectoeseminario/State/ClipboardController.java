@@ -1,55 +1,72 @@
 package andre.pt.projectoeseminario.State;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ClipboardController {
-    private volatile AtomicBoolean doingWork;
-    private volatile AtomicReference<String> lastClipboardContent;
+    private Lock nLock;
+    private Condition nCondition;
+    private boolean inUse;
+    private String clipboard_value;
 
     public ClipboardController(){
-        doingWork = new AtomicBoolean(false);
-        lastClipboardContent = new AtomicReference<>();
+        nLock = new ReentrantLock();
+        inUse = false;
+        nCondition = nLock.newCondition();
+
     }
 
-    public boolean releaseWork(){
-        while(doingWork.get()){
-            boolean initialState = doingWork.get();
+    public void releaseWork(){
+        nLock.lock();
 
-            if (doingWork.compareAndSet(initialState, !initialState)){
-                return true;
-            }
+        try {
+            if(inUse)
+                inUse = false;
+
+            nCondition.signalAll();
+        }finally {
+            nLock.unlock();
         }
-
-        return true;
     }
-
 
     public boolean acquireWork(){
-        while(!doingWork.get()){
-            boolean initialState = doingWork.get();
+        nLock.lock();
 
-            if (doingWork.compareAndSet(initialState, !initialState)){
+        try {
+            if(!inUse){
+                inUse = true;
                 return true;
             }
+
+            do {
+                try {
+                    nCondition.await();
+                }catch (InterruptedException e){
+
+                }
+
+                return inUse;
+            }while (true);
+        }finally {
+            nLock.unlock();
         }
 
-        return true;
     }
-
 
     public Boolean switchClipboardValue(String newValue)
     {
-        String oldvalue = lastClipboardContent.get();
+        nLock.lock();
 
-        while (!newValue.equals(oldvalue))
-        {
+        try {
+            if(newValue.equals(clipboard_value))
+                return false;
 
-            if(lastClipboardContent.compareAndSet(oldvalue, newValue))
-                return true;
+            clipboard_value = newValue;
+            return true;
 
+        }finally {
+            nLock.unlock();
         }
-
-        return false;
     }
 }

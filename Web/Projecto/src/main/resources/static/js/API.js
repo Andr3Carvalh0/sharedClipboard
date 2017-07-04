@@ -3,6 +3,9 @@ const CREATE_ACCOUNT_URL = '/api/account'
 //@todo: change the ajax Request to fetch
 function createAccount() {
     if(commonAuthentication("")) {
+        let email = document.getElementById("emailTextView").value
+        let password = document.getElementById("passwordTextView").value
+
         let data = 'account=' + email + '&password=' + password
         ajaxRequest('PUT', CREATE_ACCOUNT_URL, data)
             .then((response) => {
@@ -24,8 +27,13 @@ function createAccount() {
 function loginAccount() {
 
     if(commonAuthentication("_preferences")){
+        let email = document.getElementById("emailTextView_preferences").value
+        let password = document.getElementById("passwordTextView_preferences").value
+
+        console.log(email)
+        console.log(password)
         let data = 'account=' + email + '&password=' + password
-        ajaxRequest('PUT', CREATE_ACCOUNT_URL, data)
+        ajaxRequest('GET', CREATE_ACCOUNT_URL, data)
             .then((response) => {
 
                 //Show a notification alerting the user that the creation of the account was a success

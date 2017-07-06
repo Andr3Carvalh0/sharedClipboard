@@ -12,10 +12,27 @@
             <ColumnDefinition Width="217*"/>
             <ColumnDefinition Width="215*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Settings" HorizontalAlignment="Left" Margin="10,-146,0,0" VerticalAlignment="Top" Height="44" Width="371" FontSize="24" FontWeight="Bold" Grid.ColumnSpan="2"/>
-        <Controls:ToggleSwitch OnLabel="Enabled:" OffLabel="Enabled:" Margin="105,-88,15,427" Grid.Column="1" />
-        <Label Content="When selected the service will be on." HorizontalAlignment="Left" Margin="15,-76,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="10"/>
-        <Label Content="Enabled:" HorizontalAlignment="Left" Margin="15,-98,0,0" VerticalAlignment="Top" Height="31" Width="277" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+        <Controls:MetroWindow.Flyouts>
+            <Controls:Flyout Header="Flyout" Position="Right" Width="200">
+                <!-- Your custom content here -->
+            </Controls:Flyout>
+        </Controls:MetroWindow.Flyouts>
+
+        <TabControl HorizontalAlignment="Left" Height="289" Margin="6,-151,0,0" VerticalAlignment="Top" Width="369" Grid.ColumnSpan="2">
+            <TabItem Header="History">
+                <Grid Margin="0,0,0,-108">
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="Settings">
+                <Grid>
+                    <Controls:ToggleSwitch OnLabel="Enabled:" OffLabel="Enabled:" Margin="285,17,10,193" />
+                    <Label Content="When selected the service will be on." HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" FontSize="10"/>
+                    <Label Content="Enabled:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="31" Width="277" FontSize="16" FontWeight="Bold"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Controls:MetroWindow>

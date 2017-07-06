@@ -28,6 +28,7 @@ import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderConte
 import andre.pt.projectoeseminario.Fragments.Interfaces.IHistory;
 import andre.pt.projectoeseminario.Fragments.Interfaces.ParentFragment;
 import andre.pt.projectoeseminario.R;
+import andre.pt.projectoeseminario.Services.ClipboardEventHandler;
 
 import static andre.pt.projectoeseminario.R.id.content_text;
 import static andre.pt.projectoeseminario.R.id.recyclerView;
@@ -160,6 +161,12 @@ public class HistoryFragment extends ParentFragment implements IHistory {
 
 
     private void handleCopyingTextToClipboard(String text){
+        Intent intent = new Intent(getContext(), ClipboardEventHandler.class);
+        intent.putExtra("content", text);
+        intent.putExtra("isMIME", false);
+
+        getContext().startService(intent);
+
         Snackbar.make(getView(), getString(R.string.COPIED_BEGINNIG) + " " + text + " " + getString(R.string.COPIED_END), Snackbar.LENGTH_SHORT).show();
     }
 

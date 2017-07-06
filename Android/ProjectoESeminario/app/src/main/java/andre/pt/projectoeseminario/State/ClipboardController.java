@@ -1,19 +1,29 @@
 package andre.pt.projectoeseminario.State;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class ClipboardController {
     private Lock nLock;
     private Condition nCondition;
     private boolean inUse;
     private String clipboard_value;
+    private HashMap<String, String> history;
 
-    public ClipboardController(){
+    public ClipboardController(String d){
         nLock = new ReentrantLock();
         inUse = false;
+        this.clipboard_value = d;
         nCondition = nLock.newCondition();
+        history = new HashMap<>();
 
     }
 
@@ -45,8 +55,9 @@ public class ClipboardController {
                 }catch (InterruptedException e){
 
                 }
+                if(inUse)
+                    return true;
 
-                return inUse;
             }while (true);
         }finally {
             nLock.unlock();
@@ -54,7 +65,7 @@ public class ClipboardController {
 
     }
 
-    public Boolean switchClipboardValue(String newValue)
+    public Boolean switchClipboardValue(String newValue, Function<String, String> addToFilteredTable, Function<String, Boolean> addToRecentTable)
     {
         nLock.lock();
 
@@ -62,11 +73,17 @@ public class ClipboardController {
             if(newValue.equals(clipboard_value))
                 return false;
 
+            addToFilteredTable.apply(clipboard_value);
+
+            addToFilteredTable.apply(newValue);
+            addToRecentTable.apply(newValue);
             clipboard_value = newValue;
+
             return true;
 
         }finally {
             nLock.unlock();
         }
     }
+
 }

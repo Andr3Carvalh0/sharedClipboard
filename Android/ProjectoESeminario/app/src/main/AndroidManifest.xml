@@ -56,14 +56,10 @@
             android:theme="@style/FloatingWindow" />
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="andre.pt.projectoeseminario.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/paths" />
-        </provider>
+            android:name=".ContentProvider.ResourcesContentProviderProvider"
+            android:authorities="andre.pt.projectoeseminario"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

@@ -7,9 +7,9 @@ public class ClipboardControllerFactory {
     private static ClipboardController clipboardController;
 
 
-    public static ClipboardController getSingleton(){
+    public static ClipboardController getSingleton(String d){
         if(clipboardController == null)
-            clipboardController = new ClipboardController();
+            clipboardController = new ClipboardController(d);
 
         return clipboardController;
     }

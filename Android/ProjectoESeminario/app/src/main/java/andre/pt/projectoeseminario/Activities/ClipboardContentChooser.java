@@ -1,24 +1,41 @@
 package andre.pt.projectoeseminario.Activities;
 
 
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import andre.pt.projectoeseminario.Activities.Abstract.History;
+import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderContent;
 import andre.pt.projectoeseminario.Fragments.HistoryFragment;
 import andre.pt.projectoeseminario.R;
 
 //Floating Activity: https://github.com/klinker24/FloatingWindowDemo
 public class ClipboardContentChooser extends History {
     private Toolbar mToolbar;
+    private static final HashMap<String,Uri> router;
+
+    static {
+        router = new HashMap<>();
+        router.put(ResourcesContentProviderContent.Text.TABLE_NAME, ResourcesContentProviderContent.Text.CONTENT_URI);
+        router.put(ResourcesContentProviderContent.Links.TABLE_NAME, ResourcesContentProviderContent.Links.CONTENT_URI);
+        router.put(ResourcesContentProviderContent.Contacts.TABLE_NAME, ResourcesContentProviderContent.Contacts.CONTENT_URI);
+        router.put(ResourcesContentProviderContent.Recent.TABLE_NAME, ResourcesContentProviderContent.Recent.CONTENT_URI);
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +92,19 @@ public class ClipboardContentChooser extends History {
 
     @Override
     public List<String> getCategoryElements(String category) {
-        return null;
+        List<String> toReturn = new LinkedList<>();
+
+        Cursor cursor = getContentResolver().query(router.get(category), null, null, null, null);
+
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+            Log.v("Andre", cursor.getString(1));
+            cursor.moveToNext();
+
+        }
+
+        return toReturn;
     }
 
     @Override

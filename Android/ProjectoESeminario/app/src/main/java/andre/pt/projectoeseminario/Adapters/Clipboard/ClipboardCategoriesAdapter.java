@@ -18,7 +18,6 @@ public class ClipboardCategoriesAdapter extends ParentAdapter {
 
     static {
         categories.add(new CategoryResources(R.string.Clipboard_Category_Text, R.drawable.text));
-        categories.add(new CategoryResources(R.string.Clipboard_Category_Images, R.drawable.images));
         categories.add(new CategoryResources(R.string.Clipboard_Category_Contacts, R.drawable.contacts));
         categories.add(new CategoryResources(R.string.Clipboard_Category_Links, R.drawable.links));
     }

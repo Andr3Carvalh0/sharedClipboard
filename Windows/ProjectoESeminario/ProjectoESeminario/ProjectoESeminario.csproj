@@ -124,12 +124,19 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DTOs\PullResponse.cs" />
+    <Compile Include="UI\History_Detailed.xaml.cs">
+      <DependentUpon>History_Detailed.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\History_Item.xaml.cs">
       <DependentUpon>History_Item.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="UI\History_Detailed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\History_Item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

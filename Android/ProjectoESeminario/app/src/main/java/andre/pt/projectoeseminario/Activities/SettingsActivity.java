@@ -17,10 +17,10 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.List;
 
-import andre.pt.projectoeseminario.Activities.Abstract.History;
-import andre.pt.projectoeseminario.Adapters.TabViewPager;
-import andre.pt.projectoeseminario.Data.APIRequest;
-import andre.pt.projectoeseminario.Interfaces.SettingsActions;
+import andre.pt.projectoeseminario.Activities.Interfaces.History;
+import andre.pt.projectoeseminario.Adapters.Fragments.TabViewPager;
+import andre.pt.projectoeseminario.API.APIRequest;
+import andre.pt.projectoeseminario.Activities.Interfaces.SettingsActions;
 import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
 import andre.pt.projectoeseminario.Services.CopyMenuListener;
@@ -35,6 +35,7 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ViewPager mViewPager;
+    private TabViewPager adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +101,7 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
 
-        TabViewPager adapter = new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount(), this);
+        adapter = new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount(), this);
 
         mViewPager.setAdapter(adapter);
 
@@ -207,5 +208,15 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
     @Override
     public List<String> getCategoryElements(String category) {
         return null;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (adapter.isInDetailedView(mViewPager.getCurrentItem())){
+            adapter.returnToCategories();
+            return;
+        }
+
+        super.onBackPressed();
     }
 }

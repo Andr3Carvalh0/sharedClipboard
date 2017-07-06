@@ -1,4 +1,4 @@
-package andre.pt.projectoeseminario.Interfaces;
+package andre.pt.projectoeseminario.Activities.Interfaces;
 
 import java.util.List;
 

@@ -73,8 +73,6 @@ public class ClipboardController {
             if(newValue.equals(clipboard_value))
                 return false;
 
-            addToFilteredTable.apply(clipboard_value);
-
             addToFilteredTable.apply(newValue);
             addToRecentTable.apply(newValue);
             clipboard_value = newValue;

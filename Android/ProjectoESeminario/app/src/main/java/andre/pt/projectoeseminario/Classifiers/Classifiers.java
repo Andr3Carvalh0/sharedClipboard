@@ -8,11 +8,15 @@ public class Classifiers {
     private static Pattern phonePattern = Pattern.compile("^(?:\\+\\d{1,3}|0\\d{1,3}|00\\d{1,2})?(?:\\s?\\(\\d+\\))?(?:[-\\/\\s.]|\\d)+$");
     private static Pattern URLPattern = Pattern.compile("\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
 
-    public static boolean isContact(String total){
-        return emailPattern.matcher(total).matches() || phonePattern.matcher(total).matches();
+    public static boolean isContact(String text){
+        return emailPattern.matcher(text).matches() || phonePattern.matcher(text).matches();
     }
 
-    public static boolean isLink(String total){
-        return URLPattern.matcher(total).matches();
+    public static boolean isLink(String text){
+        return URLPattern.matcher(text).matches();
+    }
+
+    public static boolean isPhoneNumber(String text){
+        return phonePattern.matcher(text).matches();
     }
 }

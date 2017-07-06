@@ -1,13 +1,13 @@
-package andre.pt.projectoeseminario.Data;
+package andre.pt.projectoeseminario.API;
 
 import android.content.Context;
 import android.os.Build;
 import java.util.HashMap;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
-import andre.pt.projectoeseminario.Data.Interface.Responses.IResponse;
-import andre.pt.projectoeseminario.Data.Interface.IAPI;
-import andre.pt.projectoeseminario.Data.Interface.ProjectoAPI;
+import andre.pt.projectoeseminario.API.Interface.Responses.IResponse;
+import andre.pt.projectoeseminario.API.Interface.IAPI;
+import andre.pt.projectoeseminario.API.Interface.ProjectoAPI;
 import andre.pt.projectoeseminario.R;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

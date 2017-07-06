@@ -1,6 +1,6 @@
-package andre.pt.projectoeseminario.Data.Interface;
+package andre.pt.projectoeseminario.API.Interface;
 
-import andre.pt.projectoeseminario.Data.Remote.RetrofitClient;
+import andre.pt.projectoeseminario.API.Remote.RetrofitClient;
 
 public class ProjectoAPI {
 

@@ -1,36 +1,45 @@
 package andre.pt.projectoeseminario.Adapters.Clipboard;
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import java.util.function.Consumer;
 import andre.pt.projectoeseminario.Adapters.ParentAdapter;
 import andre.pt.projectoeseminario.R;
 
 public class ClipboardCategoryDetailedAdapter extends ParentAdapter {
 
-    public ClipboardCategoryDetailedAdapter(String[] categories){
-        super(categories, R.layout.clipboard_item, (v) -> new ItemViewHolder((View)v));
+    private final Context ctx;
+    private final Consumer<String> consumer;
+
+    public ClipboardCategoryDetailedAdapter(Context ctx, String[] content, Consumer<String> consumer){
+        super(content, R.layout.clipboard_item, (v) -> new ItemDetailedViewHolder((View)v));
+        this.ctx = ctx;
+        this.consumer = consumer;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        ((ClipboardCategoryDetailedAdapter.ItemDetailedViewHolder)holder).category_text.setText((String)items[position]);
+        ((ClipboardCategoryDetailedAdapter.ItemDetailedViewHolder)holder).category.setOnClickListener(v -> consumer.accept((String)items[position]));
 
+        Animation animation = AnimationUtils.loadAnimation(ctx, android.R.anim.slide_in_left);
+        holder.itemView.startAnimation(animation);
     }
 
-    static class ItemViewHolder extends RecyclerView.ViewHolder {
-
+    static class ItemDetailedViewHolder extends RecyclerView.ViewHolder {
         TextView category_text;
-        ImageView category_icon;
-        ImageView action_switch;
+        RelativeLayout category;
 
-        ItemViewHolder(View itemView) {
+        ItemDetailedViewHolder(View itemView) {
             super(itemView);
-            category_text = (TextView) itemView.findViewById(R.id.category_text);
-            category_icon = (ImageView) itemView.findViewById(R.id.category_icon);
-            action_switch = (ImageView) itemView.findViewById(R.id.action_switch);
+            category_text = (TextView) itemView.findViewById(R.id.content_text);
+            category = (RelativeLayout) itemView.findViewById(R.id.main);
         }
     }
 

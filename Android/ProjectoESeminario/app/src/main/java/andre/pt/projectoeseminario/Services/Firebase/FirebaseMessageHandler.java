@@ -1,4 +1,4 @@
-package andre.pt.projectoeseminario.Firebase;
+package andre.pt.projectoeseminario.Services.Firebase;
 
 import android.content.Intent;
 import android.util.Log;

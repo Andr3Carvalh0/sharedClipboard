@@ -1,4 +1,4 @@
-package andre.pt.projectoeseminario.Events;
+package andre.pt.projectoeseminario.Activities.Events;
 
 import android.view.View;
 import android.widget.ImageView;

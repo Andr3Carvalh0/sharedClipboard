@@ -1,20 +1,21 @@
-package andre.pt.projectoeseminario.Adapters;
+package andre.pt.projectoeseminario.Adapters.Fragments;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import andre.pt.projectoeseminario.Fragments.HistoryFragment;
-import andre.pt.projectoeseminario.Fragments.ParentFragment;
+import andre.pt.projectoeseminario.Fragments.Interfaces.IHistory;
+import andre.pt.projectoeseminario.Fragments.Interfaces.ParentFragment;
 import andre.pt.projectoeseminario.Fragments.PreferencesFragment;
-import andre.pt.projectoeseminario.Interfaces.SettingsActions;
+import andre.pt.projectoeseminario.Activities.Interfaces.SettingsActions;
 
 /*
 * TabViewPager: Handles all the login when we swipe left/right on the settings activity
 * */
-public class TabViewPager extends FragmentStatePagerAdapter {
+public class TabViewPager extends FragmentStatePagerAdapter implements IViewPager{
     private int mTabCount;
-    private ParentFragment fragments[] = {new HistoryFragment(), new PreferencesFragment()};
+    private static final ParentFragment fragments[] = {new HistoryFragment(), new PreferencesFragment()};
     private SettingsActions ctx;
 
     public TabViewPager(FragmentManager fm, int tabCount, SettingsActions ctx) {
@@ -35,5 +36,19 @@ public class TabViewPager extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return mTabCount;
+    }
+
+
+    @Override
+    public boolean isInDetailedView(int position) {
+        if(position != 0)
+            return false;
+
+        return !((IHistory)fragments[position]).isInCategoriesView();
+    }
+
+    @Override
+    public void returnToCategories() {
+        ((IHistory)fragments[0]).switchToCategoriesView();
     }
 }

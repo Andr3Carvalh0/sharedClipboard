@@ -6,7 +6,6 @@ import android.content.ClipboardManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -14,9 +13,9 @@ import android.util.Log;
 import java.util.HashMap;
 
 import andre.pt.projectoeseminario.Classifiers.Classifiers;
-import andre.pt.projectoeseminario.ClipboardControllerFactory;
+import andre.pt.projectoeseminario.State.ClipboardControllerFactory;
 import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderContent;
-import andre.pt.projectoeseminario.Data.APIRequest;
+import andre.pt.projectoeseminario.API.APIRequest;
 import andre.pt.projectoeseminario.State.ClipboardController;
 
 

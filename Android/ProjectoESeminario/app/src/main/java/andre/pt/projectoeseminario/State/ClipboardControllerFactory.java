@@ -1,4 +1,4 @@
-package andre.pt.projectoeseminario;
+package andre.pt.projectoeseminario.State;
 
 import andre.pt.projectoeseminario.State.ClipboardController;
 

@@ -3,9 +3,8 @@
     package="andre.pt.projectoeseminario">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -40,7 +39,7 @@
         <service
             android:name=".Services.CopyMenuListener"
             android:exported="false" />
-        <service android:name=".Firebase.FirebaseMessageHandler">
+        <service android:name=".Services.Firebase.FirebaseMessageHandler">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

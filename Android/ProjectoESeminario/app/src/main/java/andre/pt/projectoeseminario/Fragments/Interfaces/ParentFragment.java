@@ -1,4 +1,4 @@
-package andre.pt.projectoeseminario.Fragments;
+package andre.pt.projectoeseminario.Fragments.Interfaces;
 
 import android.support.v4.app.Fragment;
 

@@ -33,6 +33,12 @@
     <string name="History_Description">Check the clipboard history</string>
     <string name="History_Settings">History:</string>
     <string name="History_Description_Settings">Show a persistent notification for fast access.</string>
-
+    <string name="No_Content">No Content</string>
+    <string name="NO_RECENT_ITEM">You dont have a recent item.</string>
+    <string name="TITLE_PHONE_ITEM">Would you like to call it?</string>
+    <string name="ITEM_OPTION_CALL">Call</string>
+    <string name="ITEM_OPTION_COPY">Copy to Clipboard</string>
+    <string name="COPIED_BEGINNIG">Copied: </string>
+    <string name="COPIED_END"> to clipboard</string>
 
 </resources>

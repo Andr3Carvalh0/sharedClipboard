@@ -1,4 +1,4 @@
-package andre.pt.projectoeseminario.Data.Remote;
+package andre.pt.projectoeseminario.API.Remote;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;

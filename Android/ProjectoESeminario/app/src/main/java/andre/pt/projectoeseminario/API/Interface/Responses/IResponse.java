@@ -1,4 +1,4 @@
-package andre.pt.projectoeseminario.Data.Interface.Responses;
+package andre.pt.projectoeseminario.API.Interface.Responses;
 
 
 public interface IResponse {

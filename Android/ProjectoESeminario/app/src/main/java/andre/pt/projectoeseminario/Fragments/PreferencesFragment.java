@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import java.util.HashMap;
-import andre.pt.projectoeseminario.Activities.SettingsActivity;
+
 import andre.pt.projectoeseminario.Adapters.Entities.Preference;
 import andre.pt.projectoeseminario.Adapters.Settings.PreferencesAdapter;
-import andre.pt.projectoeseminario.Interfaces.SettingsActions;
+import andre.pt.projectoeseminario.Activities.Interfaces.SettingsActions;
+import andre.pt.projectoeseminario.Fragments.Interfaces.ParentFragment;
 import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
 

@@ -1,4 +1,4 @@
-package andre.pt.projectoeseminario.Interfaces;
+package andre.pt.projectoeseminario.Activities.Interfaces;
 
 public interface SettingsActions {
     void cancelNotification();

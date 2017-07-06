@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import andre.pt.projectoeseminario.Activities.Abstract.History;
+import andre.pt.projectoeseminario.Activities.Interfaces.History;
 import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderContent;
 import andre.pt.projectoeseminario.Fragments.HistoryFragment;
 import andre.pt.projectoeseminario.R;
@@ -26,7 +26,7 @@ import andre.pt.projectoeseminario.R;
 public class ClipboardContentChooser extends History {
     private Toolbar mToolbar;
     private static final HashMap<String,Uri> router;
-
+    private HistoryFragment historyFragment;
     static {
         router = new HashMap<>();
         router.put(ResourcesContentProviderContent.Text.TABLE_NAME, ResourcesContentProviderContent.Text.CONTENT_URI);
@@ -53,7 +53,7 @@ public class ClipboardContentChooser extends History {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        HistoryFragment historyFragment = new HistoryFragment();
+        historyFragment = new HistoryFragment();
         fragmentTransaction.add(R.id.fragment_container, historyFragment, "history");
         fragmentTransaction.commit();
     }
@@ -109,7 +109,13 @@ public class ClipboardContentChooser extends History {
 
     @Override
     public void onBackPressed() {
+        if (!historyFragment.isInCategoriesView()){
+            historyFragment.switchToCategoriesView();
+            return;
+        }
+
         super.onBackPressed();
         finish();
     }
+
 }

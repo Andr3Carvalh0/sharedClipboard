@@ -8,14 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("contacts.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ic_assignment_red_400_24dp.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ic_email_24dp.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ic_keyboard_arrow_right_grey_500_24dp.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ic_vpn_key_grey_500_24dp.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("links.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("text.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("youtube.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ic_launcher.ico")]
 
 

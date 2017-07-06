@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              Background="#FFFFFF" d:DesignWidth="374" Height="550.648">
     <Grid>
-            
+        <ToolBarTray HorizontalAlignment="Left" Height="100" Margin="156,-162,0,0" VerticalAlignment="Top" Width="100"/>
+
     </Grid>
 </UserControl>

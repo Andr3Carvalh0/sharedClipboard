@@ -20,11 +20,24 @@ namespace ProjectoESeminario.UI
     /// </summary>
     public partial class SettingsWindow : MetroWindow
     {
+
+        private readonly String[] HISTORY_ITEMS = { "Text", "Contacts", "Images", "Links" };
+
         public SettingsWindow()
         {
             InitializeComponent();
 
             ClipboardListener lister = new ClipboardListener();
+            initHistory();
+        }
+
+
+        private void initHistory()
+        {
+            foreach(String item in HISTORY_ITEMS) {
+
+                History_Container.Children.Add(new History_Item(item));
+            }
 
         }
     }

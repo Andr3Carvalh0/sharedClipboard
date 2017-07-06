@@ -9,30 +9,28 @@
         Title="" ResizeMode="NoResize" Width="383" Height="550.648">
     <Grid Margin="-2,0,-4,-14" Height="374" VerticalAlignment="Bottom" RenderTransformOrigin="0.495,-0.888">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="217*"/>
-            <ColumnDefinition Width="215*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
 
-        <Controls:MetroWindow.Flyouts>
-            <Controls:Flyout Header="Flyout" Position="Right" Width="200">
-                <!-- Your custom content here -->
-            </Controls:Flyout>
-        </Controls:MetroWindow.Flyouts>
 
-        <TabControl HorizontalAlignment="Left" Height="289" Margin="6,-151,0,0" VerticalAlignment="Top" Width="369" Grid.ColumnSpan="2">
+
+
+        <TabControl Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="503" Margin="9,-147,0,0" VerticalAlignment="Top" Width="362">
             <TabItem Header="History">
-                <Grid Margin="0,0,0,-108">
-                    
-                </Grid>
+                <StackPanel Name="History_Container" Margin="0,11,0,0"/>
             </TabItem>
             <TabItem Header="Settings">
                 <Grid>
-                    <Controls:ToggleSwitch OnLabel="Enabled:" OffLabel="Enabled:" Margin="285,17,10,193" />
-                    <Label Content="When selected the service will be on." HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" FontSize="10"/>
-                    <Label Content="Enabled:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="31" Width="277" FontSize="16" FontWeight="Bold"/>
+                    <Controls:ToggleSwitch OnLabel="Enabled:" OffLabel="Enabled:" Margin="279,17,10,402" />
+                    <Label Content="When selected the service will be on." HorizontalAlignment="Left" Margin="4,32,0,0" VerticalAlignment="Top" FontSize="10"/>
+                    <Label Content="Enabled:" HorizontalAlignment="Left" Margin="4,10,0,0" VerticalAlignment="Top" Height="31" Width="277" FontSize="16" FontWeight="Bold"/>
                 </Grid>
             </TabItem>
         </TabControl>
-
     </Grid>
 </Controls:MetroWindow>

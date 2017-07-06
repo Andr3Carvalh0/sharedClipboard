@@ -124,9 +124,16 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DTOs\PullResponse.cs" />
+    <Compile Include="UI\History_Item.xaml.cs">
+      <DependentUpon>History_Item.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="UI\History_Item.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -184,6 +191,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ic_launcher.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\contacts.png" />
+    <Resource Include="Resources\ic_assignment_red_400_24dp.png" />
+    <Resource Include="Resources\ic_email_24dp.png" />
+    <Resource Include="Resources\ic_keyboard_arrow_right_grey_500_24dp.png" />
+    <Resource Include="Resources\ic_vpn_key_grey_500_24dp.png" />
+    <Resource Include="Resources\images.png" />
+    <Resource Include="Resources\links.png" />
+    <Resource Include="Resources\text.png" />
+    <Resource Include="Resources\youtube.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

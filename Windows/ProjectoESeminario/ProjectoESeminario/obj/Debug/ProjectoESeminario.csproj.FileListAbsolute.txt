@@ -111,3 +111,5 @@ C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\Fleck.dl
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\Ultralight.Client.dll
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\Ultralight.dll
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\StompNet.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\UI\History_Item.g.cs
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\UI\History_Item.baml

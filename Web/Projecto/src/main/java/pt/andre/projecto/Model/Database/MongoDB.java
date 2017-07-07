@@ -18,12 +18,10 @@ import pt.andre.projecto.Model.DTOs.Wrappers.UserWrapper;
 import pt.andre.projecto.Model.Database.Utils.DatabaseOption;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
-import pt.andre.projecto.Model.Utils.Security;
 
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
-
 
 /**
  * Implementation of the Database Interface using MongoDB
@@ -36,7 +34,7 @@ public class MongoDB implements IDatabase {
     private final String TAG = "Portugal: Mongo ";
 
     private final MongoDatabase mongoDatabase;
-    private final static DatabaseOption USER_COLLECTION = new DatabaseOption("users", "email");
+    private final static DatabaseOption USER_COLLECTION = new DatabaseOption("users", "id");
     private final static DatabaseOption CONTENT_COLLECTION = new DatabaseOption("content", "id");
     private final static String FIRST_TIME_CONTENT_MESSAGE = "Welcome!";
 

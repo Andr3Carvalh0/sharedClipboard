@@ -16,12 +16,8 @@ import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
-
 import java.io.*;
 import java.net.URL;
-import java.util.HashMap;
-
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.Constants.REDIRECT_URI;
 
 /*
 * Service that handles every action to our API URLs

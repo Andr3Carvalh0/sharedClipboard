@@ -3,7 +3,6 @@ package andre.pt.projectoeseminario.Activities;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
-
 import andre.pt.projectoeseminario.Activities.Interfaces.ParentActivity;
 import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
@@ -26,15 +25,25 @@ public class SplashActivity extends ParentActivity {
                 Log.v(TAG, "Loading preferences activity");
                 it = new Intent(getBaseContext(), SettingsActivity.class);
                 it.putExtra("token", getIntPreference(Preferences.USER_TOKEN));
+                startActivity(it);
             }else{
-                Log.v(TAG, "Loading login activity");
-                it = new Intent(getApplicationContext(), LoginActivity.class);
+                if(accountIsValid()) {
+                    Log.v(TAG, "Loading login activity");
+                    it = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(it);
+                }
+                showDialogWithPositiveButton(getString(R.string.Error403_Title), getString(R.string.CANNOT_AUTHENTICATE), getString(R.string.PositiveButton_Title), (dialog, which) -> dialog.dismiss());
             }
 
-            startActivity(it);
             finish();
         }, 1000);
     }
+
+    private boolean accountIsValid() {
+
+        return false;
+    }
+
 
     @Override
     protected void setupEvents() {

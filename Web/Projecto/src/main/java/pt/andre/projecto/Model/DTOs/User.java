@@ -9,13 +9,7 @@ import java.util.List;
 * */
 public class User {
     //The user id, that was given to him when he created the account.
-    private final long id;
-
-    //The user's email.
-    private final String email;
-
-    //The user's password.This password for security reasons its encrypted.
-    private final String password;
+    private final String id;
 
     //List of the user's firebase ids.One id corresponds to a different mobile device
     private List<Document> mobileClients;
@@ -23,24 +17,14 @@ public class User {
     //List of the user's firebase ids.One id corresponds to a different mobile device
     private List<Document> desktopClients;
 
-    public User(long id, String email, String password, List<Document> mobileClients, List<Document> desktopClients) {
+    public User(String id, List<Document> mobileClients, List<Document> desktopClients) {
         this.id = id;
-        this.email = email;
-        this.password = password;
         this.desktopClients = desktopClients;
         this.mobileClients = mobileClients;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public List<Document> getMobileClients() {

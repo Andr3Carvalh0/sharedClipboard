@@ -14,7 +14,7 @@ public interface IAPIService {
     DatabaseResponse registerMobileDevice(long token, String firebaseID, String deviceName);
     DatabaseResponse registerDesktopDevice(long token, String deviceID, String deviceName);
     DatabaseResponse pull(long token);
-    DatabaseResponse createAccount(String account, String password);
-    DatabaseResponse authenticate(String account, String password);
+    DatabaseResponse createAccount(String token);
+    DatabaseResponse authenticate(String token);
 
 }

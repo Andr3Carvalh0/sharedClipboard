@@ -1,5 +1,11 @@
 package pt.andre.projecto.Service;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +17,11 @@ import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
+import java.net.URL;
+import java.util.HashMap;
+
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.Constants.REDIRECT_URI;
 
 /*
 * Service that handles every action to our API URLs
@@ -25,6 +33,8 @@ public class APIService implements IAPIService{
 
     @Autowired
     private FirebaseServer firebaseServer;
+
+    private final URL CLIENT_SECRET_FILE = ClassLoader.getSystemResource("config.json");
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: APIService ";
@@ -97,8 +107,38 @@ public class APIService implements IAPIService{
     * @return DatabaseResponse: Object that contains the server HTTP code, and a Message.
     * */
     @Override
-    public DatabaseResponse createAccount(String account, String password) {
-        return database.createAccount(account, password);
+    public DatabaseResponse createAccount(String token) {
+        try {
+            String user_sub = handleGoogleAuthentication(token);
+            return database.createAccount(user_sub);
+
+        } catch (IOException e) {
+            return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
+        }
+    }
+
+    private String handleGoogleAuthentication(String token) throws IOException {
+        // Exchange auth code for access token
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JacksonFactory.getDefaultInstance(), new FileReader(CLIENT_SECRET_FILE.getPath()));
+
+        GoogleTokenResponse tokenResponse = new GoogleAuthorizationCodeTokenRequest(
+                new NetHttpTransport(),
+                JacksonFactory.getDefaultInstance(),
+                "https://www.googleapis.com/oauth2/v4/token",
+                clientSecrets.getDetails().getClientId(),
+                clientSecrets.getDetails().getClientSecret(),
+                token,
+                "http://localhost:3000")
+                .execute();
+
+        String accessToken = tokenResponse.getAccessToken();
+
+        // Get profile info from ID token
+        GoogleIdToken idToken = tokenResponse.parseIdToken();
+        GoogleIdToken.Payload payload = idToken.getPayload();
+
+        //User sub.It is unique to the user so we will use it as id.
+        return payload.getSubject();
     }
 
     /*
@@ -109,8 +149,14 @@ public class APIService implements IAPIService{
     * @return DatabaseResponse: Object that contains the server HTTP code, and a Message.
     * */
     @Override
-    public DatabaseResponse authenticate(String account, String password) {
-        return database.authenticate(account, password);
+    public DatabaseResponse authenticate(String token) {
+        try {
+            String user_sub = handleGoogleAuthentication(token);
+            return database.authenticate(user_sub);
+
+        } catch (IOException e) {
+            return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
+        }
     }
 
     /*

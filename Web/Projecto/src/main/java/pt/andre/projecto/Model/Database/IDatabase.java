@@ -12,8 +12,8 @@ public interface IDatabase {
     DatabaseResponse registerDesktopDevice(long token, String deviceID, String deviceName);
     DatabaseResponse push(long token, String data, boolean isMIME);
     DatabaseResponse pull(long token);
-    DatabaseResponse authenticate(String user, String pass);
-    DatabaseResponse createAccount(String user, String password);
+    DatabaseResponse authenticate(String user_sub);
+    DatabaseResponse createAccount(String user_sub);
 
     List<DeviceWrapper> getMobileDevices(long token);
     List<DeviceWrapper> getDesktopDevices(long token);

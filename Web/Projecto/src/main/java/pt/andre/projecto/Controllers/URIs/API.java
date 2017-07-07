@@ -5,11 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.IAPI;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
+
+import java.util.Map;
 
 @RestController
 @AutoConfigureBefore
@@ -35,7 +38,7 @@ public class API implements IAPI {
     public ResponseEntity createAccount(@RequestParam String account, @RequestParam String password) {
         logger.info(TAG + "createAccount method");
 
-        final DatabaseResponse resp = service.createAccount(account, password);
+        final DatabaseResponse resp = service.createAccount(account);
 
         logger.info(TAG + "CreateAccount: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
@@ -47,14 +50,16 @@ public class API implements IAPI {
     * @param password: the user password
     * */
     @Override
-    @RequestMapping(value = "/api/account", params = {"account", "password"}, method = RequestMethod.GET)
-    public ResponseEntity authenticate(@RequestParam(value = "account") String account, @RequestParam(value = "password") String password) {
+    @RequestMapping(value = "/api/account", method = RequestMethod.POST)
+    public ResponseEntity authenticate(@RequestParam String token) {
         logger.info(TAG + "Authenticate method");
-        final DatabaseResponse resp = service.authenticate(account, password);
+
+        final DatabaseResponse resp = service.authenticate(token);
 
         logger.info(TAG + "Authenticate: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
+
 
     /*
     * Handle a MIME file push.

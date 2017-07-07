@@ -19,6 +19,7 @@ import pt.andre.projecto.Model.Database.Utils.DatabaseOption;
 import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Model.Utils.Security;
+
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
@@ -122,29 +123,27 @@ public class MongoDB implements IDatabase {
     public DatabaseResponse pull(long token) {
         logger.info(TAG + "pulling user info");
         return transformationToContentDatabase(token, (wrapper, collection) -> ResponseFormater.displayInformation(
-                        "{" +
-                            "content: '" + wrapper.getContent().getValue() + "'," +
-                            "isMIME: " + wrapper.getContent().isMIME() +
+                "{" +
+                        "content: '" + wrapper.getContent().getValue() + "'," +
+                        "isMIME: " + wrapper.getContent().isMIME() +
                         "}"
         ));
     }
 
     @Override
-    public DatabaseResponse authenticate(String user, String password) {
+    public DatabaseResponse authenticate(String user_sub) {
         logger.info(TAG + "authenticating...");
         try {
-            String hashedPassword = Security.hashString(password);
-
             MongoCollection<Document> users = mongoDatabase.getCollection(USER_COLLECTION.getName());
 
-            Bson accountFilter = Filters.eq("email", user);
+            Bson accountFilter = Filters.eq("id", user_sub);
 
             List<User> userList = new LinkedList<>();
 
             users.find(accountFilter)
                     .forEach((Block<Document>) (
-                            document) -> userList.add(new User(document.getLong("id"), document.getString("email"), document.getString("password"),  (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients")))
-            );
+                            document) -> userList.add(new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients")))
+                    );
 
             //If we dont find an account return immediately.We do this so we can handle login/create account on our native app
             if (userList.size() == 0) {
@@ -152,14 +151,8 @@ public class MongoDB implements IDatabase {
                 return ResponseFormater.createResponse(ResponseFormater.NO_ACCOUNT);
             }
 
-            if (hashedPassword.equals(userList.get(0).getPassword())) {
-                logger.info(TAG + "valid user");
-                return ResponseFormater.displayInformation(userList.get(0).getId());
-
-            }
-
-            logger.info(TAG + "password didnt match");
-            return ResponseFormater.createResponse(ResponseFormater.PASSWORD_INVALID);
+            logger.info(TAG + "valid user");
+            return ResponseFormater.displayInformation(userList.get(0).getId());
 
         } catch (Exception e) {
             logger.error(TAG + "cannot communicate with DB");
@@ -168,32 +161,28 @@ public class MongoDB implements IDatabase {
     }
 
     @Override
-    public DatabaseResponse createAccount(String user, String password) {
+    public DatabaseResponse createAccount(String user_sub) {
         logger.info(TAG + "creating account....");
-        String hashedPassword = Security.hashString(password);
 
         try {
-            long id = mongoDatabase.getCollection(USER_COLLECTION.getName()).count() + 1;
 
             Document document = new Document();
-            document.put("id", id);
-            document.put("email", user);
-            document.put("password", hashedPassword);
+            document.put("id", user_sub);
             document.put("mobileClients", new ArrayList<BasicDBObject>());
             document.put("desktopClients", new ArrayList<BasicDBObject>());
             mongoDatabase.getCollection(USER_COLLECTION.getName()).insertOne(document);
 
             document = new Document();
-            document.put("id", id);
+            document.put("id", user_sub);
             document.put("value", FIRST_TIME_CONTENT_MESSAGE);
             document.put("isMIME", false);
 
             mongoDatabase.getCollection(CONTENT_COLLECTION.getName()).insertOne(document);
 
 
-            return authenticate(user, password);
+            return authenticate(user_sub);
         } catch (Exception e) {
-            if(e.getMessage().contains("duplicate key")) {
+            if (e.getMessage().contains("duplicate key")) {
                 logger.error(TAG + "account already exists.");
                 return ResponseFormater.createResponse(ResponseFormater.ACCOUNT_EXISTS_EXCEPTION);
             }
@@ -216,7 +205,7 @@ public class MongoDB implements IDatabase {
         return getDevices(token, userWrapper -> userWrapper.getUser().getDesktopClients(), false);
     }
 
-    private List<DeviceWrapper> getDevices(long token, Function<UserWrapper, List<Document>> func, boolean isMobile){
+    private List<DeviceWrapper> getDevices(long token, Function<UserWrapper, List<Document>> func, boolean isMobile) {
 
         final List<Document> res = new LinkedList<>();
         List<DeviceWrapper> toReturn = new LinkedList<>();
@@ -294,7 +283,7 @@ public class MongoDB implements IDatabase {
                     );
 
             return func.apply(new ContentWrapper(content[0], accountFilter), contentDocument);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
     }
@@ -307,19 +296,18 @@ public class MongoDB implements IDatabase {
             final User[] user = new User[1];
             contentDocument.find(accountFilter)
                     .forEach((Block<Document>) (
-                            document) -> user[0] = new User(document.getLong("id"), document.getString("email"), document.getString("password"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients"))
+                            document) -> user[0] = new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients"))
                     );
 
             return func.apply(new UserWrapper(user[0], accountFilter), contentDocument);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
     }
 
 
-
-    private DatabaseResponse registerDevice(long token, String device, String type, String deviceName){
-        try{
+    private DatabaseResponse registerDevice(long token, String device, String type, String deviceName) {
+        try {
             return transformationToUserDatabase(token, (wrapper, collection) -> {
 
                 logger.info(TAG + "attempting to add device to user account");
@@ -332,7 +320,7 @@ public class MongoDB implements IDatabase {
 
                 return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
     }

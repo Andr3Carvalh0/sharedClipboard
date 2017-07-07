@@ -7,6 +7,5 @@ public interface IResponse {
     void showProgressDialog();
     void hideProgressDialog();
     void handleError(String title, String message);
-    void handlePull(String msg);
     void handlePush();
 }

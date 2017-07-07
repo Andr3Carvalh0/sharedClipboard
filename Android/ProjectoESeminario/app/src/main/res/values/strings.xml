@@ -40,5 +40,7 @@
     <string name="ITEM_OPTION_COPY">Copy to Clipboard</string>
     <string name="COPIED_BEGINNIG">Copied: </string>
     <string name="COPIED_END"> to clipboard</string>
+    <string name="APP_DESC_INTRO">Share your clipboard with your multiple devices.</string>
+    <string name="Google_error">A problem during sign in happened. Try again later.</string>
 
 </resources>

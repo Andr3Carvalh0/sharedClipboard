@@ -14,20 +14,23 @@ public class SplashActivity extends ParentActivity {
 
     private static final String TAG = "Portugal:Splash";
 
+    boolean DEBUG = true;
+
     @Override
     protected void init() {
         setContentView(R.layout.activity_splash);
 
+
         new Handler().postDelayed(() -> {
             Intent it;
 
-            if(hasCompletedSetup()){
+            if(hasCompletedSetup() || DEBUG){
                 Log.v(TAG, "Loading preferences activity");
                 it = new Intent(getBaseContext(), SettingsActivity.class);
                 it.putExtra("token", getIntPreference(Preferences.USER_TOKEN));
                 startActivity(it);
             }else{
-                if(accountIsValid()) {
+                if(accountIsValid() || DEBUG) {
                     Log.v(TAG, "Loading login activity");
                     it = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(it);

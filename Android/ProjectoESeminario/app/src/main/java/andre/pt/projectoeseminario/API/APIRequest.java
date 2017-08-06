@@ -45,7 +45,6 @@ public class APIRequest {
     }
 
     public void pushTextInformation(long token, String information){
-        System.out.println();
         mAPI.push(token, information).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

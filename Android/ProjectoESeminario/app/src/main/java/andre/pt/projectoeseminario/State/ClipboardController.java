@@ -13,75 +13,92 @@ import java.util.function.Function;
 
 public class ClipboardController {
     private Lock nLock;
-    private Condition nCondition;
-    private boolean inUse;
     private String clipboard_value;
+    private List<Pair> queue;
     private HashMap<String, String> history;
 
-    public ClipboardController(String d){
+    //Helper class
+    private class Pair {
+        private String value;
+        private Condition condition;
+
+        public Pair(String value, Condition condition) {
+            this.value = value;
+            this.condition = condition;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public Condition getCondition() {
+            return condition;
+        }
+    }
+
+    public ClipboardController(String initialValue){
         nLock = new ReentrantLock();
-        inUse = false;
-        this.clipboard_value = d;
-        nCondition = nLock.newCondition();
+        queue = new LinkedList<>();
+        this.clipboard_value = initialValue;
         history = new HashMap<>();
 
     }
 
-    public void releaseWork(){
+    public void wake(){
         nLock.lock();
 
         try {
-            if(inUse)
-                inUse = false;
+            if(queue.size() > 0)
+                queue.get(0).getCondition().signal();
 
-            nCondition.signalAll();
         }finally {
             nLock.unlock();
         }
+
     }
 
-    public boolean acquireWork(){
+    public boolean putValue(String value, Function<String, String> addToFilteredTable, Function<String, Boolean> addToRecentTable){
         nLock.lock();
 
         try {
-            if(!inUse){
-                inUse = true;
+            if(value.equals(clipboard_value) && queue.size() == 0)
+                return false;
+
+            //Queue is empty we can alter the value without waiting
+            if(queue.size() == 0 && !value.equals(clipboard_value)){
+                clipboard_value = value;
+                addToFilteredTable.apply(clipboard_value);
+                addToRecentTable.apply(clipboard_value);
                 return true;
             }
 
-            do {
-                try {
-                    nCondition.await();
-                }catch (InterruptedException e){
+            Pair pair = new Pair(value, nLock.newCondition());
+            queue.add(pair);
 
-                }
-                if(inUse)
+            do{
+                try {
+                    pair.condition.await();
+
+                }catch (InterruptedException e){}
+
+                if(!pair.value.equals(clipboard_value)){
+                    queue.remove(pair);
+                    clipboard_value = pair.getValue();
+                    addToFilteredTable.apply(clipboard_value);
+                    addToRecentTable.apply(clipboard_value);
                     return true;
+                }
+
+                if(pair.value.equals(clipboard_value)){
+                    queue.remove(pair);
+                    return false;
+                }
 
             }while (true);
+
         }finally {
             nLock.unlock();
         }
 
     }
-
-    public Boolean switchClipboardValue(String newValue, Function<String, String> addToFilteredTable, Function<String, Boolean> addToRecentTable)
-    {
-        nLock.lock();
-
-        try {
-            if(newValue.equals(clipboard_value))
-                return false;
-
-            addToFilteredTable.apply(newValue);
-            addToRecentTable.apply(newValue);
-            clipboard_value = newValue;
-
-            return true;
-
-        }finally {
-            nLock.unlock();
-        }
-    }
-
 }

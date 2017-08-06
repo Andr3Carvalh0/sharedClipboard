@@ -27,6 +27,7 @@ public class ClipboardContentChooser extends History {
     private Toolbar mToolbar;
     private static final HashMap<String,Uri> router;
     private HistoryFragment historyFragment;
+
     static {
         router = new HashMap<>();
         router.put(ResourcesContentProviderContent.Text.TABLE_NAME, ResourcesContentProviderContent.Text.CONTENT_URI);
@@ -96,12 +97,21 @@ public class ClipboardContentChooser extends History {
 
         Cursor cursor = getContentResolver().query(router.get(category), null, null, null, null);
 
-        cursor.moveToFirst();
+        try {
+            cursor.moveToFirst();
 
-        while (!cursor.isAfterLast()){
-            Log.v("Andre", cursor.getString(1));
-            cursor.moveToNext();
+            while (!cursor.isAfterLast()) {
+                Log.v("Andre", cursor.getString(1));
+                cursor.moveToNext();
 
+            }
+
+        }catch(NullPointerException e){
+
+        }
+        finally {
+            if(cursor != null)
+                cursor.close();
         }
 
         return toReturn;

@@ -9,10 +9,12 @@ import android.preference.PreferenceManager;
 */
 public class Preferences {
     public static String USER_TOKEN = "user_token";
-    public static String HASCOMPLETEDSETUP = "authenticated";
+    public static String AUTHENTICATED = "authenticated";
     public static String SERVICERUNNING = "run_service";
     public static String FIREBASEID = "firebaseID";
     public static String NOTIFICATION_STATE = "show_notification";
+    public static String SETUPSHOWN = "setup";
+    public static String USEMOBILEDATA = "use_data";
 
     private SharedPreferences.Editor editor;
     private SharedPreferences shared;

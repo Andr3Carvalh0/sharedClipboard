@@ -6,13 +6,18 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.List;
@@ -40,7 +45,6 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -54,26 +58,42 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
         //Setup preferences
         user = getIntPreference(Preferences.USER_TOKEN);
         service_state = getBooleanPreference(Preferences.SERVICERUNNING);
+        boolean hasShownSetup = getBooleanPreference(Preferences.SETUPSHOWN);
 
         String firebaseID = FirebaseInstanceId.getInstance().getToken();
         String tmp = getStringPreference(Preferences.FIREBASEID);
 
         //On this case its our first launch
-        if(tmp == null) {
+        if(!hasShownSetup) {
+            showTips();
+            //saveBooleanPreference(Preferences.SETUPSHOWN, true);
+
             service_state = true;
             saveBooleanPreference(Preferences.SERVICERUNNING, true);
         }
 
         //Upload of the firebaseID, when it changed, or when we know that it isnt registered
-
         if(tmp == null || !tmp.equals(firebaseID))
             handleNewFirebaseID(user, firebaseID);
 
-            //Launch notification so we can invoke the clipboard chooser
-            if(service_state && getBooleanPreference(Preferences.NOTIFICATION_STATE))
-                launchNotification();
+        //Launch notification so we can invoke the clipboard chooser
+        if(service_state && getBooleanPreference(Preferences.NOTIFICATION_STATE))
+            launchNotification();
 
         initViewPager();
+    }
+
+    //Show tips for first time users
+    private void showTips() {
+        Point size = new Point();
+        this.getWindowManager().getDefaultDisplay().getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+        TapTargetView.showFor(this, TapTarget.forBounds(new Rect((int) (width * 0.87), (int) (height * 0.93), (int) (width * 0.92), (int) (height * 0.95)), "Hi", "This is your tape")
+                .transparentTarget(true)
+                .targetCircleColor(R.color.white)
+                .textColor(R.color.white));
     }
 
     /*
@@ -203,6 +223,11 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
 
     public boolean getNotificationState() {
         return getBooleanPreference(Preferences.NOTIFICATION_STATE);
+    }
+
+    @Override
+    public boolean getMobileDataState() {
+        return getBooleanPreference(Preferences.USEMOBILEDATA);
     }
 
     @Override

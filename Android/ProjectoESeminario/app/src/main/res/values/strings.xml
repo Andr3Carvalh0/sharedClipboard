@@ -43,5 +43,7 @@
     <string name="APP_DESC_INTRO">Share your clipboard with your multiple devices.</string>
     <string name="Google_error">A problem during sign in happened. Try again later.</string>
     <string name="CANNOT_AUTHENTICATE">Cannot authenticate you.</string>
+    <string name="MobileData_Preferences_Title">Mobile Data:</string>
+    <string name="MobileData_Preferences_Description">Should the service use your mobile data.</string>
 
 </resources>

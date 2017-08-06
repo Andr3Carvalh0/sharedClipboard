@@ -27,7 +27,7 @@ public abstract class ParentActivity extends AppCompatActivity {
     protected abstract void setupEvents();
 
     protected boolean hasCompletedSetup(){
-        return mPreferences.getBooleanPreference(Preferences.HASCOMPLETEDSETUP);
+        return mPreferences.getBooleanPreference(Preferences.AUTHENTICATED);
     }
 
     protected ProgressDialog waitingDialog;

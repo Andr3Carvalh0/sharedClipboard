@@ -143,12 +143,19 @@ public class HistoryFragment extends ParentFragment implements IHistory {
 
         Cursor cursor = getActivity().getContentResolver().query(table, null, null, null, null);
 
-        cursor.moveToFirst();
+        try {
+            cursor.moveToFirst();
 
-        while (!cursor.isAfterLast()) {
-            tmp.add(cursor.getString(1));
+            while (!cursor.isAfterLast()) {
+                tmp.add(cursor.getString(1));
 
-            cursor.moveToNext();
+                cursor.moveToNext();
+            }
+        }catch (NullPointerException e){
+
+        }finally {
+            if(cursor != null)
+                cursor.close();
         }
 
         return tmp.stream().toArray(String[]::new);

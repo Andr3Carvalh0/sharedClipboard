@@ -74,23 +74,21 @@ public class ClipboardEventHandler extends IntentService {
         final int token = intent.getIntExtra("token", 0);
         APIRequest mApi = new APIRequest(null, context);
 
+
         try {
-            clipboardController.acquireWork();
-            if (clipboardController.switchClipboardValue(content, this::addToFilteredTable, this::addToRecentsTable)) {
+            if (clipboardController.putValue(content, this::addToFilteredTable, this::addToRecentsTable)) {
                 Log.v(TAG, "onHandleIntent");
 
                 if (upload) {
                     mApi.pushTextInformation(token, content);
-
-                } else {
-                    if (!isMIME) {
-                        handleTextContent(context, content);
-                        return;
-                    }
+                    return;
                 }
+
+                if (!isMIME)
+                    handleTextContent(context, content);
             }
         } finally {
-            clipboardController.releaseWork();
+            clipboardController.wake();
         }
 
     }

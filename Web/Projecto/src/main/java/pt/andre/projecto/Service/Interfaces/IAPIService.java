@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface IAPIService {
 
-    DatabaseResponse push(long token, String data);
-    DatabaseResponse push(MultipartFile file, long token);
-    DatabaseResponse registerMobileDevice(long token, String firebaseID, String deviceName);
-    DatabaseResponse registerDesktopDevice(long token, String deviceID, String deviceName);
-    DatabaseResponse pull(long token);
+    DatabaseResponse push(String sub, String data);
+    DatabaseResponse push(MultipartFile file, String sub);
+    DatabaseResponse registerMobileDevice(String sub, String firebaseID, String deviceName);
+    DatabaseResponse registerDesktopDevice(String sub, String deviceID, String deviceName);
+    DatabaseResponse pull(String sub);
     DatabaseResponse createAccount(String token);
     DatabaseResponse authenticate(String token);
 

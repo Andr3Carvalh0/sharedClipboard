@@ -6,16 +6,17 @@ import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import java.util.List;
 
 public interface IDatabase {
+    DatabaseResponse registerMobileDevice(String sub, String firebaseID, String deviceName);
+    DatabaseResponse registerDesktopDevice(String sub, String deviceID, String deviceName);
 
+    DatabaseResponse push(String sub, String data, boolean isMIME);
+    DatabaseResponse pull(String sub);
 
-    DatabaseResponse registerMobileDevice(long token, String firebaseID, String deviceName);
-    DatabaseResponse registerDesktopDevice(long token, String deviceID, String deviceName);
-    DatabaseResponse push(long token, String data, boolean isMIME);
-    DatabaseResponse pull(long token);
     DatabaseResponse authenticate(String user_sub);
     DatabaseResponse createAccount(String user_sub);
 
-    List<DeviceWrapper> getMobileDevices(long token);
-    List<DeviceWrapper> getDesktopDevices(long token);
+    List<DeviceWrapper> getMobileDevices(String sub);
+    List<DeviceWrapper> getDesktopDevices(String sub);
 
+    boolean removeDevice(String sub, String deviceIdentifier, boolean isMobile);
 }

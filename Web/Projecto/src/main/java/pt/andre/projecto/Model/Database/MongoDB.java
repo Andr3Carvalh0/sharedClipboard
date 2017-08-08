@@ -80,13 +80,13 @@ public class MongoDB implements IDatabase {
     * @param firebaseID: the device ID, that is return by the firebase service
     * */
     @Override
-    public DatabaseResponse registerMobileDevice(long token, String firebaseID, String deviceName) {
-        return registerDevice(token, firebaseID, MOBILE_CLIENTS, deviceName);
+    public DatabaseResponse registerMobileDevice(String sub, String firebaseID, String deviceName) {
+        return registerDevice(sub, firebaseID, MOBILE_CLIENTS, deviceName);
     }
 
     @Override
-    public DatabaseResponse registerDesktopDevice(long token, String deviceID, String deviceName) {
-        return registerDevice(token, deviceID, DESKTOP_CLIENTS, deviceName);
+    public DatabaseResponse registerDesktopDevice(String sub, String deviceID, String deviceName) {
+        return registerDevice(sub, deviceID, DESKTOP_CLIENTS, deviceName);
     }
 
 
@@ -98,12 +98,12 @@ public class MongoDB implements IDatabase {
     * @param isMIME : indicates whether @param data is a resource(false) or a URL to a resource(true)
     * */
     @Override
-    public DatabaseResponse push(long token, String data, boolean isMIME) {
-        return transformationToContentDatabase(token, (wrapper, collection) -> {
+    public DatabaseResponse push(String sub, String data, boolean isMIME) {
+        return transformationToContentDatabase(sub, (wrapper, collection) -> {
             logger.info(TAG + "attempting to add content to user account, content Type:" + isMIME);
 
             Document document = new Document();
-            document.put("id", token);
+            document.put("id", sub);
             document.put("value", data);
             document.put("isMIME", isMIME);
 
@@ -119,9 +119,9 @@ public class MongoDB implements IDatabase {
     * @param token : the user account token
     * */
     @Override
-    public DatabaseResponse pull(long token) {
+    public DatabaseResponse pull(String sub) {
         logger.info(TAG + "pulling user info");
-        return transformationToContentDatabase(token, (wrapper, collection) -> ResponseFormater.displayInformation(
+        return transformationToContentDatabase(sub, (wrapper, collection) -> ResponseFormater.displayInformation(
                 "{" +
                         "content: '" + wrapper.getContent().getValue() + "'," +
                         "isMIME: " + wrapper.getContent().isMIME() +
@@ -130,12 +130,12 @@ public class MongoDB implements IDatabase {
     }
 
     @Override
-    public DatabaseResponse authenticate(String user_sub) {
+    public DatabaseResponse authenticate(String sub) {
         logger.info(TAG + "authenticating...");
         try {
             MongoCollection<Document> users = mongoDatabase.getCollection(USER_COLLECTION.getName());
 
-            Bson accountFilter = Filters.eq("id", user_sub);
+            Bson accountFilter = Filters.eq("id", sub);
 
             List<User> userList = new LinkedList<>();
 
@@ -159,24 +159,24 @@ public class MongoDB implements IDatabase {
     }
 
     @Override
-    public DatabaseResponse createAccount(String user_sub) {
+    public DatabaseResponse createAccount(String sub) {
         logger.info(TAG + "creating account....");
 
         try {
             Document document = new Document();
-            document.put("id", user_sub);
+            document.put("id", sub);
             document.put("mobileClients", new ArrayList<BasicDBObject>());
             document.put("desktopClients", new ArrayList<BasicDBObject>());
             mongoDatabase.getCollection(USER_COLLECTION.getName()).insertOne(document);
 
             document = new Document();
-            document.put("id", user_sub);
+            document.put("id", sub);
             document.put("value", FIRST_TIME_CONTENT_MESSAGE);
             document.put("isMIME", false);
 
             mongoDatabase.getCollection(CONTENT_COLLECTION.getName()).insertOne(document);
 
-            return authenticate(user_sub);
+            return authenticate(sub);
         } catch (Exception e) {
             if (e.getMessage().contains("duplicate key")) {
                 logger.error(TAG + "account already exists.");
@@ -188,24 +188,47 @@ public class MongoDB implements IDatabase {
     }
 
     @Override
-    public List<DeviceWrapper> getMobileDevices(long token) {
+    public List<DeviceWrapper> getMobileDevices(String sub) {
         logger.info(TAG + "getting mobile devices devices..........");
 
-        return getDevices(token, userWrapper -> userWrapper.getUser().getMobileClients(), true);
+        return getDevices(sub, userWrapper -> userWrapper.getUser().getMobileClients(), true);
     }
 
     @Override
-    public List<DeviceWrapper> getDesktopDevices(long token) {
+    public List<DeviceWrapper> getDesktopDevices(String sub) {
         logger.info(TAG + "getting desktop devices devices..........");
 
-        return getDevices(token, userWrapper -> userWrapper.getUser().getDesktopClients(), false);
+        return getDevices(sub, userWrapper -> userWrapper.getUser().getDesktopClients(), false);
     }
 
-    private List<DeviceWrapper> getDevices(long token, Function<UserWrapper, List<Document>> func, boolean isMobile) {
+    @Override
+    public boolean removeDevice(String sub, String deviceIdentifier, boolean isMobile) {
+        String type = isMobile ? MOBILE_CLIENTS : DESKTOP_CLIENTS;
+
+        try {
+            transformationToUserDatabase(sub, (wrapper, collection) -> {
+
+                logger.info(TAG + "attempting to remove device to user account");
+                BasicDBObject document = new BasicDBObject("_main", deviceIdentifier);
+
+                BasicDBObject updateCommand = new BasicDBObject("$pull", new BasicDBObject(type, document));
+
+                collection.updateOne(wrapper.getAccountFilter(), updateCommand);
+
+                return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
+            });
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private List<DeviceWrapper> getDevices(String sub, Function<UserWrapper, List<Document>> func, boolean isMobile) {
 
         final List<Document> res = new LinkedList<>();
 
-        transformationToUserDatabase(token,
+        transformationToUserDatabase(sub,
                 (wrapper, collection) -> {
                     res.addAll(func.apply(wrapper));
                     return null;
@@ -213,7 +236,7 @@ public class MongoDB implements IDatabase {
         );
 
         return res.stream()
-                  .map(document -> new DeviceWrapper(document.getString("_main"), document.getString("name"), isMobile))
+                  .map(document -> new DeviceWrapper(document.getString("_main"), document.getString("name"), isMobile, sub))
                   .collect(Collectors.toList());
     }
 
@@ -265,10 +288,10 @@ public class MongoDB implements IDatabase {
     * Gets the item in the Content Table.
     * From the obtain value, e can do operations, using the @param func
     * */
-    private DatabaseResponse transformationToContentDatabase(long token, BiFunction<ContentWrapper, MongoCollection, DatabaseResponse> func) {
+    private DatabaseResponse transformationToContentDatabase(String sub, BiFunction<ContentWrapper, MongoCollection, DatabaseResponse> func) {
         try {
             final MongoCollection<Document> contentDocument = mongoDatabase.getCollection(CONTENT_COLLECTION.getName());
-            Bson accountFilter = Filters.eq("id", token);
+            Bson accountFilter = Filters.eq("id", sub);
 
             final Content[] content = new Content[1];
             contentDocument.find(accountFilter)
@@ -282,10 +305,10 @@ public class MongoDB implements IDatabase {
         }
     }
 
-    private DatabaseResponse transformationToUserDatabase(long token, BiFunction<UserWrapper, MongoCollection, DatabaseResponse> func) {
+    private DatabaseResponse transformationToUserDatabase(String sub, BiFunction<UserWrapper, MongoCollection, DatabaseResponse> func) {
         try {
             final MongoCollection<Document> contentDocument = mongoDatabase.getCollection(USER_COLLECTION.getName());
-            Bson accountFilter = Filters.eq("id", token);
+            Bson accountFilter = Filters.eq("id", sub);
 
             final User[] user = new User[1];
             contentDocument.find(accountFilter)
@@ -300,9 +323,9 @@ public class MongoDB implements IDatabase {
     }
 
 
-    private DatabaseResponse registerDevice(long token, String device, String type, String deviceName) {
+    private DatabaseResponse registerDevice(String sub, String device, String type, String deviceName) {
         try {
-            return transformationToUserDatabase(token, (wrapper, collection) -> {
+            return transformationToUserDatabase(sub, (wrapper, collection) -> {
 
                 logger.info(TAG + "attempting to add device to user account");
                 BasicDBObject document = new BasicDBObject("_main", device);

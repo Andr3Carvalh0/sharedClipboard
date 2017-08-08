@@ -2,8 +2,11 @@ function authenticate(auth) {
     //Fix.By default the button will disappear.Override that.
     $('#signinButton').removeAttr('hidden');
 
+    reset()
+
     //Hack to open modal
     $('#hackyMChacky').click();
+
 
     // Send the code to the server
     $.ajax({
@@ -33,9 +36,25 @@ function authenticate(auth) {
     });
 }
 
-function getUserDevices() {
-    console.log("TODO")
+function getUserDevices(auth) {
+    $.ajax({
+        type: 'GET',
+        url: '/devices',
+        headers: {
+            'Authorization': auth
+        },
+        contentType: 'application/x-www-form-urlencoded',
+        success: function(result) {
+            $("#spinner").hide();
+            $("#main_body").append(result);
 
+        },
+        error: function(){
+            displayMessage("An error occurred. Try again later.", false)
+            $('#hackyMChacky').click();
+        },
+        processData: false
+    });
 }
 
 function createAccount(auth) {
@@ -61,14 +80,37 @@ function createAccount(auth) {
             processData: false
         });
     })
-
-
 }
 
 function displayMessage(data, success) {
     UIkit.notification({
         message: data,
-        status: success ? 'primary' : 'danger',
+        status: success ? 'success' : 'danger',
         pos: 'top-right'
     });
+}
+
+function reset(){
+    $("#spinner").show();
+    $("#preferences_devices_body").remove();
+
+}
+
+function handleDelete(id, isMobile, sub) {
+    $.ajax({
+        type: 'DELETE',
+        url: '/devices?deviceIdentifier=' + id + '&isMobile=' + isMobile,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Authorization': "" + sub
+        },
+        contentType: 'application/x-www-form-urlencoded',
+        success: function(result) {
+            reset()
+            $("#spinner").hide();
+            $("#main_body").append(result);
+        },
+        processData: false
+    });
+
 }

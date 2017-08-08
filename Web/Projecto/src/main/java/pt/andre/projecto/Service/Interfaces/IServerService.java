@@ -11,5 +11,7 @@ public interface IServerService {
     */
     String handleRootRequest(Map<String, Object> model, @RequestHeader(value = "User-Agent") String userAgent, DeviceIdentifier deviceIdentifier);
 
-    String getDevices(Map<String, Object> model, long token);
+    String getDevices(Map<String, Object> model, String token);
+
+    String deleteDevice(Map<String, Object> model, String sub, String deviceIdentifier, boolean isMobile);
 }

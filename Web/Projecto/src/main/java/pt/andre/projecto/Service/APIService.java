@@ -1,8 +1,5 @@
 package pt.andre.projecto.Service;
 
-import com.google.api.client.googleapis.auth.oauth2.*;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +11,18 @@ import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 import java.io.*;
-import java.net.URL;
-import java.security.GeneralSecurityException;
-import java.util.Collections;
+
 
 /*
 * Service that handles every action to our API URLs
 * */
-public class APIService implements IAPIService{
+public class APIService extends ParentService implements IAPIService{
 
     @Autowired
     private IDatabase database;
 
     @Autowired
     private FirebaseServer firebaseServer;
-
-    private final URL CLIENT_SECRET_FILE = ClassLoader.getSystemResource("config.json");
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: APIService ";
@@ -41,8 +34,8 @@ public class APIService implements IAPIService{
     * @param data: the user textual data
     * */
     @Override
-    public DatabaseResponse push(long token, String data) {
-        return this.push(token, data, false);
+    public DatabaseResponse push(String sub, String data) {
+        return this.push(sub, data, false);
     }
 
 
@@ -53,14 +46,14 @@ public class APIService implements IAPIService{
     * @param data: the user textual data
     * */
     @Override
-    public DatabaseResponse push(MultipartFile file, long token) {
+    public DatabaseResponse push(MultipartFile file, String sub) {
 
-        String result = storeFile(token, file);
+        String result = storeFile(sub, file);
 
         if(result == null)
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
 
-        return this.push(token, result, true);
+        return this.push(sub, result, true);
     }
 
     /*
@@ -73,13 +66,13 @@ public class APIService implements IAPIService{
     * @return DatabaseResponse: Object that contains the server HTTP code, and a Message.
     * */
     @Override
-    public DatabaseResponse registerMobileDevice(long token, String firebaseID, String deviceName) {
-        return database.registerMobileDevice(token, firebaseID, deviceName);
+    public DatabaseResponse registerMobileDevice(String sub, String firebaseID, String deviceName) {
+        return database.registerMobileDevice(sub, firebaseID, deviceName);
     }
 
     @Override
-    public DatabaseResponse registerDesktopDevice(long token, String deviceID, String deviceName) {
-        return database.registerDesktopDevice(token, deviceID, deviceName);
+    public DatabaseResponse registerDesktopDevice(String sub, String deviceID, String deviceName) {
+        return database.registerDesktopDevice(sub, deviceID, deviceName);
     }
 
     /*
@@ -89,8 +82,8 @@ public class APIService implements IAPIService{
     * @return DatabaseResponse: Object that contains the server HTTP code, and a Message.
     * */
     @Override
-    public DatabaseResponse pull(long token) {
-        return database.pull(token);
+    public DatabaseResponse pull(String sub) {
+        return database.pull(sub);
     }
 
     /*
@@ -109,28 +102,6 @@ public class APIService implements IAPIService{
         } catch (IOException e) {
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
-    }
-
-    private String handleGoogleAuthentication(String token) throws IOException {
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JacksonFactory.getDefaultInstance(), new FileReader(CLIENT_SECRET_FILE.getPath()));
-
-
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance())
-                .setAudience(Collections.singletonList(clientSecrets.getDetails().getClientId()))
-                .build();
-
-
-        try {
-            GoogleIdToken idToken = verifier.verify(token);
-            if (idToken != null) {
-                GoogleIdToken.Payload payload = idToken.getPayload();
-
-                return payload.getSubject();
-            }
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     /*
@@ -156,23 +127,23 @@ public class APIService implements IAPIService{
     * @param token: the user account
     * @param file: the user file
     * */
-    private String storeFile(long token, MultipartFile file){
+    private String storeFile(String sub, MultipartFile file){
         if (file != null && !file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
                 logger.info(TAG + "Attempting to create directories");
                 // Create the directory structure if it isn't already created.
-                File outFile = new File("build/resources/main/static/content/" + token + "/");
+                File outFile = new File("build/resources/main/static/content/" + sub + "/");
                 outFile.mkdirs();
 
 
                 logger.info(TAG + "Directories created!");
                 // Writes the file
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File("build/resources/main/static/content/" + token + "/" + file.getOriginalFilename())));
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File("build/resources/main/static/content/" + sub + "/" + file.getOriginalFilename())));
                 stream.write(bytes);
                 stream.close();
                 logger.info(TAG + "File created!");
-                return System.getenv("SERVER") + "/content/" + token + "/" + file.getOriginalFilename();
+                return System.getenv("SERVER") + "/content/" + sub + "/" + file.getOriginalFilename();
             } catch (Exception e) {
                 logger.error(TAG + e.getMessage());
                 return null;
@@ -190,17 +161,17 @@ public class APIService implements IAPIService{
     * @param data: the user data
     * @param isMIME: indicates whether the data is an URL to the real content or if its the real content
     * */
-    private DatabaseResponse push(long token, String data, boolean isMIME) {
-        DatabaseResponse push = database.push(token, data, isMIME);
+    private DatabaseResponse push(String sub, String data, boolean isMIME) {
+        DatabaseResponse push = database.push(sub, data, isMIME);
 
         logger.info(TAG + "Sharing with devices");
 
 
-        final String[] mobileDevices = database.getMobileDevices(token)
+        final String[] mobileDevices = database.getMobileDevices(sub)
                 .stream().map(DeviceWrapper::getId)
                 .toArray(String[]::new);
 
-        final String[] desktopDevices = database.getDesktopDevices(token)
+        final String[] desktopDevices = database.getDesktopDevices(sub)
                 .stream()
                 .map(DeviceWrapper::getId)
                 .toArray(String[]::new);

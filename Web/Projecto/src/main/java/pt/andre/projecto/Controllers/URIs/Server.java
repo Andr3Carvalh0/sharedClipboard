@@ -31,7 +31,6 @@ public class Server{
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: Server ";
 
-
     /*
     * Main URL
     *
@@ -46,14 +45,16 @@ public class Server{
     }
 
     @RequestMapping(value = "/devices", method = RequestMethod.GET)
-    public String getDevices(Map<String, Object> model, @RequestParam("token") long token){
+    public String getDevices(Map<String, Object> model, @RequestHeader("Authorization") String token){
         return service.getDevices(model, token);
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String broker(){
-        return "ola";
+    @RequestMapping(value = "/devices", method = RequestMethod.DELETE)
+    public String removeDevices(Map<String, Object> model, @RequestHeader("Authorization") String sub, @RequestParam String deviceIdentifier, @RequestParam boolean isMobile){
+        return service.deleteDevice(model, sub, deviceIdentifier, isMobile);
     }
+
+
 
 }
 

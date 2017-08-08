@@ -10,6 +10,7 @@ import pt.andre.projecto.Model.Utils.DeviceIdentifier;
 import pt.andre.projecto.Service.Interfaces.IServerService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import java.util.Map;
 /*
 * Handles the representation of the website main page
 * */
-public class ServerService implements IServerService{
+public class ServerService extends ParentService implements IServerService{
     @Autowired
     private IDatabase database;
 
@@ -51,12 +52,34 @@ public class ServerService implements IServerService{
     }
 
     @Override
-    public String getDevices(Map<String, Object> model, long token) {
-        List<DeviceWrapper> devices = database.getDesktopDevices(token);
-        devices.addAll(database.getMobileDevices(token));
+    public String getDevices(Map<String, Object> model, String token) {
+        try {
+            final String sub = handleGoogleAuthentication(token);
+
+            return getDevicesWithSub(model, sub);
+        } catch (IOException e) {
+            return "empty";
+        }
+    }
+
+    @Override
+    public String deleteDevice(Map<String, Object> model, String sub, String deviceIdentifier, boolean isMobile) {
+        final boolean result = database.removeDevice(sub, deviceIdentifier, isMobile);
+
+        if(!result)
+            return "error";
+
+        return getDevicesWithSub(model, sub);
+    }
+
+    private String getDevicesWithSub(Map<String, Object> model, String sub) {
+        List<DeviceWrapper> devices = database.getDesktopDevices(sub);
+        devices.addAll(database.getMobileDevices(sub));
+
+        if(devices.size() == 0)
+            return "empty";
 
         model.put("devices", devices);
-
         return "devicesList";
     }
 }

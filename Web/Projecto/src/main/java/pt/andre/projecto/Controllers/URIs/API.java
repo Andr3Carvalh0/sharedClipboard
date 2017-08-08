@@ -69,7 +69,7 @@ public class API implements IAPI {
     * */
     @Override
     @PostMapping("/api/pushMIME")
-    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") long sub) {
+    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String sub) {
         DatabaseResponse resp;
 
         logger.info(TAG + "Push MIME method");
@@ -88,7 +88,7 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/push", method = RequestMethod.PUT)
-    public ResponseEntity push(@RequestHeader("Authorization") long sub, @RequestParam String data) {
+    public ResponseEntity push(@RequestHeader("Authorization") String sub, @RequestParam String data) {
         logger.info(TAG + "push method");
         final DatabaseResponse resp = service.push(sub, data);
 
@@ -102,7 +102,7 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/pull", params = {"account"}, method = RequestMethod.GET)
-    public ResponseEntity pull(@RequestHeader("Authorization") long sub) {
+    public ResponseEntity pull(@RequestHeader("Authorization") String sub) {
 
         logger.info(TAG + "pull method");
 
@@ -120,16 +120,16 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/registerDevice", method = RequestMethod.PUT)
-    public ResponseEntity associateDeviceWithAccount(@RequestHeader("Authorization") long sub, @RequestParam String deviceIdentifier, @RequestParam boolean isMobile, @RequestParam String deviceName) {
+    public ResponseEntity associateDeviceWithAccount(@RequestHeader("Authorization") String sub, @RequestParam String deviceIdentifier, @RequestParam boolean isMobile, @RequestParam String deviceName) {
         if(isMobile)
             return registerMobileDevice(sub, deviceIdentifier, deviceName);
 
         return registerDesktopDevice(sub, deviceIdentifier,  deviceName);
     }
 
-    private ResponseEntity registerDesktopDevice(long account, String deviceIdentifier, String deviceName) {
+    private ResponseEntity registerDesktopDevice(String sub, String deviceIdentifier, String deviceName) {
         logger.info(TAG + "RegisterDevice method");
-        final DatabaseResponse resp = service.registerDesktopDevice(account, deviceIdentifier, deviceName);
+        final DatabaseResponse resp = service.registerDesktopDevice(sub, deviceIdentifier, deviceName);
 
         logger.info(TAG + "resgisterDevice: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
@@ -140,7 +140,7 @@ public class API implements IAPI {
     * @param account: the user account token
     * @param deviceID: the device id, given by the Firebase API
     * */
-    private ResponseEntity registerMobileDevice(long sub, String deviceID, String deviceName) {
+    private ResponseEntity registerMobileDevice(String sub, String deviceID, String deviceName) {
         logger.info(TAG + "RegisterDevice method");
         final DatabaseResponse resp = service.registerMobileDevice(sub, deviceID, deviceName);
 

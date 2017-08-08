@@ -21,6 +21,7 @@ import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -139,9 +140,8 @@ public class MongoDB implements IDatabase {
             List<User> userList = new LinkedList<>();
 
             users.find(accountFilter)
-                    .forEach((Block<Document>) (
-                            document) -> userList.add(new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients")))
-                    );
+                 .map(document -> new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients")))
+                 .into(userList);
 
             //If we dont find an account return immediately.We do this so we can handle login/create account on our native app
             if (userList.size() == 0) {
@@ -163,7 +163,6 @@ public class MongoDB implements IDatabase {
         logger.info(TAG + "creating account....");
 
         try {
-
             Document document = new Document();
             document.put("id", user_sub);
             document.put("mobileClients", new ArrayList<BasicDBObject>());
@@ -176,7 +175,6 @@ public class MongoDB implements IDatabase {
             document.put("isMIME", false);
 
             mongoDatabase.getCollection(CONTENT_COLLECTION.getName()).insertOne(document);
-
 
             return authenticate(user_sub);
         } catch (Exception e) {
@@ -206,7 +204,6 @@ public class MongoDB implements IDatabase {
     private List<DeviceWrapper> getDevices(long token, Function<UserWrapper, List<Document>> func, boolean isMobile) {
 
         final List<Document> res = new LinkedList<>();
-        List<DeviceWrapper> toReturn = new LinkedList<>();
 
         transformationToUserDatabase(token,
                 (wrapper, collection) -> {
@@ -215,10 +212,9 @@ public class MongoDB implements IDatabase {
                 }
         );
 
-        res.stream().forEach(s -> toReturn.add(new DeviceWrapper(s.getString("_main"), s.getString("name"), isMobile)));
-
-        return toReturn;
-
+        return res.stream()
+                  .map(document -> new DeviceWrapper(document.getString("_main"), document.getString("name"), isMobile))
+                  .collect(Collectors.toList());
     }
 
     /**

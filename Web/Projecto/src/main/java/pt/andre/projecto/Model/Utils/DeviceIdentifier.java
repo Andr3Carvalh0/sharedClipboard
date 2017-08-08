@@ -13,7 +13,7 @@ public class DeviceIdentifier {
 
     }
 
-    /* TODO: Learn Regex and replace all of the split functions.
+     /*
      * Based on the userAgent that we receive in the header of the request we try to figure out which plataform the user is using.
      * Eg: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.1 Safari/603.1.30
      * Based on that we can find that the user is using a Macintosh.

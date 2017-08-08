@@ -1,8 +1,6 @@
 package pt.andre.projecto.Model.DTOs.Wrappers;
 
-/**
- * Created by André Carvalho on 28/06/2017.
- */
+
 public class DeviceWrapper {
     private final String id;
     private final String name;

@@ -1,9 +1,6 @@
 package pt.andre.projecto.Service;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
+import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import org.slf4j.Logger;
@@ -18,6 +15,8 @@ import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 import java.io.*;
 import java.net.URL;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
 
 /*
 * Service that handles every action to our API URLs
@@ -43,7 +42,6 @@ public class APIService implements IAPIService{
     * */
     @Override
     public DatabaseResponse push(long token, String data) {
-
         return this.push(token, data, false);
     }
 
@@ -114,27 +112,25 @@ public class APIService implements IAPIService{
     }
 
     private String handleGoogleAuthentication(String token) throws IOException {
-        // Exchange auth code for access token
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JacksonFactory.getDefaultInstance(), new FileReader(CLIENT_SECRET_FILE.getPath()));
 
-        GoogleTokenResponse tokenResponse = new GoogleAuthorizationCodeTokenRequest(
-                new NetHttpTransport(),
-                JacksonFactory.getDefaultInstance(),
-                "https://www.googleapis.com/oauth2/v4/token",
-                clientSecrets.getDetails().getClientId(),
-                clientSecrets.getDetails().getClientSecret(),
-                token,
-                "http://localhost:3000")
-                .execute();
 
-        String accessToken = tokenResponse.getAccessToken();
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance())
+                .setAudience(Collections.singletonList(clientSecrets.getDetails().getClientId()))
+                .build();
 
-        // Get profile info from ID token
-        GoogleIdToken idToken = tokenResponse.parseIdToken();
-        GoogleIdToken.Payload payload = idToken.getPayload();
 
-        //User sub.It is unique to the user so we will use it as id.
-        return payload.getSubject();
+        try {
+            GoogleIdToken idToken = verifier.verify(token);
+            if (idToken != null) {
+                GoogleIdToken.Payload payload = idToken.getPayload();
+
+                return payload.getSubject();
+            }
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /*

@@ -4,6 +4,7 @@ package pt.andre.projecto;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.MultipartAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +31,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @Configuration
 @EnableSwagger2
-@EnableAutoConfiguration(exclude={MultipartAutoConfiguration.class})
+@EnableAutoConfiguration(exclude={MultipartAutoConfiguration.class, MongoAutoConfiguration.class})
 public class Main {
 
     public static void main(String[] args) {
@@ -68,7 +69,6 @@ public class Main {
     }
 
     @Bean
-    @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS) //By default is singleton, but can be request(To be request we have to change the component scope or create a proxy on this bean) or prototype
     public IDatabase createDatabase(){
         return System.getenv("MONGO_USER") == null ? new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), "Projecto") : new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), System.getenv("MONGO_DATABASE"), System.getenv("MONGO_USER"), System.getenv("MONGO_PASSWORD"));
     }

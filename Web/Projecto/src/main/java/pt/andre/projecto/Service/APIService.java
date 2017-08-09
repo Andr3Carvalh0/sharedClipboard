@@ -95,9 +95,6 @@ public class APIService extends ParentService implements IAPIService{
     * */
     @Override
     public DatabaseResponse createAccount(String sub) {
-        if(sub == null)
-            return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
-
         return database.createAccount(sub);
     }
 
@@ -110,9 +107,6 @@ public class APIService extends ParentService implements IAPIService{
     * */
     @Override
     public DatabaseResponse authenticate(String sub) {
-        if(sub == null)
-            return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
-
         return database.authenticate(sub);
     }
 

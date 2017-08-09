@@ -37,8 +37,10 @@ public class API implements IAPI {
     @RequestMapping(value = "/api/account", method = RequestMethod.PUT)
     public ResponseEntity createAccount(@RequestHeader("Authorization") String token) {
         logger.info(TAG + "createAccount method");
-        String sub = service.handleAuthentication(token);
 
+        System.out.println("---------------" + token);
+        String sub = service.handleAuthentication(token);
+        System.out.println("---------------" + sub);
         final DatabaseResponse resp = service.createAccount(sub);
 
         logger.info(TAG + "CreateAccount: response will have the following code:" + resp.getResponseCode());

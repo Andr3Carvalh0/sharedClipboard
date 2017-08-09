@@ -29,7 +29,6 @@ public class APIRequest {
 
         respondeHandler.put(200, (user) -> iResponse.handleSuccessfullyLogin(user));
         respondeHandler.put(400, (user) -> iResponse.handleNonExistingAccount());
-        respondeHandler.put(403, (user) -> iResponse.handleError(getResourceString(R.string.Error403_Title), getResourceString(R.string.Error403_Message)));
         respondeHandler.put(409, (user) -> iResponse.handleError(getResourceString(R.string.Error409_Title), getResourceString(R.string.Error409_Message)));
 
     }

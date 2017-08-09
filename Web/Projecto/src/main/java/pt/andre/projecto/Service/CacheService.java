@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentMap;
 // single time
 public class CacheService implements ICacheService{
 
-    private final String CLIENT_SECRET_ID = "377150900087-ir36rakjeosp11hfl9en9ndqpne1rflh.apps.googleusercontent.com";
+    private final String CLIENT_SECRET_ID = "74137919481-v4ldf8tl492o9saeaq6qe3gjnsvngs98.apps.googleusercontent.com";
 
     //Use Guava's implementation to get weak references goodies
     private ConcurrentMap<String, String> cache = new MapMaker()

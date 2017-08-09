@@ -49,5 +49,6 @@
     <string name="intro_description">This is your tape</string>
     <string name="about">About</string>
     <string name="About_description"><![CDATA[Developed by André Carvalho.<br/>ISEL - Projecto e Seminario 16/17]]></string>
+    <string name="Google_Web_Client_ID">377150900087–5m26gj0cs3t4sd8malko7uclcpb21soj.apps.googleusercontent.com</string>
 
 </resources>

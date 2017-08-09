@@ -14,7 +14,7 @@ public class SplashActivity extends ParentActivity {
 
     private static final String TAG = "Portugal:Splash";
 
-    boolean DEBUG = true;
+    boolean DEBUG = false;
 
     @Override
     protected void binding() {

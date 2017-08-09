@@ -21,7 +21,7 @@ public interface IAPI {
     @POST(accountManagement)
     Call<String> authenticate(@Header("Authorization") String token);
 
-    @POST(accountManagement)
+    @PUT(accountManagement)
     Call<String> createAccount(@Header("Authorization") String token);
 
     @PUT(deviceRegister)

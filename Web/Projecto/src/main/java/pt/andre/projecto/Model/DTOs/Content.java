@@ -9,7 +9,7 @@ import java.util.List;
 * */
 public class Content {
     // The user token
-    private long token;
+    private String token;
 
     //The stored value.It can be a textual data or a URL to a resource
     private String value;
@@ -17,7 +17,7 @@ public class Content {
     //Indicates whether id a URL to a resource, or the resource itself
     private boolean isMIME;
 
-    public Content(long token, String content, boolean isMIME) {
+    public Content(String token, String content, boolean isMIME) {
         this.token = token;
         this.value = content;
         this.isMIME = isMIME;
@@ -27,7 +27,7 @@ public class Content {
         return isMIME;
     }
 
-    public long getToken() {
+    public String getToken() {
         return token;
     }
 

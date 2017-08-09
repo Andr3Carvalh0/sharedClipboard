@@ -104,7 +104,7 @@ public class API implements IAPI {
     * @param token: the token used to authenticate a user.
     * */
     @Override
-    @RequestMapping(value = "/api/pull", params = {"account"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/api/pull", method = RequestMethod.GET)
     public ResponseEntity pull(@RequestHeader("Authorization") String sub) {
         logger.info(TAG + "pull method");
 

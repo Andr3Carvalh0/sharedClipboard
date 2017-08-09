@@ -71,7 +71,7 @@ public class ClipboardEventHandler extends IntentService {
         final String content = intent.getStringExtra("content");
         final boolean isMIME = intent.getBooleanExtra("isMIME", false);
         final boolean upload = intent.getBooleanExtra("upload", false);
-        final int token = intent.getIntExtra("token", 0);
+        final String token = intent.getStringExtra("token");
         APIRequest mApi = new APIRequest(null, context);
 
 

@@ -12,11 +12,9 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
 import andre.pt.projectoeseminario.Activities.Interfaces.History;
 import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderContent;
 import andre.pt.projectoeseminario.Fragments.HistoryFragment;
@@ -44,7 +42,7 @@ public class ClipboardContentChooser extends History {
     }
 
     @Override
-    protected void init() {
+    protected void binding() {
         openFloatingWindow();
 
         setContentView(R.layout.activity_clipboard_content_chooser);
@@ -60,7 +58,7 @@ public class ClipboardContentChooser extends History {
     }
 
     @Override
-    protected void setupEvents() {
+    protected void afterBinding() {
 
     }
 

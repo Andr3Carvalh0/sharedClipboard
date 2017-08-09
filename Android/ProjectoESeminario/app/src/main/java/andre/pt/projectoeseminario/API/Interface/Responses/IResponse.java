@@ -2,7 +2,7 @@ package andre.pt.projectoeseminario.API.Interface.Responses;
 
 
 public interface IResponse {
-    void handleSuccessfullyLogin(int user);
+    void handleSuccessfullyLogin(String sub);
     void handleNonExistingAccount();
     void showProgressDialog();
     void hideProgressDialog();

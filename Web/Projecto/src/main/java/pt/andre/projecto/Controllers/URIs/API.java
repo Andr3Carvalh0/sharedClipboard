@@ -72,9 +72,7 @@ public class API implements IAPI {
     * */
     @Override
     @PostMapping("/api/pushMIME")
-    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String token) {
-        String sub = service.handleAuthentication(token);
-
+    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String sub) {
         DatabaseResponse resp;
 
         logger.info(TAG + "Push MIME method");
@@ -93,9 +91,7 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/push", method = RequestMethod.PUT)
-    public ResponseEntity push(@RequestHeader("Authorization") String token, @RequestParam String data) {
-        String sub = service.handleAuthentication(token);
-
+    public ResponseEntity push(@RequestHeader("Authorization") String sub, @RequestParam String data) {
         logger.info(TAG + "push method");
         final DatabaseResponse resp = service.push(sub, data);
 
@@ -109,9 +105,7 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/pull", params = {"account"}, method = RequestMethod.GET)
-    public ResponseEntity pull(@RequestHeader("Authorization") String token) {
-        String sub = service.handleAuthentication(token);
-
+    public ResponseEntity pull(@RequestHeader("Authorization") String sub) {
         logger.info(TAG + "pull method");
 
         final DatabaseResponse resp = service.pull(sub);
@@ -128,9 +122,7 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/registerDevice", method = RequestMethod.PUT)
-    public ResponseEntity associateDeviceWithAccount(@RequestHeader("Authorization") String token, @RequestParam String deviceIdentifier, @RequestParam boolean isMobile, @RequestParam String deviceName) {
-        String sub = service.handleAuthentication(token);
-
+    public ResponseEntity associateDeviceWithAccount(@RequestHeader("Authorization") String sub, @RequestParam String deviceIdentifier, @RequestParam boolean isMobile, @RequestParam String deviceName) {
         if(isMobile)
             return registerMobileDevice(sub, deviceIdentifier, deviceName);
 

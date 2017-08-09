@@ -19,7 +19,7 @@ public class APIRequest {
     private IAPI mAPI;
     private IResponse iResponse;
     private Context ctx;
-    private HashMap<Integer, Consumer<Integer>> respondeHandler;
+    private HashMap<Integer, Consumer<String>> respondeHandler;
 
     public APIRequest(IResponse resp, Context ctx){
         mAPI = ProjectoAPI.getAPI();
@@ -34,7 +34,7 @@ public class APIRequest {
 
     }
 
-    public void registerDevice(long token, String firebase){
+    public void registerDevice(String token, String firebase){
         mAPI.registerDevice(token, firebase, true, Build.MODEL).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {}
@@ -44,7 +44,7 @@ public class APIRequest {
         });
     }
 
-    public void pushTextInformation(long token, String information){
+    public void pushTextInformation(String token, String information){
         mAPI.push(token, information).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -68,16 +68,16 @@ public class APIRequest {
                 iResponse.hideProgressDialog();
 
                 if(response.body() != null){
-                    handleHTTPResponse(response.code(), Integer.parseInt(response.body()));
+                    handleHTTPResponse(response.code(), response.body());
                 }else{
-                    handleHTTPResponse(response.code(), -1);
+                    handleHTTPResponse(response.code(), null);
                 }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 iResponse.hideProgressDialog();
-                handleHTTPResponse(500, 0);
+                handleHTTPResponse(500, null);
             }
         });
 
@@ -92,16 +92,16 @@ public class APIRequest {
                 iResponse.hideProgressDialog();
 
                 if(response.body() != null){
-                    handleHTTPResponse(response.code(), Integer.parseInt(response.body()));
+                    handleHTTPResponse(response.code(), response.body());
                 }else{
-                    handleHTTPResponse(response.code(), -1);
+                    handleHTTPResponse(response.code(), null);
                 }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 iResponse.hideProgressDialog();
-                handleHTTPResponse(500, 0);
+                handleHTTPResponse(500, null);
             }
         });
     }
@@ -109,9 +109,9 @@ public class APIRequest {
     /**
      * Handles what to do, on the HTTP response.
      */
-    private void handleHTTPResponse(int code, int userID){
+    private void handleHTTPResponse(int code, String user){
         if(respondeHandler.containsKey(code)) {
-            respondeHandler.get(code).accept(userID);
+            respondeHandler.get(code).accept(user);
             return;
         }
 

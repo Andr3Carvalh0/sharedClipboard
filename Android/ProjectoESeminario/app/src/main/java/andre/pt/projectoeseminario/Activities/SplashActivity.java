@@ -17,7 +17,7 @@ public class SplashActivity extends ParentActivity {
     boolean DEBUG = true;
 
     @Override
-    protected void init() {
+    protected void binding() {
         setContentView(R.layout.activity_splash);
 
 
@@ -30,12 +30,9 @@ public class SplashActivity extends ParentActivity {
                 it.putExtra("token", getIntPreference(Preferences.USER_TOKEN));
                 startActivity(it);
             }else{
-                if(accountIsValid() || DEBUG) {
                     Log.v(TAG, "Loading login activity");
                     it = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(it);
-                }
-                showDialogWithPositiveButton(getString(R.string.Error403_Title), getString(R.string.CANNOT_AUTHENTICATE), getString(R.string.PositiveButton_Title), (dialog, which) -> dialog.dismiss());
             }
 
             finish();
@@ -49,7 +46,7 @@ public class SplashActivity extends ParentActivity {
 
 
     @Override
-    protected void setupEvents() {
+    protected void afterBinding() {
 
     }
 }

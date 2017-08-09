@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.HashMap;
 
 import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderContent;
-import andre.pt.projectoeseminario.Fragments.HistoryFragment;
 import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
 
@@ -34,13 +33,13 @@ public abstract class ParentActivity extends AppCompatActivity {
 
         mPreferences = new Preferences(this);
 
-        init();
-        setupEvents();
+        binding();
+        afterBinding();
 
     }
 
-    protected abstract void init();
-    protected abstract void setupEvents();
+    protected abstract void binding();
+    protected abstract void afterBinding();
 
     protected boolean hasCompletedSetup(){
         return mPreferences.getBooleanPreference(Preferences.AUTHENTICATED);

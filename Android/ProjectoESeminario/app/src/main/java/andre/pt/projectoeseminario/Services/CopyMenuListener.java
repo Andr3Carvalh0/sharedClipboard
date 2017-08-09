@@ -5,10 +5,12 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import andre.pt.projectoeseminario.Activities.Interfaces.ParentActivity;
 import andre.pt.projectoeseminario.Adapters.Entities.Preference;
 import andre.pt.projectoeseminario.Preferences;
 
@@ -17,20 +19,21 @@ import andre.pt.projectoeseminario.Preferences;
 * Service responsable for creating the clipboard listener, and handle the change of the same
 */
 public class CopyMenuListener extends Service {
-    private int userToken;
+    private String userToken;
     private String deviceID;
     public static final String TAG = "Portugal:CopyMenu";
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 
     @Override
     public void onCreate() {
         Preferences pref = new Preferences(this);
 
-        userToken = pref.getIntPreference(Preferences.USER_TOKEN);
+        userToken = pref.getStringPreference(Preferences.USER_TOKEN);
         deviceID = pref.getStringPreference(Preferences.FIREBASEID);
-
-        //We cannot update when the user token isnt valid or when we cannot get the copied text
-        if(userToken == 0)
-            return;
 
         final Context ctx = this;
 
@@ -41,7 +44,6 @@ public class CopyMenuListener extends Service {
                 if (clipboardManager.hasPrimaryClip()) {
                     ClipData.Item clipboardItem = clipboardManager.getPrimaryClip().getItemAt(0);
 
-                    //For now we only support text
                     if (clipboardItem.getText() != null) {
                         String text = clipboardItem.getText() + "";
 
@@ -53,7 +55,6 @@ public class CopyMenuListener extends Service {
                         intent.putExtra("token", userToken);
 
                         startService(intent);
-
                     }
                 }
             }catch(Exception e){
@@ -62,9 +63,4 @@ public class CopyMenuListener extends Service {
         });
     }
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
 }

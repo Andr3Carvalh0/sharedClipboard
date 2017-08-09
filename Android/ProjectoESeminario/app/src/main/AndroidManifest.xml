@@ -39,7 +39,7 @@
         <service
             android:name=".Services.CopyMenuListener"
             android:exported="false" />
-        <service android:name=".Services.Firebase.FirebaseMessageHandler">
+        <service android:name=".Services.FirebaseMessageHandler">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -58,7 +58,8 @@
             android:name=".ContentProvider.ResourcesContentProviderProvider"
             android:authorities="andre.pt.projectoeseminario"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
+
     </application>
 
 </manifest>

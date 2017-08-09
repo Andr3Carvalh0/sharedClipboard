@@ -15,10 +15,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import java.util.List;
 
@@ -36,7 +40,7 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
     private static final int NOTIFICATION_SUPER_SECRET_ID = 1;
 
     private boolean service_state;
-    private int user;
+    private String user;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ViewPager mViewPager;
@@ -48,15 +52,16 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
     }
 
     @Override
-    protected void init() {
+    protected void binding() {
         setContentView(R.layout.activity_preferences);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app));
         setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.main_menu);
 
         //Setup preferences
-        user = getIntPreference(Preferences.USER_TOKEN);
+        user = getStringPreference(Preferences.USER_TOKEN);
         service_state = getBooleanPreference(Preferences.SERVICERUNNING);
         boolean hasShownSetup = getBooleanPreference(Preferences.SETUPSHOWN);
 
@@ -90,7 +95,7 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
         int width = size.x;
         int height = size.y;
 
-        TapTargetView.showFor(this, TapTarget.forBounds(new Rect((int) (width * 0.87), (int) (height * 0.93), (int) (width * 0.92), (int) (height * 0.95)), "Hi", "This is your tape")
+        TapTargetView.showFor(this, TapTarget.forBounds(new Rect((int) (width * 0.87), (int) (height * 0.93), (int) (width * 0.92), (int) (height * 0.95)), getString(R.string.intro_title), getString(R.string.intro_description))
                 .transparentTarget(true)
                 .targetCircleColor(R.color.white)
                 .textColor(R.color.white));
@@ -99,7 +104,7 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
     /*
     *   Uploads the device firebase ID if we detect that it may not be present in the server
     */
-    private void handleNewFirebaseID(long token, String firebaseID) {
+    private void handleNewFirebaseID(String token, String firebaseID) {
         try {
             new APIRequest(null, this).registerDevice(token, firebaseID);
             saveStringPreference(Preferences.FIREBASEID, firebaseID);
@@ -158,7 +163,7 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
     }
 
     @Override
-    protected void setupEvents() {
+    protected void afterBinding() {
         if(service_state)
             startService();
         else
@@ -244,4 +249,30 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
 
         super.onBackPressed();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if (item.getItemId() == R.id.about)
+        {
+            new LibsBuilder()
+                    //start the activity
+                    .withActivityTheme(R.style.AboutTheme)
+                    .withAboutIconShown(true)
+                    .withAboutVersionShown(true)
+                    .withAboutDescription(getString(R.string.About_description))
+                    .start(this);
+            return true;
+        }
+
+        return false;
+    }
+
 }

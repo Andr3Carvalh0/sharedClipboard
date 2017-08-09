@@ -45,5 +45,9 @@
     <string name="CANNOT_AUTHENTICATE">Cannot authenticate you.</string>
     <string name="MobileData_Preferences_Title">Mobile Data:</string>
     <string name="MobileData_Preferences_Description">Should the service use your mobile data.</string>
+    <string name="intro_title">Hi</string>
+    <string name="intro_description">This is your tape</string>
+    <string name="about">About</string>
+    <string name="About_description"><![CDATA[Developed by André Carvalho.<br/>ISEL - Projecto e Seminario 16/17]]></string>
 
 </resources>

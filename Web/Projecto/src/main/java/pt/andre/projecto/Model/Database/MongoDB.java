@@ -132,6 +132,11 @@ public class MongoDB implements IDatabase {
     @Override
     public DatabaseResponse authenticate(String sub) {
         logger.info(TAG + "authenticating...");
+        if(sub == null) {
+            logger.info(TAG + "it's a new user");
+            return ResponseFormater.createResponse(ResponseFormater.NO_ACCOUNT);
+        }
+
         try {
             MongoCollection<Document> users = mongoDatabase.getCollection(USER_COLLECTION.getName());
 

@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.MultipartAutoConfiguration;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -32,6 +33,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @EnableAutoConfiguration(exclude={MultipartAutoConfiguration.class, MongoAutoConfiguration.class})
+@EnableCaching
 public class Main {
 
     public static void main(String[] args) {
@@ -58,7 +60,6 @@ public class Main {
     }
 
     @Bean
-    @Scope(value = "singleton")
     public ICacheService getCache(){
         return new CacheService();
     }

@@ -28,7 +28,8 @@ function authenticate(auth) {
                 $('#hackyMChacky').click();
                 createAccount(auth)
             },
-            500: function () {
+            500: function (e) {
+                console.log(e)
                 displayMessage("Error on login. Try later.", false)
             }
         },

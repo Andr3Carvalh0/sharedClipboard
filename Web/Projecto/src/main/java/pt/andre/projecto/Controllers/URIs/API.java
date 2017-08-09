@@ -53,8 +53,12 @@ public class API implements IAPI {
     @Override
     @RequestMapping(value = "/api/account", method = RequestMethod.POST)
     public ResponseEntity authenticate(@RequestHeader("Authorization") String token) {
-        String sub = service.handleAuthentication(token);
-
+        String sub;
+        try {
+            sub = service.handleAuthentication(token);
+        }catch (IllegalArgumentException e){
+            sub = null;
+        }
         logger.info(TAG + "Authenticate method");
 
         final DatabaseResponse resp = service.authenticate(sub);

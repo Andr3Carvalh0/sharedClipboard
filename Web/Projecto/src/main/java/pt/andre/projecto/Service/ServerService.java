@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
 import pt.andre.projecto.Model.Database.IDatabase;
+import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Model.Utils.Device;
 import pt.andre.projecto.Model.Utils.DeviceIdentifier;
 import pt.andre.projecto.Service.Interfaces.IServerService;
@@ -52,14 +53,11 @@ public class ServerService extends ParentService implements IServerService{
     }
 
     @Override
-    public String getDevices(Map<String, Object> model, String token) {
-        try {
-            final String sub = handleGoogleAuthentication(token);
-
-            return getDevicesWithSub(model, sub);
-        } catch (IOException e) {
+    public String getDevices(Map<String, Object> model, String sub) {
+        if(sub == null)
             return "empty";
-        }
+
+        return getDevicesWithSub(model, sub);
     }
 
     @Override

@@ -7,7 +7,7 @@ import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
 import javax.servlet.http.HttpServletRequest;
 
 
-public interface IAPIService {
+public interface IAPIService extends IParentService {
 
     DatabaseResponse push(String sub, String data);
     DatabaseResponse push(MultipartFile file, String sub);

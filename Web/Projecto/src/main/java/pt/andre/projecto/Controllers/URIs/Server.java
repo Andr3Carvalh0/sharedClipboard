@@ -50,8 +50,8 @@ public class Server{
     }
 
     @RequestMapping(value = "/devices", method = RequestMethod.DELETE)
-    public String removeDevices(Map<String, Object> model, @RequestHeader("Authorization") String sub, @RequestParam String deviceIdentifier, @RequestParam boolean isMobile){
-        return service.deleteDevice(model, sub, deviceIdentifier, isMobile);
+    public String removeDevices(Map<String, Object> model, @RequestHeader("Authorization") String token, @RequestParam String deviceIdentifier, @RequestParam boolean isMobile){
+        return service.deleteDevice(model, token, deviceIdentifier, isMobile);
     }
 
 

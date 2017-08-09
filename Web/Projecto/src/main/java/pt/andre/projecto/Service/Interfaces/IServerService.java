@@ -5,11 +5,11 @@ import pt.andre.projecto.Model.Utils.DeviceIdentifier;
 
 import java.util.Map;
 
-public interface IServerService {
+public interface IServerService extends IParentService {
     /*
     * Responsable for returning the website UI
     */
-    String handleRootRequest(Map<String, Object> model, @RequestHeader(value = "User-Agent") String userAgent, DeviceIdentifier deviceIdentifier);
+    String handleRootRequest(Map<String, Object> model, String userAgent, DeviceIdentifier deviceIdentifier);
 
     String getDevices(Map<String, Object> model, String token);
 

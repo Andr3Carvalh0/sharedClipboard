@@ -12,12 +12,12 @@ import java.util.Map;
 public interface IAPI {
 
 
-    ResponseEntity push(String sub, String data);
-    ResponseEntity push(MultipartFile file, String sub);
-    ResponseEntity pull(String sub);
+    ResponseEntity push(String token, String data);
+    ResponseEntity push(MultipartFile file, String token);
+    ResponseEntity pull(String token);
     ResponseEntity createAccount(String token);
     ResponseEntity authenticate(String token);
-    ResponseEntity associateDeviceWithAccount(String sub, String deviceIdentifier, boolean deviceType, String deviceName);
+    ResponseEntity associateDeviceWithAccount(String token, String deviceIdentifier, boolean deviceType, String deviceName);
 
 
 

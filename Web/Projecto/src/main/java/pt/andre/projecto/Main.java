@@ -16,7 +16,9 @@ import pt.andre.projecto.Controllers.URIs.FirebaseServer;
 import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.MongoDB;
 import pt.andre.projecto.Service.APIService;
+import pt.andre.projecto.Service.CacheService;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
+import pt.andre.projecto.Service.Interfaces.ICacheService;
 import pt.andre.projecto.Service.Interfaces.IServerService;
 import pt.andre.projecto.Service.ServerService;
 import springfox.documentation.builders.PathSelectors;
@@ -54,6 +56,11 @@ public class Main {
         return new FirebaseServer();
     }
 
+    @Bean
+    @Scope(value = "singleton")
+    public ICacheService getCache(){
+        return new CacheService();
+    }
 
     @Bean
     public IAPIService getAPIService(){

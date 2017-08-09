@@ -37,8 +37,9 @@ public class API implements IAPI {
     @RequestMapping(value = "/api/account", method = RequestMethod.PUT)
     public ResponseEntity createAccount(@RequestHeader("Authorization") String token) {
         logger.info(TAG + "createAccount method");
+        String sub = service.handleAuthentication(token);
 
-        final DatabaseResponse resp = service.createAccount(token);
+        final DatabaseResponse resp = service.createAccount(sub);
 
         logger.info(TAG + "CreateAccount: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
@@ -52,9 +53,11 @@ public class API implements IAPI {
     @Override
     @RequestMapping(value = "/api/account", method = RequestMethod.POST)
     public ResponseEntity authenticate(@RequestHeader("Authorization") String token) {
+        String sub = service.handleAuthentication(token);
+
         logger.info(TAG + "Authenticate method");
 
-        final DatabaseResponse resp = service.authenticate(token);
+        final DatabaseResponse resp = service.authenticate(sub);
 
         logger.info(TAG + "Authenticate: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
@@ -69,7 +72,9 @@ public class API implements IAPI {
     * */
     @Override
     @PostMapping("/api/pushMIME")
-    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String sub) {
+    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String token) {
+        String sub = service.handleAuthentication(token);
+
         DatabaseResponse resp;
 
         logger.info(TAG + "Push MIME method");
@@ -88,7 +93,9 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/push", method = RequestMethod.PUT)
-    public ResponseEntity push(@RequestHeader("Authorization") String sub, @RequestParam String data) {
+    public ResponseEntity push(@RequestHeader("Authorization") String token, @RequestParam String data) {
+        String sub = service.handleAuthentication(token);
+
         logger.info(TAG + "push method");
         final DatabaseResponse resp = service.push(sub, data);
 
@@ -102,7 +109,8 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/pull", params = {"account"}, method = RequestMethod.GET)
-    public ResponseEntity pull(@RequestHeader("Authorization") String sub) {
+    public ResponseEntity pull(@RequestHeader("Authorization") String token) {
+        String sub = service.handleAuthentication(token);
 
         logger.info(TAG + "pull method");
 
@@ -120,7 +128,9 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/registerDevice", method = RequestMethod.PUT)
-    public ResponseEntity associateDeviceWithAccount(@RequestHeader("Authorization") String sub, @RequestParam String deviceIdentifier, @RequestParam boolean isMobile, @RequestParam String deviceName) {
+    public ResponseEntity associateDeviceWithAccount(@RequestHeader("Authorization") String token, @RequestParam String deviceIdentifier, @RequestParam boolean isMobile, @RequestParam String deviceName) {
+        String sub = service.handleAuthentication(token);
+
         if(isMobile)
             return registerMobileDevice(sub, deviceIdentifier, deviceName);
 

@@ -94,14 +94,11 @@ public class APIService extends ParentService implements IAPIService{
     * @return DatabaseResponse: Object that contains the server HTTP code, and a Message.
     * */
     @Override
-    public DatabaseResponse createAccount(String token) {
-        try {
-            String user_sub = handleGoogleAuthentication(token);
-            return database.createAccount(user_sub);
-
-        } catch (IOException e) {
+    public DatabaseResponse createAccount(String sub) {
+        if(sub == null)
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
-        }
+
+        return database.createAccount(sub);
     }
 
     /*
@@ -112,14 +109,11 @@ public class APIService extends ParentService implements IAPIService{
     * @return DatabaseResponse: Object that contains the server HTTP code, and a Message.
     * */
     @Override
-    public DatabaseResponse authenticate(String token) {
-        try {
-            String user_sub = handleGoogleAuthentication(token);
-            return database.authenticate(user_sub);
-
-        } catch (IOException e) {
+    public DatabaseResponse authenticate(String sub) {
+        if(sub == null)
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
-        }
+
+        return database.authenticate(sub);
     }
 
     /*

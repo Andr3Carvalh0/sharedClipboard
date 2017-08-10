@@ -1,19 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ProjectoESeminario.UI
 {
@@ -35,7 +23,7 @@ namespace ProjectoESeminario.UI
             NotifyIcon icon = new NotifyIcon();
             //Need icon fix
             icon.Icon = new System.Drawing.Icon("ic_launcher.ico");
-            icon.ContextMenu = new System.Windows.Forms.ContextMenu();
+            icon.ContextMenu = new ContextMenu();
             icon.ContextMenu.MenuItems.Add("Show Window", new EventHandler(showWindow));
             icon.ContextMenu.MenuItems.Add("Exit", new EventHandler(exit));
             icon.Text = "Projecto e Seminario";
@@ -50,7 +38,7 @@ namespace ProjectoESeminario.UI
 
         private void exit(object sender, EventArgs e)
         {
-            System.Environment.Exit(1);
+            Environment.Exit(1);
         }
 
         protected override void OnClosing(CancelEventArgs e)

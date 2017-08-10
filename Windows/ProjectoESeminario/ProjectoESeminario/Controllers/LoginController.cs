@@ -20,12 +20,12 @@ namespace Projecto.Controllers
             this.mAPI = new ProjectoAPI();
         }
 
-        public async Task<long> HandleCreateAccountAsync(String username, String password)
+        public async Task<String> HandleCreateAccountAsync(String token)
         {
             log.Debug(TAG + " method HandleCreateAccount called!");
 
             log.Debug(TAG + " Attempting to create an account");
-            var response = await mAPI.CreateAccount(username, password);
+            var response = await mAPI.CreateAccount(token);
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK) {
                 log.Error(TAG + " - WebException, statusCode:" + response.StatusCode);
@@ -34,16 +34,13 @@ namespace Projecto.Controllers
             }
 
             var responseBody = await response.Content.ReadAsStringAsync();
-
-            long token;
-            long.TryParse(responseBody, out token);
-
-            return token;
+            
+            return responseBody;
         }
 
-        public async void registerDevice(long userToken, String GUID)
+        public async void registerDevice(String sub, String GUID)
         {
-            var response = await mAPI.registerDevice(userToken, GUID, true, Environment.MachineName);
+            var response = await mAPI.registerDevice(sub, GUID, true, Environment.MachineName);
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
@@ -53,19 +50,11 @@ namespace Projecto.Controllers
             
         }
 
-        public async Task<long> HandleLoginAsync(String username, String password)
+        public async Task<String> HandleLoginAsync(String token)
         {
             log.Debug(TAG + " method HandleLoginAsync called!");
 
-            bool isEmailValid = IsValidEmail(username);
-            bool isPasswordValid = IsValidPassword(username);
-
-            if (!isEmailValid || !isPasswordValid)
-            {
-                log.Error(TAG + " - UserException");
-                throw new UserExceptions(isEmailValid, isPasswordValid);
-            }
-            var response = await mAPI.Authenticate(username, password);
+            var response = await mAPI.Authenticate(token);
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
@@ -73,41 +62,7 @@ namespace Projecto.Controllers
                 throw new WebExceptions(response.StatusCode);
             }
 
-            var responseBody = await response.Content.ReadAsStringAsync();
-
-            long token;
-            long.TryParse(responseBody, out token);
-
-            if (token == 0) {
-                log.Error(TAG + " - Heroku exception(probably), the server is sleeping, and the response was 200, but it isnt valid, since we dont have content");
-                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
-            }
-            return token;
-        }
-
-        /// <summary>
-        /// Used to check if the inputted email is a valid email.
-        /// The regex expression was taken out the chromium source code
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        private bool IsValidEmail(string username)
-        {
-            String configuration = @"^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$";
-            Regex rgx = new Regex(configuration);
-
-            return rgx.IsMatch(username);
-        }
-
-        /// <summary>
-        /// Used to check if the password that user inputted is valid.
-        /// We just validate if the password length is greater that 6.
-        /// </summary>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        private bool IsValidPassword(string password)
-        {
-            return password.Length > 6;
+           return await response.Content.ReadAsStringAsync();
         }
     }
 }

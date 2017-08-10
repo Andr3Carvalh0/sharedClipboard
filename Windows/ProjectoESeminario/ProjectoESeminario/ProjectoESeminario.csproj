@@ -156,7 +156,6 @@
     </Compile>
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
-    <Compile Include="Exceptions\UserExceptions.cs" />
     <Compile Include="Exceptions\WebExceptions.cs" />
     <Compile Include="Services\Interfaces\IAPI.cs" />
     <Compile Include="Services\ProjectoAPI.cs" />

@@ -19,6 +19,7 @@
         <Label Content="Projecto e Seminário" HorizontalAlignment="Left" Margin="10,-146,0,0" VerticalAlignment="Top" Height="44" Width="371" FontSize="24" FontWeight="Bold" Grid.ColumnSpan="2"/>
         <Label Content="Share your clipboard between your multiple devices." HorizontalAlignment="Left" Margin="12,-107,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Label Content="Label" HorizontalAlignment="Left" Margin="-230,178,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tokenField" HorizontalAlignment="Left" Height="23" Controls:TextBoxHelper.Watermark="Email" Controls:TextBoxHelper.ClearTextButton="True"  Margin="12,0,0,183" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="357" TextChanged="EmailField_TextChanged" Grid.ColumnSpan="2" Visibility="Hidden"/>
 
     </Grid>
 </Controls:MetroWindow>

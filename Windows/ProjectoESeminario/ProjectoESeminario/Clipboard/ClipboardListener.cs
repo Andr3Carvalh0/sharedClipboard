@@ -1,22 +1,13 @@
 using Projecto.Service;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
-using Newtonsoft.Json;
-using ProjectoESeminario.DTOs;
-using System.Drawing;
 using System.Drawing.Imaging;
-using System.Net.Http.Headers;
 using WebSocketSharp;
-using System.Configuration;
-using Ultralight.Listeners;
-using Ultralight;
-using Ultralight.Client;
-using Ultralight.Client.Transport;
+
 
 namespace ProjectoESeminario
 {
@@ -25,7 +16,7 @@ namespace ProjectoESeminario
         private WebSocket ws;
         private ProjectoAPI api = new ProjectoAPI();
         private Dictionary<string, ImageFormat> supported_formats = new Dictionary<string, ImageFormat>();
-        private long user_token = Properties.Settings.Default.userToken;
+        private String sub = Properties.Settings.Default.sub;
         private string deviceID = Properties.Settings.Default.deviceID;
         private volatile String lastClipboardContent = "";
 
@@ -51,17 +42,19 @@ namespace ProjectoESeminario
         /// </summary>
         private const int WM_CLIPBOARDUPDATE = 0x031D;
 
+        private readonly CancellationTokenSource cts;
+
         public ClipboardListener()
         {
             log.Info(TAG + " ctor");
             supported_formats.Add("png", ImageFormat.Png);
             supported_formats.Add("jpg", ImageFormat.Jpeg);
 
-            AddClipboardFormatListener(this.Handle);
-            Thread workingThread = new Thread(() => fetchInformation())
-            { IsBackground = true };
+            cts = new CancellationTokenSource();
 
-            workingThread.Start();
+            if (Properties.Settings.Default.serviceEnabled)
+                enableService();
+
         }
 
         protected override void WndProc(ref Message m)
@@ -106,14 +99,14 @@ namespace ProjectoESeminario
 
         private async void uploadMediaData(ImageFormat format, byte[] image, string name)
         {
-            await api.Push(user_token, image, name, format.ToString().ToLower());
+            await api.Push(sub, image, name, format.ToString().ToLower());
         }
 
         private async void uploadTextData(String text) {
             log.Info(TAG + " uploading text to the server");
 
             if (switchClipboardValue(text)) { 
-                var response = await api.Push(user_token, text);
+                var response = await api.Push(sub, text);
 
                 if(response == null)
                 {
@@ -142,13 +135,18 @@ namespace ProjectoESeminario
             return false;
         }
 
-        /// <summary>
-        /// Work done by the background thread.Every 30 second the thread will do a pull from the server
-        /// and check if the content of the clipboard has changed!
-        /// </summary>
-        public void fetchInformation()
-        {
 
+        public void fetchInformation(CancellationToken cancelToken)
+        {
+            while (true)
+            {
+                if (cancelToken.IsCancellationRequested)
+                {
+                    return;
+                }
+
+
+            }
         }
 
         private void storeText(string content)
@@ -158,12 +156,26 @@ namespace ProjectoESeminario
             //Clipboard cannot be called from backgroudn thread.This ensures that the setText will run on Main.
             Invoke((Action)(() => { Clipboard.SetText(content); }));
             
-
         }
 
         private void storeMIME(string content)
         {
             throw new NotImplementedException();
+        }
+
+        public void enableService()
+        {
+            AddClipboardFormatListener(this.Handle);
+            Thread workingThread = new Thread(() => fetchInformation(cts.Token))
+            { IsBackground = true };
+        
+            workingThread.Start();
+        }
+
+        public void disableService()
+        {
+            RemoveClipboardFormatListener(this.Handle);
+            cts.Cancel();
         }
     }
 }

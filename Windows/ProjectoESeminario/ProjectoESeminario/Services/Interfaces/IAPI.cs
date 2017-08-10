@@ -14,47 +14,15 @@ namespace Projecto.Service
     /// </summary>
     public interface IAPI
     {
-        /// <summary>
-        /// Used when we need to push textual data to the server
-        /// </summary>
-        /// <param name="account"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        Task<HttpResponseMessage> Push(long account, string data);
+        Task<HttpResponseMessage> Push(String sub, string data);
 
-        /// <summary>
-        /// Used when we need to push MIME(Multimedia: images, docs) to the server
-        /// </summary>
-        /// <param name="account"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        Task<HttpResponseMessage> Push(long account, byte[] data, string filename, string filetype);
+        Task<HttpResponseMessage> Push(String sub, byte[] data, string filename, string filetype);
 
-        /// <summary>
-        /// Try to authenticate user @username with password @password
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        Task<HttpResponseMessage> Authenticate(string username, string password);
+        Task<HttpResponseMessage> Authenticate(String token);
 
-        /// <summary>
-        /// Creates an account with the username @username and password @password
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        Task<HttpResponseMessage> CreateAccount(string username, string password);
+        Task<HttpResponseMessage> CreateAccount(String token);
 
-        /// <summary>
-        /// Registers the device on this account so it can obtain information
-        /// </summary>
-        /// <param name="account"></param>
-        /// <param name="deviceID"></param>
-        /// <param name="deviceType"> false: Desktop, true mobile</param>
-        /// <param name="deviceName"> This device names</param>
-        /// <returns></returns>
-        Task<HttpResponseMessage> registerDevice(long account, string deviceID, bool deviceType, String deviceName);
+        Task<HttpResponseMessage> registerDevice(String sub, string deviceID, bool deviceType, String deviceName);
 
 
     }

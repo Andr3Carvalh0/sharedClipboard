@@ -25,13 +25,13 @@ namespace ProjectoESeminario.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public long userToken {
+        [global::System.Configuration.DefaultSettingValueAttribute("\"\"")]
+        public string sub {
             get {
-                return ((long)(this["userToken"]));
+                return ((string)(this["sub"]));
             }
             set {
-                this["userToken"] = value;
+                this["sub"] = value;
             }
         }
         

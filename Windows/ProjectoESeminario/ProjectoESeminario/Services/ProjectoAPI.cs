@@ -53,10 +53,13 @@ namespace Projecto.Service
             this.httpClient = new HttpClient();
         }
 
-        public async Task<HttpResponseMessage> Authenticate(string username, string password){
+        public async Task<HttpResponseMessage> Authenticate(String token)
+        {
             try
             {
-                return await httpClient.GetAsync(mainServer + accountManagement + "?account=" + username + "&password=" + password);
+                httpClient.DefaultRequestHeaders.Add("Authorization", token);
+
+                return await httpClient.PostAsync(mainServer + accountManagement, new StringContent(""));
             }
             catch (Exception)
             {
@@ -64,13 +67,11 @@ namespace Projecto.Service
             }
         }
 
-        public async Task<HttpResponseMessage> CreateAccount(string username, string password)
+        public async Task<HttpResponseMessage> CreateAccount(String token)
         {
-            try { 
-                var parameters = new Dictionary<string, string>();
-                parameters["account"] = username;
-                parameters["password"] = password;
-                return await httpClient.PutAsync(mainServer + accountManagement, new FormUrlEncodedContent(parameters));
+            try {
+                httpClient.DefaultRequestHeaders.Add("Authorization", token);
+                return await httpClient.PutAsync(mainServer + accountManagement, new StringContent(""));
             }
             catch (Exception)
             {
@@ -78,14 +79,13 @@ namespace Projecto.Service
             }
         }
 
-        public async Task<HttpResponseMessage> Push(long account, string data)
+        public async Task<HttpResponseMessage> Push(String sub, String data)
         {
-            if (account == 0)
-                return null;
             try
             {
+                httpClient.DefaultRequestHeaders.Add("Authorization", sub);
+
                 var parameters = new Dictionary<string, string>();
-                parameters["token"] = account + "";
                 parameters["data"] = data;
                 return await httpClient.PutAsync(mainServer + push, new FormUrlEncodedContent(parameters));
             }
@@ -95,16 +95,13 @@ namespace Projecto.Service
             }
         }
 
-        public async Task<HttpResponseMessage> Push(long account, byte[] data, string filename, string filetype)
+        public async Task<HttpResponseMessage> Push(String sub, byte[] data, string filename, string filetype)
         {
-            if (account == 0)
-                return null;
-
             try
             {
-                MultipartFormDataContent form = new MultipartFormDataContent();
+                httpClient.DefaultRequestHeaders.Add("Authorization", sub);
 
-                form.Add(new StringContent(account + ""), "token");
+                MultipartFormDataContent form = new MultipartFormDataContent();
 
                 var file = new ByteArrayContent(data);
 
@@ -122,15 +119,13 @@ namespace Projecto.Service
             }
         }
 
-        public async Task<HttpResponseMessage> registerDevice(long account, string deviceID, bool deviceType, String deviceName)
+        public async Task<HttpResponseMessage> registerDevice(String sub, string deviceID, bool deviceType, String deviceName)
         {
-            if (account == 0)
-                return null;
-
             try
             {
+                httpClient.DefaultRequestHeaders.Add("Authorization", sub);
+
                 var parameters = new Dictionary<string, string>();
-                parameters["account"] = account + "";
                 parameters["deviceIdentifier"] = deviceID;
                 parameters["deviceType"] = false + "";
                 parameters["deviceName"] = deviceName;

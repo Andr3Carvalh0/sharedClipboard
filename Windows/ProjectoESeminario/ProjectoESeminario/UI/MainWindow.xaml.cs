@@ -26,7 +26,6 @@ namespace ProjectoESeminario
             controller = new LoginController();
 
             //Setup to handle all the exceptions
-            actionsOnException.Add(typeof(UserExceptions), async (ex) => await this.ShowMessageAsync("Ops...", ((UserExceptions)ex).simplerMessage));
             actionsOnException.Add(typeof(WebExceptions), (ex) =>
             {
                 Action action = () => { };
@@ -43,8 +42,7 @@ namespace ProjectoESeminario
                 MessageBoxResult dialogResult = MessageBox.Show("It looks like an account with this email, doesn't exist.\nWould you like to create one", "", MessageBoxButton.OKCancel);
                 if (dialogResult == MessageBoxResult.OK)
                 {
-                    long userToken = await controller.HandleCreateAccountAsync(EmailField.Text, PasswordField.Password);
-                    HandleSuccessfulLogin(userToken);
+                    HandleSuccessfulLogin(await controller.HandleCreateAccountAsync(tokenField.Text));
                 }
             });
             handleServerResponse.Add(System.Net.HttpStatusCode.InternalServerError, async () =>
@@ -53,14 +51,14 @@ namespace ProjectoESeminario
             });
         }
 
-        private void HandleSuccessfulLogin(long userToken)
+        private void HandleSuccessfulLogin(String sub)
         {
             String GUID = Guid.NewGuid().ToString().ToUpper();
 
-            controller.registerDevice(userToken, GUID);
+            controller.registerDevice(sub, GUID);
 
             Properties.Settings.Default.deviceID = GUID;
-            Properties.Settings.Default.userToken = userToken;
+            Properties.Settings.Default.sub = sub;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
@@ -87,18 +85,11 @@ namespace ProjectoESeminario
 
         private async void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            String email = EmailField.Text;
-            String password = PasswordField.Password;
-
             lockControllers(true);
 
             try
             {
-                long userToken = await controller.HandleLoginAsync(email, password);
-
-                HandleSuccessfulLogin(userToken);
-
+                HandleSuccessfulLogin(await controller.HandleLoginAsync(tokenField.Text));
             }
             catch (Exception ex)
             {

@@ -17,7 +17,7 @@ namespace ProjectoESeminario
         {
             base.OnStartup(e);
 
-            if (ProjectoESeminario.Properties.Settings.Default.userToken == 0) {
+            if (ProjectoESeminario.Properties.Settings.Default.sub.Equals("")) {
                 log.Debug(TAG + " loading loginWindow");
                 StartupUri = new Uri("UI/MainWindow.xaml", UriKind.Relative);
             }else{

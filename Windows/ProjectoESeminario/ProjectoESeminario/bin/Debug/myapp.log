@@ -2441,3 +2441,5 @@
 2017-08-10 14:59:03,048 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener will altering clipboard value
 2017-08-10 14:59:24,120 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
 2017-08-10 14:59:25,301 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-08-10 15:28:49,228 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-08-10 15:28:50,411 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor

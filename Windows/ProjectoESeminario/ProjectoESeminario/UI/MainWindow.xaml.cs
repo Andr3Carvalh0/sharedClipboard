@@ -82,12 +82,13 @@ namespace ProjectoESeminario
 
             try
             {
-
+        
                 var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync( 
-                                        cs, new[] { Google.Apis.Oauth2.v2.Oauth2Service.Scope.UserinfoEmail},
+                                        cs, new[] { "email"},
                                         "user",
                                         CancellationToken.None);
 
+                await credential.RefreshTokenAsync(CancellationToken.None);
                 String idToken = credential.Token.IdToken;
                 token = idToken;
 

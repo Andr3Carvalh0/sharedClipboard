@@ -2480,3 +2480,57 @@
 2017-08-10 17:42:38,851 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
 2017-08-10 17:43:51,910 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
 2017-08-10 17:43:52,880 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 18:08:54,752 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 18:08:55,748 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 18:09:05,217 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 18:13:22,592 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 18:13:23,566 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 18:16:56,190 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 18:16:57,227 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 18:17:07,088 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 18:17:29,836 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 18:17:30,829 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 18:17:34,084 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 18:26:26,021 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 18:26:27,412 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 18:26:35,756 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 18:27:26,786 [1] ERROR Projecto.Controllers.LoginController - Portugal: LoginController - WebException, statusCode:BadRequest
+2017-08-10 18:27:50,257 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 18:27:51,243 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 18:27:56,463 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 18:41:55,642 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 18:41:56,782 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 18:52:11,589 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 18:52:12,596 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 18:52:18,294 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 18:52:25,602 [1] ERROR Projecto.Controllers.LoginController - Portugal: LoginController - WebException, statusCode:BadRequest
+2017-08-10 18:52:45,534 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 18:52:46,518 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 18:52:52,560 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 18:56:50,113 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 18:56:51,080 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 19:00:38,885 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 19:00:39,867 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 19:02:35,898 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 19:02:36,886 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 19:03:14,152 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 19:03:15,117 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 19:03:33,583 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 19:03:34,544 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 19:04:26,719 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 19:04:53,851 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 19:04:54,818 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 19:05:00,881 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 19:11:23,104 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 19:11:36,503 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 19:11:37,466 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 19:11:42,221 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 19:13:07,002 [1] ERROR Projecto.Controllers.LoginController - Portugal: LoginController - WebException, statusCode:BadRequest
+2017-08-10 19:13:17,344 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 19:13:20,027 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 19:13:30,822 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 19:13:31,852 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 19:13:37,078 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!
+2017-08-10 19:16:15,182 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading loginWindow
+2017-08-10 19:16:16,216 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController - Ctor
+2017-08-10 19:16:20,558 [1] DEBUG Projecto.Controllers.LoginController - Portugal: LoginController method HandleLoginAsync called!

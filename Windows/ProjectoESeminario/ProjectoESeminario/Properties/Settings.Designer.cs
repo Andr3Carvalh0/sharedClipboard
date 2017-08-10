@@ -58,5 +58,17 @@ namespace ProjectoESeminario.Properties {
                 this["deviceID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool initOnStartup {
+            get {
+                return ((bool)(this["initOnStartup"]));
+            }
+            set {
+                this["initOnStartup"] = value;
+            }
+        }
     }
 }

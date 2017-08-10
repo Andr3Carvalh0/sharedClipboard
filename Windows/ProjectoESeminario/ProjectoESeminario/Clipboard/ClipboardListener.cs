@@ -11,7 +11,8 @@ using WebSocketSharp;
 
 namespace ProjectoESeminario
 {
-    public partial class ClipboardListener : Form
+
+    public partial class ClipboardListener : Form, IClipboardListener
     {
         private WebSocket ws;
         private ProjectoAPI api = new ProjectoAPI();

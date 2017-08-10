@@ -33,12 +33,24 @@ namespace ProjectoESeminario.UI
             initHistory();
 
             NotifyIcon icon = new NotifyIcon();
-            // icon.Click += new EventHandler(icon_Click);
             //Need icon fix
             icon.Icon = new System.Drawing.Icon("ic_launcher.ico");
+            icon.ContextMenu = new System.Windows.Forms.ContextMenu();
+            icon.ContextMenu.MenuItems.Add("Show Window", new EventHandler(showWindow));
+            icon.ContextMenu.MenuItems.Add("Exit", new EventHandler(exit));
             icon.Text = "Projecto e Seminario";
             icon.Visible = true;
+            this.Show();
+        }
 
+        private void showWindow(object sender, EventArgs e)
+        {
+            this.Show();
+        }
+
+        private void exit(object sender, EventArgs e)
+        {
+            System.Environment.Exit(1);
         }
 
         protected override void OnClosing(CancelEventArgs e)

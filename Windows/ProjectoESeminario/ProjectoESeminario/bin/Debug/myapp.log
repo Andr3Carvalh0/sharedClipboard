@@ -2429,3 +2429,15 @@
 2017-07-07 14:20:32,466 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener It could be an format that we support
 2017-07-07 14:20:49,988 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener Changes where detected in the clipboard
 2017-07-07 14:20:49,988 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener It could be an format that we support
+2017-08-10 14:48:23,167 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-08-10 14:48:24,700 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-08-10 14:52:56,280 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-08-10 14:52:57,524 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-08-10 14:58:27,491 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-08-10 14:58:28,701 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor
+2017-08-10 14:59:03,021 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener Changes where detected in the clipboard
+2017-08-10 14:59:03,039 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener It was text
+2017-08-10 14:59:03,048 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener uploading text to the server
+2017-08-10 14:59:03,048 [1] DEBUG ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener will altering clipboard value
+2017-08-10 14:59:24,120 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-08-10 14:59:25,301 [1] INFO ProjectoESeminario.ClipboardListener - Portugal: ClipboardListener ctor

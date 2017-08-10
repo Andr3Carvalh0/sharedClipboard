@@ -31,10 +31,7 @@ namespace ProjectoESeminario.UI
             icon.Text = "Projecto e Seminario";
             icon.Visible = true;
 
-
         }
-
-
 
         private void showWindow(object sender, EventArgs e)
         {

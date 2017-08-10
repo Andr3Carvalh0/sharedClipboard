@@ -59,7 +59,7 @@ namespace Projecto.Service
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", token);
 
-                return await httpClient.PostAsync(mainServer + accountManagement, new StringContent(""));
+                return await httpClient.PostAsync(mainServer + accountManagement, null);
             }
             catch (Exception)
             {
@@ -71,7 +71,7 @@ namespace Projecto.Service
         {
             try {
                 httpClient.DefaultRequestHeaders.Add("Authorization", token);
-                return await httpClient.PutAsync(mainServer + accountManagement, new StringContent(""));
+                return await httpClient.PutAsync(mainServer + accountManagement, null);
             }
             catch (Exception)
             {

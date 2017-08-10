@@ -1,10 +1,14 @@
-﻿using MahApps.Metro.Controls;
+﻿using Google.Apis.Auth.OAuth2;
+using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Projecto.Controllers;
 using Projecto.UI;
 using ProjectoESeminario.UI;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,6 +22,10 @@ namespace ProjectoESeminario
         LoginController controller;
         private Dictionary<Type, Action<Exception>> actionsOnException = new Dictionary<Type, Action<Exception>>();
         private Dictionary<System.Net.HttpStatusCode, Action> handleServerResponse = new Dictionary<System.Net.HttpStatusCode, Action>();
+
+        private ClientSecrets cs = new ClientSecrets() { ClientId = ConfigurationManager.AppSettings["Google_ID"], ClientSecret = ConfigurationManager.AppSettings["Google_Secret"] };
+
+        private String token;
 
         public MainWindow()
         {
@@ -42,7 +50,7 @@ namespace ProjectoESeminario
                 MessageBoxResult dialogResult = MessageBox.Show("It looks like an account with this email, doesn't exist.\nWould you like to create one", "", MessageBoxButton.OKCancel);
                 if (dialogResult == MessageBoxResult.OK)
                 {
-                    HandleSuccessfulLogin(await controller.HandleCreateAccountAsync(tokenField.Text));
+                    HandleSuccessfulLogin(await controller.HandleCreateAccountAsync(token));
                 }
             });
             handleServerResponse.Add(System.Net.HttpStatusCode.InternalServerError, async () =>
@@ -68,28 +76,22 @@ namespace ProjectoESeminario
             settings.Show();
         }
 
-        private void EmailField_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            NextButton.IsEnabled = HandleProceedButtonVisibility();
-        }
-
-        private void PasswordField_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            NextButton.IsEnabled = HandleProceedButtonVisibility();
-        }
-
-        private bool HandleProceedButtonVisibility()
-        {
-            return EmailField.Text.Length > 0 && PasswordField.Password.Length > 0;
-        }
-
         private async void NextButton_Click(object sender, RoutedEventArgs e)
         {
             lockControllers(true);
 
             try
             {
-                HandleSuccessfulLogin(await controller.HandleLoginAsync(tokenField.Text));
+
+                var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync( 
+                                        cs, new[] { Google.Apis.Oauth2.v2.Oauth2Service.Scope.UserinfoEmail},
+                                        "user",
+                                        CancellationToken.None);
+
+                String idToken = credential.Token.IdToken;
+                token = idToken;
+
+                HandleSuccessfulLogin(await controller.HandleLoginAsync(idToken));
             }
             catch (Exception ex)
             {
@@ -107,8 +109,6 @@ namespace ProjectoESeminario
 
         private void lockControllers(bool showProgressCircle)
         {
-            EmailField.IsEnabled = !showProgressCircle;
-            PasswordField.IsEnabled = !showProgressCircle;
             NextButton.IsEnabled = !showProgressCircle;
             ProgressCircle.IsActive = showProgressCircle;
         }

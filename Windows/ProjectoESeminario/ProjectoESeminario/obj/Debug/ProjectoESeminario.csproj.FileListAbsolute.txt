@@ -115,3 +115,17 @@ C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\Projecto
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\ProjectoESeminario.exe
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\ProjectoESeminario.pdb
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\ProjectoESeminario.csprojResolveAssemblyReference.cache
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\Firebase.Auth.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\Google.Apis.Oauth2.v2.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\Microsoft.Win32.Primitives.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\System.AppContext.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\System.Console.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\System.Globalization.Calendars.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\System.IO.Compression.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\System.IO.Compression.ZipFile.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\System.IO.FileSystem.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\System.IO.FileSystem.Primitives.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\System.Net.Sockets.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\System.Xml.ReaderWriter.dll
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\Google.Apis.Oauth2.v2.xml

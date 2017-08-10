@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="sub" Type="System.String" Scope="User">
-      <Value Profile="(Default)">""</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="serviceEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="deviceID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">""</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="initOnStartup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

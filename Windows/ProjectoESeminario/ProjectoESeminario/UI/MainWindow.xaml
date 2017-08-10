@@ -12,14 +12,11 @@
             <ColumnDefinition Width="217*"/>
             <ColumnDefinition Width="215*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="NextButton" Content="Next" Style="{DynamicResource SquareButtonStyle}" Margin="0,0,14,26" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="NextButton_Click" IsEnabled="False" Grid.Column="1"/>
-        <TextBox x:Name="EmailField" HorizontalAlignment="Left" Height="23" Controls:TextBoxHelper.Watermark="Email" Controls:TextBoxHelper.ClearTextButton="True"  Margin="12,0,0,318" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="357" TextChanged="EmailField_TextChanged" Grid.ColumnSpan="2"/>
-        <PasswordBox x:Name="PasswordField" HorizontalAlignment="Left" Height="23" Controls:TextBoxHelper.Watermark="Password" Controls:TextBoxHelper.ClearTextButton="True" Margin="12,0,0,271"  VerticalAlignment="Bottom" Width="357" PasswordChanged="PasswordField_PasswordChanged" Grid.ColumnSpan="2" />
+        <Button x:Name="NextButton" Content="Signin" Style="{DynamicResource SquareButtonStyle}" Margin="0,0,14,26" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="83" Click="NextButton_Click" Grid.Column="1"/>
         <Controls:ProgressRing x:Name="ProgressCircle" IsActive="False" Foreground="{DynamicResource AccentColorBrush}" Margin="10,320,152,26" Height="28" Width="30"/>
         <Label Content="Projecto e Seminário" HorizontalAlignment="Left" Margin="10,-146,0,0" VerticalAlignment="Top" Height="44" Width="371" FontSize="24" FontWeight="Bold" Grid.ColumnSpan="2"/>
         <Label Content="Share your clipboard between your multiple devices." HorizontalAlignment="Left" Margin="12,-107,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Label Content="Label" HorizontalAlignment="Left" Margin="-230,178,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tokenField" HorizontalAlignment="Left" Height="23" Controls:TextBoxHelper.Watermark="Email" Controls:TextBoxHelper.ClearTextButton="True"  Margin="12,0,0,183" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="357" TextChanged="EmailField_TextChanged" Grid.ColumnSpan="2" Visibility="Hidden"/>
-
+       
     </Grid>
 </Controls:MetroWindow>

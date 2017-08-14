@@ -3,6 +3,11 @@ package pt.andre.projecto.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
 import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
@@ -15,16 +20,32 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /*
 * Handles the representation of the website main page
 * */
 public class ServerService extends ParentService implements IServerService{
+    private String CLIENT_SECRET_ID;
     @Autowired
     private IDatabase database;
 
+    private final Resource resource = new ClassPathResource("/application.properties");
+
+    public ServerService(){
+        try {
+            Properties props = PropertiesLoaderUtils.loadProperties(resource);
+            this.CLIENT_SECRET_ID = props.getProperty("googleID");
+
+            logger.info(TAG, "Loaded successfully Google ID from props file.");
+        } catch (IOException e) {
+            logger.error(TAG, "Cannot load Google ID from properties file.");
+        }
+    }
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: ServerService ";
+
 
     /*
     * Responsable for returning the website UI
@@ -48,6 +69,7 @@ public class ServerService extends ParentService implements IServerService{
         model.put("OS", currentDevice.getOS());
         model.put("OS_Name", currentDevice.getOS_Friendly_Name());
         model.put("isSupported", currentDevice.isSupported());
+        model.put("GoogleID", CLIENT_SECRET_ID);
 
         return "index";
     }

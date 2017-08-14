@@ -12,10 +12,6 @@ public class Websockets extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-       // config.enableSimpleBroker("/test");
-        //registry.enableStompBrokerRelay("/queue/", "/topic/", "/exchange/");
-        //config.setApplicationDestinationPrefixes("/app");
-
     }
 
     @Override

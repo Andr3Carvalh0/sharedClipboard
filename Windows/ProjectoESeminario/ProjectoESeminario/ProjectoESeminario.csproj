@@ -173,8 +173,11 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DTOs\PullResponse.cs" />
-    <Compile Include="UI\History_Detailed.xaml.cs">
-      <DependentUpon>History_Detailed.xaml</DependentUpon>
+    <Compile Include="UI\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\About_Item.xaml.cs">
+      <DependentUpon>About_Item.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\History_Item.xaml.cs">
       <DependentUpon>History_Item.xaml</DependentUpon>
@@ -182,7 +185,11 @@
     <Compile Include="UI\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="UI\History_Detailed.xaml">
+    <Page Include="UI\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\About_Item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

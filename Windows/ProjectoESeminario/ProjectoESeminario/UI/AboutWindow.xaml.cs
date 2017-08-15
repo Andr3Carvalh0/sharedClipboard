@@ -10,19 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ProjectoESeminario.UI
 {
     /// <summary>
-    /// Interaction logic for History_Detailed.xaml
+    /// Interaction logic for AboutWindow.xaml
     /// </summary>
-    public partial class History_Detailed : UserControl
+    public partial class AboutWindow : Window
     {
-        public History_Detailed()
+        private readonly String[] libs = new String[] { "GoogleAPI", "log4net", "MahApps", "Newtonsoft" };
+
+        public AboutWindow()
         {
             InitializeComponent();
+
+            foreach(String l in libs) {
+                container.Children.Add(new About_Item(l));
+            }
         }
     }
 }

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\App.xaml
-4409070733
+5772162222
 
-22-858749644
+23-325720971
 104310380527
-UI\History_Detailed.xaml;UI\History_Item.xaml;UI\MainWindow.xaml;UI\SettingsWindow.xaml;
+UI\AboutWindow.xaml;UI\About_Item.xaml;UI\History_Item.xaml;UI\MainWindow.xaml;UI\SettingsWindow.xaml;
 
-True
+False
 

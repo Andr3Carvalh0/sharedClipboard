@@ -1,18 +1,17 @@
 package pt.andre.projecto.Controllers.URIs;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.IAPI;
-import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
+import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
-
-import java.util.Map;
 
 @RestController
 @AutoConfigureBefore
@@ -128,10 +127,25 @@ public class API implements IAPI {
     @Override
     @RequestMapping(value = "/api/registerDevice", method = RequestMethod.PUT)
     public ResponseEntity associateDeviceWithAccount(@RequestHeader("Authorization") String sub, @RequestParam String deviceIdentifier, @RequestParam boolean isMobile, @RequestParam String deviceName) {
-        if(isMobile)
+        if(isMobile) {
+            logger.info(TAG, "AssociateDevice Called! Its a mobile device!");
             return registerMobileDevice(sub, deviceIdentifier, deviceName);
+        }
 
+        logger.info(TAG, "AssociateDevice Called! Its a desktop device!");
         return registerDesktopDevice(sub, deviceIdentifier,  deviceName);
+    }
+
+    @Override
+    @RequestMapping(value = "/api/MIME/{encryptedSUB}/{file:.+}", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> serveMIME(@PathVariable("encryptedSUB") String encryptedSUB, @RequestHeader("Authorization") String sub, @PathVariable("file") String file) {
+        logger.info(TAG + "ServeMIME called!");
+
+        final DatabaseResponse resp = service.handleMIMERequest(encryptedSUB, sub, file);
+
+        logger.info(TAG + "ServeMIME: response will have the following code:" + resp.getResponseCode());
+
+        return ResponseEntity.status(resp.getResponseCode()).body((byte[])resp.getResponseMessage());
     }
 
     private ResponseEntity registerDesktopDevice(String sub, String deviceIdentifier, String deviceName) {
@@ -154,4 +168,6 @@ public class API implements IAPI {
         logger.info(TAG + "registerDevice: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
+
+
 }

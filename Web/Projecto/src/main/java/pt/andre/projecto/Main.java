@@ -17,6 +17,8 @@ import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import pt.andre.projecto.Controllers.URIs.FirebaseServer;
 import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.MongoDB;
+import pt.andre.projecto.Model.Multimedia.IMultimediaHandler;
+import pt.andre.projecto.Model.Multimedia.MultimediaHandler;
 import pt.andre.projecto.Service.APIService;
 import pt.andre.projecto.Service.CacheService;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
@@ -62,6 +64,11 @@ public class Main {
     @Bean
     public ICacheService getCache(){
         return new CacheService();
+    }
+
+    @Bean
+    public IMultimediaHandler getMultimediaHandler(){
+        return new MultimediaHandler();
     }
 
     @Bean

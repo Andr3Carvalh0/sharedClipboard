@@ -1,5 +1,6 @@
 package pt.andre.projecto.Service;
 
+import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.URIs.FirebaseServer;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
 import pt.andre.projecto.Model.Database.IDatabase;
-import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
+import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
+import pt.andre.projecto.Model.Multimedia.IMultimediaHandler;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 import java.io.*;
 
@@ -20,6 +22,9 @@ public class APIService extends ParentService implements IAPIService{
 
     @Autowired
     private IDatabase database;
+
+    @Autowired
+    private IMultimediaHandler multimediaHandler;
 
     @Autowired
     private FirebaseServer firebaseServer;
@@ -110,35 +115,18 @@ public class APIService extends ParentService implements IAPIService{
         return database.authenticate(sub);
     }
 
+    @Override
+    public DatabaseResponse handleMIMERequest(String encryptedSUB, String sub, String file) {
+        return multimediaHandler.pull(encryptedSUB, sub, file);
+    }
+
     /*
     * Used when the user pushed a MIME file to the server.
     * @param token: the user account
     * @param file: the user file
     * */
     private String storeFile(String sub, MultipartFile file){
-        if (file != null && !file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
-                logger.info(TAG + "Attempting to create directories");
-                // Create the directory structure if it isn't already created.
-                File outFile = new File("build/resources/main/static/content/" + sub + "/");
-                outFile.mkdirs();
-
-
-                logger.info(TAG + "Directories created!");
-                // Writes the file
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File("build/resources/main/static/content/" + sub + "/" + file.getOriginalFilename())));
-                stream.write(bytes);
-                stream.close();
-                logger.info(TAG + "File created!");
-                return System.getenv("SERVER") + "/content/" + sub + "/" + file.getOriginalFilename();
-            } catch (Exception e) {
-                logger.error(TAG + e.getMessage());
-                return null;
-            }
-        }
-        logger.error(TAG + "file is empty");
-        return null;
+        return multimediaHandler.store(sub, file);
     }
 
     /*

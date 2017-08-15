@@ -16,7 +16,7 @@ import pt.andre.projecto.Model.DTOs.Wrappers.ContentWrapper;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
 import pt.andre.projecto.Model.DTOs.Wrappers.UserWrapper;
 import pt.andre.projecto.Model.Database.Utils.DatabaseOption;
-import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
+import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 
 import java.util.*;

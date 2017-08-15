@@ -1,10 +1,7 @@
 package pt.andre.projecto.Service.Interfaces;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.web.multipart.MultipartFile;
-import pt.andre.projecto.Model.Database.Utils.DatabaseResponse;
-
-import javax.servlet.http.HttpServletRequest;
+import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
 
 
 public interface IAPIService extends IParentService {
@@ -16,5 +13,5 @@ public interface IAPIService extends IParentService {
     DatabaseResponse pull(String sub);
     DatabaseResponse createAccount(String token);
     DatabaseResponse authenticate(String token);
-
+    DatabaseResponse handleMIMERequest(String encryptedSUB, String sub, String file);
 }

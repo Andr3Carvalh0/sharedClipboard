@@ -18,6 +18,7 @@ public interface IAPI {
     ResponseEntity createAccount(String token);
     ResponseEntity authenticate(String token);
     ResponseEntity associateDeviceWithAccount(String token, String deviceIdentifier, boolean deviceType, String deviceName);
+    ResponseEntity serveMIME(String encryptedSUB, String sub, String file);
 
 
 

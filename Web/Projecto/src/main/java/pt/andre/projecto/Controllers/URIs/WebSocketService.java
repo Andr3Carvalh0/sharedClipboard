@@ -4,7 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pt.andre.projecto.Controllers.Interfaces.INotify;
-import pt.andre.projecto.WebSockets.WebSocketHandler;
+
+import java.util.Arrays;
 
 public class WebSocketService implements INotify{
 
@@ -12,15 +13,14 @@ public class WebSocketService implements INotify{
     private final String TAG = "Portugal: Websocket ";
 
     @Autowired
-    protected WebSocketHandler webSocketHandler;
+    protected pt.andre.projecto.WebSockets.Interfaces.INotify webSocketHandler;
 
     public WebSocketService(){
         logger.info(TAG + "CTOR" );
     }
 
-    public boolean notify(String messageJSON, String... devices){
-
-
-        return false;
+    public void notify(String sub, String messageJSON, String... devices){
+        Arrays.stream(devices)
+                .forEach(s -> webSocketHandler.notify(sub, s, messageJSON));
     }
 }

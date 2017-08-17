@@ -42,7 +42,7 @@ public class FirebaseService implements INotify{
     *
     * @return if the operation ended without any exception
     * */
-    public boolean notify(String messageJSON, String... devices){
+    public void notify(String sub, String messageJSON, String... devices){
         try {
             for (int i = 0; i < devices.length; i++) {
 
@@ -60,13 +60,9 @@ public class FirebaseService implements INotify{
                 HttpResponse response = client.execute(post);
 
                 logger.info(TAG + "Firebase Response: " + response);
-
             }
-            return true;
         }catch (Exception ex) {
             logger.error(TAG + ex.getMessage());
-
-            return false;
         }
     }
 }

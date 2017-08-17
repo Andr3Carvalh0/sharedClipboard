@@ -142,7 +142,11 @@ namespace ProjectoESeminario
         {
             WebSocket ws = new WebSocket(socketUrl);
             ws.EmitOnPing = true;
-            ws.OnMessage += (sender, e) => Console.WriteLine("Laputa says: " + e.Data);
+            ws.OnMessage += (sender, e) => {
+
+                Console.WriteLine("Laputa says: " + e.Data);
+
+            };
 
             ws.Connect();
 

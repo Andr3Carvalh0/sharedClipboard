@@ -154,8 +154,8 @@ public class APIService extends ParentService implements IAPIService{
                 .map(DeviceWrapper::getId)
                 .toArray(String[]::new);
 
-        firebaseService.notify(JSONFormatter.formatToJSON(data, isMIME), mobileDevices);
-        webSocketService.notify(JSONFormatter.formatToJSON(data, isMIME), desktopDevices);
+        firebaseService.notify(sub, JSONFormatter.formatToJSON(data, isMIME), mobileDevices);
+        webSocketService.notify(sub, JSONFormatter.formatToJSON(data, isMIME), desktopDevices);
 
         return push;
     }

@@ -1,22 +1,18 @@
 package pt.andre.projecto.WebSockets;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-
+import org.springframework.web.socket.config.annotation.*;
 @Configuration
-@EnableWebSocketMessageBroker
-public class Websockets extends AbstractWebSocketMessageBrokerConfigurer {
+@EnableWebSocket
+public class Websockets implements WebSocketConfigurer {
+
+    @Autowired
+    protected WebSocketHandler webSocketHandler;
 
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry config) {
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+        registry.addHandler(webSocketHandler, "/desktop_socket").setAllowedOrigins("*");
     }
-
-    @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/desktop_socket").setAllowedOrigins("*");
-    }
-
 }

@@ -121,12 +121,7 @@ public class MongoDB implements IDatabase {
     @Override
     public DatabaseResponse pull(String sub) {
         logger.info(TAG + "pulling user info");
-        return transformationToContentDatabase(sub, (wrapper, collection) -> ResponseFormater.displayInformation(
-                "{" +
-                        "content: '" + wrapper.getContent().getValue() + "'," +
-                        "isMIME: " + wrapper.getContent().isMIME() +
-                        "}"
-        ));
+        return transformationToContentDatabase(sub, (wrapper, collection) -> ResponseFormater.displayInformation( wrapper.getContent().getValue(), wrapper.getContent().isMIME()));
     }
 
     @Override

@@ -1,19 +1,18 @@
 package pt.andre.projecto.Service;
 
-import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
-import pt.andre.projecto.Controllers.URIs.FirebaseServer;
+import pt.andre.projecto.Controllers.URIs.FirebaseService;
+import pt.andre.projecto.Controllers.URIs.WebSocketService;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
 import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Model.Multimedia.IMultimediaHandler;
+import pt.andre.projecto.Model.Utils.JSONFormatter;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
-import java.io.*;
-
 
 /*
 * Service that handles every action to our API URLs
@@ -27,7 +26,10 @@ public class APIService extends ParentService implements IAPIService{
     private IMultimediaHandler multimediaHandler;
 
     @Autowired
-    private FirebaseServer firebaseServer;
+    private FirebaseService firebaseService;
+
+    @Autowired
+    private WebSocketService webSocketService;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: APIService ";
@@ -152,27 +154,9 @@ public class APIService extends ParentService implements IAPIService{
                 .map(DeviceWrapper::getId)
                 .toArray(String[]::new);
 
-
-        firebaseServer.notify(data, isMIME, mobileDevices);
-
-        sendMessageToDesktopDevices(data, isMIME, desktopDevices);
+        firebaseService.notify(JSONFormatter.formatToJSON(data, isMIME), mobileDevices);
+        webSocketService.notify(JSONFormatter.formatToJSON(data, isMIME), desktopDevices);
 
         return push;
     }
-
-    private void sendMessageToDesktopDevices(String data, boolean isMIME, String...devices) {
-        String message = "{" + "\n\rcontent: " + data + ", " + "\n\risMIME: " + isMIME + "}";
-
-        for (String device : devices) {
-
-            try {
-               // webSocket.getHandler().sendMessage(device, message);
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                logger.info("Cannot send message to: " + device);
-            }
-        }
-    }
-
-
 }

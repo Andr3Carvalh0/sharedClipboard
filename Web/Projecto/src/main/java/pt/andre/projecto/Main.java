@@ -9,12 +9,9 @@ import org.springframework.boot.autoconfigure.web.MultipartAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
-import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
-import pt.andre.projecto.Controllers.URIs.FirebaseServer;
+import pt.andre.projecto.Controllers.URIs.FirebaseService;
+import pt.andre.projecto.Controllers.URIs.WebSocketService;
 import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.MongoDB;
 import pt.andre.projecto.Model.Multimedia.IMultimediaHandler;
@@ -25,6 +22,7 @@ import pt.andre.projecto.Service.Interfaces.IAPIService;
 import pt.andre.projecto.Service.Interfaces.ICacheService;
 import pt.andre.projecto.Service.Interfaces.IServerService;
 import pt.andre.projecto.Service.ServerService;
+import pt.andre.projecto.WebSockets.WebSocketHandler;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -57,8 +55,13 @@ public class Main {
     }
 
     @Bean
-    public FirebaseServer getFirebaseService(){
-        return new FirebaseServer();
+    public FirebaseService getFirebaseService(){
+        return new FirebaseService();
+    }
+
+    @Bean
+    public WebSocketService getWebsocketService(){
+        return new WebSocketService();
     }
 
     @Bean

@@ -53,90 +53,59 @@ namespace Projecto.Service
             this.httpClient = new HttpClient();
         }
 
-        public async Task<HttpResponseMessage> Authenticate(String token)
+        //A template method that every request method follows.
+        private async Task<HttpResponseMessage> TemplateMethod(String authorization, Func<Task<HttpResponseMessage>> action)
         {
             try
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", token);
+                httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
 
-                return await httpClient.PostAsync(mainServer + accountManagement, null);
+                return await action.Invoke();
             }
             catch (Exception)
             {
                 throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
             }
-        }
-
-        public async Task<HttpResponseMessage> CreateAccount(String token)
-        {
-            try {
-                httpClient.DefaultRequestHeaders.Add("Authorization", token);
-                return await httpClient.PutAsync(mainServer + accountManagement, null);
-            }
-            catch (Exception)
+            finally
             {
-                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
+                httpClient.DefaultRequestHeaders.Remove("Authorization");
             }
         }
 
-        public async Task<HttpResponseMessage> Push(String sub, String data)
-        {
-            try
-            {
-                httpClient.DefaultRequestHeaders.Add("Authorization", sub);
+        public async Task<HttpResponseMessage> Authenticate(String token) { return await TemplateMethod(token, async () => await httpClient.PostAsync(mainServer + accountManagement, null)); }
 
+        public async Task<HttpResponseMessage> CreateAccount(String token) { return await TemplateMethod(token, async () => await httpClient.PutAsync(mainServer + accountManagement, null)); }
+
+        public async Task<HttpResponseMessage> Push(String sub, String data) {
+            return await TemplateMethod(sub, async () => {
                 var parameters = new Dictionary<string, string>();
                 parameters["data"] = data;
                 return await httpClient.PutAsync(mainServer + push, new FormUrlEncodedContent(parameters));
-            }
-            catch (Exception)
-            {
-                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
-            }
+            });
         }
 
-        public async Task<HttpResponseMessage> Push(String sub, byte[] data, string filename, string filetype)
-        {
-            try
-            {
-                httpClient.DefaultRequestHeaders.Add("Authorization", sub);
+        public async Task<HttpResponseMessage> Push(String sub, byte[] data, string filename, string filetype) {
+            return await TemplateMethod(sub, async () => {
 
                 MultipartFormDataContent form = new MultipartFormDataContent();
-
                 var file = new ByteArrayContent(data);
-
-                //For now we will only support images
                 file.Headers.ContentType = MediaTypeHeaderValue.Parse("image/" + filetype);
-
                 form.Add(file, "file", filename);
 
                 return await httpClient.PostAsync(mainServer + pushMIME, form);
-                
-            }
-            catch (Exception e)
-            {
-                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
-            }
+            });
         }
 
-        public async Task<HttpResponseMessage> registerDevice(String sub, string deviceID, bool deviceType, String deviceName)
-        {
-            try
-            {
-                httpClient.DefaultRequestHeaders.Add("Authorization", sub);
+        public async Task<HttpResponseMessage> registerDevice(String sub, string deviceID, bool deviceType, String deviceName) {
+            return await TemplateMethod(sub, async () => {
 
                 var parameters = new Dictionary<string, string>();
                 parameters["deviceIdentifier"] = deviceID;
-                parameters["deviceType"] = false + "";
+                parameters["isMobile"] = false + "";
                 parameters["deviceName"] = deviceName;
 
                 return await httpClient.PutAsync(mainServer + registerDevice_URL, new FormUrlEncodedContent(parameters));
-
-            }
-            catch (Exception e)
-            {
-                throw new WebExceptions(System.Net.HttpStatusCode.InternalServerError);
-            }
+            });
         }
     }
 }

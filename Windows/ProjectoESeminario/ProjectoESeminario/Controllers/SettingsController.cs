@@ -14,7 +14,5 @@ namespace ProjectoESeminario.Controllers
     {
         private readonly String TAG = "Portugal: SettingsController";
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-
     }
 }

@@ -8,6 +8,7 @@
              Background="#FFFFFF" d:DesignWidth="374" Height="48">
     <Grid Margin="0,0,0,0">
         <Rectangle Name="Container" HorizontalAlignment="Left" Height="48" Margin="0,10,0,0"  VerticalAlignment="Top" Width="363"/>
-        <Label Name="Title" Content="• Text"  HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Height="31" Width="353" FontSize="16" FontWeight="Bold" />
+        <Label Name="Title" Content="• Text"  HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="26" Width="353" FontSize="14" FontWeight="Bold" />
+        <Label x:Name="Description" Content="Text"  HorizontalAlignment="Left" Margin="21,18,0,0" VerticalAlignment="Top" Height="26" Width="336" FontWeight="Bold" Foreground="#FFBEBEBE" FontSize="11" />
     </Grid>
 </UserControl>

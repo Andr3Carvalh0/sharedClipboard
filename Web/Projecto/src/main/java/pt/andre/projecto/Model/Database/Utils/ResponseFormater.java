@@ -2,6 +2,7 @@ package pt.andre.projecto.Model.Database.Utils;
 
 import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Model.Utils.DefaultHashMap;
+import pt.andre.projecto.Model.Utils.JSONFormatter;
 
 /*
 * Used to convert MongoDB errors to a more user friendly messages
@@ -15,7 +16,6 @@ public class ResponseFormater {
     public final static int NOT_PERMITTED = 6;
 
     public final static int SUCCESS = 27;
-
 
     private final static int VALID_REQUEST = 200;
     private final static int NO_SUCH_ACCOUNT_EXISTS = 400;
@@ -67,6 +67,12 @@ public class ResponseFormater {
      */
     public static DatabaseResponse displayInformation(String message){
         return new DatabaseResponseText(VALID_REQUEST, message);
+    }
+
+    public static DatabaseResponse displayInformation(String message, boolean isMime){
+        String res = JSONFormatter.formatToJSON(message, isMime);
+
+        return new DatabaseResponseText(VALID_REQUEST, res);
     }
 
     public static DatabaseResponse displayInformation(byte[] content){

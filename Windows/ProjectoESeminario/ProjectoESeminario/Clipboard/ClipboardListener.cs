@@ -7,16 +7,17 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Imaging;
 using WebSocketSharp;
-
+using System.Configuration;
 
 namespace ProjectoESeminario
 {
 
     public partial class ClipboardListener : Form, IClipboardListener
     {
-        private WebSocket ws;
         private ProjectoAPI api = new ProjectoAPI();
         private Dictionary<string, ImageFormat> supported_formats = new Dictionary<string, ImageFormat>();
+
+        private String socket = ConfigurationManager.AppSettings["socketURL"];
         private String sub = Properties.Settings.Default.sub;
         private string deviceID = Properties.Settings.Default.deviceID;
         private volatile String lastClipboardContent = "";
@@ -137,17 +138,36 @@ namespace ProjectoESeminario
         }
 
 
-        public void fetchInformation(CancellationToken cancelToken)
+        public void fetchInformation(String socketUrl, CancellationToken cancelToken)
         {
+            WebSocket ws = new WebSocket(socketUrl);
+            ws.EmitOnPing = true;
+            ws.OnMessage += (sender, e) => Console.WriteLine("Laputa says: " + e.Data);
+
+            ws.Connect();
+
+            ws.SendAsync(getUserInformation(), null);
+
             while (true)
             {
                 if (cancelToken.IsCancellationRequested)
                 {
+                    if(ws != null)
+                        ws.Close();
+
                     return;
                 }
 
 
             }
+        }
+
+        private String getUserInformation()
+        {
+            return "{\n" +
+                        "\"sub\":\"" + sub + "\",\n" +
+                        "\"id\":\"" + deviceID +
+                    "\"\n}";
         }
 
         private void storeText(string content)
@@ -159,15 +179,14 @@ namespace ProjectoESeminario
             
         }
 
-        private void storeMIME(string content)
-        {
+        private void storeMIME(string content) {
             throw new NotImplementedException();
         }
 
         public void enableService()
         {
             AddClipboardFormatListener(this.Handle);
-            Thread workingThread = new Thread(() => fetchInformation(cts.Token))
+            Thread workingThread = new Thread(() => fetchInformation(socket ,cts.Token))
             { IsBackground = true };
         
             workingThread.Start();

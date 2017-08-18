@@ -32,13 +32,13 @@ public class Router {
 
     private void handlePush(JSONObject json, WebSocketSession session){
         logger.info(TAG + "calling handlePush");
-        api.push(json.getString("token"), json.getString("data"));
+        api.push(json.getString("sub"), json.getString("data"));
     }
 
     //side note the file on windows must come as string
     private void handlePushMIME(JSONObject json, WebSocketSession session) {
         logger.info(TAG + "calling handlePushMime");
-        api.push(json.getString("token"), json.getString("file").getBytes(), json.getString("filename"));
+        api.push(json.getString("sub"), json.getString("data").getBytes(), json.getString("filename"));
     }
 
     void route(JSONObject json, WebSocketSession session) {

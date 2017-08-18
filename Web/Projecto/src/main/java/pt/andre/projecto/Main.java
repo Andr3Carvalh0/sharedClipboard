@@ -10,6 +10,8 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import pt.andre.projecto.Controllers.Interfaces.IAPI;
+import pt.andre.projecto.Controllers.URIs.API;
 import pt.andre.projecto.Controllers.URIs.FirebaseService;
 import pt.andre.projecto.Controllers.URIs.WebSocketService;
 import pt.andre.projecto.Model.Database.IDatabase;
@@ -78,6 +80,9 @@ public class Main {
     public IAPIService getAPIService(){
         return new APIService();
     }
+
+    @Bean
+    public IAPI getAPI() {return new API();}
 
     @Bean
     public IDatabase createDatabase(){

@@ -53,9 +53,8 @@ public class APIService extends ParentService implements IAPIService{
     * @param data: the user textual data
     * */
     @Override
-    public DatabaseResponse push(MultipartFile file, String sub) {
-
-        String result = storeFile(sub, file);
+    public DatabaseResponse push(String sub, byte[] file, String filename) {
+        String result = storeFile(sub, file, filename);
 
         if(result == null)
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
@@ -127,8 +126,8 @@ public class APIService extends ParentService implements IAPIService{
     * @param token: the user account
     * @param file: the user file
     * */
-    private String storeFile(String sub, MultipartFile file){
-        return multimediaHandler.store(sub, file);
+    private String storeFile(String sub, byte[] file, String filename){
+        return multimediaHandler.store(sub, file, filename);
     }
 
     /*

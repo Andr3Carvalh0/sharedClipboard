@@ -3,28 +3,34 @@ package pt.andre.projecto.WebSockets;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import pt.andre.projecto.WebSockets.Interfaces.INotify;
-
+import pt.andre.projecto.Controllers.Interfaces.IAPI;
+import pt.andre.projecto.WebSockets.Interfaces.IConnectionManager;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
-public class WebSocketHandler extends TextWebSocketHandler implements INotify {
+public class WebSocketHandler extends TextWebSocketHandler implements IConnectionManager {
+
+    @Autowired
+    private IAPI api;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: WebSocketHandler ";
 
     //Map where the key is the user sub
     //Each value has the users deviceID as key, and the websocket object as value
-    ConcurrentHashMap<String, ConcurrentHashMap<String, WebSocketSession>> connections;
+    private ConcurrentHashMap<String, ConcurrentHashMap<String, WebSocketSession>> connections;
 
     //Map where the key is the session id, and the value is the user sub
-    ConcurrentHashMap<String, InformationWrapper> connections_by_id;
+    private ConcurrentHashMap<String, InformationWrapper> connections_by_id;
 
-    private class InformationWrapper{
+    private final Router router;
+
+    public class InformationWrapper{
         private String sub;
         private String id;
 
@@ -45,6 +51,7 @@ public class WebSocketHandler extends TextWebSocketHandler implements INotify {
     public WebSocketHandler(){
         connections = new ConcurrentHashMap<>();
         connections_by_id = new ConcurrentHashMap<>();
+        router = new Router(this, api);
     }
 
     @Override
@@ -62,14 +69,19 @@ public class WebSocketHandler extends TextWebSocketHandler implements INotify {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage jsonTextMessage) throws Exception {
         JSONObject json = new JSONObject(jsonTextMessage.getPayload());
-        connections.computeIfAbsent(json.getString("sub"), s -> new ConcurrentHashMap<>());
-        connections.get(json.getString("sub")).putIfAbsent(json.getString("id"), session);
+        router.route(json, session);
 
-        connections_by_id.computeIfAbsent(session.getId(), s -> new InformationWrapper(json.getString("sub"), json.getString("id")));
+    }
+
+    @Override
+    public void connectWithDevice(String sub, String id, WebSocketSession session){
+        connections.computeIfAbsent(sub, s -> new ConcurrentHashMap<>());
+        connections.get(sub).putIfAbsent(id, session);
+
+        connections_by_id.putIfAbsent(session.getId(), new InformationWrapper(sub, id));
 
         logger.info(TAG + "Connected with socket " + session.getId());
     }
-
 
     @Override
     public void notify(String sub, String device, String message) {

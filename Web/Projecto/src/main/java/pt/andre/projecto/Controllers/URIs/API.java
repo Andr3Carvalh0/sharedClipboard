@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.Interfaces.IAPI;
 import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
+import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
+
+import java.io.IOException;
 
 @RestController
 @AutoConfigureBefore
@@ -24,6 +27,8 @@ public class API implements IAPI {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: API ";
+    private final String SERVER_URI = System.getenv("SERVER");
+
 
     /*
     * Creates a new user account.
@@ -75,12 +80,17 @@ public class API implements IAPI {
     @Override
     @PostMapping("/api/pushMIME")
     public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String sub) {
-        DatabaseResponse resp;
-
         logger.info(TAG + "Push MIME method");
+        try {
+            return push(sub, file.getBytes(), file.getOriginalFilename());
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
-        resp = service.push(file, sub);
-
+    @Override
+    public ResponseEntity push(String token, byte[] file, String filename) {
+        DatabaseResponse resp = service.push(token, file, filename);
         logger.info(TAG + "pushMIME: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
@@ -146,6 +156,11 @@ public class API implements IAPI {
         return ResponseEntity.status(resp.getResponseCode()).body((byte[])resp.getResponseMessage());
     }
 
+    @Override
+    public ResponseEntity getWebSocketPort() {
+        return ResponseEntity.ok(SERVER_URI + "/desktop_socket");
+    }
+
     private ResponseEntity registerDesktopDevice(String sub, String deviceIdentifier, String deviceName) {
         logger.info(TAG + "RegisterDevice method");
         final DatabaseResponse resp = service.registerDesktopDevice(sub, deviceIdentifier, deviceName);
@@ -166,6 +181,5 @@ public class API implements IAPI {
         logger.info(TAG + "registerDevice: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
-
 
 }

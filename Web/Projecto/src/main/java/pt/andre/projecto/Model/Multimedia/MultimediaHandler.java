@@ -19,33 +19,28 @@ public class MultimediaHandler implements IMultimediaHandler {
     private final String FILE_LOCATION_API = "/api/MIME/";
 
     @Override
-    public String store(String sub, MultipartFile file) {
+    public String store(String sub, byte[] file, String filename) {
+        try {
+            logger.info(TAG + "Attempting to create directories");
 
-        if (file != null && !file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
-                logger.info(TAG + "Attempting to create directories");
+            String encodedSUB = Base64.encodeBase64String(sub.getBytes());
 
-                String encodedSUB = Base64.encodeBase64String(sub.getBytes());
+            // Create the directory structure if it isn't already created.
+            File outFile = new File(PARENT_DIRECTORY + encodedSUB + "/");
+            outFile.mkdirs();
 
-                // Create the directory structure if it isn't already created.
-                File outFile = new File(PARENT_DIRECTORY + encodedSUB + "/");
-                outFile.mkdirs();
-
-                logger.info(TAG + "Directories created!");
-                // Writes the file
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(PARENT_DIRECTORY + encodedSUB + "/" + file.getOriginalFilename())));
-                stream.write(bytes);
-                stream.close();
-                logger.info(TAG + "File created!");
-                return System.getenv("SERVER") + FILE_LOCATION_API + encodedSUB + "/" + file.getOriginalFilename();
-            } catch (Exception e) {
-                logger.error(TAG + e.getMessage());
-                return null;
-            }
+            logger.info(TAG + "Directories created!");
+            // Writes the file
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(PARENT_DIRECTORY + encodedSUB + "/" + filename)));
+            stream.write(file);
+            stream.close();
+            logger.info(TAG + "File created!");
+            return System.getenv("SERVER") + FILE_LOCATION_API + encodedSUB + "/" + filename;
+        } catch (Exception e) {
+            logger.error(TAG + e.getMessage());
+            return null;
         }
-        logger.error(TAG + "file is empty");
-        return null;
+
     }
 
     @Override

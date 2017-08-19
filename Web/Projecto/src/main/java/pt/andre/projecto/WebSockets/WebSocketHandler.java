@@ -28,7 +28,7 @@ public class WebSocketHandler extends TextWebSocketHandler implements IConnectio
     //Map where the key is the session id, and the value is the user sub
     private ConcurrentHashMap<String, InformationWrapper> connections_by_id;
 
-    private final Router router;
+    private Router router;
 
     public class InformationWrapper{
         private String sub;
@@ -51,7 +51,7 @@ public class WebSocketHandler extends TextWebSocketHandler implements IConnectio
     public WebSocketHandler(){
         connections = new ConcurrentHashMap<>();
         connections_by_id = new ConcurrentHashMap<>();
-        router = new Router(this, api);
+        router = new Router(this);
     }
 
     @Override
@@ -81,6 +81,11 @@ public class WebSocketHandler extends TextWebSocketHandler implements IConnectio
         connections_by_id.putIfAbsent(session.getId(), new InformationWrapper(sub, id));
 
         logger.info(TAG + "Connected with socket " + session.getId());
+    }
+
+    @Override
+    public IAPI getAPI() {
+        return api;
     }
 
     @Override

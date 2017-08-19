@@ -82,9 +82,6 @@ public class Main {
     }
 
     @Bean
-    public IAPI getAPI() {return new API();}
-
-    @Bean
     public IDatabase createDatabase(){
         return System.getenv("MONGO_USER") == null ? new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), "Projecto") : new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), System.getenv("MONGO_DATABASE"), System.getenv("MONGO_USER"), System.getenv("MONGO_PASSWORD"));
     }

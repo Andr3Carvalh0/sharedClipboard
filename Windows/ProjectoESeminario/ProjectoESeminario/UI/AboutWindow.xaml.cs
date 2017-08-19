@@ -20,13 +20,14 @@ namespace ProjectoESeminario.UI
     /// </summary>
     public partial class AboutWindow : MetroWindow
     {
-        private readonly String[] libs = new String[] { "GoogleAPI", "log4net", "MahApps", "Newtonsoft", "Websocket-sharp" };
+        private readonly String[] libs = new String[] { "GoogleAPI", "log4net", "MahApps", "Newtonsoft", "Websocket-sharp", "MonitorEx" };
         private readonly String[] libs_description = new String[] {
             "The Google APIs Client Library is a runtime client for working with Google services.",
             "The Apache Software Foundation log4net Logging Framework.",
             "A toolkit for creating Metro / Modern UI styled WPF apps.",
             "Json.NET is a popular high-performance JSON framework for .NET",
-            "A C# implementation of the WebSocket protocol client and server."
+            "A C# implementation of the WebSocket protocol client and server.",
+            "Extension to the Monitor class in order to support Lampson and Redell monitors with multiple condition variables."
         };
 
         public AboutWindow()

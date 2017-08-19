@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using Microsoft.Win32;
+using ProjectoESeminario.Controllers;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -11,26 +12,49 @@ namespace ProjectoESeminario.UI
     /// </summary>
     public partial class SettingsWindow : MetroWindow
     {
-        private readonly IClipboardListener listener;
+        private IClipboardListener listener;
         private readonly String[] HISTORY_ITEMS = { "Text", "Contacts", "Images", "Links" };
 
-        public SettingsWindow()
+        private String socketURL;
+        private readonly String sub;
+        private readonly String deviceID;
+
+        public SettingsWindow() : this(Properties.Settings.Default.sub, Properties.Settings.Default.deviceID)
+        {
+        }
+        public SettingsWindow(String sub, String deviceID)
         {
             InitializeComponent();
 
-            listener = new ClipboardListener();
-            initHistory();
-            initSettings();
+            this.sub = sub;
+            this.deviceID = deviceID;
 
-            NotifyIcon icon = new NotifyIcon();
-            //Need icon fix
-            icon.Icon = new System.Drawing.Icon("ic_launcher.ico");
-            icon.ContextMenu = new ContextMenu();
-            icon.ContextMenu.MenuItems.Add("Show Window", new EventHandler(showWindow));
-            icon.ContextMenu.MenuItems.Add("Exit", new EventHandler(exit));
-            icon.Text = "Projecto e Seminario";
-            icon.Visible = true;
+            init();
+        }
 
+        private async void init()
+        {
+            try
+            {
+                this.socketURL = await new SettingsController().GetSocketURL();
+                listener = new ClipboardListener(socketURL, sub, deviceID);
+                initHistory();
+                initSettings();
+
+                NotifyIcon icon = new NotifyIcon();
+                //Need icon fix
+                icon.Icon = new System.Drawing.Icon("ic_launcher.ico");
+                icon.ContextMenu = new ContextMenu();
+                icon.ContextMenu.MenuItems.Add("Show Window", new EventHandler(showWindow));
+                icon.ContextMenu.MenuItems.Add("Exit", new EventHandler(exit));
+                icon.Text = "Projecto e Seminario";
+                icon.Visible = true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("It seems that the server isnt running.Without this app cannot work.Bye!");
+                exit(null, null);
+            }
         }
 
         private void showWindow(object sender, EventArgs e)
@@ -70,6 +94,9 @@ namespace ProjectoESeminario.UI
         {
             Service_Enabled.IsChecked = Properties.Settings.Default.serviceEnabled;
             Service_Enabled.IsCheckedChanged += onServiceChanged;
+
+            if (Service_Enabled.IsChecked.Value)
+                listener.enableService();
 
             StartUP.IsChecked = Properties.Settings.Default.initOnStartup;
             StartUP.IsCheckedChanged += onStartupChanged;

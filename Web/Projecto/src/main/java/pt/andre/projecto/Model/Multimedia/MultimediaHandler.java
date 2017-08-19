@@ -15,6 +15,9 @@ public class MultimediaHandler implements IMultimediaHandler {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: Multimedia Handler ";
 
+    private final String SERVER_URI = System.getenv("SERVER");
+    private final String SERVER_PROTOCOL = System.getenv("SERVER_PROTOCOL");
+
     private final String PARENT_DIRECTORY = "files/";
     private final String FILE_LOCATION_API = "/api/MIME/";
 
@@ -35,7 +38,7 @@ public class MultimediaHandler implements IMultimediaHandler {
             stream.write(file);
             stream.close();
             logger.info(TAG + "File created!");
-            return System.getenv("SERVER") + FILE_LOCATION_API + encodedSUB + "/" + filename;
+            return SERVER_PROTOCOL + SERVER_URI + FILE_LOCATION_API + encodedSUB + "/" + filename;
         } catch (Exception e) {
             logger.error(TAG + e.getMessage());
             return null;

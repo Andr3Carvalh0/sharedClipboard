@@ -157,12 +157,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Clipboard\IClipboardListener.cs" />
+    <Compile Include="ClipboardEvents\Interfaces\IClipboardEventHandler.cs" />
+    <Compile Include="ClipboardEvents\ClipboardEventHandler.cs" />
+    <Compile Include="ClipboardEvents\Interfaces\IClipboardListener.cs" />
     <Compile Include="Classifiers\Classifiers.cs" />
-    <Compile Include="Clipboard\ClipboardListener.cs">
+    <Compile Include="ClipboardEvents\ClipboardListener.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Databases\DatabaseHandler.cs" />
     <Compile Include="DTOs\PullResponse.cs" />
+    <Compile Include="Services\Interfaces\IWebSocketConnectionHandler.cs" />
+    <Compile Include="Services\Utils\DTOs.cs" />
+    <Compile Include="Services\WebSocketConnectionHandler.cs" />
+    <Compile Include="State\ClipboardController.cs" />
+    <Compile Include="State\ClipboardControllerFactory.cs" />
+    <Compile Include="State\MonitorEx.cs" />
     <Compile Include="UI\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
@@ -269,6 +278,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ic_launcher.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ClipboardEvents\Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectoESeminario
 {
-    interface IClipboardListener
+    public interface IClipboardListener
     {
         void enableService();
         void disableService();
+        void updateClipboard(String text);
+
     }
 }

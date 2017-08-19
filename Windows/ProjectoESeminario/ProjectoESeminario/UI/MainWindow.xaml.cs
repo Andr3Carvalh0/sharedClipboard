@@ -70,10 +70,11 @@ namespace ProjectoESeminario
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
-            SettingsWindow settings = new SettingsWindow();
+            SettingsWindow settings = new SettingsWindow(sub, GUID);
             App.Current.MainWindow = settings;
             this.Close();
             settings.Show();
+
         }
 
         private async void NextButton_Click(object sender, RoutedEventArgs e)

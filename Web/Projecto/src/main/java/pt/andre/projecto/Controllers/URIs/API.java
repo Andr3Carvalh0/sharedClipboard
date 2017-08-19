@@ -28,7 +28,8 @@ public class API implements IAPI {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: API ";
     private final String SERVER_URI = System.getenv("SERVER");
-
+    private final String SERVER_PROTOCOL = System.getenv("SERVER_PROTOCOL");
+    private final String WEBSOCKET_PROTOCOL = System.getenv("WEBSOCKET_PROTOCOL");
 
     /*
     * Creates a new user account.
@@ -157,15 +158,16 @@ public class API implements IAPI {
     }
 
     @Override
+    @RequestMapping(value = "/api/socket", method = RequestMethod.GET)
     public ResponseEntity getWebSocketPort() {
-        return ResponseEntity.ok(SERVER_URI + "/desktop_socket");
+        return ResponseEntity.ok(WEBSOCKET_PROTOCOL + SERVER_URI + "/desktop_socket");
     }
 
     private ResponseEntity registerDesktopDevice(String sub, String deviceIdentifier, String deviceName) {
         logger.info(TAG + "RegisterDevice method");
         final DatabaseResponse resp = service.registerDesktopDevice(sub, deviceIdentifier, deviceName);
 
-        logger.info(TAG + "resgisterDevice: response will have the following code:" + resp.getResponseCode());
+        logger.info(TAG + "registerDevice: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 

@@ -24,6 +24,7 @@ namespace Projecto.Service
 
         Task<HttpResponseMessage> registerDevice(String sub, string deviceID, bool deviceType, String deviceName);
 
+        Task<HttpResponseMessage> getSocketURL();
 
     }
 }

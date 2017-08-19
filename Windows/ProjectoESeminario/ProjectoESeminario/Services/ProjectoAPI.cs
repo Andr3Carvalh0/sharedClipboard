@@ -41,13 +41,17 @@ namespace Projecto.Service
         /// </summary>
         private readonly static String accountManagement = "account";
 
+        /// <summary>
+        /// URI to get the websocket URL
+        /// </summary>
+        private readonly static String getSocket_URL = "socket";
 
-        public readonly static String socketURL = ConfigurationManager.AppSettings["socketURL"];
 
         /// <summary>
         /// Object to do the HTTP requests
         /// </summary>
         private readonly HttpClient httpClient;
+
 
         public ProjectoAPI() {
             this.httpClient = new HttpClient();
@@ -106,6 +110,11 @@ namespace Projecto.Service
 
                 return await httpClient.PutAsync(mainServer + registerDevice_URL, new FormUrlEncodedContent(parameters));
             });
+        }
+
+        public async Task<HttpResponseMessage> getSocketURL()
+        {
+            return await httpClient.GetAsync(mainServer + getSocket_URL);
         }
     }
 }

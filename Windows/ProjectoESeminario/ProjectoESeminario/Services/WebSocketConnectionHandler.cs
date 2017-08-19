@@ -49,7 +49,8 @@ namespace ProjectoESeminario.Services
 
         public void HandleUploadMime(string user, byte[] file, string filename)
         {
-            throw new NotImplementedException();
+            String formattedBody = JsonConvert.SerializeObject(new UploadMimeJSONWrapper(user, Convert.ToBase64String(file), filename));
+            ws.SendAsync(formattedBody, null);
         }
 
 

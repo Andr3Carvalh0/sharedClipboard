@@ -62,7 +62,7 @@ namespace ProjectoESeminario.State
             }
         }
 
-        public bool putValue(String value)
+        public bool putValue(String value, Boolean addToDB)
         {
             lock (nLock)
             {
@@ -73,7 +73,8 @@ namespace ProjectoESeminario.State
                 if (queue.Count == 0 && !value.Equals(clipboard_value))
                 {
                     clipboard_value = value;
-                    db.store(value);
+                    if(addToDB)
+                        db.store(value);
                     return true;
                 }
 
@@ -89,6 +90,8 @@ namespace ProjectoESeminario.State
                         if (node.Value.isFinished())
                         {
                             clipboard_value = value;
+                            if (addToDB)
+                                db.store(value);
                             queue.Remove(node);
                             return true;
                         }
@@ -100,6 +103,8 @@ namespace ProjectoESeminario.State
                     if (node.Value.isFinished())
                     {
                         clipboard_value = value;
+                        if (addToDB)
+                            db.store(value);
                         queue.Remove(node);
                         return true;
                     }

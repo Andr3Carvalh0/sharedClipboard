@@ -9,6 +9,8 @@ import pt.andre.projecto.Model.Database.Utils.DatabaseResponseMultimedia;
 import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class MultimediaHandler implements IMultimediaHandler {
@@ -35,6 +37,7 @@ public class MultimediaHandler implements IMultimediaHandler {
             logger.info(TAG + "Directories created!");
             // Writes the file
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(PARENT_DIRECTORY + encodedSUB + "/" + filename)));
+
             stream.write(file);
             stream.close();
             logger.info(TAG + "File created!");

@@ -48,7 +48,7 @@ namespace ProjectoESeminario.ClipboardEvents
             {
                 try
                 {
-                    if (controller.putValue(text))
+                    if (controller.putValue(text, true))
                     {
                         if (handler.isAlive())
                         {
@@ -78,22 +78,25 @@ namespace ProjectoESeminario.ClipboardEvents
                 if (supported_formats.TryGetValue(file_format[file_format.Length - 1], out format))
                 {
                     log.Debug(TAG + " Upload file to server");
+                    
                     byte[] image = File.ReadAllBytes(path);
 
                     try
                     {
-                        //if (controller.putValue(text))
-                           // clipboard.updateClipboard(text);
+                        if (controller.putValue(path, false)) { 
+                            if (handler.isAlive())
+                            {
+                                handler.HandleUploadMime(sub, image, tmp[tmp.Length - 1]);
+                                return;
+                            }
+                        }
                     }
                     finally
                     {
                         controller.wake();
                     }
-
-                    //uploadMediaData(format, image, tmp[tmp.Length - 1]);
-
                 }
-            });
+            }).Start();
 
 
         }
@@ -122,7 +125,7 @@ namespace ProjectoESeminario.ClipboardEvents
                 try
                 {
                     String text = (String)json.content;
-                    if (controller.putValue(text))
+                    if (controller.putValue(text, true))
                         clipboard.updateClipboard(text);
                 }
                 finally

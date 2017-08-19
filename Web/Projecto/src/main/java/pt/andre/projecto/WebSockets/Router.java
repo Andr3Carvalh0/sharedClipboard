@@ -13,6 +13,7 @@ import pt.andre.projecto.Controllers.URIs.API;
 import pt.andre.projecto.WebSockets.Interfaces.IConnectionManager;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.function.BiConsumer;
 
@@ -43,7 +44,7 @@ public class Router {
     //side note the file on windows must come as string
     private void handlePushMIME(JSONObject json, WebSocketSession session) {
         logger.info(TAG + "calling handlePushMime");
-        connectionManager.getAPI().push(json.getString("sub"), json.getString("data").getBytes(), json.getString("filename"));
+        connectionManager.getAPI().push(json.getString("sub"),  Base64.getDecoder().decode(json.getString("data")), json.getString("filename"));
     }
 
     void route(JSONObject json, WebSocketSession session) {

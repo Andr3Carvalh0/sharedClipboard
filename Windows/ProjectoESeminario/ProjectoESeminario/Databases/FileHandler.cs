@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectoESeminario.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -13,14 +14,20 @@ namespace ProjectoESeminario.Databases
         private readonly String folder_parent = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private readonly String folder_name = "Projecto";
 
-        public void store(Image image, String filename)
+        public ImageEx store(byte[] image, String filename)
         {
             if (!projectoFolderExists())
                 createProjectoFolder();
 
             String path = Path.Combine(folder_parent, folder_name);
             String file = Path.Combine(path, filename);
-            image.Save(file);
+
+            MemoryStream ms = new MemoryStream(image);
+            Image i = Image.FromStream(ms);
+
+            i.Save(file);
+
+            return new ImageEx(file, i);
         }
 
         private bool projectoFolderExists() {

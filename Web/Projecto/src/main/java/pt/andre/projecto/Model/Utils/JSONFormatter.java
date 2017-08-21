@@ -20,6 +20,7 @@ public class JSONFormatter {
 
         js.put("content", encoded_file);
         js.put("filename", filename);
+        js.put("isMIME", true);
 
         return js.toString();
     }

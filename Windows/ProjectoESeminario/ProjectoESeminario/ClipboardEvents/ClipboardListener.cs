@@ -10,6 +10,7 @@ namespace ProjectoESeminario
     {
         private readonly String TAG = "Portugal: ClipboardHandler";
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private Label label1;
         private readonly IClipboardEventHandler eventHandler;
 
         /// <summary>
@@ -95,6 +96,30 @@ namespace ProjectoESeminario
             log.Debug(TAG + "copying image to clipboard");
 
             Invoke((Action)(() => Clipboard.SetImage(image)));
+        }
+
+        private void InitializeComponent()
+        {
+            this.label1 = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(67, 118);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(160, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "You shoudnt be see this window";
+            // 
+            // ClipboardListener
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.label1);
+            this.Name = "ClipboardListener";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
     }
 }

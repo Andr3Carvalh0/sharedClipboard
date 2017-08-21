@@ -1,15 +1,13 @@
 ﻿using Newtonsoft.Json;
+using ProjectoESeminario.Databases;
+using ProjectoESeminario.DTOs;
 using ProjectoESeminario.Services;
 using ProjectoESeminario.State;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using WebSocketSharp;
 
 namespace ProjectoESeminario.ClipboardEvents
 {
@@ -26,6 +24,7 @@ namespace ProjectoESeminario.ClipboardEvents
         private readonly CancellationTokenSource cts;
         private readonly IClipboardListener clipboard;
         private readonly ClipboardController controller;
+        private readonly FileHandler fileHandler;
 
         public ClipboardEventHandler(String socketURL, String userID, String deviceID, IClipboardListener clipboard)
         {
@@ -37,7 +36,9 @@ namespace ProjectoESeminario.ClipboardEvents
             this.supported_formats.Add("jpg", ImageFormat.Jpeg);
             this.cts = new CancellationTokenSource();
             this.controller = ClipboardControllerFactory.getSingleton("Welcome!");
+            this.fileHandler = new FileHandler();
         }
+
         /// <summary>
         /// Method called when the user copies text on the pc
         /// </summary>
@@ -131,9 +132,11 @@ namespace ProjectoESeminario.ClipboardEvents
             {
                 try
                 {
-                    String text = (String)json.content;
-                    if (controller.putValue(text, true))
-                        clipboard.updateClipboard(text);
+                    String encodedFile = (String)json.content;
+                    ImageEx file = fileHandler.store(Convert.FromBase64String(encodedFile), (String) json.filename);
+
+                    if (controller.putValue(file.path, false))
+                        clipboard.updateClipboard(file.file);
                 }
                 finally
                 {

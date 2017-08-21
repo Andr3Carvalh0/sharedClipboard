@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ic_launcher.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("databases/parenthandler.mdf")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("databases/parenthandler_log.ldf")]
 
 

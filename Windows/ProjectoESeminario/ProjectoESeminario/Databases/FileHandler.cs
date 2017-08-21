@@ -9,36 +9,24 @@ using System.Threading.Tasks;
 
 namespace ProjectoESeminario.Databases
 {
-    public class FileHandler
+    public class FileHandler : ParentHandler
     {
-        private readonly String folder_parent = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        private readonly String folder_name = "Projecto";
 
-        public ImageEx store(byte[] image, String filename)
+        public ImageEx store(byte[] image_arr, String filename)
         {
             if (!projectoFolderExists())
                 createProjectoFolder();
 
-            String path = Path.Combine(folder_parent, folder_name);
-            String file = Path.Combine(path, filename);
+            String file = Path.Combine(getPath(), filename);
 
-            MemoryStream ms = new MemoryStream(image);
-            Image i = Image.FromStream(ms);
+            MemoryStream ms = new MemoryStream(image_arr);
+            Image image = Image.FromStream(ms);
 
-            i.Save(file);
+            image.Save(file);
 
-            return new ImageEx(file, i);
+            return new ImageEx(file, image);
         }
 
-        private bool projectoFolderExists() {
-            String path = Path.Combine(folder_parent, folder_name);
-            return Directory.Exists(path);
-        }
 
-        private void createProjectoFolder()
-        {
-            String path = Path.Combine(folder_parent, folder_name);
-            Directory.CreateDirectory(path);
-        }
     }
 }

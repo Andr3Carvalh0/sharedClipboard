@@ -130,3 +130,4 @@ C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\MahApps.
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\bin\Debug\MahApps.Metro.IconPacks.xml
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\UI\LoginWindow.g.cs
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\UI\LoginWindow.baml
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\ProjectoESeminario.ClipboardListener.resources

@@ -78,7 +78,6 @@ public class WebSocketHandler extends TextWebSocketHandler implements IConnectio
     protected void handleTextMessage(WebSocketSession session, TextMessage jsonTextMessage) throws Exception {
         JSONObject json = new JSONObject(jsonTextMessage.getPayload());
         router.route(json, session);
-
     }
 
     @Override

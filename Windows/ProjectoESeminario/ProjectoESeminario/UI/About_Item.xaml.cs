@@ -12,7 +12,7 @@ namespace ProjectoESeminario.UI
         {
             InitializeComponent();
             Title.Content = Title.Content.ToString().Replace("Text", title);
-            Description.Content = description;
+            Description.Text = description;
 
         }
     }

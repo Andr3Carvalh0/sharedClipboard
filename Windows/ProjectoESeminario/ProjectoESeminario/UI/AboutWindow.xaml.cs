@@ -37,6 +37,7 @@ namespace ProjectoESeminario.UI
             for(int i = 0; i < libs.Length; i++)
             {
                 container.Children.Add(new About_Item(libs[i], libs_description[i]));
+
             }
         }
     }

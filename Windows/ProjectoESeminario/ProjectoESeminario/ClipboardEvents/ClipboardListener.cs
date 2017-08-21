@@ -1,13 +1,6 @@
-using Projecto.Service;
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Forms;
-using System.IO;
-using System.Drawing.Imaging;
-using WebSocketSharp;
-using System.Configuration;
 using ProjectoESeminario.ClipboardEvents;
 
 namespace ProjectoESeminario
@@ -54,23 +47,28 @@ namespace ProjectoESeminario
                 IDataObject iData = Clipboard.GetDataObject(); // Clipboard's data.
 
                 /* Depending on the clipboard's current data format we can process the data differently. */
-                if (iData.GetDataPresent(DataFormats.Text))
-                {
-                    log.Debug(TAG + " It was text");
-                  
-                    string text = (string)iData.GetData(DataFormats.Text);
-
-                    eventHandler.onCopy(text);
+                if (iData.GetDataPresent(DataFormats.Text)) {
+                    handleText(iData);
+                    return;
                 }
 
-                else if (iData.GetDataPresent(DataFormats.FileDrop))
-                {
-                    log.Debug(TAG + " It could be an format that we support");
-                    String image_path = ((string[])iData.GetData(DataFormats.FileDrop))[0];
-
-                    eventHandler.onCopyMime(image_path);
-                }
+                if (iData.GetDataPresent(DataFormats.FileDrop))
+                    handleFile(iData);
             }
+        }
+
+        private void handleText(IDataObject iData)
+        {
+            log.Debug(TAG + " It was text");
+            string text = (string)iData.GetData(DataFormats.Text);
+            eventHandler.onCopy(text);
+        }
+
+        private void handleFile(IDataObject iData)
+        {
+            log.Debug(TAG + " It could be an format that we support");
+            String image_path = ((string[])iData.GetData(DataFormats.FileDrop))[0];
+            eventHandler.onCopyMime(image_path);
         }
 
         public void enableService()

@@ -45,7 +45,7 @@ namespace Projecto.Controllers
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 log.Error(TAG + " - WebException, statusCode:" + response.StatusCode);
-                ///O QUE FAZER AQUI?
+                throw new WebExceptions(response.StatusCode);
             }
             
         }

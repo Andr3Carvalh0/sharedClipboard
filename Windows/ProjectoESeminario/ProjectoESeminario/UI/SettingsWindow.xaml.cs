@@ -45,16 +45,25 @@ namespace ProjectoESeminario.UI
                 //Need icon fix
                 icon.Icon = new System.Drawing.Icon("ic_launcher.ico");
                 icon.ContextMenu = new ContextMenu();
-                icon.ContextMenu.MenuItems.Add("Show Window", new EventHandler(showWindow));
+                icon.ContextMenu.MenuItems.Add("Show Projecto", new EventHandler(showWindow));
+                icon.ContextMenu.MenuItems.Add("-");
+                icon.ContextMenu.MenuItems.Add("About Projecto", new EventHandler(showAbout));
                 icon.ContextMenu.MenuItems.Add("Exit", new EventHandler(exit));
                 icon.Text = "Projecto e Seminario";
                 icon.Visible = true;
             }
             catch (Exception)
             {
-                MessageBox.Show("It seems that the server isnt running.Without this app cannot work.Bye!");
+                MessageBox.Show("Cannot communicate with the server.\nWithout it, this app cannot work.");
                 exit(null, null);
             }
+        }
+
+        private void showAbout(object sender, EventArgs e)
+        {
+            AboutWindow about = new AboutWindow();
+            App.Current.MainWindow = about;
+            about.Show();
         }
 
         private void showWindow(object sender, EventArgs e)

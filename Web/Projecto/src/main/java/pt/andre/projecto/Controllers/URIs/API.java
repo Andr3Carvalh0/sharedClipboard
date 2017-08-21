@@ -160,7 +160,7 @@ public class API implements IAPI {
     @Override
     @RequestMapping(value = "/api/socket", method = RequestMethod.GET)
     public ResponseEntity getWebSocketPort() {
-        return ResponseEntity.ok(WEBSOCKET_PROTOCOL + SERVER_URI + "/desktop_socket");
+        return ResponseEntity.ok(WEBSOCKET_PROTOCOL + SERVER_URI.replace("www.", "") + "/desktop_socket");
     }
 
     private ResponseEntity registerDesktopDevice(String sub, String deviceIdentifier, String deviceName) {

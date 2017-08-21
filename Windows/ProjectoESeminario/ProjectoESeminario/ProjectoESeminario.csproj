@@ -165,7 +165,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Databases\DatabaseHandler.cs" />
-    <Compile Include="DTOs\PullResponse.cs" />
     <Compile Include="Services\Interfaces\IWebSocketConnectionHandler.cs" />
     <Compile Include="Services\Utils\DTOs.cs" />
     <Compile Include="Services\WebSocketConnectionHandler.cs" />
@@ -196,7 +195,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\MainWindow.xaml">
+    <Page Include="UI\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -209,8 +208,8 @@
     <Compile Include="Exceptions\WebExceptions.cs" />
     <Compile Include="Services\Interfaces\IAPI.cs" />
     <Compile Include="Services\ProjectoAPI.cs" />
-    <Compile Include="UI\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="UI\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UI\SettingsWindow.xaml">

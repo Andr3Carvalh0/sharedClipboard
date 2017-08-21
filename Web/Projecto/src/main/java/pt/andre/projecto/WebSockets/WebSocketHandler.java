@@ -118,7 +118,13 @@ public class WebSocketHandler extends TextWebSocketHandler implements IConnectio
     private void handlePendingMessages(String sub, String device, WebSocketSession socket) {
         logger.info(TAG + "Attempting to send pending messages to device: " + device);
         final ConcurrentHashMap<String, ConcurrentLinkedQueue<String>> user_devices = pending_messages.get(sub);
+
+        if(user_devices == null)
+            return;
+
         final ConcurrentLinkedQueue<String> messages_list = user_devices.get(device);
+
+        logger.info(TAG + "Pending messages to device: " + device + ": " + messages_list.size());
 
         messages_list.forEach(s -> send(s, device, socket));
     }

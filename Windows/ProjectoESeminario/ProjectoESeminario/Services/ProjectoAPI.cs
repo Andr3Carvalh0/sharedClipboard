@@ -17,21 +17,6 @@ namespace Projecto.Service
         private readonly static String mainServer = ConfigurationManager.AppSettings["serverURL"];
 
         /// <summary>
-        /// URI for the textual push
-        /// </summary>
-        private readonly static String push = "push";
-
-        /// <summary>
-        /// URI for the MIME push
-        /// </summary>
-        private readonly static String pushMIME = "pushMIME";
-
-        /// <summary>
-        /// URI for pulling data
-        /// </summary>
-        private readonly static String pull = "pull";
-
-        /// <summary>
         /// URI for registerDevice
         /// </summary>
         private readonly static String registerDevice_URL = "registerDevice";
@@ -51,7 +36,6 @@ namespace Projecto.Service
         /// Object to do the HTTP requests
         /// </summary>
         private readonly HttpClient httpClient;
-
 
         public ProjectoAPI() {
             this.httpClient = new HttpClient();
@@ -79,26 +63,6 @@ namespace Projecto.Service
         public async Task<HttpResponseMessage> Authenticate(String token) { return await TemplateMethod(token, async () => await httpClient.PostAsync(mainServer + accountManagement, null)); }
 
         public async Task<HttpResponseMessage> CreateAccount(String token) { return await TemplateMethod(token, async () => await httpClient.PutAsync(mainServer + accountManagement, null)); }
-
-        public async Task<HttpResponseMessage> Push(String sub, String data) {
-            return await TemplateMethod(sub, async () => {
-                var parameters = new Dictionary<string, string>();
-                parameters["data"] = data;
-                return await httpClient.PutAsync(mainServer + push, new FormUrlEncodedContent(parameters));
-            });
-        }
-
-        public async Task<HttpResponseMessage> Push(String sub, byte[] data, string filename, string filetype) {
-            return await TemplateMethod(sub, async () => {
-
-                MultipartFormDataContent form = new MultipartFormDataContent();
-                var file = new ByteArrayContent(data);
-                file.Headers.ContentType = MediaTypeHeaderValue.Parse("image/" + filetype);
-                form.Add(file, "file", filename);
-
-                return await httpClient.PostAsync(mainServer + pushMIME, form);
-            });
-        }
 
         public async Task<HttpResponseMessage> registerDevice(String sub, string deviceID, bool deviceType, String deviceName) {
             return await TemplateMethod(sub, async () => {

@@ -41,7 +41,7 @@ namespace ProjectoESeminario.ClipboardEvents
         /// <summary>
         /// Method called when the user copies text on the pc
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="text">The copied text</param>
         public void onCopy(string text)
         {
             new Thread(() =>
@@ -65,7 +65,11 @@ namespace ProjectoESeminario.ClipboardEvents
 
             }).Start();
         }
-
+        /// <summary>
+        /// Called when the user copies a file.
+        /// This method first verifies if the file is valid for us, and if so upload it to the server
+        /// </summary>
+        /// <param name="path">the file path</param>
         public void onCopyMime(string path)
         {
             new Thread(() =>
@@ -101,6 +105,10 @@ namespace ProjectoESeminario.ClipboardEvents
 
         }
 
+        /// <summary>
+        /// Called when we receive a message from the server
+        /// </summary>
+        /// <param name="text">the json received from the server</param>
         public void onReceive(string text)
         {
             var json = JsonConvert.DeserializeObject<dynamic>(text);
@@ -113,11 +121,31 @@ namespace ProjectoESeminario.ClipboardEvents
             handleText(json);
         }
 
+        /// <summary>
+        /// Called when we receive a message from the server that contains a image file
+        /// </summary>
+        /// <param name="json">the json received from the server</param>
         private void handleMime(dynamic json)
         {
-
+            new Thread(() =>
+            {
+                try
+                {
+                    String text = (String)json.content;
+                    if (controller.putValue(text, true))
+                        clipboard.updateClipboard(text);
+                }
+                finally
+                {
+                    controller.wake();
+                }
+            }).Start();
         }
 
+        /// <summary>
+        /// Handles the scenario where the message received from the serve only contains text
+        /// </summary>
+        /// <param name="json">The json received from the server</param>
         private void handleText(dynamic json)
         {
             new Thread(() =>
@@ -135,34 +163,62 @@ namespace ProjectoESeminario.ClipboardEvents
             }).Start();
         }
 
+        /// <summary>
+        /// Starts the thread that mantains the websocket connection
+        /// </summary>
         public void startService()
         {
             Thread workingThread = new Thread(() => WebsocketConnection(cts.Token))
-            { IsBackground = true };
+                                                    { IsBackground = true };
 
             workingThread.Start();
         }
 
+        /// <summary>
+        /// Stops the thread that mantains the websocket connection.
+        /// </summary>
         public void stopService() { cts.Cancel(); }
 
+        /// <summary>
+        /// Handles the websocket connection
+        /// </summary>
+        /// <param name="cancelToken"></param>
         public void WebsocketConnection(CancellationToken cancelToken)
         {
             handler = new WebSocketConnectionHandler(socketURL, sub, id, (s) => onReceive(s));
-            int times = 0;
+            Thread verifyStatusThread = new Thread(() => checkWebSocketStatus(cancelToken))
+                                                    { IsBackground = true };
+
+            verifyStatusThread.Start();
+
             while (true)
             {
-                if (cancelToken.IsCancellationRequested || times == 3)
+                if (cancelToken.IsCancellationRequested)
                 {
                     handler.Close();
                     return;
                 }
-
-                if (!handler.isAlive())
-                {
-                    times++;
+            }
+        }
+       
+        /// <summary>
+        /// Constantly checks if the websocket is live
+        /// </summary>
+        /// <param name="cancelToken"></param>
+        public void checkWebSocketStatus(CancellationToken cancelToken)
+        {
+            while (true)
+            {
+                if(handler != null && !handler.isAlive())
                     handler = new WebSocketConnectionHandler(socketURL, sub, id, (s) => onReceive(s));
+
+                if (cancelToken.IsCancellationRequested)
+                {
+                    handler.Close();
+                    return;
                 }
             }
+
         }
     }
 }

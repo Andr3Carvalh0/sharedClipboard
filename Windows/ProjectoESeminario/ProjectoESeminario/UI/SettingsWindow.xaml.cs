@@ -29,11 +29,14 @@ namespace ProjectoESeminario.UI
             this.sub = sub;
             this.deviceID = deviceID;
 
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             init();
         }
 
         private async void init()
         {
+
+
             try
             {
                 this.socketURL = await new SettingsController().GetSocketURL();

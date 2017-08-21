@@ -14,10 +14,6 @@ namespace Projecto.Service
     /// </summary>
     public interface IAPI
     {
-        Task<HttpResponseMessage> Push(String sub, string data);
-
-        Task<HttpResponseMessage> Push(String sub, byte[] data, string filename, string filetype);
-
         Task<HttpResponseMessage> Authenticate(String token);
 
         Task<HttpResponseMessage> CreateAccount(String token);

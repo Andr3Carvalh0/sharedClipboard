@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ProjectoESeminario
@@ -19,7 +14,7 @@ namespace ProjectoESeminario
 
             if (ProjectoESeminario.Properties.Settings.Default.sub.Equals("")) {
                 log.Debug(TAG + " loading loginWindow");
-                StartupUri = new Uri("UI/MainWindow.xaml", UriKind.Relative);
+                StartupUri = new Uri("UI/LoginWindow.xaml", UriKind.Relative);
             }else{
                 log.Debug(TAG + " loading settingsWindow");
                 StartupUri = new Uri("UI/SettingsWindow.xaml", UriKind.Relative);

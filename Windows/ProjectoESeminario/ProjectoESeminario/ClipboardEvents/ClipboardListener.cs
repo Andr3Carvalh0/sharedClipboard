@@ -2,10 +2,10 @@ using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ProjectoESeminario.ClipboardEvents;
+using System.Drawing;
 
 namespace ProjectoESeminario
 {
-
     public partial class ClipboardListener : Form, IClipboardListener
     {
         private readonly String TAG = "Portugal: ClipboardHandler";
@@ -87,8 +87,14 @@ namespace ProjectoESeminario
         {
             log.Debug(TAG + "copying text to clipboard");
 
-            Invoke((Action)(() => Clipboard.SetText(text)));
-            
+            Invoke((Action)(() => Clipboard.SetText(text)));    
+        }
+
+        public void updateClipboard(Image image)
+        {
+            log.Debug(TAG + "copying image to clipboard");
+
+            Invoke((Action)(() => Clipboard.SetImage(image)));
         }
     }
 }

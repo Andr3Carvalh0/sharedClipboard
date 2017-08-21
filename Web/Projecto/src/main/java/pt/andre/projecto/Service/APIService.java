@@ -14,6 +14,9 @@ import pt.andre.projecto.Model.Multimedia.IMultimediaHandler;
 import pt.andre.projecto.Model.Utils.JSONFormatter;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
+
 /*
 * Service that handles every action to our API URLs
 * */
@@ -59,7 +62,7 @@ public class APIService extends ParentService implements IAPIService{
         if(result == null)
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
 
-        return this.push(sub, result, true);
+        return this.push(sub, result, true, file, filename);
     }
 
     /*
@@ -130,19 +133,18 @@ public class APIService extends ParentService implements IAPIService{
         return multimediaHandler.store(sub, file, filename);
     }
 
-    /*
-    * Handles an request push.
-    * It stores the data in the database, and starts the process of notifying the user mobile devices
-    *
-    * @param token: the user account
-    * @param data: the user data
-    * @param isMIME: indicates whether the data is an URL to the real content or if its the real content
-    * */
     private DatabaseResponse push(String sub, String data, boolean isMIME) {
+        return pushCommon(sub, data, isMIME,  () -> JSONFormatter.formatToJSON(data, isMIME));
+    }
+
+    private DatabaseResponse push(String sub, String data, boolean isMIME, byte[] file, String filename) {
+        return pushCommon(sub, data, isMIME,() -> JSONFormatter.formatToJSON(file, filename));
+    }
+
+    private DatabaseResponse pushCommon(String sub, String data, boolean isMIME, Callable<String> message) {
         DatabaseResponse push = database.push(sub, data, isMIME);
 
         logger.info(TAG + "Sharing with devices");
-
 
         final String[] mobileDevices = database.getMobileDevices(sub)
                 .stream().map(DeviceWrapper::getId)
@@ -153,9 +155,17 @@ public class APIService extends ParentService implements IAPIService{
                 .map(DeviceWrapper::getId)
                 .toArray(String[]::new);
 
-        firebaseService.notify(sub, JSONFormatter.formatToJSON(data, isMIME), mobileDevices);
-        webSocketService.notify(sub, JSONFormatter.formatToJSON(data, isMIME), desktopDevices);
+        String desktop_message;
 
+        try {
+            desktop_message = message.call();
+        } catch (Exception e) {
+            //This should never happen but just to be sure!
+            desktop_message = JSONFormatter.formatToJSON(data, isMIME);
+        }
+
+        firebaseService.notify(sub, JSONFormatter.formatToJSON(data, isMIME), mobileDevices);
+        webSocketService.notify(sub, desktop_message, desktopDevices);
         return push;
     }
 }

@@ -8,11 +8,9 @@ namespace ProjectoESeminario.Databases
 {
     public class DatabaseHandler
     {
-        public DatabaseHandler()
-        {
-            
-        }
+        public void store(String text) {
 
-        public void store(String text) { }
+
+        }
     }
 }

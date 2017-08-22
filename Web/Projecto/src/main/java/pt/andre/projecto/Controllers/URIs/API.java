@@ -135,8 +135,8 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/registerDevice", method = RequestMethod.PUT)
-    public ResponseEntity associateDeviceWithAccount(@RequestHeader("Authorization") String sub, @RequestParam String deviceIdentifier, @RequestParam boolean isMobile, @RequestParam String deviceName) {
-        if(isMobile) {
+    public ResponseEntity associateDeviceWithAccount(@RequestHeader("Authorization") String sub, @RequestParam String deviceIdentifier, @RequestParam boolean useSockets, @RequestParam String deviceName) {
+        if(!useSockets) {
             logger.info(TAG, "AssociateDevice Called! Its a mobile device!");
             return registerMobileDevice(sub, deviceIdentifier, deviceName);
         }

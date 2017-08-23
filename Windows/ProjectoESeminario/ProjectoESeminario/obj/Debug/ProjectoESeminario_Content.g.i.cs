@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("databases/parenthandler.mdf")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("databases/parenthandler_log.ldf")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/ic_content_paste_grey_600_24dp.png")]
 
 

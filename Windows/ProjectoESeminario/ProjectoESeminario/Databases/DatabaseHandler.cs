@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ProjectoESeminario.Databases
@@ -23,6 +24,17 @@ namespace ProjectoESeminario.Databases
             return addText(text);
         }
 
+        public string[] fetch(String category)
+        {
+            try { 
+                return File.ReadAllLines(Path.Combine(getPath(), category + ".txt"));
+            }
+            catch (FileNotFoundException)
+            {
+                return null;
+            }
+        }
+
         private void cleanUP(string db)
         {
             File.Delete(Path.Combine(getPath(), db + ".txt"));
@@ -32,8 +44,14 @@ namespace ProjectoESeminario.Databases
         {
             for(int i = 0; i < dbs.Length; i++)
             {
-                if (new FileInfo(Path.Combine(getPath(), dbs[i] + ".txt")).Length > file_max_size)
-                    cleanUP(dbs[i]);
+                try { 
+                    if (new FileInfo(Path.Combine(getPath(), dbs[i] + ".txt")).Length > file_max_size)
+                        cleanUP(dbs[i]);
+                }
+                catch (FileNotFoundException)
+                {
+
+                }
             }
         }
 

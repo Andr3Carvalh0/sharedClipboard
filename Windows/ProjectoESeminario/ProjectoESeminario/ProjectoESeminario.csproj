@@ -189,27 +189,49 @@
     <Compile Include="State\ClipboardController.cs" />
     <Compile Include="State\ClipboardControllerFactory.cs" />
     <Compile Include="State\MonitorEx.cs" />
-    <Compile Include="UI\AboutWindow.xaml.cs">
+    <Compile Include="UI\About\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\About_Item.xaml.cs">
+    <Compile Include="UI\About\About_Item.xaml.cs">
       <DependentUpon>About_Item.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\History_Item.xaml.cs">
+    <Compile Include="UI\History\Category_Detailed\History_Detail.xaml.cs">
+      <DependentUpon>History_Detail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\History\Category_Detailed\History_Detail_Image.cs" />
+    <Compile Include="UI\History\Category_Detailed\History_Text_Item.xaml.cs">
+      <DependentUpon>History_Text_Item.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\History\Main\History_Item.xaml.cs">
       <DependentUpon>History_Item.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\History\Category_Detailed\History_Detail_Text.cs" />
+    <Compile Include="UI\History\Interfaces\IHistory.cs" />
+    <Compile Include="UI\History\Main\ItemImage.cs" />
+    <Compile Include="UI\History\Main\ItemText.cs" />
     <Compile Include="UI\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="UI\AboutWindow.xaml">
+    <Compile Include="UI\Settings\SettingsControl.xaml.cs">
+      <DependentUpon>SettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Page Include="UI\About\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\About_Item.xaml">
+    <Page Include="UI\About\About_Item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\History_Item.xaml">
+    <Page Include="UI\History\Category_Detailed\History_Detail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\History\Category_Detailed\History_Text_Item.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\History\Main\History_Item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +253,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UI\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Settings\SettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -313,6 +339,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ic_content_paste_grey_600_24dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

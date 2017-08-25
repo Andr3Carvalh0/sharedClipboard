@@ -3,7 +3,6 @@ package pt.andre.projecto.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.URIs.FirebaseService;
 import pt.andre.projecto.Controllers.URIs.WebSocketService;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
@@ -11,11 +10,10 @@ import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Model.Multimedia.IMultimediaHandler;
-import pt.andre.projecto.Model.Utils.JSONFormatter;
+import pt.andre.projecto.Model.Utils.MensageFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
 import java.util.concurrent.Callable;
-import java.util.function.Consumer;
 
 /*
 * Service that handles every action to our API URLs
@@ -134,11 +132,11 @@ public class APIService extends ParentService implements IAPIService{
     }
 
     private DatabaseResponse push(String sub, String data, boolean isMIME) {
-        return pushCommon(sub, data, isMIME,  () -> JSONFormatter.formatToJSON(data, isMIME));
+        return pushCommon(sub, data, isMIME,  () -> MensageFormater.updateMessage(data, isMIME));
     }
 
     private DatabaseResponse push(String sub, String data, boolean isMIME, byte[] file, String filename) {
-        return pushCommon(sub, data, isMIME,() -> JSONFormatter.formatToJSON(file, filename));
+        return pushCommon(sub, data, isMIME,() -> MensageFormater.updateMessage(file, filename));
     }
 
     private DatabaseResponse pushCommon(String sub, String data, boolean isMIME, Callable<String> message) {
@@ -161,10 +159,10 @@ public class APIService extends ParentService implements IAPIService{
             desktop_message = message.call();
         } catch (Exception e) {
             //This should never happen but just to be sure!
-            desktop_message = JSONFormatter.formatToJSON(data, isMIME);
+            desktop_message = MensageFormater.updateMessage(data, isMIME);
         }
 
-        firebaseService.notify(sub, JSONFormatter.formatToJSON(data, isMIME), mobileDevices);
+        firebaseService.notify(sub, MensageFormater.updateMessage(data, isMIME), mobileDevices);
         webSocketService.notify(sub, desktop_message, desktopDevices);
         return push;
     }

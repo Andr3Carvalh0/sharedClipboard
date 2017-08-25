@@ -2,7 +2,7 @@ package pt.andre.projecto.Model.Database.Utils;
 
 import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Model.Utils.DefaultHashMap;
-import pt.andre.projecto.Model.Utils.JSONFormatter;
+import pt.andre.projecto.Model.Utils.MensageFormater;
 
 /*
 * Used to convert MongoDB errors to a more user friendly messages
@@ -70,7 +70,7 @@ public class ResponseFormater {
     }
 
     public static DatabaseResponse displayInformation(String message, boolean isMime){
-        String res = JSONFormatter.formatToJSON(message, isMime);
+        String res = MensageFormater.updateMessage(message, isMime);
 
         return new DatabaseResponseText(VALID_REQUEST, res);
     }

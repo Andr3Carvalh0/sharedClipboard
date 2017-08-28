@@ -49,6 +49,7 @@ public class CopyMenuListener extends Service {
 
                         Log.v(TAG, "Uploading text to server");
                         Intent intent = new Intent(ctx, ClipboardEventHandler.class);
+                        intent.putExtra("action", "store");
                         intent.putExtra("content", text);
                         intent.putExtra("deviceID", deviceID);
                         intent.putExtra("upload", true);

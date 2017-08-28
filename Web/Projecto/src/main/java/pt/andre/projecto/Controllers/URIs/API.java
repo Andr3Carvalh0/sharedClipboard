@@ -109,7 +109,7 @@ public class API implements IAPI {
         final DatabaseResponse resp = service.push(sub, data);
 
         logger.info(TAG + "Push: response will have the following code:" + resp.getResponseCode());
-        return ResponseEntity.status(resp.getResponseCode()).build();
+        return ResponseEntity.status(resp.getResponseCode()).body((String)resp.getResponseMessage());
     }
 
     /*

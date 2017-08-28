@@ -1,17 +1,12 @@
 package pt.andre.projecto.WebSockets;
 
+
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.socket.WebSocketSession;
-import pt.andre.projecto.Controllers.Interfaces.IAPI;
-import pt.andre.projecto.Controllers.URIs.API;
 import pt.andre.projecto.WebSockets.Interfaces.IConnectionManager;
-
 import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
@@ -38,13 +33,24 @@ public class Router {
 
     private void handlePush(JSONObject json, WebSocketSession session){
         logger.info(TAG + "calling handlePush");
-        connectionManager.getAPI().push(json.getString("sub"), json.getString("data"));
+        final ResponseEntity push = connectionManager.getAPI().push(json.getString("sub"), json.getString("data"));
+
+        JSONObject jsonObj = new JSONObject((String) push.getBody());
+
+        jsonObj.put("action", "report");
+
+        connectionManager.report(session, jsonObj.toString());
     }
 
     //side note the file on windows must come as string
     private void handlePushMIME(JSONObject json, WebSocketSession session) {
         logger.info(TAG + "calling handlePushMime");
-        connectionManager.getAPI().push(json.getString("sub"),  Base64.getDecoder().decode(json.getString("data")), json.getString("filename"));
+        final ResponseEntity push = connectionManager.getAPI().push(json.getString("sub"), Base64.getDecoder().decode(json.getString("data")), json.getString("filename"));
+        JSONObject jsonObj = new JSONObject((String) push.getBody());
+
+        jsonObj.put("action", "report");
+
+        connectionManager.report(session, jsonObj.toString());
     }
 
     void route(JSONObject json, WebSocketSession session) {

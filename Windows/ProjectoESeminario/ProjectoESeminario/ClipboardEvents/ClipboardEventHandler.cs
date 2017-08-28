@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace ProjectoESeminario.ClipboardEvents
 {
@@ -17,7 +18,7 @@ namespace ProjectoESeminario.ClipboardEvents
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Dictionary<string, ImageFormat> supported_formats = new Dictionary<string, ImageFormat>();
         private IWebSocketConnectionHandler handler;
-
+        private Dictionary<String, Action<dynamic>> onReceiveActions = new Dictionary<string, Action<dynamic>>();
         private readonly String socketURL;
         private readonly String sub;
         private readonly String id;
@@ -37,6 +38,10 @@ namespace ProjectoESeminario.ClipboardEvents
             this.cts = new CancellationTokenSource();
             this.controller = ClipboardControllerFactory.getSingleton("Welcome!");
             this.fileHandler = new FileHandler();
+
+            onReceiveActions.Add("report", (s) => handleReport(s));
+            onReceiveActions.Add("store", (s) => handleReceived(s));
+            onReceiveActions.Add("remove", (s) => handleLogOut(s));
         }
 
         /// <summary>
@@ -66,6 +71,7 @@ namespace ProjectoESeminario.ClipboardEvents
 
             }).Start();
         }
+
         /// <summary>
         /// Called when the user copies a file.
         /// This method first verifies if the file is valid for us, and if so upload it to the server
@@ -114,12 +120,16 @@ namespace ProjectoESeminario.ClipboardEvents
         {
             var json = JsonConvert.DeserializeObject<dynamic>(text);
 
-            if ((bool)json.isMIME) { 
-                handleMime(json);
-                return;
+            try
+            {
+                Action<dynamic> tmp;
+                onReceiveActions.TryGetValue((String)json.action, out tmp);
+                tmp.Invoke(json);
             }
+            catch (Exception)
+            {
 
-            handleText(json);
+            }
         }
 
         /// <summary>
@@ -223,5 +233,31 @@ namespace ProjectoESeminario.ClipboardEvents
             }
 
         }
+
+
+        /// <summary>
+        /// Shows a pop up when a error occures.
+        /// </summary>
+        /// <param name="json"></param>
+        private void handleReport(dynamic json)
+        {
+            MessageBox.Show((String)json.detail, (String) json.title);
+        }
+
+        private void handleLogOut(dynamic json)
+        {
+
+        }
+
+        private void handleReceived(dynamic json) {
+            if ((bool)json.isMIME)
+            {
+                handleMime(json);
+                return;
+            }
+
+            handleText(json);
+        }
+
     }
 }

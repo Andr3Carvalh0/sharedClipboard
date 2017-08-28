@@ -7,7 +7,7 @@ import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
 * */
 public class DatabaseResponseText extends DatabaseResponse<String> {
 
-    private final String responseMessage;
+    private String responseMessage;
 
     public DatabaseResponseText(int responseCode, String responseMessage) {
         super(responseCode);
@@ -21,5 +21,9 @@ public class DatabaseResponseText extends DatabaseResponse<String> {
     @Override
     public String getResponseMessage() {
         return responseMessage;
+    }
+
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
     }
 }

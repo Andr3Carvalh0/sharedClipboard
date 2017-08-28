@@ -2,9 +2,10 @@ package andre.pt.projectoeseminario.API;
 
 import android.content.Context;
 import android.os.Build;
+import android.widget.Toast;
+
 import java.util.HashMap;
 import java.util.function.Consumer;
-import java.util.regex.Pattern;
 import andre.pt.projectoeseminario.API.Interface.Responses.IResponse;
 import andre.pt.projectoeseminario.API.Interface.IAPI;
 import andre.pt.projectoeseminario.API.Interface.ProjectoAPI;
@@ -52,7 +53,7 @@ public class APIRequest {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                Toast.makeText(ctx, "Cannot upload text to server", Toast.LENGTH_SHORT).show();
             }
         });
 

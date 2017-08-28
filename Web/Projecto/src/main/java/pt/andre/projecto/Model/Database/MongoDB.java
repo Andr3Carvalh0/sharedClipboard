@@ -19,6 +19,7 @@ import pt.andre.projecto.Model.Database.Utils.DatabaseOption;
 import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 
+import java.io.InvalidObjectException;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
@@ -294,10 +295,14 @@ public class MongoDB implements IDatabase {
             Bson accountFilter = Filters.eq("id", sub);
 
             final Content[] content = new Content[1];
+
             contentDocument.find(accountFilter)
                     .forEach((Block<Document>) (
                             document) -> content[0] = new Content(document.getString("id"), document.getString("value"), document.getBoolean("isMIME"))
                     );
+
+            if(content[0] == null)
+                return ResponseFormater.createResponse(ResponseFormater.NO_ACCOUNT);
 
             return func.apply(new ContentWrapper(content[0], accountFilter), contentDocument);
         } catch (Exception e) {

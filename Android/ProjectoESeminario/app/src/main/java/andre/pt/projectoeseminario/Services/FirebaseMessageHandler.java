@@ -12,11 +12,14 @@ public class FirebaseMessageHandler extends FirebaseMessagingService {
 
     private final String TAG = "Portugal:FirebaseMessag";
 
+
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            String action = String.valueOf(remoteMessage.getData().get("action"));
             final Boolean isMIME = Boolean.valueOf(remoteMessage.getData().get("isMIME"));
             final String content = remoteMessage.getData().get("content");
 

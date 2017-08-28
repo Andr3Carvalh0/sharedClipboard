@@ -99,20 +99,35 @@ public class WebSocketHandler extends TextWebSocketHandler implements IConnectio
     }
 
     @Override
+    public void report(WebSocketSession session, String message) {
+        try {
+            session.sendMessage(new TextMessage(message.getBytes()));
+        } catch (IOException e) {
+            logger.error(TAG + "Cannot report message");
+        }
+    }
+
+    @Override
     public void notify(String sub, String device, String message) {
         logger.info(TAG, "Attempting to send message to device " + device);
 
-        final ConcurrentLinkedQueue<WebSocketSession> webSocketSession = connections.get(sub).get(device);
+        try {
 
-        if(webSocketSession.size() == 0){
-            pending_messages.computeIfAbsent(sub, s -> new ConcurrentHashMap<>());
-            pending_messages.get(sub).computeIfAbsent(device, s -> new ConcurrentLinkedQueue<>());
-            pending_messages.get(sub).get(device).add(message);
-            return;
+            final ConcurrentLinkedQueue<WebSocketSession> webSocketSession = connections.get(sub).get(device);
+
+            if (webSocketSession.size() == 0) {
+                pending_messages.computeIfAbsent(sub, s -> new ConcurrentHashMap<>());
+                pending_messages.get(sub).computeIfAbsent(device, s -> new ConcurrentLinkedQueue<>());
+                pending_messages.get(sub).get(device).add(message);
+                return;
+            }
+
+            webSocketSession
+                    .forEach(s -> send(message, device, s));
+
+        }catch (NullPointerException e){
+            logger.info(TAG + "the user doesnt have any devices");
         }
-
-        webSocketSession
-            .forEach(s -> send(message, device, s));
     }
 
     private void handlePendingMessages(String sub, String device, WebSocketSession socket) {

@@ -9,9 +9,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
-
 import java.util.HashMap;
-
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import andre.pt.projectoeseminario.Classifiers.Classifiers;
 import andre.pt.projectoeseminario.State.ClipboardControllerFactory;
 import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderContent;
@@ -26,6 +26,7 @@ public class ClipboardEventHandler extends IntentService {
 
     private static final String TAG = "Portugal:ClipHandler";
     private static final HashMap<String,Uri> router;
+    private final HashMap<String, BiConsumer<Intent, ClipboardController>> action_router;
     public ClipboardEventHandler() {
         this("ClipboardEventHandler");
     }
@@ -40,6 +41,7 @@ public class ClipboardEventHandler extends IntentService {
 
     }
 
+
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
@@ -47,6 +49,10 @@ public class ClipboardEventHandler extends IntentService {
      */
     public ClipboardEventHandler(String name) {
         super(name);
+        action_router = new HashMap<>();
+        action_router.put("remove", this::handleRemove);
+        action_router.put("store", this::handleStore);
+
     }
 
     /*
@@ -61,18 +67,31 @@ public class ClipboardEventHandler extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        final Context context = this.getApplicationContext();
-
-        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData.Item clipboardItem = clipboard.getPrimaryClip().getItemAt(0);
         final ClipboardController clipboardController = ClipboardControllerFactory.getSingleton((clipboardItem.getText() != null ? String.valueOf(clipboardItem.getText()) : "Welcome"));
 
         assert intent != null;
+        final String action = intent.getStringExtra("action");
+        final BiConsumer consumer = action_router.get(action);
+
+        try {
+            consumer.accept(intent, clipboardController);
+        }catch (Exception e){
+
+        }
+    }
+
+    private void handleRemove(Intent intent, ClipboardController clipboardController){
+
+    }
+
+    private void handleStore(Intent intent, ClipboardController clipboardController){
         final String content = intent.getStringExtra("content");
         final boolean isMIME = intent.getBooleanExtra("isMIME", false);
         final boolean upload = intent.getBooleanExtra("upload", false);
         final String token = intent.getStringExtra("token");
-        APIRequest mApi = new APIRequest(null, context);
+        APIRequest mApi = new APIRequest(null, getApplicationContext());
 
 
         try {
@@ -85,14 +104,12 @@ public class ClipboardEventHandler extends IntentService {
                 }
 
                 if (!isMIME)
-                    handleTextContent(context, content);
+                    handleTextContent(getApplicationContext(), content);
             }
         } finally {
             clipboardController.wake();
         }
-
     }
-
 
     private String addToFilteredTable(String clipboard_value) {
         String table = ResourcesContentProviderContent.Text.TABLE_NAME;

@@ -209,6 +209,7 @@
     <Compile Include="UI\History\Interfaces\IHistory.cs" />
     <Compile Include="UI\History\Main\ItemImage.cs" />
     <Compile Include="UI\History\Main\ItemText.cs" />
+    <Compile Include="UI\ISettings.cs" />
     <Compile Include="UI\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>

@@ -82,5 +82,6 @@ namespace ProjectoESeminario.UI.Settings
         {
             return StartUP.IsChecked.Value;
         }
+        
     }
 }

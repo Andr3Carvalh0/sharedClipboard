@@ -13,5 +13,6 @@ namespace ProjectoESeminario
         void disableService();
         void updateClipboard(String text);
         void updateClipboard(Image image);
+        void logout();
     }
 }

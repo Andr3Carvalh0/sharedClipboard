@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectoESeminario.Databases
 {
@@ -27,6 +23,21 @@ namespace ProjectoESeminario.Databases
         protected String getPath()
         {
             return Path.Combine(folder_parent, folder_name);
+        }
+
+        public void destroyAll()
+        {
+            DirectoryInfo di = new DirectoryInfo(getPath());
+
+            foreach (FileInfo file in di.GetFiles())
+            {
+                file.Delete();
+            }
+
+            foreach (DirectoryInfo dir in di.GetDirectories())
+            {
+                dir.Delete(true);
+            }
         }
     }
 }

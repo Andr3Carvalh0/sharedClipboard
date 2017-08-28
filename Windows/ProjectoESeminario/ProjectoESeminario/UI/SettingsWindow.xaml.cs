@@ -18,7 +18,7 @@ namespace ProjectoESeminario.UI
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml
     /// </summary>
-    public partial class SettingsWindow : MetroWindow, IHistory
+    public partial class SettingsWindow : MetroWindow, IHistory, ISettings
     {
         private IClipboardListener listener;
         private LinkedList<History_Item> HISTORY_ITEMS;
@@ -52,7 +52,7 @@ namespace ProjectoESeminario.UI
             try
             {
                 this.socketURL = await new SettingsController().GetSocketURL();
-                listener = new ClipboardListener(socketURL, sub, deviceID);
+                listener = new ClipboardListener(socketURL, sub, deviceID, this);
 
                 this.fileHandler = new Databases.FileHandler();
                 this.textHandler = new Databases.DatabaseHandler();
@@ -180,6 +180,18 @@ namespace ProjectoESeminario.UI
         void IHistory.setContent(System.Drawing.Image image)
         {
             throw new NotImplementedException();
+        }
+
+        public void logout()
+        {
+            listener.disableService();
+            resetSettings();
+            fileHandler.destroyAll();
+        }
+
+        private void resetSettings()
+        {
+            Properties.Settings.Default.Reset();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ProjectoESeminario.ClipboardEvents;
 using System.Drawing;
+using ProjectoESeminario.UI;
 
 namespace ProjectoESeminario
 {
@@ -10,8 +11,9 @@ namespace ProjectoESeminario
     {
         private readonly String TAG = "Portugal: ClipboardHandler";
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private Label label1;
+
         private readonly IClipboardEventHandler eventHandler;
+        private readonly ISettings settingsWindow;
 
         /// <summary>
         /// Places the given window in the system-maintained clipboard format listener list.
@@ -32,10 +34,11 @@ namespace ProjectoESeminario
         /// </summary>
         private const int WM_CLIPBOARDUPDATE = 0x031D;
 
-        public ClipboardListener(String socketURL, String userID, String deviceID)
+        public ClipboardListener(String socketURL, String userID, String deviceID, ISettings settings)
         {
             log.Info(TAG + " ctor");
             this.eventHandler = new ClipboardEventHandler(socketURL, userID, deviceID, this);
+            this.settingsWindow = settings;
         }
 
         protected override void WndProc(ref Message m)
@@ -98,28 +101,23 @@ namespace ProjectoESeminario
             Invoke((Action)(() => Clipboard.SetImage(image)));
         }
 
+        public void logout()
+        {
+            settingsWindow.logout();
+        }
+
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(67, 118);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(160, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "You shoudnt be see this window";
             // 
             // ClipboardListener
             // 
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.label1);
+
             this.Name = "ClipboardListener";
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
     }
 }

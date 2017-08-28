@@ -8,11 +8,14 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
+import pt.andre.projecto.Controllers.URIs.FirebaseService;
+import pt.andre.projecto.Controllers.URIs.WebSocketService;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
 import pt.andre.projecto.Model.Database.IDatabase;
 import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Model.Utils.Device;
 import pt.andre.projecto.Model.Utils.DeviceIdentifier;
+import pt.andre.projecto.Model.Utils.MensageFormater;
 import pt.andre.projecto.Service.Interfaces.IServerService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -27,8 +30,15 @@ import java.util.Properties;
 * */
 public class ServerService extends ParentService implements IServerService{
     private String CLIENT_SECRET_ID;
+
     @Autowired
     private IDatabase database;
+
+    @Autowired
+    private FirebaseService firebaseService;
+
+    @Autowired
+    private WebSocketService webSocketService;
 
     private final Resource resource = new ClassPathResource("/application.properties");
 
@@ -89,7 +99,14 @@ public class ServerService extends ParentService implements IServerService{
         if(!result)
             return "error";
 
+        notifyRemovedDevice(sub, deviceIdentifier);
+
         return getDevicesWithSub(model, sub);
+    }
+
+    public void notifyRemovedDevice(String sub, String deviceID){
+        webSocketService.notify(sub, MensageFormater.expel(), deviceID);
+        firebaseService.notify(sub, MensageFormater.expel(), deviceID);
     }
 
     private String getDevicesWithSub(Map<String, Object> model, String sub) {

@@ -246,7 +246,7 @@ namespace ProjectoESeminario.ClipboardEvents
 
         private void handleLogOut(dynamic json)
         {
-
+            clipboard.logout();
         }
 
         private void handleReceived(dynamic json) {

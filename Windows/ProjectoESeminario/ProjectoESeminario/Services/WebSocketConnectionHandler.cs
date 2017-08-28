@@ -48,7 +48,13 @@ namespace ProjectoESeminario.Services
             String formattedBody = JsonConvert.SerializeObject(new RegisterJSONWrapper(user, deviceID));
             //can be sync because we are running this on a background thread, 
             //and also we cannot do anything else without this "handshake"
-            ws.Send(formattedBody);
+            try { 
+                ws.Send(formattedBody);
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         /// <summary>

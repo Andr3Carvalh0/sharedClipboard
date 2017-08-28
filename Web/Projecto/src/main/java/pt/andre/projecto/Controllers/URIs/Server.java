@@ -55,6 +55,14 @@ public class Server{
     }
 
 
+    @RequestMapping(value = "/YO", method = RequestMethod.GET)
+    public String yo(){
+        service.notifyRemovedDevice("103482874633874499718", "97F82594-4CCF-46A6-8D5B-7F8CF5CDF0F0");
+        return "OAL";
+    }
+
+
+
 
 }
 

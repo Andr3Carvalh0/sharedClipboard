@@ -127,6 +127,10 @@ public class WebSocketHandler extends TextWebSocketHandler implements IConnectio
 
         }catch (NullPointerException e){
             logger.info(TAG + "the user doesnt have any devices");
+            pending_messages.computeIfAbsent(sub, s -> new ConcurrentHashMap<>());
+            pending_messages.get(sub).computeIfAbsent(device, s -> new ConcurrentLinkedQueue<>());
+            pending_messages.get(sub).get(device).add(message);
+
         }
     }
 

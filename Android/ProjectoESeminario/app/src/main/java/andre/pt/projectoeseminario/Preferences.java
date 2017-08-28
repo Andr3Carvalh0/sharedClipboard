@@ -14,7 +14,6 @@ public class Preferences {
     public static String FIREBASEID = "firebaseID";
     public static String NOTIFICATION_STATE = "show_notification";
     public static String SETUPSHOWN = "afterBinding";
-    public static String USEMOBILEDATA = "use_data";
 
     private SharedPreferences.Editor editor;
     private SharedPreferences shared;
@@ -51,5 +50,9 @@ public class Preferences {
         return shared.getString(key, null);
     }
 
+    public void clearAll(){
+        editor.clear();
+        editor.commit();
+    }
 
 }

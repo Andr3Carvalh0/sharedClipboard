@@ -40,8 +40,7 @@ public class PreferencesFragment extends ParentFragment {
 
         Preference[] preferences = new Preference[]{
                 new Preference(getString(R.string.Service_Running_Option_Title), getString(R.string.Service_Running_Option_Description), activity.getServiceState()),
-                new Preference(getString(R.string.History_Settings), getString(R.string.History_Description_Settings), activity.getNotificationState()),
-                new Preference(getString(R.string.MobileData_Preferences_Title), getString(R.string.MobileData_Preferences_Description), activity.getMobileDataState())
+                new Preference(getString(R.string.History_Settings), getString(R.string.History_Description_Settings), activity.getNotificationState())
         };
 
         HashMap<String, CompoundButton.OnCheckedChangeListener> preferencesActions = new HashMap<>();
@@ -68,11 +67,6 @@ public class PreferencesFragment extends ParentFragment {
             activity.savePreference(Preferences.NOTIFICATION_STATE, isChecked);
         });
 
-
-        preferencesActions.put(getString(R.string.MobileData_Preferences_Title), (buttonView, isChecked) -> {
-            //Why are we saving this here?Because on Pause/OnDestroy is not reliable.
-            activity.savePreference(Preferences.USEMOBILEDATA, isChecked);
-        });
 
         PreferencesAdapter adapter = new PreferencesAdapter(preferences, preferencesActions);
         mRecyclerView.setAdapter(adapter);

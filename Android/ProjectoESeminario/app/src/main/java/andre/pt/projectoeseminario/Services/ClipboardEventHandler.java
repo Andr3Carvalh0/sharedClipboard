@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import andre.pt.projectoeseminario.Classifiers.Classifiers;
+import andre.pt.projectoeseminario.Preferences;
+import andre.pt.projectoeseminario.Projecto;
 import andre.pt.projectoeseminario.State.ClipboardControllerFactory;
 import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderContent;
 import andre.pt.projectoeseminario.API.APIRequest;
@@ -83,10 +85,16 @@ public class ClipboardEventHandler extends IntentService {
     }
 
     private void handleRemove(Intent intent, ClipboardController clipboardController){
-
+        ((Projecto)getApplication()).logOut();
     }
 
     private void handleStore(Intent intent, ClipboardController clipboardController){
+        final Preferences preferences = new Preferences(getApplicationContext());
+
+        //The only way to disable the firebase service
+        if(!preferences.getBooleanPreference(Preferences.SERVICERUNNING))
+            return;
+
         final String content = intent.getStringExtra("content");
         final boolean isMIME = intent.getBooleanExtra("isMIME", false);
         final boolean upload = intent.getBooleanExtra("upload", false);

@@ -6,7 +6,7 @@ public interface SettingsActions {
 
     boolean getServiceState();
     boolean getNotificationState();
-    boolean getMobileDataState();
+
 
     void stopService();
     void startService();

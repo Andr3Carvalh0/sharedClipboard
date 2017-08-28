@@ -153,9 +153,7 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
                 .setOngoing(true)
                 .setContentIntent(PendingIntent.getActivity(getApplicationContext(), NOTIFICATION_SUPER_SECRET_ID, it, PendingIntent.FLAG_UPDATE_CURRENT));
 
-        notification.setColor(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
-                                ? getColor(R.color.primary)
-                                : getResources().getColor(R.color.primary));
+        notification.setColor(getColor(R.color.primary));
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -230,10 +228,6 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
         return getBooleanPreference(Preferences.NOTIFICATION_STATE);
     }
 
-    @Override
-    public boolean getMobileDataState() {
-        return getBooleanPreference(Preferences.USEMOBILEDATA);
-    }
 
     @Override
     public List<String> getCategoryElements(String category) {

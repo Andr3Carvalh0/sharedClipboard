@@ -2,17 +2,12 @@ package andre.pt.projectoeseminario.Services;
 
 import android.content.Intent;
 import android.util.Log;
-
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import andre.pt.projectoeseminario.Services.ClipboardEventHandler;
 
 public class FirebaseMessageHandler extends FirebaseMessagingService {
 
     private final String TAG = "Portugal:FirebaseMessag";
-
-
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

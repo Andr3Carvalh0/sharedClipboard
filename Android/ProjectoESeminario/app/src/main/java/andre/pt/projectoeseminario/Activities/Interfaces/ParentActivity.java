@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderContent;
 import andre.pt.projectoeseminario.Preferences;
+import andre.pt.projectoeseminario.Projecto;
 import andre.pt.projectoeseminario.R;
 
 public abstract class ParentActivity extends AppCompatActivity {
@@ -127,17 +128,16 @@ public abstract class ParentActivity extends AppCompatActivity {
         return mPreferences.getStringPreference(key);
     }
 
-    protected void logOut(){
-        saveBooleanPreference(Preferences.AUTHENTICATED, false);
-        cleanContentProvider();
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((Projecto)getApplication()).setVisible();
     }
 
-    private void cleanContentProvider() {
-
-
-        //getContentResolver().delete()
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((Projecto)getApplication()).setInvisible();
     }
 
 }

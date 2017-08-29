@@ -10,9 +10,9 @@ import andre.pt.projectoeseminario.Fragments.Interfaces.ParentFragment;
 import andre.pt.projectoeseminario.Fragments.PreferencesFragment;
 import andre.pt.projectoeseminario.Activities.Interfaces.SettingsActions;
 
-/*
-* TabViewPager: Handles all the login when we swipe left/right on the settings activity
-* */
+/**
+ * TabViewPager: Its the parent view of the History/Settings tab of the SettingsActivity
+*/
 public class TabViewPager extends FragmentStatePagerAdapter implements IViewPager{
     private int mTabCount;
     private static final ParentFragment fragments[] = {new HistoryFragment(), new PreferencesFragment()};

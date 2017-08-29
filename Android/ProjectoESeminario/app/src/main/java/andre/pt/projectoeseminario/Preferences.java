@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-/*
-*   Handles everything related to user preferences, and the SharedPreferences Objects
+/**
+ * Handles everything related to user preferences, and the SharedPreferences Objects
 */
 public class Preferences {
     public static String USER_TOKEN = "user_token";
@@ -14,7 +14,6 @@ public class Preferences {
     public static String FIREBASEID = "firebaseID";
     public static String NOTIFICATION_STATE = "show_notification";
     public static String SETUPSHOWN = "afterBinding";
-
     private SharedPreferences.Editor editor;
     private SharedPreferences shared;
 

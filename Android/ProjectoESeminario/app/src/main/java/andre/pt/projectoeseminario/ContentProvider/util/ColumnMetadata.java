@@ -1,4 +1,4 @@
-package andre.pt.projectoeseminario.ContentProvider.util;
+package andre.pt.projectoeseminario.ContentProvider.Util;
 public interface ColumnMetadata {
 
     public int getIndex();

@@ -7,13 +7,11 @@ import andre.pt.projectoeseminario.Activities.Interfaces.ParentActivity;
 import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
 
-/*
-* Splash Activity. Used to decide which activity to launch
+/**
+ * Splash Activity. Used to decide which activity to launch
 */
 public class SplashActivity extends ParentActivity {
-
     private static final String TAG = "Portugal:Splash";
-
     boolean DEBUG = false;
 
     @Override
@@ -38,12 +36,6 @@ public class SplashActivity extends ParentActivity {
             finish();
         }, 1000);
     }
-
-    private boolean accountIsValid() {
-
-        return false;
-    }
-
 
     @Override
     protected void afterBinding() {

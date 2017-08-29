@@ -14,19 +14,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 
-import java.util.List;
-
-import andre.pt.projectoeseminario.Activities.Interfaces.History;
+import andre.pt.projectoeseminario.Activities.Interfaces.ParentActivity;
 import andre.pt.projectoeseminario.Adapters.Fragments.TabViewPager;
 import andre.pt.projectoeseminario.API.APIRequest;
 import andre.pt.projectoeseminario.Activities.Interfaces.SettingsActions;
@@ -34,11 +29,9 @@ import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
 import andre.pt.projectoeseminario.Services.CopyMenuListener;
 
-public class SettingsActivity extends History implements TabLayout.OnTabSelectedListener, SettingsActions{
-
+public class SettingsActivity extends ParentActivity implements TabLayout.OnTabSelectedListener, SettingsActions {
     private static final String TAG = "Portugal:Preferences";
     private static final int NOTIFICATION_SUPER_SECRET_ID = 1;
-
     private boolean service_state;
     private String user;
     private Toolbar toolbar;
@@ -51,44 +44,9 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected void binding() {
-        setContentView(R.layout.activity_preferences);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.app));
-        setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.main_menu);
-
-        //Setup preferences
-        user = getStringPreference(Preferences.USER_TOKEN);
-        service_state = getBooleanPreference(Preferences.SERVICERUNNING);
-        boolean hasShownSetup = getBooleanPreference(Preferences.SETUPSHOWN);
-
-        String firebaseID = FirebaseInstanceId.getInstance().getToken();
-        String tmp = getStringPreference(Preferences.FIREBASEID);
-
-        //On this case its our first launch
-        if(!hasShownSetup) {
-            showTips();
-            //saveBooleanPreference(Preferences.SETUPSHOWN, true);
-
-            service_state = true;
-            saveBooleanPreference(Preferences.SERVICERUNNING, true);
-        }
-
-        //Upload of the firebaseID, when it changed, or when we know that it isnt registered
-        if(tmp == null || !tmp.equals(firebaseID))
-            handleNewFirebaseID(user, firebaseID);
-
-        //Launch notification so we can invoke the clipboard chooser
-        if(service_state && getBooleanPreference(Preferences.NOTIFICATION_STATE))
-            launchNotification();
-
-        initViewPager();
-    }
-
-    //Show tips for first time users
+    /**
+     * Show tips for first time users
+     */
     private void showTips() {
         Point size = new Point();
         this.getWindowManager().getDefaultDisplay().getSize(size);
@@ -101,9 +59,11 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
                 .textColor(R.color.white));
     }
 
-    /*
-    *   Uploads the device firebase ID if we detect that it may not be present in the server
-    */
+    /**
+     * Uploads the device firebase ID if we detect that it may not be present in the server
+     * @param firebaseID the firebase id
+     * @param token the user id
+     */
     private void handleNewFirebaseID(String token, String firebaseID) {
         try {
             new APIRequest(null, this).registerDevice(token, firebaseID);
@@ -113,10 +73,9 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
         }
     }
 
-
-    /*
-    * Everything related with the initialization of the tablayout
-    * */
+    /**
+     * Everything related with the initialization of the tablayout
+     */
     private void initViewPager() {
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
@@ -135,12 +94,16 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
 
     }
 
-    //Cancels the notification
+    /**
+     * Cancels the history quick access notification
+     */
     public void cancelNotification() {
         ((NotificationManager)getSystemService(NOTIFICATION_SERVICE)).cancel(NOTIFICATION_SUPER_SECRET_ID);
     }
 
-    //Creates a non-dismissable notification so that we can launch the clipboard chooser
+    /**
+     * Creates a non-dismissable notification so that we can launch the clipboard chooser
+     */
     public void launchNotification() {
         Intent it = new Intent(getApplicationContext(), ClipboardContentChooser.class);
         it.setFlags(it.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -160,20 +123,9 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
         mNotificationManager.notify(NOTIFICATION_SUPER_SECRET_ID, notification.build());
     }
 
-    @Override
-    protected void afterBinding() {
-        if(service_state)
-            startService();
-        else
-            stopService();
-
-        Log.d(TAG, "is Service Running: " + isServiceRunning());
-    }
-
-
-    /*
-    *   Checks if the clipboard listener service is running
-    */
+    /**
+     * Checks if the clipboard listener service is running
+     */
     private boolean isServiceRunning() {
         ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
@@ -184,54 +136,53 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
         return false;
     }
 
-    /*
-    *   Starts the clipboard listener service
-    */
+    /**
+     * Starts the clipboard listener service
+     */
     public void startService(){
         if(!isServiceRunning()){
             startService(new Intent(this, CopyMenuListener.class));
         }
     }
 
-    /*
-    *   Stops the clipboard listener service
-    */
+    /**
+     * Stops the clipboard listener service
+     */
     public void stopService(){
         stopService(new Intent(this, CopyMenuListener.class));
     }
 
-
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-
-    }
-
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
-
-    }
-
+    /**
+     * @return the service state
+     */
     public boolean getServiceState() {
         return service_state;
     }
 
+    /**
+     * Saves a preference to the sharedPreferences
+     * @param key the preference's key
+     * @param isChecked the preference's state
+     */
     public void savePreference(String key, boolean isChecked) {
         saveBooleanPreference(key, isChecked);
     }
 
+    /**
+     * @return the quick access notification state
+     */
     public boolean getNotificationState() {
         return getBooleanPreference(Preferences.NOTIFICATION_STATE);
     }
 
-
     @Override
-    public List<String> getCategoryElements(String category) {
-        return null;
+    protected void afterBinding() {
+        if(service_state)
+            startService();
+        else
+            stopService();
+
+        Log.d(TAG, "is Service Running: " + isServiceRunning());
     }
 
     @Override
@@ -269,4 +220,55 @@ public class SettingsActivity extends History implements TabLayout.OnTabSelected
         return false;
     }
 
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        mViewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    protected void binding() {
+        setContentView(R.layout.activity_preferences);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.app));
+        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.main_menu);
+
+        //Setup preferences
+        user = getStringPreference(Preferences.USER_TOKEN);
+        service_state = getBooleanPreference(Preferences.SERVICERUNNING);
+        boolean hasShownSetup = getBooleanPreference(Preferences.SETUPSHOWN);
+
+        String firebaseID = FirebaseInstanceId.getInstance().getToken();
+        String tmp = getStringPreference(Preferences.FIREBASEID);
+
+        //On this case its our first launch
+        if(!hasShownSetup) {
+            showTips();
+            saveBooleanPreference(Preferences.SETUPSHOWN, true);
+
+            service_state = true;
+            saveBooleanPreference(Preferences.SERVICERUNNING, true);
+        }
+
+        //Upload of the firebaseID, when it changed, or when we know that it isnt registered
+        if(tmp == null || !tmp.equals(firebaseID))
+            handleNewFirebaseID(user, firebaseID);
+
+        //Launch notification so we can invoke the clipboard chooser
+        if(service_state && getBooleanPreference(Preferences.NOTIFICATION_STATE))
+            launchNotification();
+
+        initViewPager();
+    }
 }

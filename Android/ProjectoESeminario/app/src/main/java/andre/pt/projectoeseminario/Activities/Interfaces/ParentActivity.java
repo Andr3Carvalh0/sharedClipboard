@@ -16,17 +16,6 @@ import andre.pt.projectoeseminario.R;
 
 public abstract class ParentActivity extends AppCompatActivity {
     private Preferences mPreferences;
-    private static final HashMap<String,Uri> router;
-
-    static {
-        router = new HashMap<>();
-        router.put(ResourcesContentProviderContent.Text.TABLE_NAME, ResourcesContentProviderContent.Text.CONTENT_URI);
-        router.put(ResourcesContentProviderContent.Links.TABLE_NAME, ResourcesContentProviderContent.Links.CONTENT_URI);
-        router.put(ResourcesContentProviderContent.Contacts.TABLE_NAME, ResourcesContentProviderContent.Contacts.CONTENT_URI);
-        router.put(ResourcesContentProviderContent.Recent.TABLE_NAME, ResourcesContentProviderContent.Recent.CONTENT_URI);
-
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

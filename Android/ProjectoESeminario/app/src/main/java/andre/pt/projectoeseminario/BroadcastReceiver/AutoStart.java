@@ -7,10 +7,11 @@ import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.Services.CopyMenuListener;
 
 
-/*
-*	Broadcast that start the listening service when the device boots up
+/**
+ * Broadcast that start the listening service when the device boots up
 */
 public class AutoStart extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
         if(new Preferences(context).getBooleanPreference(Preferences.SERVICERUNNING)) {

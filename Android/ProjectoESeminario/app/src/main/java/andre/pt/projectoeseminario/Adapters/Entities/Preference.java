@@ -1,8 +1,9 @@
 package andre.pt.projectoeseminario.Adapters.Entities;
 
 
-/*
-*   Represents the preference
+/**
+ * Represents one setting. We assume that all of the settings will be composed of a title, a description
+ * and a switch to indicate/switch the state.
 */
 public class Preference {
     //@param title: the prefence title

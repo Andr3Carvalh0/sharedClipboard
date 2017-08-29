@@ -5,8 +5,10 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+/**
+ * Service that handles all the messages that come from the firebase server
+ */
 public class FirebaseMessageHandler extends FirebaseMessagingService {
-
     private final String TAG = "Portugal:FirebaseMessag";
 
     @Override

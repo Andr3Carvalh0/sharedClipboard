@@ -3,6 +3,9 @@ package andre.pt.projectoeseminario.API.Remote;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+/**
+ * Factory class to return an Retrofit object
+ */
 public class RetrofitClient {
 
     private static Retrofit retrofit = null;

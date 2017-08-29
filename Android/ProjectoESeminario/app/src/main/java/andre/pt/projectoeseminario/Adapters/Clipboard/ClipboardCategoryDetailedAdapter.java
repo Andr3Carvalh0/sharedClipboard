@@ -1,6 +1,5 @@
 package andre.pt.projectoeseminario.Adapters.Clipboard;
 
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,6 +11,9 @@ import java.util.function.Consumer;
 import andre.pt.projectoeseminario.Adapters.ParentAdapter;
 import andre.pt.projectoeseminario.R;
 
+/*
+*   Shows the elements of the text/contacts/links
+*/
 public class ClipboardCategoryDetailedAdapter extends ParentAdapter {
 
     private final Context ctx;

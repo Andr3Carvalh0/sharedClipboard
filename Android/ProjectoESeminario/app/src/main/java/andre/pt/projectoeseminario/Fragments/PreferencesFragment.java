@@ -17,10 +17,11 @@ import andre.pt.projectoeseminario.Fragments.Interfaces.ParentFragment;
 import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.R;
 
-
+/**
+ * Fragment that is shown in the SettingsActivity.
+ */
 public class PreferencesFragment extends ParentFragment {
     private static final String TAG = "Portugal:PreferencesFR";
-
     private View mView;
     private RecyclerView mRecyclerView;
     private SettingsActions activity;
@@ -33,6 +34,9 @@ public class PreferencesFragment extends ParentFragment {
         return mView;
     }
 
+    /**
+     * Adds all components to the view, and setups the events listeners.
+     */
     private void buildPreferences() {
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

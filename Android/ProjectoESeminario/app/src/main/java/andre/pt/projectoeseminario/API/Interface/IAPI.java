@@ -25,6 +25,6 @@ public interface IAPI {
     Call<String> createAccount(@Header("Authorization") String token);
 
     @PUT(deviceRegister)
-    Call<ResponseBody> registerDevice(@Header("Authorization") String token, @Query("deviceIdentifier") String firebaseID, @Query("deviceType") boolean deviceType, @Query("deviceName") String deviceName);
+    Call<ResponseBody> registerDevice(@Header("Authorization") String token, @Query("deviceIdentifier") String firebaseID, @Query("useSockets") boolean deviceType, @Query("deviceName") String deviceName);
 
 }

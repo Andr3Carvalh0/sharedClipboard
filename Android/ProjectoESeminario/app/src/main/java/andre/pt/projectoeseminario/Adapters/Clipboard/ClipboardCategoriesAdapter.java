@@ -17,6 +17,10 @@ import java.util.function.Consumer;
 import andre.pt.projectoeseminario.Adapters.ParentAdapter;
 import andre.pt.projectoeseminario.R;
 
+/**
+ * Adapter to add the elements & click events to the history fragment
+ * This is composed of the text, contacts, links view.
+*/
 public class ClipboardCategoriesAdapter extends ParentAdapter {
     private static final List<CategoryResources> categories = new LinkedList<>();
     private final Consumer<String> consumer;
@@ -27,7 +31,6 @@ public class ClipboardCategoriesAdapter extends ParentAdapter {
         categories.add(new CategoryResources(R.string.Clipboard_Category_Contacts, R.drawable.contacts));
         categories.add(new CategoryResources(R.string.Clipboard_Category_Links, R.drawable.links));
     }
-
 
     private static class CategoryResources{
         private int stringResource;

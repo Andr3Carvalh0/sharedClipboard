@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 
 import java.util.function.Function;
 
+/**
+ * The parent of all the adapters
+ */
 public abstract class ParentAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected final T[] items;
     protected final int layout;
@@ -26,7 +29,7 @@ public abstract class ParentAdapter<T> extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        //Nothing to do here.Do it in the child classes
+        //Nothing to do here. The children should handle it.
     }
 
     @Override

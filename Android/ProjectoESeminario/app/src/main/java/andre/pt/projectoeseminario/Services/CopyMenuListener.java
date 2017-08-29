@@ -15,8 +15,8 @@ import andre.pt.projectoeseminario.Adapters.Entities.Preference;
 import andre.pt.projectoeseminario.Preferences;
 
 
-/*
-* Service responsable for creating the clipboard listener, and handle the change of the same
+/**
+ * Service responsible for creating the clipboard listener, and handle the change of the same
 */
 public class CopyMenuListener extends Service {
     private String userToken;

@@ -21,28 +21,15 @@ import andre.pt.projectoeseminario.API.APIRequest;
 import andre.pt.projectoeseminario.State.ClipboardController;
 
 
-/*
-* Handles what to do when, the firebase service receives an notification
+/**
+ * Handles what to do when, the firebase service receives an notification or we copied some value.
 */
 public class ClipboardEventHandler extends IntentService {
-
     private static final String TAG = "Portugal:ClipHandler";
-    private static final HashMap<String,Uri> router;
     private final HashMap<String, BiConsumer<Intent, ClipboardController>> action_router;
     public ClipboardEventHandler() {
         this("ClipboardEventHandler");
     }
-
-
-    static {
-        router = new HashMap<>();
-        router.put(ResourcesContentProviderContent.Text.TABLE_NAME, ResourcesContentProviderContent.Text.CONTENT_URI);
-        router.put(ResourcesContentProviderContent.Links.TABLE_NAME, ResourcesContentProviderContent.Links.CONTENT_URI);
-        router.put(ResourcesContentProviderContent.Contacts.TABLE_NAME, ResourcesContentProviderContent.Contacts.CONTENT_URI);
-        router.put(ResourcesContentProviderContent.Recent.TABLE_NAME, ResourcesContentProviderContent.Recent.CONTENT_URI);
-
-    }
-
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -57,8 +44,11 @@ public class ClipboardEventHandler extends IntentService {
 
     }
 
-    /*
-    *   Stores the text into the device clipboard
+    /**
+     * Stores the text into the device's clipboard
+     *
+     * @param context The application context
+     * @param content The text value to store into the device's clipboard
     */
     private void handleTextContent(Context context, String content) {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -67,6 +57,11 @@ public class ClipboardEventHandler extends IntentService {
 
     }
 
+    /**
+     * Main method. Used to route to the correct action
+     *
+     * @param intent The intent used to call this service
+     */
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -80,14 +75,27 @@ public class ClipboardEventHandler extends IntentService {
         try {
             consumer.accept(intent, clipboardController);
         }catch (Exception e){
-
+            //Nothing to do. Invalid request
         }
     }
 
+    /**
+     * Handles a logout request.
+     *
+     * @param intent
+     * @param clipboardController
+     */
     private void handleRemove(Intent intent, ClipboardController clipboardController){
         ((Projecto)getApplication()).logOut();
     }
 
+    /**
+     * Stores the new value into the clipboard or into the server depending of
+     * the upload state that is contained in the intent.
+     *
+     * @param intent The intent used to call the service
+     * @param clipboardController Class to help "switch the value" on our application
+     */
     private void handleStore(Intent intent, ClipboardController clipboardController){
         final Preferences preferences = new Preferences(getApplicationContext());
 
@@ -101,48 +109,26 @@ public class ClipboardEventHandler extends IntentService {
         final String token = intent.getStringExtra("token");
         APIRequest mApi = new APIRequest(null, getApplicationContext());
 
-
         try {
-            if (clipboardController.putValue(content, this::addToFilteredTable, this::addToRecentsTable)) {
+            if (clipboardController.putValue(content)) {
                 Log.v(TAG, "onHandleIntent");
 
                 if (upload) {
+                    ((Projecto)getApplication()).storeContent(content);
                     mApi.pushTextInformation(token, content);
                     return;
                 }
 
-                if (!isMIME)
+                if (!isMIME) {
+                    ((Projecto)getApplication()).storeContent(content);
                     handleTextContent(getApplicationContext(), content);
+                    return;
+                }
             }
+        } catch (InterruptedException e) {
+
         } finally {
             clipboardController.wake();
         }
-    }
-
-    private String addToFilteredTable(String clipboard_value) {
-        String table = ResourcesContentProviderContent.Text.TABLE_NAME;
-
-        if(Classifiers.isContact(clipboard_value))
-            table = ResourcesContentProviderContent.Contacts.TABLE_NAME;
-
-        if(Classifiers.isLink(clipboard_value))
-            table = ResourcesContentProviderContent.Links.TABLE_NAME;
-
-        ContentValues values = new ContentValues();
-        values.put("content", clipboard_value);
-
-        getContentResolver().insert(router.get(table), values);
-
-        return table;
-    }
-
-    private boolean addToRecentsTable(String newValue) {
-        ContentValues values = new ContentValues();
-        values.put("content", newValue);
-
-        getContentResolver().delete(ResourcesContentProviderContent.Recent.CONTENT_URI, null, null);
-        getContentResolver().insert(ResourcesContentProviderContent.Recent.CONTENT_URI, values);
-
-        return true;
     }
 }

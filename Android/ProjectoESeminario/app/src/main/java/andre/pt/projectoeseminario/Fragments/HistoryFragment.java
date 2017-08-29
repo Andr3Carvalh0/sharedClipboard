@@ -4,7 +4,6 @@ package andre.pt.projectoeseminario.Fragments;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,55 +16,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+
 import andre.pt.projectoeseminario.Adapters.Clipboard.ClipboardCategoriesAdapter;
-import andre.pt.projectoeseminario.Activities.Interfaces.HistoryActions;
 import andre.pt.projectoeseminario.Adapters.Clipboard.ClipboardCategoryDetailedAdapter;
 import andre.pt.projectoeseminario.Classifiers.Classifiers;
-import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderContent;
 import andre.pt.projectoeseminario.Fragments.Interfaces.IHistory;
 import andre.pt.projectoeseminario.Fragments.Interfaces.ParentFragment;
+import andre.pt.projectoeseminario.Projecto;
 import andre.pt.projectoeseminario.R;
 import andre.pt.projectoeseminario.Services.ClipboardEventHandler;
 
-import static andre.pt.projectoeseminario.R.id.content_text;
 import static andre.pt.projectoeseminario.R.id.recyclerView;
 
+/**
+ * Fragment that is shown in the SettingsActivity/ClipboardContentChoosed
+ */
 public class HistoryFragment extends ParentFragment implements IHistory {
     private static final int PERMISSION_ID = 1;
     private View mView;
     private boolean isInCategoriesView;
-
     private FloatingActionButton fab;
-    private HistoryActions activity;
     private RecyclerView mRecyclerView;
     private RelativeLayout no_content;
-
-    private static final HashMap<String, Uri> router;
-
-    static {
-        router = new HashMap<>();
-        router.put("Text", ResourcesContentProviderContent.Text.CONTENT_URI);
-        router.put("Links", ResourcesContentProviderContent.Links.CONTENT_URI);
-        router.put("Contacts", ResourcesContentProviderContent.Contacts.CONTENT_URI);
-        router.put("Recent", ResourcesContentProviderContent.Recent.CONTENT_URI);
-
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_history, container, false);
-        activity = ((HistoryActions) getActivity());
 
         no_content = (RelativeLayout) mView.findViewById(R.id.no_Content);
         no_content.setVisibility(View.GONE);
 
         fab = (FloatingActionButton) mView.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(v -> {
-            final String[] recents = getTableContents(router.get("Recent"));
+            final String[] recents = ((Projecto)getActivity().getApplication()).getContent("Recent");
 
             if(recents.length > 0) {
                 handleOnClickEvent(recents[0]);
@@ -85,7 +68,9 @@ public class HistoryFragment extends ParentFragment implements IHistory {
         return mView;
     }
 
-
+    /**
+     * Shows all the categories possible(text/contacts/links)
+     */
     @Override
     public void switchToCategoriesView() {
         this.isInCategoriesView = true;
@@ -95,23 +80,14 @@ public class HistoryFragment extends ParentFragment implements IHistory {
 
     }
 
-    private void switchToNoContentView() {
-        no_content.setVisibility(View.VISIBLE);
-        mRecyclerView.setVisibility(View.GONE);
-    }
-
-    private void switchToContentView() {
-        no_content.setVisibility(View.GONE);
-        mRecyclerView.setVisibility(View.VISIBLE);
-    }
-
-
+    /**
+     * Shows all the content of the given category @category
+     * @param category the category to show the content from.
+     */
     private void switchToDetailCategoryView(String category) {
         this.isInCategoriesView = false;
 
-        Uri table = router.get(category);
-
-        String[] content = getTableContents(table);
+        String[] content = ((Projecto)getActivity().getApplication()).getContent(category);
 
         if (content.length == 0) {
             switchToNoContentView();
@@ -123,6 +99,26 @@ public class HistoryFragment extends ParentFragment implements IHistory {
         mRecyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Shows the empty view when we dont have content to show
+     */
+    private void switchToNoContentView() {
+        no_content.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.GONE);
+    }
+
+    /**
+     * Hides the empty view
+     */
+    private void switchToContentView() {
+        no_content.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Click Event when the user clicks on a phone number
+     * @param text
+     */
     private void handleOnClickEvent(String text) {
         if(Classifiers.isPhoneNumber(text)){
             new AlertDialog.Builder(getContext())
@@ -138,35 +134,15 @@ public class HistoryFragment extends ParentFragment implements IHistory {
         handleCopyingTextToClipboard(text);
     }
 
-    private String[] getTableContents(Uri table) {
-        List<String> tmp = new LinkedList<>();
-
-        Cursor cursor = getActivity().getContentResolver().query(table, null, null, null, null);
-
-        try {
-            cursor.moveToFirst();
-
-            while (!cursor.isAfterLast()) {
-                tmp.add(cursor.getString(1));
-
-                cursor.moveToNext();
-            }
-        }catch (NullPointerException e){
-
-        }finally {
-            if(cursor != null)
-                cursor.close();
-        }
-
-        return tmp.stream().toArray(String[]::new);
-    }
-
     @Override
     public boolean isInCategoriesView() {
         return isInCategoriesView;
     }
 
-
+    /**
+     * Helper method to handle a new value to copy to the device's clipboard
+     * @param text the value to copy
+     */
     private void handleCopyingTextToClipboard(String text){
         Intent intent = new Intent(getContext(), ClipboardEventHandler.class);
         intent.putExtra("content", text);
@@ -177,6 +153,10 @@ public class HistoryFragment extends ParentFragment implements IHistory {
         Snackbar.make(getView(), getString(R.string.COPIED_BEGINNIG) + " " + text + " " + getString(R.string.COPIED_END), Snackbar.LENGTH_SHORT).show();
     }
 
+    /**
+     * Helper method to handle a phone call
+     * @param text the phone number
+     */
     private void handleACall(String text){
         Intent intent = new Intent(Intent.ACTION_CALL);
 

@@ -15,6 +15,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Handles every request to the API
+ */
 public class APIRequest {
 
     private IAPI mAPI;
@@ -34,6 +37,11 @@ public class APIRequest {
 
     }
 
+    /**
+     * Register device on the server
+     * @param token the user id
+     * @param firebase the firebase id
+     */
     public void registerDevice(String token, String firebase){
         mAPI.registerDevice(token, firebase, true, Build.MODEL).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -44,6 +52,11 @@ public class APIRequest {
         });
     }
 
+    /**
+     * Push text to server.
+     * @param token the user id
+     * @param information the value to push
+     */
     public void pushTextInformation(String token, String information){
         mAPI.push(token, information).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -59,6 +72,10 @@ public class APIRequest {
 
     }
 
+    /**
+     * Handles the login.
+     * @param token the id token return by the google server
+     */
     public void handleAuthentication(String token){
         iResponse.showProgressDialog();
 
@@ -83,6 +100,10 @@ public class APIRequest {
 
     }
 
+    /**
+     * Handles the account creation
+     * @param token the token that came from the google server (ID Token)
+     */
     public void handleAccountCreation(final String token){
         iResponse.showProgressDialog();
 
@@ -107,7 +128,9 @@ public class APIRequest {
     }
 
     /**
-     * Handles what to do, on the HTTP response.
+     * Handles what to do, on the HTTP response.Used on the create/login method
+     * @param code the code that the request returned
+     * @param user the user id
      */
     private void handleHTTPResponse(int code, String user){
         if(respondeHandler.containsKey(code)) {
@@ -118,7 +141,12 @@ public class APIRequest {
         iResponse.handleError(getResourceString(R.string.Error500_Title), getResourceString(R.string.Error500_Message));
 
     }
-    
+
+    /**
+     * Gets the string value of id
+     * @param id the id of the resource
+     * @return the id's value
+     */
     private String getResourceString(int id){
         return ctx.getResources().getString(id);
     }

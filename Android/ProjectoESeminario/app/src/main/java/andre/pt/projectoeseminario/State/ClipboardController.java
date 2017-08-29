@@ -11,6 +11,10 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * Helper so we can now when we copied new content.
+ * This class is thread-safe
+ */
 public class ClipboardController {
     private Lock nLock;
     private String clipboard_value;
@@ -20,11 +24,13 @@ public class ClipboardController {
     //Helper class
     private class Pair {
         private String value;
+        private boolean finished;
         private Condition condition;
 
         public Pair(String value, Condition condition) {
             this.value = value;
             this.condition = condition;
+            this.finished = false;
         }
 
         public String getValue() {
@@ -33,6 +39,14 @@ public class ClipboardController {
 
         public Condition getCondition() {
             return condition;
+        }
+
+        public boolean isFinished() {
+            return finished;
+        }
+
+        public void finish() {
+            this.finished = true;
         }
     }
 
@@ -44,12 +58,19 @@ public class ClipboardController {
 
     }
 
+    /**
+     * Notifies the end of the putValue request.
+     */
     public void wake(){
         nLock.lock();
 
         try {
-            if(queue.size() > 0)
+            if(queue.size() > 0){
+                queue.get(0).finish();
                 queue.get(0).getCondition().signal();
+
+            }
+
 
         }finally {
             nLock.unlock();
@@ -57,7 +78,13 @@ public class ClipboardController {
 
     }
 
-    public boolean putValue(String value, Function<String, String> addToFilteredTable, Function<String, Boolean> addToRecentTable){
+    /**
+     * Changes to the new value, if it is different that the old value
+     * @param value the copied text
+     * @return boolean indicating weather we changed value or not.
+     * @throws InterruptedException
+     */
+    public boolean putValue(String value) throws InterruptedException {
         nLock.lock();
 
         try {
@@ -67,8 +94,6 @@ public class ClipboardController {
             //Queue is empty we can alter the value without waiting
             if(queue.size() == 0 && !value.equals(clipboard_value)){
                 clipboard_value = value;
-                addToFilteredTable.apply(clipboard_value);
-                addToRecentTable.apply(clipboard_value);
                 return true;
             }
 
@@ -79,19 +104,22 @@ public class ClipboardController {
                 try {
                     pair.condition.await();
 
-                }catch (InterruptedException e){}
+                }catch (InterruptedException e){
+                    if(pair.isFinished()){
+                        clipboard_value = value;
+                        queue.remove(pair);
+                        return true;
 
-                if(!pair.value.equals(clipboard_value)){
+                    }
                     queue.remove(pair);
-                    clipboard_value = pair.getValue();
-                    addToFilteredTable.apply(clipboard_value);
-                    addToRecentTable.apply(clipboard_value);
-                    return true;
+                    throw e;
                 }
 
-                if(pair.value.equals(clipboard_value)){
+                if(pair.isFinished()){
+                    clipboard_value = value;
                     queue.remove(pair);
-                    return false;
+                    return true;
+
                 }
 
             }while (true);

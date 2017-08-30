@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Windows.Media.Animation;
 using System.Drawing;
 using ProjectoESeminario.UI.History.Category_Detailed;
+using ProjectoESeminario.Content;
 
 namespace ProjectoESeminario.UI
 {
@@ -22,11 +23,10 @@ namespace ProjectoESeminario.UI
     {
         private IClipboardListener listener;
         private LinkedList<History_Item> HISTORY_ITEMS;
-        private Databases.DatabaseHandler textHandler;
-        private Databases.FileHandler fileHandler;
         private String socketURL;
         private readonly String sub;
         private readonly String deviceID;
+        private readonly ICache cache;
 
         //Drawing stuff
         private UIElement gridContent;
@@ -40,6 +40,7 @@ namespace ProjectoESeminario.UI
         {
             InitializeComponent();
 
+            this.cache = CacheFactory.getCache();
             this.sub = sub;
             this.deviceID = deviceID;
 
@@ -51,11 +52,9 @@ namespace ProjectoESeminario.UI
         {
             try
             {
+
                 this.socketURL = await new SettingsController().GetSocketURL();
                 listener = new ClipboardListener(socketURL, sub, deviceID, this);
-
-                this.fileHandler = new Databases.FileHandler();
-                this.textHandler = new Databases.DatabaseHandler();
 
                 HISTORY_ITEMS = new LinkedList<History_Item>();
                 //prep history categories
@@ -78,8 +77,7 @@ namespace ProjectoESeminario.UI
             }
             catch (Exception)
             {
-                System.Windows.Forms.MessageBox.Show("Cannot communicate with the server.\nWithout it, this app cannot work.");
-                exit(null, null);
+                stopApplication();
             }
         }
 
@@ -117,10 +115,10 @@ namespace ProjectoESeminario.UI
         private void initView()
         {
             //fresh draw
-            if(gridContent == null) { 
+            if (gridContent == null) { 
                 System.Windows.Controls.TabControl tControl = new System.Windows.Controls.TabControl();
                 tControl.Height = 503;
-                tControl.Width = 362;
+                tControl.Width = 367;
 
                 //HistoryPanel
                 TabItem tItem = new TabItem();
@@ -172,26 +170,34 @@ namespace ProjectoESeminario.UI
 
         string[] IHistory.fetchContent(string category)
         {
-            return textHandler.fetch(category);
+            return cache.pull(category);
         }
 
-        void IHistory.setContent(string text) { }
+        void IHistory.setContent(string text) {
+            listener.updateClipboard(text);
+        }
 
         void IHistory.setContent(System.Drawing.Image image)
         {
-            throw new NotImplementedException();
+            listener.updateClipboard(image);
         }
 
         public void logout()
         {
             listener.disableService();
             resetSettings();
-            fileHandler.destroyAll();
+            cache.flushAll();
         }
 
         private void resetSettings()
         {
             Properties.Settings.Default.Reset();
+        }
+
+        public void stopApplication()
+        {
+            System.Windows.Forms.MessageBox.Show("Cannot communicate with the server.\nWithout it, this app cannot work.");
+            exit(null, null);
         }
     }
 }

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ProjectoESeminario.UI.Settings"
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             Background="#FFFFFF" d:DesignWidth="362" Height="503">
     <Grid >
         <Controls:ToggleSwitch Name = "Service_Enabled" IsChecked= "true" OnLabel= "Enabled:" OffLabel= "Enabled:" Margin= "279,17,10,402" />
         <Label Content= "When selected the service will be on." HorizontalAlignment= "Left" Margin= "4,32,0,0" VerticalAlignment= "Top" FontSize= "10" />

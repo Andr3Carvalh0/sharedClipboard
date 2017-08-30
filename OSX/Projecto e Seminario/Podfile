@@ -1,8 +1,0 @@
-platform :osx, '10.12'
-
-use_frameworks!
-
-target 'Projecto e Seminario' do
-	pod 'ITSwitch', '~> 1.0'
-	pod 'Alamofire', '~> 4.4'
-end

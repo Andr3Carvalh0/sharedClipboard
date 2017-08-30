@@ -9,5 +9,6 @@ namespace ProjectoESeminario.UI
     public interface ISettings
     {
         void logout();
+        void stopApplication();
     }
 }

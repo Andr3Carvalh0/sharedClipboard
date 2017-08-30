@@ -1,5 +1,6 @@
 package pt.andre.projecto.Controllers.URIs;
 
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class API implements IAPI {
 
         String sub = service.handleAuthentication(token);
 
-        final DatabaseResponse resp = service.createAccount(sub);
+        final DatabaseResponse resp = service.createAccount(Base64.encode(sub.getBytes()));
 
         logger.info(TAG + "CreateAccount: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
@@ -65,7 +66,7 @@ public class API implements IAPI {
         }
         logger.info(TAG + "Authenticate method");
 
-        final DatabaseResponse resp = service.authenticate(sub);
+        final DatabaseResponse resp = service.authenticate(Base64.encode(sub.getBytes()));
 
         logger.info(TAG + "Authenticate: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());

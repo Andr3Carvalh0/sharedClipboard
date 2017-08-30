@@ -7,10 +7,21 @@ namespace ProjectoESeminario.UI.History.Category_Detailed
     /// </summary>
     public partial class History_Text_Item : UserControl
     {
-        public History_Text_Item(string item)
+
+        private readonly IHistory history;
+        private readonly string text;
+
+        public History_Text_Item(string item, IHistory history)
         {
             InitializeComponent();
-            Title.Content = Title.Content.ToString().Replace("Text", item);
+            Title.Text = Title.Text.ToString().Replace("Text", item);
+            this.history = history;
+            this.text = item;
+        }
+
+        private void clickEvent(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            history.setContent(text);
         }
     }
 }

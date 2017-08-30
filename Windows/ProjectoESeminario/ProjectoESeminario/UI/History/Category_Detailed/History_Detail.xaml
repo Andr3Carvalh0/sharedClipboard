@@ -8,7 +8,7 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              Background="#FFFFFF" d:DesignWidth="362" Height="503">
-    <Grid Margin="0,0,0,0" >
+    <Grid>
         <Label Name="Title" Content="Text" Margin="51,0,0,467" VerticalAlignment="Bottom" Height="36" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Width="301" />
 
         <Button x:Name="BackButton" Style="{DynamicResource MetroCircleButtonStyle}" Margin="10,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36"  Height="36" Click="Back_Click">

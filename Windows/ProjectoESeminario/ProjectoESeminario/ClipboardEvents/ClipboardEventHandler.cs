@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using ProjectoESeminario.ClipboardEvents.Utils;
+using ProjectoESeminario.Content;
 using ProjectoESeminario.Databases;
 using ProjectoESeminario.DTOs;
 using ProjectoESeminario.Services;
@@ -25,7 +27,7 @@ namespace ProjectoESeminario.ClipboardEvents
         private readonly CancellationTokenSource cts;
         private readonly IClipboardListener clipboard;
         private readonly ClipboardController controller;
-        private readonly FileHandler fileHandler;
+        private readonly ICache cache;
 
         public ClipboardEventHandler(String socketURL, String userID, String deviceID, IClipboardListener clipboard)
         {
@@ -37,7 +39,7 @@ namespace ProjectoESeminario.ClipboardEvents
             this.supported_formats.Add("jpg", ImageFormat.Jpeg);
             this.cts = new CancellationTokenSource();
             this.controller = ClipboardControllerFactory.getSingleton("Welcome!");
-            this.fileHandler = new FileHandler();
+            this.cache = CacheFactory.getCache();
 
             onReceiveActions.Add("report", (s) => handleReport(s));
             onReceiveActions.Add("store", (s) => handleReceived(s));
@@ -59,6 +61,7 @@ namespace ProjectoESeminario.ClipboardEvents
                         if (handler.isAlive())
                         {
                             handler.HandleUpload(sub, text);
+                            cache.store(text);
                             return;
                         }
                         
@@ -68,7 +71,6 @@ namespace ProjectoESeminario.ClipboardEvents
                 {
                     controller.wake();
                 }
-
             }).Start();
         }
 
@@ -98,6 +100,7 @@ namespace ProjectoESeminario.ClipboardEvents
                             if (handler.isAlive())
                             {
                                 handler.HandleUploadMime(sub, image, tmp[tmp.Length - 1]);
+                                cache.store(ImageDecoder.decode(image, tmp[tmp.Length - 1]));
                                 return;
                             }
                         }
@@ -108,8 +111,6 @@ namespace ProjectoESeminario.ClipboardEvents
                     }
                 }
             }).Start();
-
-
         }
 
         /// <summary>
@@ -142,11 +143,12 @@ namespace ProjectoESeminario.ClipboardEvents
             {
                 try
                 {
-                    String encodedFile = (String)json.content;
-                    ImageEx file = fileHandler.store(Convert.FromBase64String(encodedFile), (String) json.filename);
+                    ImageEx file = ImageDecoder.decode((String)json.content, (String) json.filename);
 
-                    if (controller.putValue(file.path, false))
+                    if (controller.putValue(file.path, false)) { 
                         clipboard.updateClipboard(file.file);
+                        cache.store(file);
+                    }
                 }
                 finally
                 {
@@ -166,8 +168,10 @@ namespace ProjectoESeminario.ClipboardEvents
                 try
                 {
                     String text = (String)json.content;
-                    if (controller.putValue(text, true))
+                    if (controller.putValue(text, true)) { 
                         clipboard.updateClipboard(text);
+                        cache.store(text);
+                    }
                 }
                 finally
                 {
@@ -220,16 +224,34 @@ namespace ProjectoESeminario.ClipboardEvents
         /// <param name="cancelToken"></param>
         public void checkWebSocketStatus(CancellationToken cancelToken)
         {
+            int max_tries = 3;
+            int tries = 0;
             while (true)
             {
-                if(handler != null && !handler.isAlive())
-                    handler = new WebSocketConnectionHandler(socketURL, sub, id, (s) => onReceive(s));
-
+                if(handler != null && !handler.isAlive() && max_tries > tries)
+                {
+                    try
+                    {
+                        handler = new WebSocketConnectionHandler(socketURL, sub, id, (s) => onReceive(s));
+                        tries = 0;
+                    }
+                    catch (Exception)
+                    {
+                        tries++;
+                        //Try again in 3s
+                        Thread.Sleep(3000);
+                    }
+                }
+                
                 if (cancelToken.IsCancellationRequested)
                 {
                     handler.Close();
                     return;
                 }
+
+                //Notify the user that we cannot continue to run.
+                if(max_tries <= tries)
+                    clipboard.stopApplication();
             }
 
         }

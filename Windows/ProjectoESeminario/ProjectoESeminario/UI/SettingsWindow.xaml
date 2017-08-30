@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="" ResizeMode="NoResize" Width="383" Height="550.648">
     <Controls:MetroContentControl Name="AnimationTrigger">
-        <Grid Name="Grid_Container" Margin="-2,0,-4,-14" Height="526" VerticalAlignment="Bottom" RenderTransformOrigin="0.495,-0.888">
+        <Grid Name="Grid_Container" Height="526" VerticalAlignment="Bottom" RenderTransformOrigin="0.495,-0.888">
 
 
         </Grid>

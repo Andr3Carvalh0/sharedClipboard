@@ -179,9 +179,13 @@
     <Compile Include="ClipboardEvents\ClipboardListener.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Databases\DatabaseHandler.cs" />
-    <Compile Include="Databases\FileHandler.cs" />
-    <Compile Include="Databases\ParentHandler.cs" />
+    <Compile Include="ClipboardEvents\Utils\ImageDecoder.cs" />
+    <Compile Include="Content\Cache.cs" />
+    <Compile Include="Content\CacheFactory.cs" />
+    <Compile Include="Content\Database\TextHandler.cs" />
+    <Compile Include="Content\Database\FileHandler.cs" />
+    <Compile Include="Content\Database\ParentHandler.cs" />
+    <Compile Include="Content\ICache.cs" />
     <Compile Include="DTOs\ImageEx.cs" />
     <Compile Include="Services\Interfaces\IWebSocketConnectionHandler.cs" />
     <Compile Include="Services\Utils\DTOs.cs" />
@@ -199,6 +203,9 @@
       <DependentUpon>History_Detail.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\History\Category_Detailed\History_Detail_Image.cs" />
+    <Compile Include="UI\History\Category_Detailed\History_Image_Item.xaml.cs">
+      <DependentUpon>History_Image_Item.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\History\Category_Detailed\History_Text_Item.xaml.cs">
       <DependentUpon>History_Text_Item.xaml</DependentUpon>
     </Compile>
@@ -225,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\History\Category_Detailed\History_Detail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\History\Category_Detailed\History_Image_Item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -326,9 +337,7 @@
   <ItemGroup>
     <Resource Include="ic_launcher.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ClipboardEvents\Utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>

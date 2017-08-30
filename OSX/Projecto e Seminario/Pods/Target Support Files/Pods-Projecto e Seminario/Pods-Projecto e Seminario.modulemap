@@ -1,6 +1,0 @@
-framework module Pods_Projecto_e_Seminario {
-  umbrella header "Pods-Projecto e Seminario-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -119,5 +119,9 @@ namespace ProjectoESeminario
 
         }
 
+        public void stopApplication()
+        {
+            settingsWindow.stopApplication();
+        }
     }
 }

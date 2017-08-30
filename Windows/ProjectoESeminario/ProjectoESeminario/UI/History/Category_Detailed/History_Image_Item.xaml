@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="ProjectoESeminario.UI.History.Category_Detailed.History_Image_Item"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjectoESeminario.UI.History.Category_Detailed"
+             mc:Ignorable="d" 
+                Background="#FFFFFF" d:DesignWidth="374" Height="Auto">
+    <Grid Margin="0,0,0,0" Height="Auto">
+        <Image Name="Image" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="Auto" Width="353"  MouseLeftButtonUp="clickEvent" />
+    </Grid>
+</UserControl>

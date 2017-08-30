@@ -13,7 +13,6 @@ namespace ProjectoESeminario.State
         private Object nLock;
         private String clipboard_value;
         private LinkedList<Pair> queue;
-        private DatabaseHandler db;
 
         //Helper class
         private class Pair
@@ -45,7 +44,6 @@ namespace ProjectoESeminario.State
 
         public ClipboardController(String initialValue)
         {
-            db = new DatabaseHandler();
             nLock = new Object();
             queue = new LinkedList<Pair>();
             this.clipboard_value = initialValue;
@@ -73,8 +71,6 @@ namespace ProjectoESeminario.State
                 if (queue.Count == 0 && !value.Equals(clipboard_value))
                 {
                     clipboard_value = value;
-                    if(addToDB)
-                        db.store(value);
                     return true;
                 }
 
@@ -90,8 +86,6 @@ namespace ProjectoESeminario.State
                         if (node.Value.isFinished())
                         {
                             clipboard_value = value;
-                            if (addToDB)
-                                db.store(value);
                             queue.Remove(node);
                             return true;
                         }
@@ -103,8 +97,6 @@ namespace ProjectoESeminario.State
                     if (node.Value.isFinished())
                     {
                         clipboard_value = value;
-                        if (addToDB)
-                            db.store(value);
                         queue.Remove(node);
                         return true;
                     }

@@ -14,5 +14,6 @@ namespace ProjectoESeminario
         void updateClipboard(String text);
         void updateClipboard(Image image);
         void logout();
+        void stopApplication();
     }
 }

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Background="#FFFFFF" d:DesignWidth="374" Height="Auto">
     <Grid Margin="0,0,0,0" Height="Auto">
-        <Label Name="Title" Content="• Text"  HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="26" Width="353" FontSize="14" FontWeight="Bold" />
+        <TextBlock Name="Title" Text="• Text" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="Auto" Width="353" FontSize="14" FontWeight="Bold" MouseLeftButtonUp="clickEvent" />
     </Grid>
 </UserControl>
 

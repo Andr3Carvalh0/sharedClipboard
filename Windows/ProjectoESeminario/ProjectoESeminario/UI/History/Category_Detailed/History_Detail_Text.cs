@@ -15,14 +15,14 @@ namespace ProjectoESeminario.UI.History
         {
             string[] content = history.fetchContent(name.ToLower());
 
-            if (content == null) { 
+            if (content.Count() == 0) { 
                 showEmptyView();
                 return;
             }
 
             foreach (string item in content)
             {
-                Container.Children.Add(new History_Text_Item(item));
+                Container.Children.Add(new History_Text_Item(item, history));
             }
         }
     }

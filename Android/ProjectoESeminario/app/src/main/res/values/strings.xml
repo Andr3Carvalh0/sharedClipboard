@@ -37,7 +37,7 @@
     <string name="NO_RECENT_ITEM">You dont have a recent item.</string>
     <string name="TITLE_PHONE_ITEM">Would you like to call it?</string>
     <string name="ITEM_OPTION_CALL">Call</string>
-    <string name="ITEM_OPTION_COPY">Copy to Clipboard</string>
+    <string name="ITEM_OPTION_COPY">Copy</string>
     <string name="COPIED_BEGINNIG">Copied: </string>
     <string name="COPIED_END"> to clipboard</string>
     <string name="APP_DESC_INTRO">Share your clipboard with your multiple devices.</string>
@@ -56,5 +56,9 @@
     <string name="logout_message">You have removed this device from your account.</string>
     <string name="no_resgister_title">Cannot register device</string>
     <string name="no_register_message">Cannot register device. Try again later!</string>
+    <string name="permission_phone_rationale">Phone permission is needed to make a call.</string>
+    <string name="button_allow">Allow</string>
+    <string name="button_deny">Deny</string>
+    <string name="permission_camera_neverask">Projecto doesn\'t have permission. Change that by going into settings!</string>
 
 </resources>

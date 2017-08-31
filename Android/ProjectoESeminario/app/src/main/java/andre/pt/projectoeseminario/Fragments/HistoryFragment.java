@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -30,12 +32,19 @@ import andre.pt.projectoeseminario.Fragments.Interfaces.ParentFragment;
 import andre.pt.projectoeseminario.Projecto;
 import andre.pt.projectoeseminario.R;
 import andre.pt.projectoeseminario.Services.ClipboardEventHandler;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 
 import static andre.pt.projectoeseminario.R.id.recyclerView;
 
 /**
  * Fragment that is shown in the SettingsActivity/ClipboardContentChoosed
  */
+@RuntimePermissions
 public class HistoryFragment extends ParentFragment implements IHistory {
     private static final int PERMISSION_ID = 1;
     private View mView;
@@ -53,9 +62,9 @@ public class HistoryFragment extends ParentFragment implements IHistory {
 
         fab = (FloatingActionButton) mView.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(v -> {
-            final String[] recents = ((Projecto)getActivity().getApplication()).getContent(ResourcesContentProviderContent.Recent.TABLE_NAME);
+            final String[] recents = ((Projecto) getActivity().getApplication()).getContent(ResourcesContentProviderContent.Recent.TABLE_NAME);
 
-            if(recents.length > 0) {
+            if (recents.length > 0) {
                 handleOnClickEvent(recents[0]);
                 return;
             }
@@ -92,7 +101,7 @@ public class HistoryFragment extends ParentFragment implements IHistory {
     private void switchToDetailCategoryView(String category) {
         this.isInCategoriesView = false;
 
-        String[] content = ((Projecto)getActivity().getApplication()).getContent(category);
+        String[] content = ((Projecto) getActivity().getApplication()).getContent(category);
 
         if (content.length == 0) {
             switchToNoContentView();
@@ -101,8 +110,8 @@ public class HistoryFragment extends ParentFragment implements IHistory {
 
         switchToContentView();
         ParentAdapter adapter = category.equals(ResourcesContentProviderContent.Links.TABLE_NAME)
-                                ? new ClipboardLinkDetailedAdapter(getContext(), content, this::handleOnClickEvent)
-                                : new ClipboardCategoryDetailedAdapter(getContext(), content, this::handleOnClickEvent);
+                ? new ClipboardLinkDetailedAdapter(getContext(), content, this::handleOnClickEvent)
+                : new ClipboardCategoryDetailedAdapter(getContext(), content, this::handleOnClickEvent);
 
         mRecyclerView.setAdapter(adapter);
     }
@@ -128,13 +137,13 @@ public class HistoryFragment extends ParentFragment implements IHistory {
      * @param text
      */
     private void handleOnClickEvent(String text) {
-        if(Classifiers.isPhoneNumber(text)){
+        if (Classifiers.isPhoneNumber(text)) {
             new AlertDialog.Builder(getContext())
                     .setTitle(R.string.TITLE_PHONE_ITEM)
                     .setMessage("\n")
                     .setCancelable(false)
-                    .setNegativeButton(R.string.ITEM_OPTION_CALL, (dialog, which) -> handleACall(text))
-                    .setPositiveButton(R.string.ITEM_OPTION_COPY, (dialog, which) -> handleCopyingTextToClipboard(text))
+                    .setPositiveButton(R.string.ITEM_OPTION_CALL, (dialog, which) -> HistoryFragmentPermissionsDispatcher.handleACallWithCheck(this, text))
+                    .setNegativeButton(R.string.ITEM_OPTION_COPY, (dialog, which) -> handleCopyingTextToClipboard(text))
                     .show();
             return;
         }
@@ -143,8 +152,53 @@ public class HistoryFragment extends ParentFragment implements IHistory {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // NOTE: delegate the permission handling to generated method
+        HistoryFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @Override
     public boolean isInCategoriesView() {
         return isInCategoriesView;
+    }
+
+    /**
+     * Helper method to handle a phone call
+     * @param text the phone number
+     */
+    @NeedsPermission(Manifest.permission.CALL_PHONE)
+    public void handleACall(String text) {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+
+        intent.setData(Uri.parse("tel:" + text));
+
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            handleCopyingTextToClipboard(text);
+            return;
+        }
+
+        getContext().startActivity(intent);
+
+    }
+
+    @OnShowRationale(Manifest.permission.CALL_PHONE)
+    public void showRationaleForCamera(final PermissionRequest request) {
+        new AlertDialog.Builder(getContext())
+                .setMessage(R.string.permission_phone_rationale)
+                .setPositiveButton(R.string.button_allow, (dialog, button) -> request.proceed())
+                .setNegativeButton(R.string.button_deny, (dialog, button) -> request.cancel())
+                .show();
+    }
+
+    @OnPermissionDenied(Manifest.permission.CALL_PHONE)
+    public void showDeniedForCamera() {
+        Toast.makeText(getContext(), R.string.permission_camera_neverask, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnNeverAskAgain(Manifest.permission.CALL_PHONE)
+    public void showNeverAskForCamera() {
+        Toast.makeText(getContext(), R.string.permission_camera_neverask, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -158,23 +212,6 @@ public class HistoryFragment extends ParentFragment implements IHistory {
 
         getContext().startService(intent);
 
-        Snackbar.make(getView(), getString(R.string.COPIED_BEGINNIG) + " " + text + " " + getString(R.string.COPIED_END), Snackbar.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Helper method to handle a phone call
-     * @param text the phone number
-     */
-    private void handleACall(String text){
-        Intent intent = new Intent(Intent.ACTION_CALL);
-
-        intent.setData(Uri.parse("tel:" + text));
-
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, PERMISSION_ID);
-        }else{
-            getContext().startActivity(intent);
-        }
-
+        Snackbar.make(getView(), getString(R.string.COPIED_BEGINNIG) + " " +"\""+ text +"\"" + " " + getString(R.string.COPIED_END), Snackbar.LENGTH_SHORT).show();
     }
 }

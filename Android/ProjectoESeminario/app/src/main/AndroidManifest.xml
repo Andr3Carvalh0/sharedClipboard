@@ -47,6 +47,7 @@
         </service>
         <service
             android:name=".Services.ClipboardEventHandler"
+            android:enabled="true"
             android:exported="true" />
 
         <activity

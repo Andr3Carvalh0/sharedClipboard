@@ -1,22 +1,20 @@
 package andre.pt.projectoeseminario.Services;
 
-import android.app.IntentService;
+import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
+
 import java.util.HashMap;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import andre.pt.projectoeseminario.Classifiers.Classifiers;
 import andre.pt.projectoeseminario.Preferences;
 import andre.pt.projectoeseminario.Projecto;
 import andre.pt.projectoeseminario.State.ClipboardControllerFactory;
-import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderContent;
 import andre.pt.projectoeseminario.API.APIRequest;
 import andre.pt.projectoeseminario.State.ClipboardController;
 
@@ -24,7 +22,7 @@ import andre.pt.projectoeseminario.State.ClipboardController;
 /**
  * Handles what to do when, the firebase service receives an notification or we copied some value.
 */
-public class ClipboardEventHandler extends IntentService {
+public class ClipboardEventHandler extends Service {
     private static final String TAG = "Portugal:ClipHandler";
     private final HashMap<String, BiConsumer<Intent, ClipboardController>> action_router;
     public ClipboardEventHandler() {
@@ -37,11 +35,18 @@ public class ClipboardEventHandler extends IntentService {
      * @param name Used to name the worker thread, important only for debugging.
      */
     public ClipboardEventHandler(String name) {
-        super(name);
         action_router = new HashMap<>();
         action_router.put("remove", this::handleRemove);
         action_router.put("store", this::handleStore);
+        action_router.put("switch", this::handleSwitch);
 
+    }
+
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        System.out.println();
     }
 
     /**
@@ -63,10 +68,8 @@ public class ClipboardEventHandler extends IntentService {
      * @param intent The intent used to call this service
      */
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData.Item clipboardItem = clipboard.getPrimaryClip().getItemAt(0);
-        final ClipboardController clipboardController = ClipboardControllerFactory.getSingleton((clipboardItem.getText() != null ? String.valueOf(clipboardItem.getText()) : "Welcome"));
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        final ClipboardController clipboardController = ClipboardControllerFactory.getSingleton("Welcome!");
 
         assert intent != null;
         final String action = intent.getStringExtra("action");
@@ -77,6 +80,9 @@ public class ClipboardEventHandler extends IntentService {
         }catch (Exception e){
             //Nothing to do. Invalid request
         }
+
+        //In case of low memory tells the OS to not bother to recreate this service
+        return START_NOT_STICKY;
     }
 
     /**
@@ -113,12 +119,14 @@ public class ClipboardEventHandler extends IntentService {
             if (clipboardController.putValue(content)) {
                 Log.v(TAG, "onHandleIntent");
 
+                //Came from device (locally)
                 if (upload) {
                     ((Projecto)getApplication()).storeContent(content);
-                    mApi.pushTextInformation(token, content);
+                    mApi.pushTextInformation(token, content, this::stopSelf);
                     return;
                 }
 
+                //Came from the server
                 if (!isMIME) {
                     ((Projecto)getApplication()).storeContent(content);
                     handleTextContent(getApplicationContext(), content);
@@ -129,6 +137,32 @@ public class ClipboardEventHandler extends IntentService {
 
         } finally {
             clipboardController.wake();
+
+            if(!upload)
+                this.stopSelf();
         }
+    }
+
+    private void handleSwitch(Intent intent, ClipboardController clipboardController) {
+        final String content = intent.getStringExtra("content");
+
+        try {
+            if (clipboardController.putValue(content)) {
+                Log.v(TAG, "onHandleIntent");
+
+                handleTextContent(getApplicationContext(), content);
+            }
+        } catch (InterruptedException e) {
+
+        } finally {
+            clipboardController.wake();
+            this.stopSelf();
+        }
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }

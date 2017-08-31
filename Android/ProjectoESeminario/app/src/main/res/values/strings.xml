@@ -16,7 +16,7 @@
     <string name="WrongPassword_Message">The password must be at least 6 letters.</string>
     <string name="PositiveButton_Title">OK</string>
     <string name="CreateAccount_Title">This may be your lucky day!</string>
-    <string name="CreateAccout_Message">There seems that there isn\'t any account with this email.\nWould you like to create an account with this information?</string>
+    <string name="CreateAccout_Message">There seems that there isn\'t any account with this email.\nWould you like to create one?</string>
     <string name="PositiveButton_Default_Title">Sure!</string>
     <string name="NegativeButton_Default_Title">No, Thanks</string>
     <string name="sharedPreferencesKey">andre.pt.projectoeseminario</string>
@@ -46,9 +46,15 @@
     <string name="MobileData_Preferences_Title">Mobile Data:</string>
     <string name="MobileData_Preferences_Description">Should the service use your mobile data.</string>
     <string name="intro_title">Hi</string>
-    <string name="intro_description">This is your tape</string>
+    <string name="intro_description">Whenever you want to go back to the most recent "clip" copied click me! :)</string>
     <string name="about">About</string>
     <string name="About_description"><![CDATA[Developed by André Carvalho.<br/>ISEL - Projecto e Seminario 16/17]]></string>
     <string name="Google_Web_Client_ID">377150900087–5m26gj0cs3t4sd8malko7uclcpb21soj.apps.googleusercontent.com</string>
+    <string name="cannot_upload">Cannot upload text to the server, right now!</string>
+    <string name="cannot_register">Cannot register device</string>
+    <string name="logout_title">Removal of this device</string>
+    <string name="logout_message">You have removed this device from your account.</string>
+    <string name="no_resgister_title">Cannot register device</string>
+    <string name="no_register_message">Cannot register device. Try again later!</string>
 
 </resources>

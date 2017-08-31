@@ -21,6 +21,7 @@ public class FirebaseMessageHandler extends FirebaseMessagingService {
             final String content = remoteMessage.getData().get("content");
 
             Intent intent = new Intent(this, ClipboardEventHandler.class);
+            intent.putExtra("action", action);
             intent.putExtra("content", content);
             intent.putExtra("isMIME", isMIME);
 

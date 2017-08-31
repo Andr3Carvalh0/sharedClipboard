@@ -26,6 +26,7 @@ import andre.pt.projectoeseminario.Adapters.Fragments.TabViewPager;
 import andre.pt.projectoeseminario.API.APIRequest;
 import andre.pt.projectoeseminario.Activities.Interfaces.SettingsActions;
 import andre.pt.projectoeseminario.Preferences;
+import andre.pt.projectoeseminario.Projecto;
 import andre.pt.projectoeseminario.R;
 import andre.pt.projectoeseminario.Services.CopyMenuListener;
 
@@ -66,7 +67,7 @@ public class SettingsActivity extends ParentActivity implements TabLayout.OnTabS
      */
     private void handleNewFirebaseID(String token, String firebaseID) {
         try {
-            new APIRequest(null, this).registerDevice(token, firebaseID);
+            new APIRequest(null, this).registerDevice(token, firebaseID, () -> ((Projecto)getApplication()).restartAuthentication());
             saveStringPreference(Preferences.FIREBASEID, firebaseID);
         }catch (Exception e){
             Log.v(TAG, "Cannot communicate with server right now!");

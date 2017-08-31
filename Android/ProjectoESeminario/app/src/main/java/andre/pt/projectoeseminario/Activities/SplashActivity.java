@@ -25,7 +25,7 @@ public class SplashActivity extends ParentActivity {
             if(hasCompletedSetup() || DEBUG){
                 Log.v(TAG, "Loading preferences activity");
                 it = new Intent(getBaseContext(), SettingsActivity.class);
-                it.putExtra("token", getIntPreference(Preferences.USER_TOKEN));
+                it.putExtra("token", getStringPreference(Preferences.USER_TOKEN));
                 startActivity(it);
             }else{
                     Log.v(TAG, "Loading login activity");

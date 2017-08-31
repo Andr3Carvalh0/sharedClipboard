@@ -5,6 +5,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,15 +49,17 @@ public class FirebaseService implements INotify{
 
                 HttpClient client = HttpClientBuilder.create().build();
                 HttpPost post = new HttpPost(google_server);
-                post.setHeader("Content-type", "application/json");
-                post.setHeader("Authorization", "key=" + key);
+                post.addHeader("Content-Type", "application/json");
+                post.addHeader("Authorization", "key=" + key);
 
                 JSONObject jsonOBJ = new JSONObject();
                 jsonOBJ.put("to", devices[i]);
+                jsonOBJ.put("priority", "high");
 
-                jsonOBJ.put("data", messageJSON);
+                String tmp = jsonOBJ.toString();
+                tmp = tmp.substring(0,tmp.length() - 1) + "," + "\"data\":" + messageJSON + "}";
 
-                post.setEntity(new StringEntity(jsonOBJ.toString(), "UTF-8"));
+                post.setEntity(new StringEntity(tmp, "UTF-8"));
                 HttpResponse response = client.execute(post);
 
                 logger.info(TAG + "Firebase Response: " + response);

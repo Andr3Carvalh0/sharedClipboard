@@ -120,10 +120,11 @@ public class Cache implements ICache {
      */
     private String[] getTableContents(String table) {
         List<String> tmp = new LinkedList<>();
-
-        Cursor cursor = cresolver.query(router.get(table), null, null, null, null);
+        Cursor cursor = null;
 
         try {
+            cursor = cresolver.query(router.get(table), null, null, null, null);
+
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {

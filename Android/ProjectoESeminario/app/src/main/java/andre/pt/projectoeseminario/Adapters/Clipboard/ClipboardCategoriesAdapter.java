@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import andre.pt.projectoeseminario.Adapters.ParentAdapter;
+import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderContent;
 import andre.pt.projectoeseminario.R;
 
 /**
@@ -26,22 +27,29 @@ public class ClipboardCategoriesAdapter extends ParentAdapter {
     private final Consumer<String> consumer;
     private Context ctx;
 
+
+
     static {
-        categories.add(new CategoryResources(R.string.Clipboard_Category_Text, R.drawable.text));
-        categories.add(new CategoryResources(R.string.Clipboard_Category_Contacts, R.drawable.contacts));
-        categories.add(new CategoryResources(R.string.Clipboard_Category_Links, R.drawable.links));
+        String text = ResourcesContentProviderContent.Text.TABLE_NAME;
+        String links = ResourcesContentProviderContent.Links.TABLE_NAME;
+        String contacts = ResourcesContentProviderContent.Contacts.TABLE_NAME;
+
+        //Make the first letter upper case
+        categories.add(new CategoryResources(text.substring(0, 1).toUpperCase() + text.substring(1), R.drawable.text));
+        categories.add(new CategoryResources(contacts.substring(0, 1).toUpperCase() + contacts.substring(1), R.drawable.contacts));
+        categories.add(new CategoryResources(links.substring(0, 1).toUpperCase() + links.substring(1), R.drawable.links));
     }
 
     private static class CategoryResources{
-        private int stringResource;
+        private String stringResource;
         private int imageResource;
 
-        CategoryResources(int message, int image){
+        CategoryResources(String message, int image){
             this.stringResource = message;
             this.imageResource = image;
         }
 
-        int getStringResource() {
+        String getStringResource() {
             return stringResource;
         }
 
@@ -58,10 +66,10 @@ public class ClipboardCategoriesAdapter extends ParentAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ClassViewHolder)holder).category_text.setText(ctx.getString(categories.get(position).getStringResource()));
+        ((ClassViewHolder)holder).category_text.setText(categories.get(position).getStringResource());
         ((ClassViewHolder)holder).category_icon.setBackground(ctx.getDrawable(categories.get(position).getImageResource()));
 
-        ((ClassViewHolder)holder).category.setOnClickListener(v -> consumer.accept(((ClassViewHolder)holder).category_text.getText() + ""));
+        ((ClassViewHolder)holder).category.setOnClickListener(v -> consumer.accept((((ClassViewHolder)holder).category_text.getText() + "").toLowerCase()));
 
         Animation animation = AnimationUtils.loadAnimation(ctx, android.R.anim.slide_in_left);
         holder.itemView.startAnimation(animation);

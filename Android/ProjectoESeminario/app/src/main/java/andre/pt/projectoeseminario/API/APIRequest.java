@@ -42,13 +42,18 @@ public class APIRequest {
      * @param token the user id
      * @param firebase the firebase id
      */
-    public void registerDevice(String token, String firebase){
-        mAPI.registerDevice(token, firebase, true, Build.MODEL).enqueue(new Callback<ResponseBody>() {
+    public void registerDevice(String token, String firebase, Runnable onError){
+        mAPI.registerDevice(token, firebase, false, Build.MODEL).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {}
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.code() > 300)
+                    onError.run();
+            }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {}
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                onError.run();
+            }
         });
     }
 
@@ -58,15 +63,29 @@ public class APIRequest {
      * @param information the value to push
      */
     public void pushTextInformation(String token, String information){
+        this.pushTextInformation(token, information, () -> {return;});
+
+    }
+
+    /**
+     * Push text to server.
+     * @param token the user id
+     * @param information the value to push
+     */
+    public void pushTextInformation(String token, String information, Runnable runnable){
         mAPI.push(token, information).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.code() > 300)
+                    Toast.makeText(ctx, ctx.getString(R.string.cannot_upload), Toast.LENGTH_SHORT).show();
 
+                runnable.run();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(ctx, "Cannot upload text to server", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx, ctx.getString(R.string.cannot_upload), Toast.LENGTH_SHORT).show();
+                runnable.run();
             }
         });
 

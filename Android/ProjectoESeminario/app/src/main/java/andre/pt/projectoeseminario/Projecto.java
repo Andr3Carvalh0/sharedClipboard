@@ -1,7 +1,10 @@
 package andre.pt.projectoeseminario;
 
 import android.app.Application;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 
 import andre.pt.projectoeseminario.Cache.Cache;
 import andre.pt.projectoeseminario.Cache.ICache;
@@ -30,17 +33,36 @@ public class Projecto extends Application {
         preferences.clearAll();
         preferences.saveBooleanPreference(Preferences.SERVICERUNNING, false);
 
-        if(visible) {
-            Intent i = getBaseContext().getPackageManager()
-                    .getLaunchIntentForPackage(getBaseContext().getPackageName());
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        }
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.logout_title))
+                .setMessage(getString(R.string.logout_message))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.PositiveButton_Title), (dialog, which) -> System.exit(0))
+                .show();
     }
+
+    public void restartAuthentication(){
+        preferences.clearAll();
+        preferences.saveBooleanPreference(Preferences.SERVICERUNNING, false);
+
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.no_resgister_title))
+                .setMessage(getString(R.string.no_register_message))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.PositiveButton_Title), (dialog, which) ->  {
+                    Intent i = getBaseContext().getPackageManager()
+                            .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+
+                })
+                .show();
+    }
+
 
     /**
      * Changes the application state to visible.
-     * Useful when we invoke the logout method
+     * Useful for when we invoke the logout method
      */
     public void setVisible(){
         visible = true;
@@ -48,7 +70,7 @@ public class Projecto extends Application {
 
     /**
      * Changes the application state to invisible.
-     * Useful when we invoke the logout method
+     * Useful for when we invoke the logout method
      */
     public void setInvisible(){
         visible = false;

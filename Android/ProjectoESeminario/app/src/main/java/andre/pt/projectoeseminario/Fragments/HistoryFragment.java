@@ -17,9 +17,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import java.util.HashMap;
+
 import andre.pt.projectoeseminario.Adapters.Clipboard.ClipboardCategoriesAdapter;
 import andre.pt.projectoeseminario.Adapters.Clipboard.ClipboardCategoryDetailedAdapter;
+import andre.pt.projectoeseminario.Adapters.Clipboard.ClipboardLinkDetailedAdapter;
+import andre.pt.projectoeseminario.Adapters.ParentAdapter;
 import andre.pt.projectoeseminario.Classifiers.Classifiers;
+import andre.pt.projectoeseminario.ContentProvider.ResourcesContentProviderContent;
 import andre.pt.projectoeseminario.Fragments.Interfaces.IHistory;
 import andre.pt.projectoeseminario.Fragments.Interfaces.ParentFragment;
 import andre.pt.projectoeseminario.Projecto;
@@ -48,7 +53,7 @@ public class HistoryFragment extends ParentFragment implements IHistory {
 
         fab = (FloatingActionButton) mView.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(v -> {
-            final String[] recents = ((Projecto)getActivity().getApplication()).getContent("Recent");
+            final String[] recents = ((Projecto)getActivity().getApplication()).getContent(ResourcesContentProviderContent.Recent.TABLE_NAME);
 
             if(recents.length > 0) {
                 handleOnClickEvent(recents[0]);
@@ -95,7 +100,10 @@ public class HistoryFragment extends ParentFragment implements IHistory {
         }
 
         switchToContentView();
-        ClipboardCategoryDetailedAdapter adapter = new ClipboardCategoryDetailedAdapter(getContext(), content, this::handleOnClickEvent);
+        ParentAdapter adapter = category.equals(ResourcesContentProviderContent.Links.TABLE_NAME)
+                                ? new ClipboardLinkDetailedAdapter(getContext(), content, this::handleOnClickEvent)
+                                : new ClipboardCategoryDetailedAdapter(getContext(), content, this::handleOnClickEvent);
+
         mRecyclerView.setAdapter(adapter);
     }
 
@@ -145,8 +153,8 @@ public class HistoryFragment extends ParentFragment implements IHistory {
      */
     private void handleCopyingTextToClipboard(String text){
         Intent intent = new Intent(getContext(), ClipboardEventHandler.class);
+        intent.putExtra("action", "switch");
         intent.putExtra("content", text);
-        intent.putExtra("isMIME", false);
 
         getContext().startService(intent);
 

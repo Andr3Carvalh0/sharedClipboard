@@ -154,13 +154,14 @@ public class APIService extends ParentService implements IAPIService{
                 .toArray(String[]::new);
 
         String desktop_message;
-
         try {
             desktop_message = message.call();
         } catch (Exception e) {
             //This should never happen but just to be sure!
             desktop_message = MensageFormater.updateMessage(data, isMIME);
         }
+
+
 
         firebaseService.notify(sub, MensageFormater.updateMessage(data, isMIME), mobileDevices);
         webSocketService.notify(sub, desktop_message, desktopDevices);

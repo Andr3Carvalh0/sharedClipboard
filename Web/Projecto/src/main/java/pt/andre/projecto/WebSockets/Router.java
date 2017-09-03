@@ -33,11 +33,19 @@ public class Router {
 
     private void handlePush(JSONObject json, WebSocketSession session){
         logger.info(TAG + "calling handlePush");
-        final ResponseEntity push = connectionManager.getAPI().push(json.getString("sub"), json.getString("data"));
 
-        JSONObject jsonObj = new JSONObject((String) push.getBody());
+        JSONObject jsonObj;
+        try {
+            final ResponseEntity push = connectionManager.getAPI().push(json.getString("sub"), json.getString("data"));
 
-        jsonObj.put("action", "report");
+            jsonObj = new JSONObject((String) push.getBody());
+
+            jsonObj.put("action", "report");
+        }catch (Exception e){
+            jsonObj = new JSONObject();
+            jsonObj.put("action", "report");
+            jsonObj.put("error", json.getString("filename"));
+        }
 
         connectionManager.report(session, jsonObj.toString());
     }
@@ -45,10 +53,18 @@ public class Router {
     //side note the file on windows must come as string
     private void handlePushMIME(JSONObject json, WebSocketSession session) {
         logger.info(TAG + "calling handlePushMime");
-        final ResponseEntity push = connectionManager.getAPI().push(json.getString("sub"), Base64.getDecoder().decode(json.getString("data")), json.getString("filename"));
-        JSONObject jsonObj = new JSONObject((String) push.getBody());
 
-        jsonObj.put("action", "report");
+        JSONObject jsonObj;
+        try {
+            final ResponseEntity push = connectionManager.getAPI().push(json.getString("sub"), Base64.getDecoder().decode(json.getString("data")), json.getString("filename"));
+            jsonObj = new JSONObject((String) push.getBody());
+
+            jsonObj.put("action", "report");
+        }catch (Exception e){
+            jsonObj = new JSONObject();
+            jsonObj.put("action", "report");
+            jsonObj.put("error", json.getString("filename"));
+        }
 
         connectionManager.report(session, jsonObj.toString());
     }
@@ -59,11 +75,6 @@ public class Router {
             action.accept(json, session);
         }catch (Exception e){
             logger.error(TAG + "Something wrong with the request.Probably it didnt have an action field");
-            try {
-                session.close();
-            } catch (IOException e1) {
-
-            }
         }
     }
 }

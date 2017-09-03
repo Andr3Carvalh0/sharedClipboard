@@ -332,3 +332,216 @@
 2017-09-03 17:26:55,980 [16] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying image to clipboard
 2017-09-03 17:26:55,983 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
 2017-09-03 17:26:55,984 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:28:43,089 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:28:43,339 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:28:43,418 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:28:51,598 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:28:51,603 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:28:51,606 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:29:47,694 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:29:47,697 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:29:47,698 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:29:48,813 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:29:48,814 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 17:29:50,302 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:29:50,305 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:29:50,306 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:30:16,425 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:30:16,578 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:30:16,616 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:30:21,128 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:30:21,132 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:30:21,134 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:31:26,445 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:31:26,446 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 17:31:43,058 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:31:43,184 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:31:43,200 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:31:45,445 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:31:45,449 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:31:45,454 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:35:14,159 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:35:14,323 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:35:14,339 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:35:28,318 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:35:28,322 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:35:28,324 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:36:28,894 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:36:28,895 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:36:28,896 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:36:32,678 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:36:32,681 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:36:32,681 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:36:44,292 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:36:44,450 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:36:44,467 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:36:50,022 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:36:50,027 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:36:50,029 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:37:58,542 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:37:58,544 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:37:58,544 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:39:27,277 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:39:27,468 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:39:27,507 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:39:37,558 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:39:37,569 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:39:37,571 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:41:06,133 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:41:06,285 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:41:06,320 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:41:18,716 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:41:18,844 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:41:18,863 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:41:49,294 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:41:49,307 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:41:49,308 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:43:26,308 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:43:26,531 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:43:26,560 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:44:31,730 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:44:31,946 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:44:31,998 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:44:38,030 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:44:38,034 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:44:38,036 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:44:40,102 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:44:40,103 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:44:40,104 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:45:08,572 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:45:08,698 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:45:08,716 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:45:13,247 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:45:13,251 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:45:13,252 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:46:21,158 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:46:21,337 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:46:21,374 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:46:24,406 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:46:24,414 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:46:24,416 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:46:45,675 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:46:45,851 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:46:45,866 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:48:57,031 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:48:57,039 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:48:57,041 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:49:51,021 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:49:51,210 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:49:51,251 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:49:54,454 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:49:54,459 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:49:54,461 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:51:23,922 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:51:24,106 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:51:24,136 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:51:28,390 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:51:28,396 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:51:28,398 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:54:12,991 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:54:13,262 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:54:13,346 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:54:16,374 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:54:16,383 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:54:16,385 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:57:48,385 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:57:48,533 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:57:48,563 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:57:52,974 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:57:52,978 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:57:52,980 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 17:59:25,834 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 17:59:26,059 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 17:59:26,111 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 17:59:32,142 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 17:59:32,147 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 17:59:32,148 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 18:04:32,243 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:04:32,583 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:04:32,704 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:05:07,150 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:05:07,247 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:06:38,648 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:06:38,839 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:06:38,910 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:07:06,059 [15] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-03 18:07:06,171 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:07:06,172 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:07:06,202 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:07:06,202 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:07:58,536 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:07:58,723 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:07:58,802 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:08:20,305 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:08:20,309 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:08:59,466 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:08:59,467 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:09:35,678 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:09:35,779 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:11:21,387 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:11:21,388 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:11:29,680 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:11:29,781 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:11:36,591 [8] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-03 18:11:36,592 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:11:36,592 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:11:36,628 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:11:36,628 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:11:43,173 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:11:43,522 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:11:43,611 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:11:55,286 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:11:55,452 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:11:55,480 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:12:01,575 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:12:01,680 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:12:25,263 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:12:25,272 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 18:12:25,273 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 18:14:28,163 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:14:28,332 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:14:28,356 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:14:34,607 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:14:34,711 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 18:14:34,713 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 18:15:12,209 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:15:12,425 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:15:12,503 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:15:37,625 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:15:37,627 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:17:20,583 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:17:20,583 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:17:30,735 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:17:30,735 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:21:27,179 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:21:27,312 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:21:27,331 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:22:49,370 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:22:49,579 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:22:49,621 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:22:52,887 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:22:52,896 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 18:22:52,898 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 18:25:07,418 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:25:07,559 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:25:07,577 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:25:18,558 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:25:18,721 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:25:18,748 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:32:18,070 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:32:18,222 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:32:18,238 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:32:32,679 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:32:32,687 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 18:32:32,689 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 18:32:44,248 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:32:44,249 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:34:13,010 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:34:13,283 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:34:13,347 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:34:15,911 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:34:15,916 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 18:34:15,918 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 18:34:16,802 [16] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying image to clipboard
+2017-09-03 18:34:16,806 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:34:16,806 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard

@@ -15,7 +15,7 @@ namespace ProjectoESeminario.Services
         private readonly String TAG = "Portugal: ClipboardHandler";
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private IWebSocketConnectionHandler handler;
+        private static IWebSocketConnectionHandler handler;
         private Dictionary<String, Action<dynamic>> onReceiveActions = new Dictionary<string, Action<dynamic>>();
         private readonly String socketURL;
         private readonly String sub;

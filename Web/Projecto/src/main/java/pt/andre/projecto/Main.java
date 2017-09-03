@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
 import pt.andre.projecto.Controllers.Interfaces.IAPI;
 import pt.andre.projecto.Controllers.URIs.API;
 import pt.andre.projecto.Controllers.URIs.FirebaseService;
@@ -84,6 +85,14 @@ public class Main {
     @Bean
     public IDatabase createDatabase(){
         return System.getenv("MONGO_USER") == null ? new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), "Projecto") : new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), System.getenv("MONGO_DATABASE"), System.getenv("MONGO_USER"), System.getenv("MONGO_PASSWORD"));
+    }
+
+    @Bean
+    public ServletServerContainerFactoryBean createServletServerContainerFactoryBean() {
+        ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
+        container.setMaxTextMessageBufferSize(32768);
+        container.setMaxBinaryMessageBufferSize(32768);
+        return container;
     }
 
     @Bean(name = "multipartResolver")

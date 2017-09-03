@@ -22,29 +22,37 @@ public class ResponseFormater {
     private final static int ACCOUNT_CREATION_FAILED = 409;
     private final static int SERVER_FAILED = 500;
 
-    private final static String VALID_REQUEST_MESSAGE = "Success!";
+    private final static String VALID_REQUEST_MESSAGE = "{" +
+            "\"title\":\"Success.\"," +
+            "\"detail\": \"Success.\"" +
+            "}";
 
     private final static String NO_SUCH_ACCOUNT_EXISTS_MESSAGE = "{" +
+                "\"error\":\"No account.\"," +
                 "\"title\":\"No account.\"," +
                 "\"detail\": \"There isn't a account associated with this id.\"" +
             "}";
 
     private final static String ACCOUNT_CREATION_FAILED_MESSAGE = "{" +
+                "\"error\":\"Already one account.\"," +
                 "\"title\":\"Already one account\"," +
                 "\"detail\": \"There is already one account with this email.\""+
             "}";
 
     private final static String SERVER_FAILED_MESSAGE = "{" +
+                "\"error\":\"Server error.\"," +
                 "\"title\":\"Server error\"," +
                 "\"detail\": \"Cannot process this request right now. Try later.\""+
             "}";
 
     private final static String BAD_REQUEST_MESSAGE =  "{" +
+                "\"error\":\"Invalid request\"," +
                 "\"title\":\"Invalid request\"," +
                 "\"detail\": \"The Request is in a invalid format.\""+
             "}";
 
     private final static String NO_PERMISSION_MESSAGE =  "{" +
+                "\"error\":\"YOU SHALL NOT PASS!\"," +
                 "\"title\":\"YOU SHALL NOT PASS!\"," +
                 "\"detail\": \"You don´t have permission to access this resource.\""+
             "}";

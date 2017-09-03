@@ -259,7 +259,7 @@ namespace ProjectoESeminario.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It looks like an account with this email, doesn&apos;t exist.\nWould you like to create one?.
+        ///   Looks up a localized string similar to It looks like an account with this email, doesn&apos;t exist. Would you like to create one?.
         /// </summary>
         internal static string NO_EMAIL_CREATE {
             get {
@@ -277,7 +277,7 @@ namespace ProjectoESeminario.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot establish a connection with the server. \nTry again later..
+        ///   Looks up a localized string similar to Cannot establish a connection with the server. Try again later..
         /// </summary>
         internal static string SOCKET_ERROR_MESSAGE {
             get {

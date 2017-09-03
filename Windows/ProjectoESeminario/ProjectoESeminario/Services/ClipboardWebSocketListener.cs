@@ -15,7 +15,7 @@ namespace ProjectoESeminario.Services
         private readonly String TAG = "Portugal: ClipboardHandler";
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private static IWebSocketConnectionHandler handler;
+        private IWebSocketConnectionHandler handler;
         private Dictionary<String, Action<dynamic>> onReceiveActions = new Dictionary<string, Action<dynamic>>();
         private readonly String socketURL;
         private readonly String sub;
@@ -62,7 +62,8 @@ namespace ProjectoESeminario.Services
         /// <param name="json"></param>
         private void HandleReport(dynamic json)
         {
-            MessageBox.Show((String)json.detail, (String)json.title);
+            if((String)json.error != null)
+                MessageBox.Show((String)json.detail, (String)json.title);
         }
 
         /// <summary>

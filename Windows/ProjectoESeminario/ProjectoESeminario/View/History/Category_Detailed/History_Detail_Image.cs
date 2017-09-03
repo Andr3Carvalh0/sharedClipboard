@@ -6,7 +6,7 @@ namespace ProjectoESeminario.View.History.Category_Detailed
 {
     public class History_Detail_Image : History_Detail
     {
-        public History_Detail_Image(IHistory history) : base(history)
+        public History_Detail_Image(IHistory history) : base(Properties.Resources.CATEGORY_IMAGE, history)
         {
         }
 

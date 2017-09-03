@@ -545,3 +545,20 @@
 2017-09-03 18:34:16,802 [16] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying image to clipboard
 2017-09-03 18:34:16,806 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
 2017-09-03 18:34:16,806 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:51:17,272 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:51:17,432 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:51:17,466 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:51:26,087 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:51:26,097 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-03 18:51:39,959 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:51:39,964 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-03 18:51:39,966 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-03 18:51:40,410 [16] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying image to clipboard
+2017-09-03 18:51:40,413 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:51:40,413 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-03 18:54:13,159 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:54:13,394 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:54:13,427 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 18:54:54,870 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 18:54:55,043 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 18:54:55,080 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!

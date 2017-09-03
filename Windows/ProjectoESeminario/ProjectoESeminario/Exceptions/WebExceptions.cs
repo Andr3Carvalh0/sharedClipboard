@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
-namespace Projecto.UI
+namespace ProjectoESeminario.Exceptions
 {   /// <summary>
     /// This exception is launched when we have a server error(500), authentication error(403), or any other error 
     /// </summary>

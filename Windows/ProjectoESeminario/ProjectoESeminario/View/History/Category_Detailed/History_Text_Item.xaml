@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="ProjectoESeminario.View.History.Category_Detailed.History_Text_Item"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Background="#FFFFFF" d:DesignWidth="374" Height="Auto">
+    <Grid Margin="0,0,0,0" Height="Auto">
+        <TextBlock Name="Title" Text="• Text" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="Auto" Width="353" FontSize="14" FontWeight="Bold" MouseLeftButtonUp="ClickEvent" />
+    </Grid>
+</UserControl>
+

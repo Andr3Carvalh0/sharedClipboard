@@ -1,0 +1,20 @@
+﻿<Controls:MetroWindow x:Class="ProjectoESeminario.View.About.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:ProjectoESeminario.View.About"
+        mc:Ignorable="d"
+        Title="" ResizeMode="NoResize" Width="383" Height="550.648">
+    <Grid>
+        <Image Height="100" Source="/ic_launcher.ico" Margin="139,28,138,0" VerticalAlignment="Top"/>
+        <Label Content="Projecto e Seminário" Margin="95,131,95,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <Label Content="&#x9;            Developed by André Carvalho.&#xD;&#xA;&#x9;          ISEL - Projecto e Seminario 16/17" Margin="10,170,10,0" VerticalAlignment="Top"/>
+        <Label Content="This project uses the following libraries:" HorizontalAlignment="Left" Margin="8,226,0,0" VerticalAlignment="Top"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="container" HorizontalAlignment="Left" Margin="10,257,0,0" VerticalAlignment="Top"/>
+        </ScrollViewer>
+
+    </Grid>
+</Controls:MetroWindow>

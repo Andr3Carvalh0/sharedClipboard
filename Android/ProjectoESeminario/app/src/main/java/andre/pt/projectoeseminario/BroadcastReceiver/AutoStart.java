@@ -3,7 +3,7 @@ package andre.pt.projectoeseminario.BroadcastReceiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import andre.pt.projectoeseminario.Preferences;
+import andre.pt.projectoeseminario.Controller.Preferences;
 import andre.pt.projectoeseminario.Services.CopyMenuListener;
 
 

@@ -1,13 +1,13 @@
 package andre.pt.projectoeseminario;
 
 import android.app.Application;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 
-import andre.pt.projectoeseminario.Cache.Cache;
-import andre.pt.projectoeseminario.Cache.ICache;
+import andre.pt.projectoeseminario.Controller.Data.Cache.Cache;
+import andre.pt.projectoeseminario.Controller.Data.Cache.ICache;
+import andre.pt.projectoeseminario.Controller.Preferences;
+import andre.pt.projectoeseminario.Controller.State.ClipboardController;
 
 /**
  * Represents the entire application.
@@ -17,12 +17,14 @@ public class Projecto extends Application {
     private boolean visible = true;
     private ICache cache;
     private Preferences preferences;
+    private ClipboardController clipboardController;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        cache = new Cache(getApplicationContext(), getContentResolver());
-        preferences = new Preferences(getApplicationContext());
+        this.cache = new Cache(getApplicationContext(), getContentResolver());
+        this.preferences = new Preferences(getApplicationContext());
+        this.clipboardController = new ClipboardController("Welcome!");
     }
 
     /**
@@ -41,6 +43,9 @@ public class Projecto extends Application {
                 .show();
     }
 
+    /**
+     * Called when we cannot register the device
+     */
     public void restartAuthentication(){
         preferences.clearAll();
         preferences.saveBooleanPreference(Preferences.SERVICERUNNING, false);
@@ -92,4 +97,8 @@ public class Projecto extends Application {
         cache.store(content);
     }
 
+
+    public ClipboardController getClipboardController() {
+        return clipboardController;
+    }
 }

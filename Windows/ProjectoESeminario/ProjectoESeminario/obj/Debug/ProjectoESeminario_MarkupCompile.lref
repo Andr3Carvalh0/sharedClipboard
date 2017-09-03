@@ -1,11 +1,10 @@
 ﻿
 FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\App.xaml;;
-FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\UI\About\AboutWindow.xaml;;
-FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\UI\About\About_Item.xaml;;
-FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\UI\History\Category_Detailed\History_Detail.xaml;;
-FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\UI\History\Category_Detailed\History_Text_Item.xaml;;
-FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\UI\History\Main\History_Item.xaml;;
-FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\UI\LoginWindow.xaml;;
-FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\UI\SettingsWindow.xaml;;
-FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\UI\Settings\SettingsControl.xaml;;
+FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\View\About\AboutWindow.xaml;;
+FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\View\About\About_Item.xaml;;
+FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\View\History\Category_Detailed\History_Detail.xaml;;
+FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\View\History\Category_Detailed\History_Image_Item.xaml;;
+FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\View\LoginWindow.xaml;;
+FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\View\Settings\HistoryControl.xaml;;
+FC:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\View\Settings\PreferencesControl.xaml;;
 

@@ -172,82 +172,88 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ClipboardEvents\Interfaces\IClipboardEventHandler.cs" />
-    <Compile Include="ClipboardEvents\ClipboardEventHandler.cs" />
-    <Compile Include="ClipboardEvents\Interfaces\IClipboardListener.cs" />
-    <Compile Include="Classifiers\Classifiers.cs" />
-    <Compile Include="ClipboardEvents\ClipboardListener.cs">
+    <Compile Include="Services\Interfaces\IClipboardWebSocketListener.cs" />
+    <Compile Include="Services\ClipboardWebSocketListener.cs" />
+    <Compile Include="Services\Interfaces\IClipboardListener.cs" />
+    <Compile Include="Controller\Classifiers\Classifiers.cs" />
+    <Compile Include="Services\ClipboardListener.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClipboardEvents\Utils\ImageDecoder.cs" />
-    <Compile Include="Content\Cache.cs" />
-    <Compile Include="Content\CacheFactory.cs" />
-    <Compile Include="Content\Database\TextHandler.cs" />
-    <Compile Include="Content\Database\FileHandler.cs" />
-    <Compile Include="Content\Database\ParentHandler.cs" />
-    <Compile Include="Content\ICache.cs" />
-    <Compile Include="DTOs\ImageEx.cs" />
-    <Compile Include="Services\Interfaces\IWebSocketConnectionHandler.cs" />
-    <Compile Include="Services\Utils\DTOs.cs" />
-    <Compile Include="Services\WebSocketConnectionHandler.cs" />
-    <Compile Include="State\ClipboardController.cs" />
-    <Compile Include="State\ClipboardControllerFactory.cs" />
-    <Compile Include="State\MonitorEx.cs" />
-    <Compile Include="UI\About\AboutWindow.xaml.cs">
+    <Compile Include="Controller\Communication\Utils\ImageDecoder.cs" />
+    <Compile Include="Controller\Data\Cache\Cache.cs" />
+    <Compile Include="Controller\Data\Cache\CacheFactory.cs" />
+    <Compile Include="Controller\Data\Database\TextHandler.cs" />
+    <Compile Include="Controller\Data\Database\FileHandler.cs" />
+    <Compile Include="Controller\Data\Database\Interface\ParentHandler.cs" />
+    <Compile Include="Controller\Data\Cache\Interface\ICache.cs" />
+    <Compile Include="Controller\Communication\Utils\ImageEx.cs" />
+    <Compile Include="Controller\Communication\Interfaces\IWebSocketConnectionHandler.cs" />
+    <Compile Include="Controller\Communication\Utils\DTOs.cs" />
+    <Compile Include="Controller\Communication\WebSocketConnectionHandler.cs" />
+    <Compile Include="Controller\State\ClipboardController.cs" />
+    <Compile Include="Controller\State\ClipboardControllerFactory.cs" />
+    <Compile Include="Controller\State\MonitorEx.cs" />
+    <Compile Include="Services\Interfaces\IParentListener.cs" />
+    <Compile Include="Services\Interfaces\IParent.cs" />
+    <Compile Include="Services\ParentListener.cs" />
+    <Compile Include="View\About\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\About\About_Item.xaml.cs">
+    <Compile Include="View\About\About_Item.xaml.cs">
       <DependentUpon>About_Item.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\History\Category_Detailed\History_Detail.xaml.cs">
+    <Compile Include="View\History\Category_Detailed\History_Detail.xaml.cs">
       <DependentUpon>History_Detail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\History\Category_Detailed\History_Detail_Image.cs" />
-    <Compile Include="UI\History\Category_Detailed\History_Image_Item.xaml.cs">
+    <Compile Include="View\History\Category_Detailed\History_Detail_Image.cs" />
+    <Compile Include="View\History\Category_Detailed\History_Image_Item.xaml.cs">
       <DependentUpon>History_Image_Item.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\History\Category_Detailed\History_Text_Item.xaml.cs">
+    <Compile Include="View\History\Category_Detailed\History_Text_Item.xaml.cs">
       <DependentUpon>History_Text_Item.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\History\Main\History_Item.xaml.cs">
+    <Compile Include="View\History\Category\History_Item.xaml.cs">
       <DependentUpon>History_Item.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\History\Category_Detailed\History_Detail_Text.cs" />
-    <Compile Include="UI\History\Interfaces\IHistory.cs" />
-    <Compile Include="UI\History\Main\ItemImage.cs" />
-    <Compile Include="UI\History\Main\ItemText.cs" />
-    <Compile Include="UI\ISettings.cs" />
-    <Compile Include="UI\SettingsWindow.xaml.cs">
+    <Compile Include="View\History\Category_Detailed\History_Detail_Text.cs" />
+    <Compile Include="View\History\Interfaces\IHistory.cs" />
+    <Compile Include="View\History\Category\ItemImage.cs" />
+    <Compile Include="View\History\Category\ItemText.cs" />
+    <Compile Include="View\Settings\HistoryControl.xaml.cs">
+      <DependentUpon>HistoryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Settings\ISettingsController.cs" />
+    <Compile Include="View\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Settings\SettingsControl.xaml.cs">
-      <DependentUpon>SettingsControl.xaml</DependentUpon>
+    <Compile Include="View\Settings\PreferencesControl.xaml.cs">
+      <DependentUpon>PreferencesControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="UI\About\AboutWindow.xaml">
+    <Page Include="View\About\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\About\About_Item.xaml">
+    <Page Include="View\About\About_Item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\History\Category_Detailed\History_Detail.xaml">
+    <Page Include="View\History\Category_Detailed\History_Detail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\History\Category_Detailed\History_Image_Item.xaml">
+    <Page Include="View\History\Category_Detailed\History_Image_Item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\History\Category_Detailed\History_Text_Item.xaml">
+    <Page Include="View\History\Category_Detailed\History_Text_Item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\History\Main\History_Item.xaml">
+    <Page Include="View\History\Category\History_Item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\LoginWindow.xaml">
+    <Page Include="View\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -255,20 +261,24 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Controller\SettingsController.cs" />
     <Compile Include="Exceptions\WebExceptions.cs" />
-    <Compile Include="Services\Interfaces\IAPI.cs" />
-    <Compile Include="Services\ProjectoAPI.cs" />
-    <Compile Include="UI\LoginWindow.xaml.cs">
+    <Compile Include="Controller\Communication\Interfaces\IAPI.cs" />
+    <Compile Include="Controller\Communication\ProjectoAPI.cs" />
+    <Compile Include="View\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\SettingsWindow.xaml">
+    <Page Include="View\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Settings\SettingsControl.xaml">
+    <Page Include="View\Settings\HistoryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Settings\PreferencesControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -287,7 +297,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="ClipboardEvents\ClipboardListener.resx">
+    <EmbeddedResource Include="Services\ClipboardListener.resx">
       <DependentUpon>ClipboardListener.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -307,11 +317,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\ic_launcher.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\contacts.png">
@@ -335,9 +340,8 @@
     <Resource Include="Resources\youtube.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ic_launcher.ico" />
+    <None Include="Resources\ic_launcher.ico" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
@@ -352,6 +356,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\ic_content_paste_grey_600_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ic_launcher.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

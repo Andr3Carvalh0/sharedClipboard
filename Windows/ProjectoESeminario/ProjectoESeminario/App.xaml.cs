@@ -14,10 +14,10 @@ namespace ProjectoESeminario
 
             if (ProjectoESeminario.Properties.Settings.Default.sub.Equals("")) {
                 log.Debug(TAG + " loading loginWindow");
-                StartupUri = new Uri("UI/LoginWindow.xaml", UriKind.Relative);
+                StartupUri = new Uri("View/LoginWindow.xaml", UriKind.Relative);
             }else{
                 log.Debug(TAG + " loading settingsWindow");
-                StartupUri = new Uri("UI/SettingsWindow.xaml", UriKind.Relative);
+                StartupUri = new Uri("View/SettingsWindow.xaml", UriKind.Relative);
             }
         }
     }

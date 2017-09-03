@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\App.xaml
-8201523962
+101637710546
 
-42-1252363743
+4775178065
 101-2073014449
-UI\About\AboutWindow.xaml;UI\About\About_Item.xaml;UI\History\Category_Detailed\History_Detail.xaml;UI\History\Category_Detailed\History_Text_Item.xaml;UI\History\Main\History_Item.xaml;UI\LoginWindow.xaml;UI\SettingsWindow.xaml;UI\Settings\SettingsControl.xaml;
+View\About\AboutWindow.xaml;View\About\About_Item.xaml;View\History\Category_Detailed\History_Detail.xaml;View\History\Category_Detailed\History_Image_Item.xaml;View\History\Category_Detailed\History_Text_Item.xaml;View\History\Category\History_Item.xaml;View\LoginWindow.xaml;View\SettingsWindow.xaml;View\Settings\HistoryControl.xaml;View\Settings\PreferencesControl.xaml;
 
 False
 

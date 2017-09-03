@@ -14,11 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name=".View.Activities.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Activities.SplashActivity"
+            android:name=".View.Activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.SettingsActivity"
+            android:name=".View.Activities.SettingsActivity"
             android:theme="@style/AppThemeWhite" />
 
         <receiver android:name=".BroadcastReceiver.AutoStart">
@@ -51,13 +51,13 @@
             android:exported="true" />
 
         <activity
-            android:name=".Activities.ClipboardContentChooser"
+            android:name=".View.Activities.ClipboardContentChooser"
             android:launchMode="singleInstance"
             android:noHistory="true"
             android:theme="@style/FloatingWindow" />
 
         <provider
-            android:name=".ContentProvider.ResourcesContentProviderProvider"
+            android:name=".Controller.Data.ContentProvider.ResourcesContentProviderProvider"
             android:authorities="andre.pt.projectoeseminario"
             android:enabled="true"
             android:exported="true" />

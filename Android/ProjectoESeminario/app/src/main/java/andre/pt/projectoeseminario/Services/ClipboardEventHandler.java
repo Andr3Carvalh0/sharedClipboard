@@ -8,15 +8,13 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.function.BiConsumer;
-import andre.pt.projectoeseminario.Preferences;
+import andre.pt.projectoeseminario.Controller.Preferences;
 import andre.pt.projectoeseminario.Projecto;
-import andre.pt.projectoeseminario.State.ClipboardControllerFactory;
-import andre.pt.projectoeseminario.API.APIRequest;
-import andre.pt.projectoeseminario.State.ClipboardController;
+import andre.pt.projectoeseminario.Controller.API.APIRequest;
+import andre.pt.projectoeseminario.Controller.State.ClipboardController;
 
 
 /**
@@ -69,7 +67,7 @@ public class ClipboardEventHandler extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        final ClipboardController clipboardController = ClipboardControllerFactory.getSingleton("Welcome!");
+        final ClipboardController clipboardController = ((Projecto)getApplication()).getClipboardController();
 
         assert intent != null;
         final String action = intent.getStringExtra("action");
@@ -113,7 +111,7 @@ public class ClipboardEventHandler extends Service {
         final boolean isMIME = intent.getBooleanExtra("isMIME", false);
         final boolean upload = intent.getBooleanExtra("upload", false);
         final String token = intent.getStringExtra("token");
-        APIRequest mApi = new APIRequest(null, getApplicationContext());
+        APIRequest mApi = new APIRequest(getApplicationContext());
 
         try {
             if (clipboardController.putValue(content)) {

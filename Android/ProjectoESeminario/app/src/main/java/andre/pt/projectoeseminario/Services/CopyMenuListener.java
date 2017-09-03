@@ -5,14 +5,10 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
-import andre.pt.projectoeseminario.Activities.Interfaces.ParentActivity;
-import andre.pt.projectoeseminario.Adapters.Entities.Preference;
-import andre.pt.projectoeseminario.Preferences;
+import andre.pt.projectoeseminario.Controller.Preferences;
 
 
 /**

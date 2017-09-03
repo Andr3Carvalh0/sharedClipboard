@@ -249,6 +249,15 @@ namespace ProjectoESeminario.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This project uses the following libraries:.
+        /// </summary>
+        internal static string LIBRARIES_INTRO {
+            get {
+                return ResourceManager.GetString("LIBRARIES_INTRO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap links {

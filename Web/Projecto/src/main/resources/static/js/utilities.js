@@ -7,7 +7,6 @@ function authenticate(auth) {
     //Hack to open modal
     $('#hackyMChacky').click();
 
-
     // Send the code to the server
     $.ajax({
         type: 'POST',
@@ -20,7 +19,7 @@ function authenticate(auth) {
         },
         contentType: 'application/x-www-form-urlencoded',
         success: function(result) {
-            getUserDevices(auth)
+            getUserDevices(result)
         },
         statusCode: {
             400: function() {
@@ -37,12 +36,12 @@ function authenticate(auth) {
     });
 }
 
-function getUserDevices(auth) {
+function getUserDevices(sub) {
     $.ajax({
         type: 'GET',
         url: '/devices',
         headers: {
-            'Authorization': auth
+            'Authorization': sub
         },
         contentType: 'application/x-www-form-urlencoded',
         success: function(result) {

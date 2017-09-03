@@ -562,3 +562,39 @@
 2017-09-03 18:54:54,870 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
 2017-09-03 18:54:55,043 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
 2017-09-03 18:54:55,080 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 19:13:38,211 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 19:13:38,366 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 19:13:38,406 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 19:15:27,558 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 19:15:27,754 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 19:15:27,782 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 19:16:39,913 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 19:16:40,107 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 19:16:40,137 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 19:17:03,799 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 19:17:04,036 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 19:17:04,118 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 19:17:33,713 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 19:17:33,982 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 19:17:34,113 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 19:17:55,692 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 19:17:55,904 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 19:17:55,922 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 19:18:20,289 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 19:18:20,443 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 19:18:20,477 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 19:22:04,790 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 19:22:05,052 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 19:22:05,102 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 19:23:44,306 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 19:23:44,517 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 19:23:44,535 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 19:24:17,431 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 19:24:17,705 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 19:24:17,728 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 19:25:46,819 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 19:25:47,067 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 19:25:47,096 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-03 19:26:17,169 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-03 19:26:17,376 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-03 19:26:17,413 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.Interfaces.IAPI;
 import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
-import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
 import java.io.IOException;

@@ -1,6 +1,5 @@
 ﻿using ProjectoESeminario.UI.History.Category_Detailed;
 using ProjectoESeminario.View.History.Interfaces;
-using System;
 
 namespace ProjectoESeminario.View.History.Category_Detailed
 {

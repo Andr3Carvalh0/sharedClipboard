@@ -21,6 +21,7 @@ namespace ProjectoESeminario.View.History.Category_Detailed
             {
                 Container.Children.Add(new History_Text_Item(item, history));
             }
+
         }
     }
 }

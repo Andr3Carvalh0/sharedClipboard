@@ -12,7 +12,18 @@ namespace ProjectoESeminario.View.History.Category_Detailed
 
         protected override void AddContent()
         {
-            throw new NotImplementedException();
+            string[] content = history.FetchContent();
+
+            if (content.Length == 0)
+            {
+                showEmptyView();
+                return;
+            }
+
+            foreach (string item in content)
+            {
+                Container.Children.Add(new History_Image_Item(item, history));
+            }
         }
     }
 }

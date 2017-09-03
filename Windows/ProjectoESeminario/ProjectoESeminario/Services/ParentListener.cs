@@ -10,6 +10,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using System.Drawing;
+using System.Windows;
 
 namespace ProjectoESeminario.Services
 {
@@ -166,14 +167,27 @@ namespace ProjectoESeminario.Services
             application.StopApplication(message);
         }
 
-        public void UpdateClipboard(Image image)
+        public void UpdateClipboard(Image image, string path)
         {
-            throw new NotImplementedException();
+            OnCopy((s) =>
+            {
+                clipboardListener.UpdateClipboard(image);
+                Notify(Properties.Resources.COPIED_IMAGE);
+            },
+                path
+            );
+            
         }
 
         public void UpdateClipboard(string text)
         {
-            //throw new NotImplementedException();
+            OnCopy((s) =>
+            {
+                clipboardListener.UpdateClipboard(text);
+                Notify(Properties.Resources.COPIED_TEXT + text);
+            },
+                text
+            );
         }
 
         /// <summary>
@@ -184,6 +198,20 @@ namespace ProjectoESeminario.Services
         public string[] Pull(string category)
         {
             return cache.Pull(category);
+        }
+
+        /// <summary>
+        /// Gets every saved image
+        /// </summary>
+        /// <returns></returns>
+        public string[] Pull()
+        {
+            return cache.Pull();
+        }
+
+        private void Notify(string text)
+        {
+            MessageBox.Show(text);
         }
     }
 }

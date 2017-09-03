@@ -21,7 +21,6 @@ namespace ProjectoESeminario.Controller.Data.Cache
             this.textHandler = new TextHandler();
             this.fileHandler = new FileHandler();
             this.textCache = new ConditionalWeakTable<String, LinkedList<String>>();
-            this.imageCache = new LinkedList<String>();
             this.nLock = new object();
         }
 

@@ -1,4 +1,5 @@
 ﻿using ProjectoESeminario.View.History.Interfaces;
+using System.Threading;
 
 namespace ProjectoESeminario.View.History.Category
 {

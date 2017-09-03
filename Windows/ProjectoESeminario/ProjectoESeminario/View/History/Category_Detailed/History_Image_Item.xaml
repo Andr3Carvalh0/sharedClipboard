@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
                 Background="#FFFFFF" d:DesignWidth="374" Height="Auto">
     <Grid Margin="0,0,0,0" Height="Auto">
-        <Image Name="Image" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="Auto" Width="353"  MouseLeftButtonUp="clickEvent" />
+        <Image Name="Image" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="Auto" Width="353" />
     </Grid>
 </UserControl>

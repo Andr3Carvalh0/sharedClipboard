@@ -170,8 +170,9 @@ namespace ProjectoESeminario.View
         /// <param name="category"></param>
         void IHistory.HandleTextCategory(string category)
         {
-            Grid_Container.Children.Add(new History_Detail_Text(category, this));
+            Grid_Container.Children.RemoveAt(0);
             AnimationTrigger.Reload();
+            Grid_Container.Children.Add(new History_Detail_Text(category, this));
         }
         
         /// <summary>
@@ -180,8 +181,9 @@ namespace ProjectoESeminario.View
         /// <param name="category"></param>
         void IHistory.HandleImageCategory()
         {
-            Grid_Container.Children.Add(new History_Detail_Image(this));
+            Grid_Container.Children.RemoveAt(0);
             AnimationTrigger.Reload();
+            Grid_Container.Children.Add(new History_Detail_Image(this));
         }
 
         /// <summary>
@@ -189,6 +191,7 @@ namespace ProjectoESeminario.View
         /// </summary>
         void IHistory.HandleBackButton()
         {
+            Grid_Container.Children.RemoveAt(0);
             InitView();
             AnimationTrigger.Reload();
         }
@@ -207,9 +210,9 @@ namespace ProjectoESeminario.View
         /// without, making it the last value copied.
         /// </summary>
         /// <param name="image"></param>
-        void IHistory.SetContent(System.Drawing.Image image)
+        void IHistory.SetContent(System.Drawing.Image image, string path)
         {
-            listenerController.UpdateClipboard(image);
+            listenerController.UpdateClipboard(image, path);
         }
 
         /// <summary>
@@ -222,5 +225,13 @@ namespace ProjectoESeminario.View
             return listenerController.Pull(category);
         }
 
+        /// <summary>
+        /// Returns every image
+        /// </summary>
+        /// <returns></returns>
+        string[] IHistory.FetchContent()
+        {
+            return listenerController.Pull();
+        }
     }
 }

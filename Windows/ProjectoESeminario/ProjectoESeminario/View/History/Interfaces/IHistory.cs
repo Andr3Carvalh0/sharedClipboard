@@ -11,9 +11,10 @@ namespace ProjectoESeminario.View.History.Interfaces
         void HandleBackButton();
 
         string[] FetchContent(string category);
+        string[] FetchContent();
 
         void SetContent(string text);
 
-        void SetContent(Image image);
+        void SetContent(Image image, string path);
     }
 }

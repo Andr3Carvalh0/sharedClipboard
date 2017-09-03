@@ -69,7 +69,7 @@ namespace ProjectoESeminario.Controller.Communication
 
                 var parameters = new Dictionary<string, string>();
                 parameters["deviceIdentifier"] = deviceID;
-                parameters["isMobile"] = false + "";
+                parameters["useSockets"] = true + "";
                 parameters["deviceName"] = deviceName;
 
                 return await httpClient.PutAsync(mainServer + registerDevice_URL, new FormUrlEncodedContent(parameters));

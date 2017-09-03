@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace ProjectoESeminario.Controller
 {
-
     /// <summary>
     /// Responsable for the settings(If the service is enabled, if we should upload MIME Files)
     /// </summary>
@@ -20,7 +19,6 @@ namespace ProjectoESeminario.Controller
             log.Debug(TAG + " - Ctor");
             this.mAPI = new ProjectoAPI();
         }
-
 
         public async Task<String> GetSocketURL()
         {

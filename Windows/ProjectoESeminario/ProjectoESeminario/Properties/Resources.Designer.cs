@@ -116,6 +116,24 @@ namespace ProjectoESeminario.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image copied!.
+        /// </summary>
+        internal static string COPIED_IMAGE {
+            get {
+                return ResourceManager.GetString("COPIED_IMAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copied text: .
+        /// </summary>
+        internal static string COPIED_TEXT {
+            get {
+                return ResourceManager.GetString("COPIED_TEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This device has been removed from your user account!.
         /// </summary>
         internal static string DEVICE_REMOVED {

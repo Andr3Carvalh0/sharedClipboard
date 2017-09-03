@@ -7,8 +7,9 @@ namespace ProjectoESeminario.Services.Interfaces
         void EnableService();
         void DisableService();
 
-        void UpdateClipboard(Image image);
+        void UpdateClipboard(Image image, string path);
         void UpdateClipboard(string text);
         string[] Pull(string category);
+        string[] Pull();
     }
 }

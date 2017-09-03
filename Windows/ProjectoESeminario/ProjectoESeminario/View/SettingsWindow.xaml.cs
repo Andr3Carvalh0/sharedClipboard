@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using ProjectoESeminario.Controller;
 using ProjectoESeminario.Services;
 using ProjectoESeminario.Services.Interfaces;
@@ -50,6 +51,7 @@ namespace ProjectoESeminario.View
         {
             try
             {
+                this.ShowIconOnTitleBar = true;
                 //Fetch the socket URL
                 this.socketURL = await new SettingsController().GetSocketURL();
                 
@@ -158,9 +160,10 @@ namespace ProjectoESeminario.View
             StopApplication(Properties.Resources.DEVICE_REMOVED);
         }
 
-        public void StopApplication(string message)
+        public async void StopApplication(string message)
         {
-            System.Windows.Forms.MessageBox.Show(message);
+
+            await this.ShowMessageAsync("", message);
             Exit(null, null);
         }
 

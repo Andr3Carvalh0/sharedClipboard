@@ -44,11 +44,11 @@ namespace ProjectoESeminario.View
             handleServerResponse.Add(System.Net.HttpStatusCode.BadRequest, async () =>
             {
                 //Show create account dialog
-                MessageBoxResult dialogResult = MessageBox.Show(Properties.Resources.NO_EMAIL_CREATE, "", MessageBoxButton.OKCancel);
-                if (dialogResult == MessageBoxResult.OK)
-                {
+                MessageDialogResult result = await this.ShowMessageAsync("", Properties.Resources.NO_EMAIL_CREATE,
+                    MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
                     HandleSuccessfulLogin(await controller.HandleCreateAccountAsync(token));
-                }
             });
             handleServerResponse.Add(System.Net.HttpStatusCode.InternalServerError, async () =>
             {

@@ -1,7 +1,6 @@
-package pt.andre.projecto.Model.Multimedia;
+package pt.andre.projecto.Model.Database.Interfaces;
 
-import org.springframework.web.multipart.MultipartFile;
-import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
+import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
 
 public interface IMultimediaHandler {
     String store(String sub, byte[] file, String filename);

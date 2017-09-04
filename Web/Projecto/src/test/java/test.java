@@ -1,9 +1,7 @@
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import pt.andre.projecto.Controllers.URIs.Server;
-import pt.andre.projecto.Model.Database.MongoDB;
-import pt.andre.projecto.Service.ServerService;
+import pt.andre.projecto.Service.REST.ServerService;
 
 import static junit.framework.Assert.assertEquals;
 

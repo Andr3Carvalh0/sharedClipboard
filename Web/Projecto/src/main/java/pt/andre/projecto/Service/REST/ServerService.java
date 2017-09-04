@@ -1,26 +1,21 @@
-package pt.andre.projecto.Service;
+package pt.andre.projecto.Service.REST;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import pt.andre.projecto.Controllers.URIs.FirebaseService;
 import pt.andre.projecto.Controllers.URIs.WebSocketService;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
-import pt.andre.projecto.Model.Database.IDatabase;
-import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
+import pt.andre.projecto.Model.Database.Interfaces.IDatabase;
 import pt.andre.projecto.Model.Utils.Device;
 import pt.andre.projecto.Model.Utils.DeviceIdentifier;
-import pt.andre.projecto.Model.Utils.MensageFormater;
+import pt.andre.projecto.Output.MensageFormater;
 import pt.andre.projecto.Service.Interfaces.IServerService;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;

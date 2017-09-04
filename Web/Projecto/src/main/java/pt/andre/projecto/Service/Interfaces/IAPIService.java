@@ -1,6 +1,6 @@
 package pt.andre.projecto.Service.Interfaces;
 
-import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
+import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
 
 public interface IAPIService extends IParentService {
 

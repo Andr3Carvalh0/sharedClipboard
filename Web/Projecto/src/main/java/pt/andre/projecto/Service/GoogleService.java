@@ -15,29 +15,27 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
-import pt.andre.projecto.Service.Interfaces.ICacheService;
+import pt.andre.projecto.Service.Interfaces.IGoogleService;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentMap;
 
-//Note: Even though a cache is in use, this will not work in Heroku(at least in the free account)
-// since the amount of ram given is minimal, so in heroku this solution has an addition cost of creating the cache every
-// single time
-public class CacheService implements ICacheService{
+public class GoogleService implements IGoogleService {
 
     //Weak point
     private final Resource resource = new ClassPathResource("/application.properties");
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final String TAG = "Portugal: CacheService ";
+    private final String TAG = "Portugal: GoogleService ";
 
     private String CLIENT_SECRET_ID;
     private final String Introspect_Endpoint = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=";
     private final HttpClient client = HttpClientBuilder.create().build();
 
-    public CacheService(){
+    public GoogleService(){
         try {
             Properties props = PropertiesLoaderUtils.loadProperties(resource);
             this.CLIENT_SECRET_ID = props.getProperty("googleID");

@@ -1,7 +1,7 @@
-package pt.andre.projecto.Model.Database;
+package pt.andre.projecto.Model.Database.Interfaces;
 
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
-import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
+import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
 
 import java.util.List;
 

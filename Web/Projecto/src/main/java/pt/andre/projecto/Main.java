@@ -11,21 +11,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
-import pt.andre.projecto.Controllers.Interfaces.IAPI;
-import pt.andre.projecto.Controllers.URIs.API;
 import pt.andre.projecto.Controllers.URIs.FirebaseService;
 import pt.andre.projecto.Controllers.URIs.WebSocketService;
-import pt.andre.projecto.Model.Database.IDatabase;
+import pt.andre.projecto.Model.Database.Interfaces.IDatabase;
 import pt.andre.projecto.Model.Database.MongoDB;
-import pt.andre.projecto.Model.Multimedia.IMultimediaHandler;
-import pt.andre.projecto.Model.Multimedia.MultimediaHandler;
-import pt.andre.projecto.Service.APIService;
-import pt.andre.projecto.Service.CacheService;
+import pt.andre.projecto.Model.Database.Interfaces.IMultimediaHandler;
+import pt.andre.projecto.Model.Database.MultimediaHandler;
+import pt.andre.projecto.Service.GoogleService;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
-import pt.andre.projecto.Service.Interfaces.ICacheService;
+import pt.andre.projecto.Service.Interfaces.IGoogleService;
 import pt.andre.projecto.Service.Interfaces.IServerService;
-import pt.andre.projecto.Service.ServerService;
-import pt.andre.projecto.WebSockets.WebSocketHandler;
+import pt.andre.projecto.Service.REST.APIService;
+import pt.andre.projecto.Service.REST.ServerService;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -68,8 +65,8 @@ public class Main {
     }
 
     @Bean
-    public ICacheService getCache(){
-        return new CacheService();
+    public IGoogleService getCache(){
+        return new GoogleService();
     }
 
     @Bean

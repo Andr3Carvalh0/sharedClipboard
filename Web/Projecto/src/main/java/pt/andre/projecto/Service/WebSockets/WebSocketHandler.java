@@ -1,17 +1,18 @@
-package pt.andre.projecto.WebSockets;
+package pt.andre.projecto.Service.WebSockets;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.socket.*;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import pt.andre.projecto.Controllers.Interfaces.IAPI;
-import pt.andre.projecto.WebSockets.Interfaces.IConnectionManager;
+import pt.andre.projecto.Service.WebSockets.Interfaces.IConnectionManager;
+
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 

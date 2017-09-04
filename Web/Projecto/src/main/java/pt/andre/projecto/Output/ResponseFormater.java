@@ -1,8 +1,7 @@
-package pt.andre.projecto.Model.Database.Utils;
+package pt.andre.projecto.Output;
 
-import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Model.Utils.DefaultHashMap;
-import pt.andre.projecto.Model.Utils.MensageFormater;
+import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
 
 /*
 * Used to convert MongoDB errors to a more user friendly messages

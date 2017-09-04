@@ -1,4 +1,4 @@
-package pt.andre.projecto.WebSockets.Interfaces;
+package pt.andre.projecto.Service.WebSockets.Interfaces;
 
 import org.springframework.web.socket.WebSocketSession;
 import pt.andre.projecto.Controllers.Interfaces.IAPI;

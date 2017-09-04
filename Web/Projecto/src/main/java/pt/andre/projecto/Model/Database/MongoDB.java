@@ -15,11 +15,10 @@ import pt.andre.projecto.Model.DTOs.User;
 import pt.andre.projecto.Model.DTOs.Wrappers.ContentWrapper;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
 import pt.andre.projecto.Model.DTOs.Wrappers.UserWrapper;
-import pt.andre.projecto.Model.Database.Utils.DatabaseOption;
-import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
-import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
+import pt.andre.projecto.Model.Database.Interfaces.IDatabase;
+import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
+import pt.andre.projecto.Output.ResponseFormater;
 
-import java.io.InvalidObjectException;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;

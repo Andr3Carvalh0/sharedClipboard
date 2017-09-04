@@ -1,4 +1,4 @@
-package pt.andre.projecto.WebSockets;
+package pt.andre.projecto.Service.WebSockets;
 
 
 import org.json.JSONObject;
@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.socket.WebSocketSession;
-import pt.andre.projecto.WebSockets.Interfaces.IConnectionManager;
-import java.io.IOException;
+import pt.andre.projecto.Service.WebSockets.Interfaces.IConnectionManager;
+
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.function.BiConsumer;

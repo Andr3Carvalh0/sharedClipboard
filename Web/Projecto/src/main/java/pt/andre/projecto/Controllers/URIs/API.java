@@ -1,6 +1,5 @@
 package pt.andre.projecto.Controllers.URIs;
 
-import java.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.Interfaces.IAPI;
-import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
+import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
 import java.io.IOException;
+import java.util.Base64;
 
 @RestController
 @AutoConfigureBefore

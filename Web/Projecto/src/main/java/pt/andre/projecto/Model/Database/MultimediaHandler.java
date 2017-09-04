@@ -1,16 +1,13 @@
-package pt.andre.projecto.Model.Multimedia;
+package pt.andre.projecto.Model.Database;
 
 import com.google.api.client.util.Base64;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.multipart.MultipartFile;
-import pt.andre.projecto.Model.Database.Utils.DatabaseResponseMultimedia;
-import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
-import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
+import pt.andre.projecto.Model.Database.Interfaces.IMultimediaHandler;
+import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
+import pt.andre.projecto.Output.ResponseFormater;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class MultimediaHandler implements IMultimediaHandler {

@@ -1,4 +1,4 @@
-package pt.andre.projecto.Service;
+package pt.andre.projecto.Service.REST;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pt.andre.projecto.Controllers.URIs.FirebaseService;
 import pt.andre.projecto.Controllers.URIs.WebSocketService;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
-import pt.andre.projecto.Model.Database.IDatabase;
-import pt.andre.projecto.Model.Database.Utils.Interfaces.DatabaseResponse;
-import pt.andre.projecto.Model.Database.Utils.ResponseFormater;
-import pt.andre.projecto.Model.Multimedia.IMultimediaHandler;
-import pt.andre.projecto.Model.Utils.MensageFormater;
+import pt.andre.projecto.Model.Database.Interfaces.IDatabase;
+import pt.andre.projecto.Model.Database.Interfaces.IMultimediaHandler;
+import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
+import pt.andre.projecto.Output.MensageFormater;
+import pt.andre.projecto.Output.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
 import java.util.concurrent.Callable;

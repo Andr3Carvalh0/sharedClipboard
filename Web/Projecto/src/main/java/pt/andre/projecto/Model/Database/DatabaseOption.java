@@ -1,4 +1,4 @@
-package pt.andre.projecto.Model.Database.Utils;
+package pt.andre.projecto.Model.Database;
 
 /*
 * Represents a object that is used to create a table

@@ -1,4 +1,4 @@
-package pt.andre.projecto.Model.Database.Utils.Interfaces;
+package pt.andre.projecto.Output.Interfaces;
 
 /*
 * Represents the object of the response that we will deliver

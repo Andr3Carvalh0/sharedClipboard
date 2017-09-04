@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pt.andre.projecto.Controllers.Interfaces.INotify;
-import pt.andre.projecto.WebSockets.Interfaces.IConnectionManager;
+import pt.andre.projecto.Service.WebSockets.Interfaces.IConnectionManager;
 
 import java.util.Arrays;
 

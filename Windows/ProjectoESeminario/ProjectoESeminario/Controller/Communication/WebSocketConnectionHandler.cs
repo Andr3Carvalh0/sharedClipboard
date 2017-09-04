@@ -11,7 +11,7 @@ namespace ProjectoESeminario.Communication
         private readonly String socket;
         private readonly String userID;
         private readonly String deviceID;
-        private WebSocket ws;
+        private readonly WebSocket ws;
 
         public WebSocketConnectionHandler(String socketURL, String userID, String deviceID, Action<String> onReceiveAction)
         {
@@ -44,7 +44,7 @@ namespace ProjectoESeminario.Communication
             String formattedBody = JsonConvert.SerializeObject(new RegisterJSONWrapper(user, deviceID));
             //can be sync because we are running this on a background thread, 
             //and also we cannot do anything else without this "handshake"
-
+            
              ws.Send(formattedBody);
         }
 
@@ -56,7 +56,13 @@ namespace ProjectoESeminario.Communication
         public void HandleUpload(string user, string text)
         {
             String formattedBody = JsonConvert.SerializeObject(new UploadJSONWrapper(user, text));
-            ws.SendAsync(formattedBody, null);
+            try { 
+                ws.SendAsync(formattedBody, null);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine();
+            }
         }
         /// <summary>
         /// Upload's a file via the websocket connection previously established with the server.
@@ -67,7 +73,12 @@ namespace ProjectoESeminario.Communication
         public void HandleUploadMime(string user, byte[] file, string filename)
         {
             String formattedBody = JsonConvert.SerializeObject(new UploadMimeJSONWrapper(user, Convert.ToBase64String(file), filename));
-            ws.Send(formattedBody);
+            try { 
+                ws.SendAsync(formattedBody, null);
+            }catch(Exception)
+            {
+
+            }
         }
 
         /// <summary>

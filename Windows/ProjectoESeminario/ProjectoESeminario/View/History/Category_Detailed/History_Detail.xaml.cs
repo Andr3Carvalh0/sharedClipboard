@@ -12,7 +12,7 @@ namespace ProjectoESeminario.UI.History.Category_Detailed
         protected IHistory history;
         protected string name;
 
-        public History_Detail(string name, IHistory history)
+        protected History_Detail(string name, IHistory history)
         {
             InitializeComponent();
             this.name = name;

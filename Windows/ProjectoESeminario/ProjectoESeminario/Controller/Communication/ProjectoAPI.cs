@@ -67,10 +67,12 @@ namespace ProjectoESeminario.Controller.Communication
         public async Task<HttpResponseMessage> registerDevice(String sub, string deviceID, bool deviceType, String deviceName) {
             return await TemplateMethod(sub, async () => {
 
-                var parameters = new Dictionary<string, string>();
-                parameters["deviceIdentifier"] = deviceID;
-                parameters["useSockets"] = true + "";
-                parameters["deviceName"] = deviceName;
+                var parameters = new Dictionary<string, string>
+                {
+                    ["deviceIdentifier"] = deviceID,
+                    ["useSockets"] = true + "",
+                    ["deviceName"] = deviceName
+                };
 
                 return await httpClient.PutAsync(mainServer + registerDevice_URL, new FormUrlEncodedContent(parameters));
             });

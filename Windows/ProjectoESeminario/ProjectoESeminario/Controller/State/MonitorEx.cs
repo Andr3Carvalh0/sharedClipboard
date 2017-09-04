@@ -83,8 +83,7 @@ namespace ProjectoESeminario.Controller.State
                 Monitor.Exit(condition);
 
                 // re-acquire the mlock's lock uninterruptibly
-                bool interrupted;
-                EnterUninterruptibly(mlock, out interrupted);
+                EnterUninterruptibly(mlock, out var interrupted);
                 // if the thread was interrupted while trying to acquire the mlock, we consider that
                 // it was interrupted when in the wait state, so, we throw  ThreadInterruptedException.
                 if (interrupted)
@@ -113,8 +112,7 @@ namespace ProjectoESeminario.Controller.State
             // condition we need to acquire condition's lock.
             // We must acquire the condition's lock ignoring ThreadInterruptedException, because
             // this method is not used for wait purposes, so it must not throw that exception.
-            bool interrupted;
-            EnterUninterruptibly(condition, out interrupted);
+            EnterUninterruptibly(condition, out var interrupted);
             // Notify the condition object and leave the corresponding monitor.
             Monitor.Pulse(condition);
             Monitor.Exit(condition);
@@ -140,8 +138,7 @@ namespace ProjectoESeminario.Controller.State
             // on condition, we need to hold the condition's lock.
             // We must acquire the condition's lock ignoring ThreadInterruptedException, because
             // this method is not used for wait purposes, so it must not throw that exception.
-            bool interrupted;
-            EnterUninterruptibly(condition, out interrupted);
+            EnterUninterruptibly(condition, out var interrupted);
 
             // notify all threads waiting on the condition and leave the condition object's monitor
             Monitor.PulseAll(condition);

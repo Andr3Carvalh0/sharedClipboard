@@ -6,9 +6,9 @@ namespace ProjectoESeminario.Controller.State
 {
     public class ClipboardController
     {
-        private Object nLock;
+        private readonly Object nLock;
         private String clipboard_value;
-        private LinkedList<Pair> queue;
+        private readonly LinkedList<Pair> queue;
 
         //Helper class
         private class Pair

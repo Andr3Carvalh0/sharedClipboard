@@ -24,6 +24,7 @@ namespace ProjectoESeminario.Controller.Data.Database
         /// Stores the content text into the soon to be classifed category
         /// </summary>
         /// <param name="text">The copied text</param>
+        /// <param name="category"></param>
         public void Store(String text, String category) {
             if (!ProjectoFolderExists())
                 CreateProjectoFolder();
@@ -32,8 +33,7 @@ namespace ProjectoESeminario.Controller.Data.Database
 
             try
             {
-                Action<String> action;
-                dbs.TryGetValue(category, out action);
+                dbs.TryGetValue(category, out var action);
 
                 action.Invoke(text);
             }
@@ -63,10 +63,10 @@ namespace ProjectoESeminario.Controller.Data.Database
 
             String line_tmp = "";
             
-            for (int i = 0; i < text.Length; i++)
+            foreach (string t in text)
             {
-                if (!text[i].Equals(delimiter)) { 
-                    line_tmp += text[i] + "\n";
+                if (!t.Equals(delimiter)) { 
+                    line_tmp += t + "\n";
                 }
                 else { 
                     lines.AddLast(line_tmp);
@@ -84,11 +84,11 @@ namespace ProjectoESeminario.Controller.Data.Database
 
         private void EvaluateCleanup()
         {
-            for(int i = 0; i < dbs_name.Length; i++)
+            foreach (string t in dbs_name)
             {
                 try { 
-                    if (new FileInfo(Path.Combine(GetPath(), dbs_name[i] + ".txt")).Length > file_max_size)
-                        CleanUp(dbs_name[i]);
+                    if (new FileInfo(Path.Combine(GetPath(), t + ".txt")).Length > file_max_size)
+                        CleanUp(t);
                 }
                 catch (FileNotFoundException)
                 {

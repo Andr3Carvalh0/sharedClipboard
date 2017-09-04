@@ -8,10 +8,7 @@ namespace ProjectoESeminario.Controller.Data.Cache
 
         public static ICache getCache()
         {
-            if(cache == null)
-                cache = new Cache();
-
-            return cache;
+            return cache ?? (cache = new Cache());
         }
 
     }

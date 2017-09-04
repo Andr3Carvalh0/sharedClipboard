@@ -10,11 +10,11 @@ namespace ProjectoESeminario.Controller.Data.Cache
 {
     public class Cache : ICache
     {
-        private TextHandler textHandler;
-        private FileHandler fileHandler;
-        private ConditionalWeakTable<String, LinkedList<String>> textCache;
+        private readonly TextHandler textHandler;
+        private readonly FileHandler fileHandler;
+        private readonly ConditionalWeakTable<String, LinkedList<String>> textCache;
         private LinkedList<String> imageCache;
-        private Object nLock;
+        private readonly Object nLock;
 
         public Cache()
         {
@@ -26,9 +26,8 @@ namespace ProjectoESeminario.Controller.Data.Cache
 
         public string[] Pull(string category)
         {
-            lock (nLock) { 
-                LinkedList<String> elems;
-                textCache.TryGetValue(category, out elems);
+            lock (nLock) {
+                textCache.TryGetValue(category, out var elems);
 
                 if(elems == null)
                     elems = textHandler.Fetch(category);

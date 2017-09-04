@@ -16,11 +16,11 @@ namespace ProjectoESeminario.View
     /// </summary>
     public partial class LoginWindow : MetroWindow
     {
-        LoginController controller;
-        private Dictionary<Type, Action<Exception>> actionsOnException = new Dictionary<Type, Action<Exception>>();
-        private Dictionary<System.Net.HttpStatusCode, Action> handleServerResponse = new Dictionary<System.Net.HttpStatusCode, Action>();
+        readonly LoginController controller;
+        private readonly Dictionary<Type, Action<Exception>> actionsOnException = new Dictionary<Type, Action<Exception>>();
+        private readonly Dictionary<System.Net.HttpStatusCode, Action> handleServerResponse = new Dictionary<System.Net.HttpStatusCode, Action>();
 
-        private ClientSecrets cs = new ClientSecrets() { ClientId = ConfigurationManager.AppSettings["Google_ID"], ClientSecret = ConfigurationManager.AppSettings["Google_Secret"] };
+        private readonly ClientSecrets cs = new ClientSecrets() { ClientId = ConfigurationManager.AppSettings["Google_ID"], ClientSecret = ConfigurationManager.AppSettings["Google_Secret"] };
 
         private String token;
 
@@ -69,7 +69,7 @@ namespace ProjectoESeminario.View
 
      
             SettingsWindow settings = new SettingsWindow(sub, GUID);
-            App.Current.MainWindow = settings;
+            Application.Current.MainWindow = settings;
             this.Close();
             settings.Show();
 

@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using Application = System.Windows.Application;
 
 namespace ProjectoESeminario.View
 {
@@ -80,20 +81,20 @@ namespace ProjectoESeminario.View
             //fresh draw
             if (gridContent == null)
             {
-                System.Windows.Controls.TabControl tControl = new System.Windows.Controls.TabControl();
-                tControl.Height = 503;
-                tControl.Width = 367;
+                System.Windows.Controls.TabControl tControl = new System.Windows.Controls.TabControl
+                {
+                    Height = 503,
+                    Width = 367
+                };
 
                 //HistoryPanel
-                TabItem tItem = new TabItem();
-                tItem.Header = Properties.Resources.HISTORY_PANEL;
+                TabItem tItem = new TabItem {Header = Properties.Resources.HISTORY_PANEL};
 
                 historyController = new HistoryControl(HISTORY_ITEMS);
                 tItem.Content = historyController;
 
                 //SettingsPanel
-                TabItem tItem2 = new TabItem();
-                tItem2.Header = Properties.Resources.SETTINGS_PANEL;
+                TabItem tItem2 = new TabItem {Header = Properties.Resources.SETTINGS_PANEL};
                 preferencesController = new PreferencesControl(listenerController);
                 tItem2.Content = preferencesController;
 
@@ -111,10 +112,12 @@ namespace ProjectoESeminario.View
 
         private void InitStatusbar()
         {
-            NotifyIcon icon = new NotifyIcon();
+            NotifyIcon icon = new NotifyIcon
+            {
+                Icon = Properties.Resources.ic_launcher,
+                ContextMenu = new System.Windows.Forms.ContextMenu()
+            };
             //Need icon fix
-            icon.Icon = Properties.Resources.ic_launcher;
-            icon.ContextMenu = new System.Windows.Forms.ContextMenu();
             icon.ContextMenu.MenuItems.Add(Properties.Resources.STATUS_SHOW, new EventHandler(ShowWindow));
             icon.ContextMenu.MenuItems.Add("-");
             icon.ContextMenu.MenuItems.Add(Properties.Resources.STATUS_ABOUT, new EventHandler(ShowAboutWindow));
@@ -126,7 +129,7 @@ namespace ProjectoESeminario.View
         private void ShowAboutWindow(object sender, EventArgs e)
         {
             AboutWindow about = new AboutWindow();
-            App.Current.MainWindow = about;
+            Application.Current.MainWindow = about;
             about.Show();
         }
 
@@ -181,7 +184,6 @@ namespace ProjectoESeminario.View
         /// <summary>
         /// Switches to the detailed view of the category images
         /// </summary>
-        /// <param name="category"></param>
         void IHistory.HandleImageCategory()
         {
             Grid_Container.Children.RemoveAt(0);
@@ -207,12 +209,13 @@ namespace ProjectoESeminario.View
         void IHistory.SetContent(string text) {
             listenerController.UpdateClipboard(text);
         }
-        
+
         /// <summary>
         /// Sets the clip on the history panel as the new clipboard value
         /// without, making it the last value copied.
         /// </summary>
         /// <param name="image"></param>
+        /// <param name="path">file path</param>
         void IHistory.SetContent(System.Drawing.Image image, string path)
         {
             listenerController.UpdateClipboard(image, path);

@@ -12,7 +12,7 @@ namespace ProjectoESeminario.View.History.Category_Detailed
         {
             string[] content = history.FetchContent(name.ToLower());
 
-            if (content.Count() == 0) { 
+            if (!content.Any()) { 
                 showEmptyView();
                 return;
             }

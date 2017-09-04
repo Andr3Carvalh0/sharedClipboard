@@ -18,7 +18,7 @@ namespace ProjectoESeminario.Services
     {
         private readonly String TAG = "Portugal: ParentListener";
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private Dictionary<string, ImageFormat> supportedFormats = new Dictionary<string, ImageFormat>();
+        private readonly Dictionary<string, ImageFormat> supportedFormats = new Dictionary<string, ImageFormat>();
         private readonly IClipboardListener clipboardListener;
         private readonly IClipboardWebSocketListener clipboardWebSocketListener;
         private readonly ClipboardController clipboardController;

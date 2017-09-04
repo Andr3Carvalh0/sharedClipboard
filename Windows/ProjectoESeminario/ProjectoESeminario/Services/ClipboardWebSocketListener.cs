@@ -16,11 +16,11 @@ namespace ProjectoESeminario.Services
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private IWebSocketConnectionHandler handler;
-        private Dictionary<String, Action<dynamic>> onReceiveActions = new Dictionary<string, Action<dynamic>>();
+        private readonly Dictionary<String, Action<dynamic>> onReceiveActions = new Dictionary<string, Action<dynamic>>();
         private readonly String socketURL;
         private readonly String sub;
         private readonly String id;
-        private readonly CancellationTokenSource cts;
+        private CancellationTokenSource cts;
         private readonly IParentListener parent;
 
         public ClipboardWebSocketListener(String socketURL, String userID, String deviceID, IParentListener parent)
@@ -46,8 +46,7 @@ namespace ProjectoESeminario.Services
 
             try
             {
-                Action<dynamic> tmp;
-                onReceiveActions.TryGetValue((String)json.action, out tmp);
+                onReceiveActions.TryGetValue((String)json.action, out var tmp);
                 tmp.Invoke(json);
             }
             catch (Exception)
@@ -114,7 +113,7 @@ namespace ProjectoESeminario.Services
         /// <param name="cancelToken"></param>
         public void WebsocketConnection(CancellationToken cancelToken)
         {
-            handler = new WebSocketConnectionHandler(socketURL, sub, id, (s) => OnReceive(s));
+            handler = new WebSocketConnectionHandler(socketURL, sub, id, OnReceive);
             Thread verifyStatusThread = new Thread(() => CheckWebSocketStatus(cancelToken))
                                                     { IsBackground = true };
 
@@ -144,7 +143,7 @@ namespace ProjectoESeminario.Services
                 {
                     try
                     {
-                        handler = new WebSocketConnectionHandler(socketURL, sub, id, (s) => OnReceive(s));
+                        handler = new WebSocketConnectionHandler(socketURL, sub, id, OnReceive);
                         tries = 0;
                     }
                     catch (Exception)
@@ -203,6 +202,9 @@ namespace ProjectoESeminario.Services
         /// <summary>
         /// Stops the thread that mantains the websocket connection.
         /// </summary>
-        public void Stop() { cts.Cancel(); }
+        public void Stop() {
+            cts.Cancel();
+            cts = new CancellationTokenSource();
+        }
     }
 }

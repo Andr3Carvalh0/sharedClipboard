@@ -19,7 +19,7 @@ namespace ProjectoESeminario.View.History.Category
         protected IHistory history;
         protected string name;
 
-        public History_Item(string name, IHistory history)
+        protected History_Item(string name, IHistory history)
         {
             InitializeComponent();
             Title.Content = name;

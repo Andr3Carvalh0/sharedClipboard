@@ -13,6 +13,7 @@ import pt.andre.projecto.Service.Interfaces.IAPIService;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @AutoConfigureBefore
@@ -82,6 +83,7 @@ public class API implements IAPI {
     @PostMapping("/api/pushMIME")
     public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String sub) {
         logger.info(TAG + "Push MIME method");
+
         try {
             return push(sub, file.getBytes(), file.getOriginalFilename());
         } catch (IOException e) {
@@ -106,9 +108,11 @@ public class API implements IAPI {
     @RequestMapping(value = "/api/push", method = RequestMethod.PUT)
     public ResponseEntity push(@RequestHeader("Authorization") String sub, @RequestParam String data) {
         logger.info(TAG + "push method");
+
         final DatabaseResponse resp = service.push(sub, data);
 
         logger.info(TAG + "Push: response will have the following code:" + resp.getResponseCode());
+
         return ResponseEntity.status(resp.getResponseCode()).body((String)resp.getResponseMessage());
     }
 

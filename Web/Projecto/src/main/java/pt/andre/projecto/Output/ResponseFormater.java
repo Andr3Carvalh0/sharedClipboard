@@ -94,7 +94,7 @@ public class ResponseFormater {
     }
 
     public static DatabaseResponse displayInformation(String message, boolean isMime){
-        String res = MensageFormater.updateMessage(message, isMime);
+        String res = MensageFormater.updateMessage(message, isMime, -1);
 
         return new DatabaseResponseText(VALID_REQUEST, res);
     }
@@ -102,5 +102,4 @@ public class ResponseFormater {
     public static DatabaseResponse displayInformation(byte[] content){
         return new DatabaseResponseMultimedia(VALID_REQUEST, content);
     }
-
 }

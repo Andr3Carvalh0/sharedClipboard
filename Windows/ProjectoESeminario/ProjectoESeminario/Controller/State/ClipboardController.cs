@@ -8,6 +8,7 @@ namespace ProjectoESeminario.Controller.State
     {
         private readonly Object nLock;
         private String clipboard_value;
+        private volatile int order_number = 0;
         private readonly LinkedList<Pair> queue;
 
         //Helper class
@@ -100,6 +101,25 @@ namespace ProjectoESeminario.Controller.State
                 } while (true);
 
             }
+        }
+
+        public bool putValue(String value, int order_received)
+        {
+            int order_now = order_number;
+            
+            while (order_now < order_received)
+            {
+                var prev = Interlocked.CompareExchange(ref order_number, order_received, order_now);
+                
+                if (prev == order_number)
+                {
+                    return putValue(value);
+                }
+
+                order_now = order_number;
+            }
+
+            return false;
         }
     }
 

@@ -163,14 +163,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProjectoESeminario.exe" size="423960">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProjectoESeminario.exe" size="424984">
       <assemblyIdentity name="ProjectoESeminario" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>lvJxKgxDhbwJIw7/J4dDRoHCh4lKEBBJc5ZLClJiVz0=</dsig:DigestValue>
+        <dsig:DigestValue>uo9WKgobfa8Eb7BzW0JQJ8dvWw0ASM/FMfbeWCC1hJo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

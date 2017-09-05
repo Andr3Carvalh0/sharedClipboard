@@ -23,6 +23,7 @@ public class DatabaseResponseText extends DatabaseResponse<String> {
         return responseMessage;
     }
 
+    @Override
     public void setResponseMessage(String responseMessage) {
         this.responseMessage = responseMessage;
     }

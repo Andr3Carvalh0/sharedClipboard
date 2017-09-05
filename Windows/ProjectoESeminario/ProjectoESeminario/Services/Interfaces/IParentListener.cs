@@ -7,8 +7,8 @@ namespace ProjectoESeminario.Services.Interfaces
         void Logout();
         void StopApplication(string message);
         void OnCopy(string text);
-        void OnReceive(string text);
-        void OnReceive(ImageEx text);
+        void OnReceive(string text, int order);
+        void OnReceive(ImageEx text, int order);
         void OnCopyMime(string path);
     }
 }

@@ -8,7 +8,7 @@ import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
 public class DatabaseResponseMultimedia extends DatabaseResponse<byte[]> {
 
 
-    private final byte[] responseContent;
+    private byte[] responseContent;
 
     public DatabaseResponseMultimedia(int responseCode, byte[] responseContent) {
         super(responseCode);
@@ -18,5 +18,10 @@ public class DatabaseResponseMultimedia extends DatabaseResponse<byte[]> {
     @Override
     public byte[] getResponseMessage() {
         return responseContent == null ? new byte[1] : responseContent;
+    }
+
+    @Override
+    public void setResponseMessage(byte[] newContent) {
+        this.responseContent = newContent;
     }
 }

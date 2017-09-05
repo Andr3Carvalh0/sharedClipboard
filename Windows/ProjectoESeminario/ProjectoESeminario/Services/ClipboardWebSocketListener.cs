@@ -95,7 +95,7 @@ namespace ProjectoESeminario.Services
         /// <param name="json">The json received from the server</param>
         private void HandleText(dynamic json)
         {
-            parent.OnReceive((String)json.content);
+            parent.OnReceive((String)json.content, (int) json.order);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace ProjectoESeminario.Services
         /// <param name="json">the json received from the server</param>
         private void HandleMime(dynamic json)
         {
-            parent.OnReceive(ImageDecoder.decode((String)json.content, (String)json.filename));
+            parent.OnReceive(ImageDecoder.decode((String)json.content, (String)json.filename), (int)json.order);
         }
 
         /// <summary>

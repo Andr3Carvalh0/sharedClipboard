@@ -18,5 +18,6 @@ public abstract class DatabaseResponse<T> {
     }
 
     public abstract T getResponseMessage();
+    public abstract void setResponseMessage(T newContent);
 
 }

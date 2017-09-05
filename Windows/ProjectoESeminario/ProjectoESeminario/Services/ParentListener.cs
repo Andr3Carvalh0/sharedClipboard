@@ -38,17 +38,19 @@ namespace ProjectoESeminario.Services
         }
 
         /// <summary>
-    /// Method called when we receive text from the server
-    /// </summary>
-    /// <param name="text">text</param>
-        public void OnReceive(string text)
+        /// Method called when we receive text from the server
+        /// </summary>
+        /// <param name="text">text</param>
+        /// <param name="order">the order received</param>
+        public void OnReceive(string text, int order)
         {
             OnCopy((s) =>
             {
                 clipboardListener.UpdateClipboard(text);
                 cache.Store(text);
             },
-                text
+                text,
+                order
             );
         }
 
@@ -56,14 +58,15 @@ namespace ProjectoESeminario.Services
         /// Called when we receive a image in the socket
         /// </summary>
         /// <param name="file"></param>
-        public void OnReceive(ImageEx file)
+        public void OnReceive(ImageEx file, int order)
         {
             OnCopy((s) =>
             {
                 clipboardListener.UpdateClipboard(file.file);
                 cache.Store(file);
             },
-            file.path);
+            file.path,
+            order);
         }
 
         /// <summary>
@@ -122,6 +125,28 @@ namespace ProjectoESeminario.Services
                 try
                 {
                     if (clipboardController.putValue(text))
+                        run.Invoke(text);
+                }
+                finally
+                {
+                    clipboardController.wake();
+                }
+            }).Start();
+        }
+
+        /// <summary>
+        /// Common method to all of the copy/receive methods
+        /// </summary>
+        /// <param name="run"></param>
+        /// <param name="text"></param>
+        /// <param name="order">the number of order received</param>
+        private void OnCopy(Action<string> run, string text, int order)
+        {
+            new Thread(() =>
+            {
+                try
+                {
+                    if (clipboardController.putValue(text, order))
                         run.Invoke(text);
                 }
                 finally

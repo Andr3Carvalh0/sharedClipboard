@@ -9,7 +9,7 @@ public interface IDatabase {
     DatabaseResponse registerMobileDevice(String sub, String firebaseID, String deviceName);
     DatabaseResponse registerDesktopDevice(String sub, String deviceID, String deviceName);
 
-    DatabaseResponse push(String sub, String data, boolean isMIME);
+    DatabaseResponse push(String sub, String data, boolean isMIME, int order);
     DatabaseResponse pull(String sub);
 
     DatabaseResponse authenticate(String user_sub);

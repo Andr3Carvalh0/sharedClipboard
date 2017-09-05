@@ -145,7 +145,7 @@ public class APIService extends ParentService implements IAPIService{
 
     private DatabaseResponse pushCommon(String sub, String data, boolean isMIME, Callable<String> message, int order) {
 
-        DatabaseResponse push = database.push(sub, data, isMIME);
+        DatabaseResponse push = database.push(sub, data, isMIME, order);
 
         logger.info(TAG + "Sharing with devices");
 

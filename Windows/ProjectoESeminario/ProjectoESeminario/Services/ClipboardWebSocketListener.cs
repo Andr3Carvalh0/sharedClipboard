@@ -61,8 +61,17 @@ namespace ProjectoESeminario.Services
         /// <param name="json"></param>
         private void HandleReport(dynamic json)
         {
-            if((String)json.error != null)
+            if((String)json.error != null) { 
                 MessageBox.Show((String)json.detail, (String)json.title);
+                return;
+            }
+
+            //The server only reports in 2 cases...
+            //Or the operation failed, or succeded.
+            //If we reach this point, we have succeded, so save the order number
+            long request_order = (long) json.data.order;
+            parent.OnUploadReport(request_order);
+  
         }
 
         /// <summary>
@@ -113,7 +122,7 @@ namespace ProjectoESeminario.Services
         /// <param name="cancelToken"></param>
         public void WebsocketConnection(CancellationToken cancelToken)
         {
-            handler = new WebSocketConnectionHandler(socketURL, sub, id, OnReceive);
+            handler = new WebSocketConnectionHandler(socketURL, sub, id, OnReceive, OnUpload);
             Thread verifyStatusThread = new Thread(() => CheckWebSocketStatus(cancelToken))
                                                     { IsBackground = true };
 
@@ -143,7 +152,7 @@ namespace ProjectoESeminario.Services
                 {
                     try
                     {
-                        handler = new WebSocketConnectionHandler(socketURL, sub, id, OnReceive);
+                        handler = new WebSocketConnectionHandler(socketURL, sub, id, OnReceive, OnUpload);
                         tries = 0;
                     }
                     catch (Exception)
@@ -199,6 +208,12 @@ namespace ProjectoESeminario.Services
             workingThread.Start();
         }
 
+
+        public void OnUpload(String text)
+        {
+            
+
+        }
         /// <summary>
         /// Stops the thread that mantains the websocket connection.
         /// </summary>

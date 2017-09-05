@@ -12,13 +12,15 @@ namespace ProjectoESeminario.Communication
         private readonly String userID;
         private readonly String deviceID;
         private readonly WebSocket ws;
+        private readonly Action<String> onUpload;
 
-        public WebSocketConnectionHandler(String socketURL, String userID, String deviceID, Action<String> onReceiveAction)
+        public WebSocketConnectionHandler(String socketURL, String userID, String deviceID, Action<String> onReceiveAction, Action<String> onUpload)
         {
             this.socket = socketURL;
             this.userID = userID;
             this.deviceID = deviceID;
             this.ws = new WebSocket(socketURL);
+            this.onUpload = onUpload;
 
             ws.EmitOnPing = true;
             ws.OnMessage += (sender, e) => {
@@ -58,6 +60,7 @@ namespace ProjectoESeminario.Communication
             String formattedBody = JsonConvert.SerializeObject(new UploadJSONWrapper(user, text));
             try { 
                 ws.SendAsync(formattedBody, null);
+                onUpload.Invoke(text);
             }
             catch (Exception)
             {
@@ -75,7 +78,9 @@ namespace ProjectoESeminario.Communication
             String formattedBody = JsonConvert.SerializeObject(new UploadMimeJSONWrapper(user, Convert.ToBase64String(file), filename));
             try { 
                 ws.SendAsync(formattedBody, null);
-            }catch(Exception)
+                onUpload.Invoke(filename);
+            }
+            catch(Exception)
             {
 
             }

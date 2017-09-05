@@ -44,11 +44,16 @@ namespace ProjectoESeminario.Services
         /// <param name="order">the order received</param>
         public void OnReceive(string text, int order)
         {
-            OnCopy((s) =>
-            {
-                clipboardListener.UpdateClipboard(text);
-                cache.Store(text);
-            },
+            OnCopy(
+                (s) =>
+                {
+                    clipboardListener.UpdateClipboard(text);
+                    cache.Store(text);
+                },
+                (s) =>
+                {
+                    cache.Store(text);
+                },
                 text,
                 order
             );
@@ -61,12 +66,16 @@ namespace ProjectoESeminario.Services
         public void OnReceive(ImageEx file, int order)
         {
             OnCopy((s) =>
-            {
-                clipboardListener.UpdateClipboard(file.file);
-                cache.Store(file);
-            },
-            file.path,
-            order);
+                {
+                    clipboardListener.UpdateClipboard(file.file);
+                    cache.Store(file);
+                },
+                (s) =>
+                {
+                    cache.Store(file);
+                },
+                file.path,
+                order);
         }
 
         /// <summary>
@@ -113,8 +122,23 @@ namespace ProjectoESeminario.Services
 
         }
 
+        public void OnUpload(string text)
+        {
+            var node = clipboardController.AddUpload(text);
+            new Thread(() =>
+            {
+                Thread.Sleep(3000);
+                clipboardController.RemoveUpload(node);
+            }).Start();
+        }
+
+        public void OnUploadReport(long order)
+        {
+            clipboardController.ConcludeUpload(order);
+        }
+
         /// <summary>
-        /// Common method to all of the copy/receive methods
+        /// Common method to all of the copy methods
         /// </summary>
         /// <param name="run"></param>
         /// <param name="text"></param>
@@ -124,34 +148,42 @@ namespace ProjectoESeminario.Services
             {
                 try
                 {
-                    if (clipboardController.putValue(text))
+                    if (clipboardController.PutValue(text))
                         run.Invoke(text);
                 }
                 finally
                 {
-                    clipboardController.wake();
+                    clipboardController.Wake();
                 }
             }).Start();
         }
 
         /// <summary>
-        /// Common method to all of the copy/receive methods
+        /// Common method to all of the receive methods
         /// </summary>
         /// <param name="run"></param>
         /// <param name="text"></param>
         /// <param name="order">the number of order received</param>
-        private void OnCopy(Action<string> run, string text, int order)
+        private void OnCopy(Action<string> change, Action<string> save, string text, int order)
         {
             new Thread(() =>
             {
                 try
                 {
-                    if (clipboardController.putValue(text, order))
-                        run.Invoke(text);
+                    int value = clipboardController.PutValue(text, order);
+                    
+                    //We changed value
+                    if (value == 1)
+                        change.Invoke(text);
+
+                    //We only need to save it onto the history
+                    if (value == 2)
+                        save.Invoke(text);
+
                 }
                 finally
                 {
-                    clipboardController.wake();
+                    clipboardController.Wake();
                 }
             }).Start();
         }

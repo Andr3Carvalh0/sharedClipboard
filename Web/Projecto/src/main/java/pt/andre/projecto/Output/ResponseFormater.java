@@ -1,5 +1,6 @@
 package pt.andre.projecto.Output;
 
+import org.json.JSONObject;
 import pt.andre.projecto.Model.Utils.DefaultHashMap;
 import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
 
@@ -78,6 +79,21 @@ public class ResponseFormater {
     public static DatabaseResponse createResponse(int message){
         return responses.get(message);
     }
+
+    public static DatabaseResponse createResponse(int message, int order){
+        DatabaseResponseText resp = (DatabaseResponseText)createResponse(message);
+
+        final JSONObject tmp1 = new JSONObject();
+        tmp1.put("order", order);
+
+        final JSONObject tmp2 = new JSONObject(resp.getResponseMessage());
+        tmp2.put("data", tmp1);
+
+        resp.setResponseMessage(tmp2.toString());
+
+        return resp;
+    }
+
 
     public static DatabaseResponse createResponseMultimedia(int message){
         final DatabaseResponse databaseResponse = responses.get(message);

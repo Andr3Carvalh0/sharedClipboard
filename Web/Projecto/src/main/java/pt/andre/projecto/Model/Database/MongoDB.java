@@ -98,7 +98,7 @@ public class MongoDB implements IDatabase {
     * @param isMIME : indicates whether @param data is a resource(false) or a URL to a resource(true)
     * */
     @Override
-    public DatabaseResponse push(String sub, String data, boolean isMIME) {
+    public DatabaseResponse push(String sub, String data, boolean isMIME, int order) {
         return transformationToContentDatabase(sub, (wrapper, collection) -> {
             logger.info(TAG + "attempting to add content to user account, content Type:" + isMIME);
 
@@ -109,7 +109,7 @@ public class MongoDB implements IDatabase {
 
             collection.updateOne(wrapper.getAccountFilter(), new Document("$set", document));
 
-            return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
+            return ResponseFormater.createResponse(ResponseFormater.SUCCESS, order);
         });
     }
 

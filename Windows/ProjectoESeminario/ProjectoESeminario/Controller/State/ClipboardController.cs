@@ -153,7 +153,7 @@ namespace ProjectoESeminario.Controller.State
                         {
                         }
 
-                        if (node == receivedRequestsQueue.First)
+                        if (node == receivedRequestsQueue.First && sentRequestsQueue.Count == 0)
                         {
                             if (order_received > order_number)
                             {
@@ -163,6 +163,7 @@ namespace ProjectoESeminario.Controller.State
                             receivedRequestsQueue.Remove(node);
                             tmp = false;
                         }
+
                     } while (tmp);
                 }
             }
@@ -194,7 +195,11 @@ namespace ProjectoESeminario.Controller.State
                 if (sentRequestsQueue.Count > 0)
                 {
                     sentRequestsQueue.RemoveFirst();
-                    Wake();
+
+                    if (receivedRequestsQueue.Count > 0)
+                    {
+                        MonitorEx.Pulse(nLock, receivedRequestsQueue.First);
+                    }
                 }
             }
         }
@@ -206,7 +211,12 @@ namespace ProjectoESeminario.Controller.State
                 sentRequestsQueue.Remove(node);
 
                 if (sentRequestsQueue.Count == 0)
-                    Wake();
+                {
+                    if (receivedRequestsQueue.Count > 0)
+                    {
+                        MonitorEx.Pulse(nLock, receivedRequestsQueue.First);
+                    }
+                }
             }
         }
     }

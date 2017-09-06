@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using System.Threading;
 
 namespace ProjectoESeminario.Controller.State
@@ -8,8 +7,8 @@ namespace ProjectoESeminario.Controller.State
     public class ClipboardController
     {
         private readonly Object nLock;
-        private long order_number = 0;
-        private string last;
+        private long order_number;
+        private long ignore;
 
         //Used for the sync problems discuted on the paper.Use pair object to facilitate the cancelation
         private readonly LinkedList<Pair> sentRequestsQueue;
@@ -20,23 +19,16 @@ namespace ProjectoESeminario.Controller.State
         {
             private bool wake;
             private bool remove;
-            private string text;
 
-            public Pair(string text)
+            public Pair()
             {
                 this.wake = false;
                 this.remove = false;
-                this.text = text;
             }
 
             public bool isWake()
             {
                 return wake;
-            }
-
-            public string GetText()
-            {
-                return text;
             }
 
             public void SetRemove()
@@ -75,7 +67,6 @@ namespace ProjectoESeminario.Controller.State
             nLock = new Object();
             sentRequestsQueue = new LinkedList<Pair>();
             receivedRequestsQueue = new LinkedList<WebPair>();
-            last = "";
         }
 
         public void Wake()
@@ -94,14 +85,17 @@ namespace ProjectoESeminario.Controller.State
             }
         }
 
-        public bool PutValue(Action<LinkedListNode<Pair>> startTimer, string text)
+        public bool PutValue(Action<LinkedListNode<Pair>> startTimer)
         {
             lock (nLock)
             {
-                if (text.Equals(last))
+                if (ignore > 0)
+                {
+                    ignore--;
                     return false;
+                }
 
-                var node = sentRequestsQueue.AddLast(new Pair(text));
+                var node = sentRequestsQueue.AddLast(new Pair());
                 startTimer.Invoke(node);
                 long order = order_number;
 
@@ -133,7 +127,7 @@ namespace ProjectoESeminario.Controller.State
         //return 0 -> Didnt change
         //return 1 -> Did change, we need to update history
         //return 2 -> Old request, we need to update history
-        public int PutValue(string text, long order_received)
+        public int PutValue(long order_received)
         {
             lock (nLock)
             {
@@ -146,7 +140,7 @@ namespace ProjectoESeminario.Controller.State
                         return 2;
 
                     order_number = order_received;
-                    last = text;
+                    ignore++;
 
                     return 1;
                 }
@@ -172,7 +166,7 @@ namespace ProjectoESeminario.Controller.State
                             return 2;
 
                         order_number = order_received;
-                        last = text;
+                        ignore++;
                         return 1;
                     }
 
@@ -189,7 +183,7 @@ namespace ProjectoESeminario.Controller.State
                 if (sentRequestsQueue.Count > 0)
                 {
                     var node = sentRequestsQueue.First;
-                    last = node.Value.GetText();
+                    ignore++;
                     node.Value.Wake();
                     MonitorEx.Pulse(nLock, node);
 
@@ -201,9 +195,17 @@ namespace ProjectoESeminario.Controller.State
         {
             lock (nLock)
             {
-                last = node.Value.GetText();
+                ignore++;
                 node.Value.SetRemove();
                 MonitorEx.Pulse(nLock, node);
+            }
+        }
+
+        public void IncrementIgnore()
+        {
+            lock (nLock)
+            {
+                ignore++;
             }
         }
         

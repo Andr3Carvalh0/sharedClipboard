@@ -148,8 +148,7 @@ namespace ProjectoESeminario.Services
                                         Thread.Sleep(5000);
                                         clipboardController.RemoveUpload(p);
                                     }).Start();
-                                },
-                                text)
+                                })
                     )
                     {
                         runOnSuccess.Invoke(text);
@@ -186,8 +185,7 @@ namespace ProjectoESeminario.Services
                                         Thread.Sleep(500);
                                         clipboardController.RemoveUpload(p);
                                     }).Start();
-                                },
-                                text)
+                                })
                     )
                     {
                         runOnSuccess.Invoke(text);
@@ -220,7 +218,7 @@ namespace ProjectoESeminario.Services
             {
                 try
                 {
-                    int value = clipboardController.PutValue(text, order);
+                    int value = clipboardController.PutValue(order);
                     
                     //We changed value
                     if (value == 1)
@@ -276,6 +274,8 @@ namespace ProjectoESeminario.Services
 
         public void UpdateClipboard(Image image, string path)
         {
+            clipboardController.IncrementIgnore();
+
             OnCopy(
             (s) => { return;},
             (s) =>
@@ -290,6 +290,8 @@ namespace ProjectoESeminario.Services
 
         public void UpdateClipboard(string text)
         {
+            clipboardController.IncrementIgnore();
+
             OnCopy(
                 (s) => { return; },
                 (s) =>

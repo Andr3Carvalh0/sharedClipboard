@@ -26,7 +26,7 @@ namespace SyncTests
                             Thread.Sleep(2000);
                             controller.UpdateStateOfUpload(2);
                         }).Start();
-                    }, "t1");
+                    });
                 }
                 finally
                 {
@@ -74,7 +74,7 @@ namespace SyncTests
                             Thread.Sleep(2000);
                             controller.RemoveUpload(s);
                         }).Start();
-                    }, "T1");
+                    });
                 }
                 finally
                 {
@@ -119,7 +119,7 @@ namespace SyncTests
                     {
                         Thread.Sleep(2000);
                         controller.RemoveUpload(s);
-                    }).Start(), "t1");
+                    }).Start());
                 }
                 finally
                 {
@@ -194,7 +194,7 @@ namespace SyncTests
 
                         Thread.Sleep(2000);
                         controller.UpdateStateOfUpload(3);
-                    }).Start(), "t1");
+                    }).Start());
                 }
                 finally
                 {
@@ -254,7 +254,7 @@ namespace SyncTests
                     {
                         Thread.Sleep(2000);
                         controller.UpdateStateOfUpload(2);
-                    }).Start(), "T1");
+                    }).Start());
                 }
                 finally
                 {

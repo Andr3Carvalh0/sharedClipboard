@@ -122,23 +122,14 @@ namespace ProjectoESeminario.Services
 
         }
 
-        public void OnUpload(string text)
-        {
-            var node = clipboardController.AddUpload(text);
-            new Thread(() =>
-            {
-                Thread.Sleep(3000);
-                clipboardController.RemoveUpload(node);
-            }).Start();
-        }
 
         public void OnUploadReport(long order)
         {
-            clipboardController.ConcludeUpload(order);
+            clipboardController.SetOrder(order);
         }
 
         /// <summary>
-        /// Common method to all of the copy methods
+        /// Common method to all of the copy methods of local trigger
         /// </summary>
         /// <param name="run"></param>
         /// <param name="text"></param>
@@ -148,14 +139,30 @@ namespace ProjectoESeminario.Services
             {
                 try
                 {
-                    if (clipboardController.PutValue(text))
+                    if 
+                    (
+                        clipboardController
+                            .PutValue(text, (p) => 
+                                        { new Thread(() => 
+                                            {
+                                                Thread.Sleep(3000);
+                                                clipboardController.RemoveUpload(p);
+                                            }).Start();
+                                        }
+                                  )
+                    ){ 
                         run.Invoke(text);
+                    }
+
+
                 }
                 finally
                 {
                     clipboardController.Wake();
                 }
             }).Start();
+
+
         }
 
         /// <summary>

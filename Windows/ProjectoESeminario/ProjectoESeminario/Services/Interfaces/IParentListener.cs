@@ -10,8 +10,7 @@ namespace ProjectoESeminario.Services.Interfaces
         void OnReceive(string text, int order);
         void OnReceive(ImageEx text, int order);
         void OnCopyMime(string path);
-
-        void OnUpload(string text);
+        
         void OnUploadReport(long order);
     }
 }

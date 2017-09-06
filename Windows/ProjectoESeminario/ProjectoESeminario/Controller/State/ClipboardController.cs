@@ -15,8 +15,6 @@ namespace ProjectoESeminario.Controller.State
 
         private readonly LinkedList<WebPair> receivedRequestsQueue;
 
-        //We assume that we can have multiple store requests at the same time
-        private readonly LinkedList<Pair> queue;
 
         //Helper class
         public class Pair
@@ -71,7 +69,6 @@ namespace ProjectoESeminario.Controller.State
         public ClipboardController(String initialValue)
         {
             nLock = new Object();
-            queue = new LinkedList<Pair>();
             sentRequestsQueue = new LinkedList<Pair>();
             receivedRequestsQueue = new LinkedList<WebPair>();
             clipboard_value = initialValue;
@@ -81,27 +78,31 @@ namespace ProjectoESeminario.Controller.State
         {
             lock (nLock)
             {
-                if (queue.Count > 0) {
-                    MonitorEx.Pulse(nLock, queue.First);
+                if (sentRequestsQueue.Count > 0)
+                {
+                    MonitorEx.Pulse(nLock, sentRequestsQueue.First);
+                    return;
                 }
+
+                if(receivedRequestsQueue.Count > 0)
+                    MonitorEx.Pulse(nLock, receivedRequestsQueue.First);
             }
         }
 
-        public bool PutValue(String value)
+        public bool PutValue(String value, Action<LinkedListNode<Pair>> startTimer)
         {
             lock (nLock)
             {
-                if (value.Equals(clipboard_value) && queue.Count == 0 && sentRequestsQueue.Count == 0)
-                    return false;
-                
-                //Queue is empty we can alter the value without waiting
-                if (queue.Count == 0 && !value.Equals(clipboard_value) && sentRequestsQueue.Count == 0)
-                {
-                    clipboard_value = value;
-                    return true;
-                }
+                var node = sentRequestsQueue.AddLast(new Pair(value));
 
-                var node = queue.AddLast(new Pair(value));
+                try
+                {
+                    startTimer.Invoke(node);
+                }
+                catch (Exception e)
+                {
+                    
+                }
 
                 do
                 {
@@ -111,14 +112,17 @@ namespace ProjectoESeminario.Controller.State
                     }
                     catch (ThreadInterruptedException) {}
 
-                    if (node == queue.First && sentRequestsQueue.Count == 0)
+                    if (node == sentRequestsQueue.First && sentRequestsQueue.Count == 0)
                     {
                         if(!value.Equals(clipboard_value))
                             clipboard_value = value;
 
-                        queue.Remove(node);
+                        sentRequestsQueue.Remove(node);
                         return !value.Equals(clipboard_value);
                     }
+
+                    if (!sentRequestsQueue.Contains(node.Value))
+                        return false;
 
                 } while (true);
 
@@ -149,9 +153,7 @@ namespace ProjectoESeminario.Controller.State
                         {
                             MonitorEx.Wait(nLock, node);
                         }
-                        catch (Exception)
-                        {
-                        }
+                        catch (Exception){}
 
                         if (node == receivedRequestsQueue.First && sentRequestsQueue.Count == 0)
                         {
@@ -174,19 +176,11 @@ namespace ProjectoESeminario.Controller.State
             if (!updatedOrderNumber)
                 return 2;
             
-            return PutValue(value) ? 1 : 0;
+            return PutValue(value, (s) => {return;}) ? 1 : 0;
 
         }
 
-        public LinkedListNode<Pair> AddUpload(string value)
-        {
-            lock (nLock)
-            {
-                return sentRequestsQueue.AddLast(new Pair(value));
-            }
-        }
-
-        public void ConcludeUpload(long order)
+        public void SetOrder(long order)
         {
             lock (nLock)
             {
@@ -194,12 +188,10 @@ namespace ProjectoESeminario.Controller.State
 
                 if (sentRequestsQueue.Count > 0)
                 {
-                    sentRequestsQueue.RemoveFirst();
+                    var node = sentRequestsQueue.First;
+                    sentRequestsQueue.Remove(node);
+                    MonitorEx.Pulse(nLock, node);
 
-                    if (receivedRequestsQueue.Count > 0)
-                    {
-                        MonitorEx.Pulse(nLock, receivedRequestsQueue.First);
-                    }
                 }
             }
         }
@@ -209,18 +201,8 @@ namespace ProjectoESeminario.Controller.State
             lock (nLock)
             {
                 sentRequestsQueue.Remove(node);
-
-                if (sentRequestsQueue.Count == 0)
-                {
-                    if (receivedRequestsQueue.Count > 0)
-                    {
-                        MonitorEx.Pulse(nLock, receivedRequestsQueue.First);
-                    }
-                }
+                MonitorEx.Pulse(nLock, node);
             }
         }
     }
-
-
-
 }

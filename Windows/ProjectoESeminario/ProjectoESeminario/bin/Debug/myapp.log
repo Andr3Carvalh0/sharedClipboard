@@ -777,3 +777,6 @@
 2017-09-05 23:37:09,061 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
 2017-09-05 23:37:09,205 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
 2017-09-05 23:37:09,235 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 00:41:13,794 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 00:41:13,935 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 00:41:13,969 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!

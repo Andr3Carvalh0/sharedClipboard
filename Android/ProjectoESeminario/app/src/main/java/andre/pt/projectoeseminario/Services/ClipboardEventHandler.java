@@ -44,7 +44,6 @@ public class ClipboardEventHandler extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        System.out.println();
     }
 
     /**

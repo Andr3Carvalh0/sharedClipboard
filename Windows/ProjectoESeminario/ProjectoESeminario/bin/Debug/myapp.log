@@ -780,3 +780,736 @@
 2017-09-06 00:41:13,794 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
 2017-09-06 00:41:13,935 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
 2017-09-06 00:41:13,969 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 10:28:33,910 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 10:28:34,074 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 10:28:34,090 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 10:32:06,327 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 10:32:06,494 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 10:32:06,517 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 10:32:54,322 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:32:54,393 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:42:08,671 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 10:42:08,821 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 10:42:08,848 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 10:42:12,740 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:42:12,741 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:42:44,972 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:42:44,972 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:44:45,787 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:44:45,888 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:44:45,889 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:44:45,890 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:45:31,463 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:45:31,549 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:46:06,383 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:46:06,387 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:47:03,904 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:47:03,907 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:36,219 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:36,237 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:39,618 [23] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:39,625 [6] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:39,714 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:39,714 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:39,738 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:39,738 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:39,748 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:39,748 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:39,784 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:39,784 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:41,102 [45] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:41,114 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:41,114 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:41,116 [44] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:41,123 [42] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:41,125 [43] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:41,130 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:41,133 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:41,143 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:41,143 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:41,179 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:41,179 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:41,246 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:41,246 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:41,270 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:41,279 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:41,279 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:41,281 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:41,285 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:41,288 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:43,939 [92] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:43,945 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:43,945 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:43,992 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:43,992 [93] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:43,993 [94] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:43,995 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:44,002 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:44,002 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:44,067 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:44,067 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:44,116 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:44,116 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:44,140 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:44,140 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:45,993 [129] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:45,995 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:45,995 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:45,999 [130] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:46,007 [127] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:46,014 [128] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:46,021 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:46,021 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:46,044 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:46,044 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:46,094 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:46,094 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:46,097 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:46,097 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:46,115 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:46,115 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:46,131 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:46,131 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:46,137 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:46,137 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:48,970 [47] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:48,982 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:48,983 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:49,014 [45] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:49,025 [44] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:49,044 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:49,044 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:49,144 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:49,179 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:49,218 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:49,221 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:49,225 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:49,225 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:49,256 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:49,257 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:51,169 [177] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:51,183 [175] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:51,186 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:51,192 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:51,183 [176] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:51,208 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:51,208 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:55,964 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 10:48:56,179 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 10:48:56,242 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 10:48:57,228 [14] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:57,230 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:57,231 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:57,250 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:57,252 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:58,163 [21] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:58,163 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:58,163 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:58,170 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:58,170 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:58,875 [19] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:58,897 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:58,898 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:58,908 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:58,908 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:59,603 [28] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:48:59,613 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:59,613 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:48:59,637 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:48:59,637 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:00,335 [34] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:00,335 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:00,337 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:00,369 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:00,370 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:01,057 [40] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:01,068 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:01,068 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:01,082 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:01,086 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:01,164 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:01,164 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:02,365 [34] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:02,365 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:02,366 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:02,407 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:02,407 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:03,064 [14] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:03,075 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:03,075 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:03,081 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:03,082 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:04,034 [45] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:04,035 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:04,035 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:04,069 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:04,070 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:04,777 [22] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:04,778 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:04,778 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:04,793 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:04,793 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:05,513 [33] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:05,524 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:05,524 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:05,528 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:05,529 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:06,239 [43] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:06,249 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:06,249 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:06,256 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:06,256 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:06,939 [26] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:06,950 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:06,950 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:06,957 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:06,957 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:07,637 [51] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:07,638 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:07,639 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:07,658 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:07,659 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:08,359 [40] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:08,360 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:08,360 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:08,380 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:08,380 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:09,075 [41] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:09,087 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:09,089 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:09,104 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:09,109 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:09,853 [56] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:09,862 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:09,863 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:09,868 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:09,868 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:10,607 [62] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:10,609 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:10,609 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:10,633 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:10,638 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:16,492 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:16,492 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:16,827 [14] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:16,828 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:16,828 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:16,834 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:16,834 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:17,553 [31] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:17,553 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:17,554 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:17,571 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:17,575 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:18,247 [67] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:18,265 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:18,265 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:18,293 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:18,293 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:18,946 [57] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:18,953 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:18,970 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:18,981 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:18,981 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:19,687 [31] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:19,706 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:19,706 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:19,713 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:19,714 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:27,990 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 10:49:28,191 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 10:49:28,220 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 10:49:29,097 [15] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:29,099 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:29,114 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:29,129 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:29,130 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:31,119 [15] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:31,120 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:31,120 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:31,143 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:31,143 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:31,895 [26] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:31,897 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:31,897 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:31,916 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:31,916 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:32,313 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:32,318 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:32,973 [35] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:32,991 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:32,992 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:33,024 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:33,032 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:33,697 [36] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:33,710 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:33,710 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:33,737 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:33,737 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:34,422 [27] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:34,431 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:34,456 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:34,462 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:34,462 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:35,138 [26] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:35,151 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:35,152 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:35,164 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:35,165 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:35,806 [20] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:35,845 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:35,845 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:35,853 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:35,855 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:36,578 [44] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:36,586 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:36,590 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:36,601 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:36,601 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:37,283 [27] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:37,312 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:37,312 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:37,325 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:37,325 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:38,269 [24] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:38,280 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:38,280 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:38,313 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:38,313 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:39,002 [49] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:39,002 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:39,002 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:39,003 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:39,026 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:39,708 [55] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:39,727 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:39,728 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:39,730 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:39,732 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:40,470 [61] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:40,479 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:40,504 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:40,512 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:40,512 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:41,190 [62] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:41,191 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:41,192 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:41,218 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:41,218 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:41,904 [54] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:41,922 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:41,923 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:41,946 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:41,946 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:42,638 [22] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:42,645 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:42,650 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:42,658 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:42,659 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:43,413 [28] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:43,413 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:43,414 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:43,437 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:43,437 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:44,162 [70] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:44,165 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:44,169 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:44,184 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:44,184 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:44,884 [24] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:44,895 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:44,895 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:44,921 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:44,922 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:45,613 [55] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:45,656 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:45,657 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:45,714 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:45,715 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:46,364 [53] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:46,384 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:46,384 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:46,408 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:46,408 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:47,100 [36] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:47,101 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:47,101 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:47,128 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:47,128 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:47,802 [20] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:47,803 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:47,803 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:47,827 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:47,827 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:48,710 [63] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:48,729 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:48,729 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:48,768 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:48,768 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:49,437 [22] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:49,438 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:49,439 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:49,468 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:49,474 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:50,175 [34] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:50,176 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:50,185 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:50,196 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:50,200 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:50,904 [76] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:50,906 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:50,906 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:50,928 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:50,929 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:51,613 [82] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:51,624 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:51,624 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:51,639 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:51,639 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:52,354 [88] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:49:52,355 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:52,355 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:49:52,372 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:49:52,379 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:20,859 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 10:51:20,998 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 10:51:21,017 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 10:51:22,264 [15] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:22,269 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:22,269 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:22,305 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:22,307 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:23,264 [16] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:23,266 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:23,266 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:23,287 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:23,287 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:23,990 [25] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:24,023 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:24,028 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:24,030 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:24,031 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:24,685 [31] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:24,687 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:24,687 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:24,708 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:24,709 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:25,427 [32] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:25,468 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:25,477 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:25,486 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:25,488 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:26,211 [24] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:26,220 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:26,220 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:26,256 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:26,256 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:26,951 [37] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:26,997 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:26,998 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:26,999 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:27,001 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:27,699 [43] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:27,719 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:27,719 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:27,746 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:27,748 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:28,414 [49] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:28,427 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:28,428 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:28,430 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:28,431 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:29,153 [48] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:29,154 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:29,154 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:29,160 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:29,160 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:56,496 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 10:51:56,654 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 10:51:56,742 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 10:51:57,694 [15] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:57,696 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:57,697 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:57,738 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:57,740 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:58,434 [21] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:58,455 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:58,455 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:58,461 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:58,461 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:59,162 [20] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:59,182 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:59,182 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:59,189 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:59,191 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:59,858 [28] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:51:59,934 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:59,948 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:51:59,948 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:51:59,949 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:00,822 [22] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:00,841 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:00,841 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:00,850 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:00,851 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:01,518 [34] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:01,549 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:01,549 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:01,559 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:01,560 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:02,244 [31] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:02,245 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:02,245 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:02,251 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:02,251 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:02,916 [39] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:02,925 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:02,925 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:02,941 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:02,942 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:03,689 [45] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:03,689 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:03,689 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:03,733 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:03,733 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:04,411 [51] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:04,422 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:04,422 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:04,448 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:04,448 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:05,151 [57] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:05,162 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:05,163 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:05,183 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:05,183 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:05,882 [57] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:05,892 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:05,892 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:05,921 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:05,925 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:07,104 [47] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:07,108 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:07,109 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:07,135 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:07,135 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:07,927 [39] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:07,932 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:07,932 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:07,959 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:07,959 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:08,676 [37] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:08,692 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:08,693 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:08,719 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:08,720 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:09,454 [66] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:09,455 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:09,456 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:09,472 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:09,472 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:10,213 [72] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:10,235 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:10,235 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:10,248 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:10,248 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:10,954 [78] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:10,956 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:10,956 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:10,964 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:10,964 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:11,656 [74] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:11,689 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:11,690 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:11,694 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:11,694 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:12,373 [66] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:12,393 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:12,393 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:12,397 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:12,397 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:13,068 [29] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:13,071 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:13,071 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:13,093 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:13,099 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:14,070 [47] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:14,095 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:14,095 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:14,113 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:14,115 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:14,798 [57] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 10:52:14,798 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:14,799 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:14,824 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:14,825 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 10:52:39,676 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 10:52:39,824 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 10:52:39,855 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 10:52:56,448 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 10:52:56,454 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 11:03:07,430 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 11:03:07,604 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 11:03:07,630 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 11:05:10,335 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 11:05:10,478 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 11:05:10,506 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 11:05:14,224 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 11:05:14,231 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 11:05:46,782 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 11:05:46,883 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 11:06:04,267 [17] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 11:06:04,268 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 11:06:04,268 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 11:06:04,288 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 11:06:04,288 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 11:10:46,836 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 11:10:46,989 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 11:10:47,057 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 11:11:03,549 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 11:11:03,551 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 11:31:01,343 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 11:31:01,483 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 11:31:01,502 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 11:34:23,265 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 11:34:23,479 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 11:34:23,548 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 11:34:41,519 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 11:34:41,521 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 11:39:36,122 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 11:39:36,256 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 11:39:36,288 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 11:59:25,849 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 11:59:26,032 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 11:59:26,109 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 12:01:30,037 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 12:01:30,257 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 12:01:30,311 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 12:05:12,600 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 12:05:12,748 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 12:05:12,763 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 12:05:23,171 [16] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:05:23,173 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:05:23,174 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:05:23,176 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:05:23,177 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:05:57,951 [20] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:05:57,952 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:05:57,952 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:05:57,953 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:05:57,953 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:06:28,740 [25] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:06:28,741 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:06:28,741 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:06:28,741 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:06:28,744 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:12:29,648 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 12:12:29,850 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 12:12:29,935 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 12:12:40,098 [15] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:12:40,101 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:12:40,114 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:12:40,119 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:12:40,119 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:13:04,284 [17] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:13:04,285 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:13:04,285 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:13:04,288 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:13:04,292 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:13:49,312 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 12:13:49,464 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 12:13:49,512 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 12:13:54,042 [15] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:13:54,044 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:13:54,045 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:13:54,048 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:13:54,049 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:14:55,841 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 12:14:56,017 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 12:14:56,063 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 12:16:04,980 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 12:16:05,157 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 12:16:05,208 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 12:16:14,346 [15] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:16:14,352 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:16:14,353 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:16:14,358 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:16:14,387 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:16:35,238 [16] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:16:35,239 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:16:35,239 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:16:35,240 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:16:35,241 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:16:38,701 [17] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:16:38,702 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:16:38,702 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:16:38,703 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:16:38,705 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:16:42,588 [15] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:16:42,589 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:16:42,590 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:16:42,590 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:16:42,592 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:16:57,129 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:16:57,229 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:19:13,824 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 12:19:13,973 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 12:19:13,988 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 12:19:23,417 [15] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:19:23,419 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:19:23,420 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:19:23,486 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:19:23,487 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:19:36,041 [15] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:19:36,043 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:19:36,043 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:19:36,046 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:19:36,048 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:20:14,923 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:20:14,935 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:56:11,723 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 12:56:11,862 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 12:56:11,906 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 12:56:17,502 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:56:17,504 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:56:38,578 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:56:38,583 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:56:51,396 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 12:56:51,553 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 12:56:51,569 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 12:56:56,921 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:56:56,927 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:57:09,618 [18] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:57:09,619 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:57:09,620 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:57:09,629 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:57:09,630 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:57:54,983 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 12:57:55,131 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 12:57:55,146 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 12:58:00,016 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:58:00,023 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:58:08,834 [14] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:58:08,835 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:58:08,835 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:58:08,837 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:58:08,837 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:58:25,922 [14] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying text to clipboard
+2017-09-06 12:58:25,923 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:58:25,924 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:58:25,968 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:58:25,970 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It was text
+2017-09-06 12:59:09,744 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 12:59:09,883 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 12:59:09,925 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 12:59:22,431 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 12:59:22,453 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-06 12:59:22,455 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-06 13:00:35,071 [1] DEBUG ProjectoESeminario.App - Portugal: Main loading settingsWindow
+2017-09-06 13:00:35,224 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController - Ctor
+2017-09-06 13:00:35,241 [1] DEBUG ProjectoESeminario.Controller.SettingsController - Portugal: SettingsController method GetSocketURL called!
+2017-09-06 13:00:44,511 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 13:00:44,518 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler It could be an format that we support
+2017-09-06 13:00:44,520 [1] DEBUG ProjectoESeminario.Services.ParentListener - Portugal: ParentListener Upload file to server
+2017-09-06 13:01:10,731 [19] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandlercopying image to clipboard
+2017-09-06 13:01:10,745 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard
+2017-09-06 13:01:10,747 [1] DEBUG ProjectoESeminario.Services.ClipboardListener - Portugal: ClipboardHandler Changes where detected in the clipboard

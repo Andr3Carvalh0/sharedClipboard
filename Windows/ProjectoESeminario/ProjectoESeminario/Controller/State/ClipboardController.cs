@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using System.Threading;
 
 namespace ProjectoESeminario.Controller.State
@@ -7,57 +8,60 @@ namespace ProjectoESeminario.Controller.State
     public class ClipboardController
     {
         private readonly Object nLock;
-        private String clipboard_value;
         private long order_number = 0;
+        private string last;
 
         //Used for the sync problems discuted on the paper.Use pair object to facilitate the cancelation
         private readonly LinkedList<Pair> sentRequestsQueue;
-
         private readonly LinkedList<WebPair> receivedRequestsQueue;
-
 
         //Helper class
         public class Pair
         {
-            private String value;
-            private bool finished;
+            private bool wake;
+            private bool remove;
+            private string text;
 
-            public Pair(String value)
+            public Pair(string text)
             {
-                this.value = value;
-                this.finished = false;
+                this.wake = false;
+                this.remove = false;
+                this.text = text;
             }
 
-            public String getValue()
+            public bool isWake()
             {
-                return value;
+                return wake;
             }
 
-            public bool isFinished()
+            public string GetText()
             {
-                return finished;
+                return text;
             }
 
-            public void finish()
+            public void SetRemove()
             {
-                this.finished = true;
+                this.remove = true;
+            }
+
+            public bool ToRemove()
+            {
+                return remove;
+            }
+
+            public void Wake()
+            {
+                this.wake = true;
             }
         }
 
         private class WebPair
         {
-            private String value;
             private long order;
 
-            public WebPair(String value, long order)
+            public WebPair(long order)
             {
-                this.value = value;
                 this.order = order;
-            }
-
-            public String getValue()
-            {
-                return value;
             }
 
             public long getOrder()
@@ -66,18 +70,19 @@ namespace ProjectoESeminario.Controller.State
             }
         }
 
-        public ClipboardController(String initialValue)
+        public ClipboardController()
         {
             nLock = new Object();
             sentRequestsQueue = new LinkedList<Pair>();
             receivedRequestsQueue = new LinkedList<WebPair>();
-            clipboard_value = initialValue;
+            last = "";
         }
 
         public void Wake()
         {
             lock (nLock)
             {
+
                 if (sentRequestsQueue.Count > 0)
                 {
                     MonitorEx.Pulse(nLock, sentRequestsQueue.First);
@@ -89,20 +94,16 @@ namespace ProjectoESeminario.Controller.State
             }
         }
 
-        public bool PutValue(String value, Action<LinkedListNode<Pair>> startTimer)
+        public bool PutValue(Action<LinkedListNode<Pair>> startTimer, string text)
         {
             lock (nLock)
             {
-                var node = sentRequestsQueue.AddLast(new Pair(value));
+                if (text.Equals(last))
+                    return false;
 
-                try
-                {
-                    startTimer.Invoke(node);
-                }
-                catch (Exception e)
-                {
-                    
-                }
+                var node = sentRequestsQueue.AddLast(new Pair(text));
+                startTimer.Invoke(node);
+                long order = order_number;
 
                 do
                 {
@@ -112,75 +113,74 @@ namespace ProjectoESeminario.Controller.State
                     }
                     catch (ThreadInterruptedException) {}
 
-                    if (node == sentRequestsQueue.First && sentRequestsQueue.Count == 0)
+                    if (node.Value.ToRemove())
                     {
-                        if(!value.Equals(clipboard_value))
-                            clipboard_value = value;
-
                         sentRequestsQueue.Remove(node);
-                        return !value.Equals(clipboard_value);
+                        return false;
                     }
 
-                    if (!sentRequestsQueue.Contains(node.Value))
-                        return false;
+                    if (node == sentRequestsQueue.First && node.Value.isWake())
+                    {
+                        sentRequestsQueue.Remove(node);
+                        return order_number != order;
+                    }
 
                 } while (true);
 
             }
         }
 
-        public int PutValue(String value, long order_received)
+        //return 0 -> Didnt change
+        //return 1 -> Did change, we need to update history
+        //return 2 -> Old request, we need to update history
+        public int PutValue(string text, long order_received)
         {
-            bool updatedOrderNumber = false;
-
             lock (nLock)
             {
                 if (sentRequestsQueue.Count == 0)
                 {
-                    if(order_received > order_number) { 
-                        order_number = order_received;
-                        updatedOrderNumber = true;
-                    }
+                    if (order_received == order_number)
+                        return 0;
+
+                    if(order_received < order_number)
+                        return 2;
+
+                    order_number = order_received;
+                    last = text;
+
+                    return 1;
                 }
-                else
+
+                var node = receivedRequestsQueue.AddLast(new WebPair(order_received));
+
+                do
                 {
-                    var node = receivedRequestsQueue.AddLast(new WebPair(value, order_received));
-                    bool tmp = true;
-
-                    do
+                    try
                     {
-                        try
-                        {
-                            MonitorEx.Wait(nLock, node);
-                        }
-                        catch (Exception){}
+                        MonitorEx.Wait(nLock, node);
+                    }
+                    catch (Exception){}
 
-                        if (node == receivedRequestsQueue.First && sentRequestsQueue.Count == 0)
-                        {
-                            if (order_received > order_number)
-                            {
-                                order_number = order_received;
-                                updatedOrderNumber = true;
-                            }
-                            receivedRequestsQueue.Remove(node);
-                            tmp = false;
-                        }
+                    if (node == receivedRequestsQueue.First && sentRequestsQueue.Count == 0)
+                    {
+                        receivedRequestsQueue.Remove(node);
 
-                    } while (tmp);
-                }
+                        if (order_received == order_number)
+                            return 0;
+
+                        if (order_received < order_number)
+                            return 2;
+
+                        order_number = order_received;
+                        last = text;
+                        return 1;
+                    }
+
+                } while (true);
             }
-
-            if(receivedRequestsQueue.Count > 0)
-                MonitorEx.Pulse(nLock, receivedRequestsQueue.First);
-
-            if (!updatedOrderNumber)
-                return 2;
-            
-            return PutValue(value, (s) => {return;}) ? 1 : 0;
-
         }
 
-        public void SetOrder(long order)
+        public void UpdateStateOfUpload(long order)
         {
             lock (nLock)
             {
@@ -189,7 +189,8 @@ namespace ProjectoESeminario.Controller.State
                 if (sentRequestsQueue.Count > 0)
                 {
                     var node = sentRequestsQueue.First;
-                    sentRequestsQueue.Remove(node);
+                    last = node.Value.GetText();
+                    node.Value.Wake();
                     MonitorEx.Pulse(nLock, node);
 
                 }
@@ -200,9 +201,11 @@ namespace ProjectoESeminario.Controller.State
         {
             lock (nLock)
             {
-                sentRequestsQueue.Remove(node);
+                last = node.Value.GetText();
+                node.Value.SetRemove();
                 MonitorEx.Pulse(nLock, node);
             }
         }
+        
     }
 }

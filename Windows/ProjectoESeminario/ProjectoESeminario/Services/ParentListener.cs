@@ -10,6 +10,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows;
 
 namespace ProjectoESeminario.Services
@@ -30,7 +31,7 @@ namespace ProjectoESeminario.Services
         {
             this.clipboardListener = new ClipboardListener(this);
             this.clipboardWebSocketListener = new ClipboardWebSocketListener(socketURL, userID, deviceID, this);
-            this.clipboardController = ClipboardControllerFactory.getSingleton("Welcome!");
+            this.clipboardController = ClipboardControllerFactory.getSingleton();
             this.cache = new Cache();
             this.user = userID;
             this.supportedFormats.Add("jpg", ImageFormat.Jpeg);
@@ -47,12 +48,12 @@ namespace ProjectoESeminario.Services
             OnCopy(
                 (s) =>
                 {
-                    clipboardListener.UpdateClipboard(text);
-                    cache.Store(text);
+                    clipboardListener.UpdateClipboard(s);
+                    cache.Store(s);
                 },
                 (s) =>
                 {
-                    cache.Store(text);
+                    cache.Store(s);
                 },
                 text,
                 order
@@ -84,13 +85,11 @@ namespace ProjectoESeminario.Services
         /// <param name="text">The copied text</param>
         public void OnCopy(string text)
         {
-            OnCopy((s) =>
-            {
-                clipboardWebSocketListener.HandleUpload(user, text);
-                cache.Store(text);
-            },
-                text
-            );
+            OnCopy(
+                () => clipboardWebSocketListener.HandleUpload(user, text), 
+                (s) => cache.Store(s), 
+                (s) => { return;},
+                text);
         }
 
         /// <summary>
@@ -111,21 +110,20 @@ namespace ProjectoESeminario.Services
 
                 byte[] image = File.ReadAllBytes(path);
 
-                OnCopy((s) =>
-                {
-                    clipboardWebSocketListener.HandleUploadMime(user, image, tmp[tmp.Length - 1]);
-                    cache.Store(ImageDecoder.decode(image, tmp[tmp.Length - 1]));
-                },
+
+                OnCopy(
+                    () => clipboardWebSocketListener.HandleUploadMime(user, image, tmp[tmp.Length - 1]),
+                    (s) => cache.Store(ImageDecoder.decode(image, tmp[tmp.Length - 1])),
+                    (s) => { return;},
                     path
                 );
             }
 
         }
 
-
         public void OnUploadReport(long order)
         {
-            clipboardController.SetOrder(order);
+            clipboardController.UpdateStateOfUpload(order);
         }
 
         /// <summary>
@@ -133,25 +131,70 @@ namespace ProjectoESeminario.Services
         /// </summary>
         /// <param name="run"></param>
         /// <param name="text"></param>
-        private void OnCopy(Action<string> run, string text)
+        private void OnCopy(Action upload, Action<string> runOnSuccess, Action<string> runOnFailure, string text)
         {
             new Thread(() =>
             {
                 try
                 {
-                    if 
+                    if
                     (
                         clipboardController
-                            .PutValue(text, (p) => 
-                                        { new Thread(() => 
-                                            {
-                                                Thread.Sleep(3000);
-                                                clipboardController.RemoveUpload(p);
-                                            }).Start();
-                                        }
-                                  )
-                    ){ 
-                        run.Invoke(text);
+                            .PutValue((p) =>
+                                {
+                                    new Thread(() =>
+                                    {
+                                        upload.Invoke();
+                                        Thread.Sleep(5000);
+                                        clipboardController.RemoveUpload(p);
+                                    }).Start();
+                                },
+                                text)
+                    )
+                    {
+                        runOnSuccess.Invoke(text);
+                    }
+                    else
+                    {
+                        runOnFailure.Invoke(text);
+                    }
+
+
+                }
+                finally
+                {
+                    clipboardController.Wake();
+                }
+            }).Start();
+
+
+        }
+
+        private void OnCopy(Action<string> runOnSuccess, Action<string> runOnFailure, string text)
+        {
+            new Thread(() =>
+            {
+                try
+                {
+                    if
+                    (
+                        clipboardController
+                            .PutValue((p) =>
+                                {
+                                    new Thread(() =>
+                                    {
+                                        Thread.Sleep(500);
+                                        clipboardController.RemoveUpload(p);
+                                    }).Start();
+                                },
+                                text)
+                    )
+                    {
+                        runOnSuccess.Invoke(text);
+                    }
+                    else
+                    {
+                        runOnFailure.Invoke(text);
                     }
 
 
@@ -233,23 +276,27 @@ namespace ProjectoESeminario.Services
 
         public void UpdateClipboard(Image image, string path)
         {
-            OnCopy((s) =>
+            OnCopy(
+            (s) => { return;},
+            (s) =>
             {
                 clipboardListener.UpdateClipboard(image);
                 Notify(Properties.Resources.COPIED_IMAGE);
             },
-                path
+            path
             );
             
         }
 
         public void UpdateClipboard(string text)
         {
-            OnCopy((s) =>
-            {
-                clipboardListener.UpdateClipboard(text);
-                Notify(Properties.Resources.COPIED_TEXT + text);
-            },
+            OnCopy(
+                (s) => { return; },
+                (s) =>
+                {
+                    clipboardListener.UpdateClipboard(text);
+                    Notify(Properties.Resources.COPIED_TEXT + text);
+                },
                 text
             );
         }

@@ -15,6 +15,7 @@ namespace ProjectoESeminario.Controller.Data.Database
                 CreateProjectoFolder();
 
             String parent = Path.Combine(GetPath(), "images");
+            Directory.CreateDirectory(parent);
             String file = Path.Combine(parent, image.path);
 
             image.file.Save(file);

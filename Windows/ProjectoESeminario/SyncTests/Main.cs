@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.Remoting.Messaging;
-using System.Threading;
+﻿using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProjectoESeminario.Controller.State;
 
@@ -13,42 +11,46 @@ namespace SyncTests
         [TestMethod]
         public void ShouldSucced()
         {
-            ClipboardController controller = new ClipboardController("Ola");
+            ClipboardController controller = new ClipboardController();
 
             bool res = false;
-            Thread[] arr = new Thread[3];
+            Thread[] arr = new Thread[2];
             arr[0] = new Thread(() =>
             {
                 try
                 {
-                    controller.PutValue("You", null);
+                    controller.PutValue((s) =>
+                    {
+                        new Thread(() =>
+                        {
+                            Thread.Sleep(2000);
+                            controller.UpdateStateOfUpload(2);
+                        }).Start();
+                    }, "t1");
                 }
                 finally
                 {
                     controller.Wake();
                 }
-
-
             });
 
             arr[1] = new Thread(() =>
             {
-                Thread.Sleep(2000);
-                controller.SetOrder(2);
-            });
-
-            arr[2] = new Thread(() =>
-            {
-                res = controller.PutValue("a", 1) == 2;
+                try
+                {
+                    res = controller.PutValue(1) == 2;
+                }
+                finally
+                {
+                    controller.Wake();
+                }
             });
 
             arr[0].Start();
             arr[1].Start();
-            arr[2].Start();
 
             arr[0].Join();
             arr[1].Join();
-            arr[2].Join();
 
             Assert.IsTrue(res);
 
@@ -57,21 +59,39 @@ namespace SyncTests
         [TestMethod]
         public void ShouldSuccedOnTimeout()
         {
-            ClipboardController controller = new ClipboardController("Ola");
+            ClipboardController controller = new ClipboardController();
 
             bool res = false;
             Thread[] arr = new Thread[2];
             arr[0] = new Thread(() =>
             {
-                var n = controller.PutValue("You", (s) => controller.RemoveUpload(s));
-                Thread.Sleep(2000);
-                
-
+                try
+                {
+                    var n = controller.PutValue((s) =>
+                    {
+                        new Thread(() =>
+                        {
+                            Thread.Sleep(2000);
+                            controller.RemoveUpload(s);
+                        }).Start();
+                    }, "T1");
+                }
+                finally
+                {
+                    controller.Wake();
+                }
             });
 
             arr[1] = new Thread(() =>
             {
-                res = controller.PutValue("a1", 1) == 1;
+                try
+                {
+                    res = controller.PutValue(1) == 1;
+                }
+                finally
+                {
+                    controller.Wake();
+                }
             });
 
             arr[0].Start();
@@ -87,20 +107,36 @@ namespace SyncTests
         [TestMethod]
         public void ShouldFailOnTimeout()
         {
-            ClipboardController controller = new ClipboardController("Ola");
+            ClipboardController controller = new ClipboardController();
 
             bool res = false;
             Thread[] arr = new Thread[2];
             arr[0] = new Thread(() =>
             {
-                var n = controller.PutValue("You", (s) => controller.RemoveUpload(s));
-                Thread.Sleep(2000);
-
+                try
+                {
+                    var n = controller.PutValue((s) => new Thread(() =>
+                    {
+                        Thread.Sleep(2000);
+                        controller.RemoveUpload(s);
+                    }).Start(), "t1");
+                }
+                finally
+                {
+                    controller.Wake();
+                }
             });
 
             arr[1] = new Thread(() =>
             {
-                res = controller.PutValue("Ola", 1) == 0;
+                try
+                {
+                    res = controller.PutValue(1) == 1;
+                }
+                finally
+                {
+                    controller.Wake();
+                }
             });
 
             arr[0].Start();
@@ -116,14 +152,21 @@ namespace SyncTests
         [TestMethod]
         public void ShouldSuccedOnAppLessThanServer()
         {
-            ClipboardController controller = new ClipboardController("Ola");
+            ClipboardController controller = new ClipboardController();
 
             bool res = false;
             Thread[] arr = new Thread[1];
 
             arr[0] = new Thread(() =>
             {
-                res = controller.PutValue("Ola1", 2) == 1;
+                try
+                {
+                    res = controller.PutValue(2) == 1;
+                }
+                finally
+                {
+                    controller.Wake();
+                }
             });
 
             arr[0].Start();
@@ -137,101 +180,33 @@ namespace SyncTests
         [TestMethod]
         public void MultipleReceivedRequests()
         {
-            ClipboardController controller = new ClipboardController("Ola");
+            ClipboardController controller = new ClipboardController();
 
             bool res1 = false;
             bool res2 = false;
             Thread[] arr = new Thread[3];
             arr[0] = new Thread(() =>
             {
-                var n = controller.PutValue("You", null);
-                Thread.Sleep(2000);
-                controller.SetOrder(3);
+                try
+                {
+                    var n = controller.PutValue((s) => new Thread(() =>
+                    {
 
-            });
-
-            arr[1] = new Thread(() =>
-            {
-                res1 = controller.PutValue("a1", 1) == 2;
-            });
-
-            arr[2] = new Thread(() =>
-            {
-                res2 = controller.PutValue("a2", 2) == 2;
-            });
-
-            arr[0].Start();
-            arr[1].Start();
-            arr[2].Start();
-
-            arr[0].Join();
-            arr[1].Join();
-            arr[2].Join();
-
-            Assert.IsTrue(res1);
-            Assert.IsTrue(res2);
-        }
-
-        [TestMethod]
-        public void MultipleReceivedRequests1()
-        {
-            ClipboardController controller = new ClipboardController("Ola");
-
-            bool res1 = false;
-            bool res2 = false;
-            Thread[] arr = new Thread[3];
-            arr[0] = new Thread(() =>
-            {
-                controller.PutValue("You", null);
-                Thread.Sleep(2000);
-                controller.SetOrder(2);
-
-            });
-
-            arr[1] = new Thread(() =>
-            {
-                res1 = controller.PutValue("a1", 1) == 2;
-            });
-
-            arr[2] = new Thread(() =>
-            {
-                res2 = controller.PutValue("a2", 3) == 1;
-            });
-
-            arr[0].Start();
-            arr[1].Start();
-            arr[2].Start();
-
-            arr[0].Join();
-            arr[1].Join();
-            arr[2].Join();
-
-            Assert.IsTrue(res1);
-            Assert.IsTrue(res2);
-        }
-
-        [TestMethod]
-        public void Multiple()
-        {
-            ClipboardController controller = new ClipboardController("Ola");
-
-            bool res1 = false;
-            bool res2 = false;
-            Thread[] arr = new Thread[3];
-            arr[0] = new Thread(() =>
-            {
-                controller.PutValue("You", null);
-                Thread.Sleep(2000);
-                controller.SetOrder(2);
-
+                        Thread.Sleep(2000);
+                        controller.UpdateStateOfUpload(3);
+                    }).Start(), "t1");
+                }
+                finally
+                {
+                    controller.Wake();
+                }
             });
 
             arr[1] = new Thread(() =>
             {
                 try
                 {
-
-                    controller.PutValue("You", null);
+                    res1 = controller.PutValue(1) == 2;
                 }
                 finally
                 {
@@ -241,11 +216,9 @@ namespace SyncTests
 
             arr[2] = new Thread(() =>
             {
-
                 try
                 {
-
-                    controller.PutValue("You", null);
+                    res2 = controller.PutValue(2) == 2;
                 }
                 finally
                 {
@@ -265,5 +238,64 @@ namespace SyncTests
             Assert.IsTrue(res2);
         }
 
+        [TestMethod]
+        public void MultipleReceivedRequestsOneWithHigherOrder()
+        {
+            ClipboardController controller = new ClipboardController();
+
+            bool res1 = false;
+            bool res2 = false;
+            Thread[] arr = new Thread[3];
+            arr[0] = new Thread(() =>
+            {
+                try
+                {
+                    controller.PutValue((s) => new Thread(() =>
+                    {
+                        Thread.Sleep(2000);
+                        controller.UpdateStateOfUpload(2);
+                    }).Start(), "T1");
+                }
+                finally
+                {
+                    controller.Wake();
+                }
+            });
+
+            arr[1] = new Thread(() =>
+            {
+                try
+                {
+                    res1 = controller.PutValue(1) == 2;
+                }
+                finally
+                {
+                    controller.Wake();
+                }
+            });
+
+            arr[2] = new Thread(() =>
+            {
+                try
+                {
+                    res2 = controller.PutValue(3) == 1;
+                }
+                finally
+                {
+                    controller.Wake();
+                }
+            });
+
+            arr[0].Start();
+            arr[1].Start();
+            arr[2].Start();
+
+            arr[0].Join();
+            arr[1].Join();
+            arr[2].Join();
+
+            Assert.IsTrue(res1);
+            Assert.IsTrue(res2);
+        }
     }
 }

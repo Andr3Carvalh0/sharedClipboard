@@ -35,7 +35,6 @@ public class APIService extends ParentService implements IAPIService{
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: APIService ";
-    private AtomicInteger orderNumber = new AtomicInteger(0);
 
     /*
     * Handles a textual(only string) push request
@@ -134,12 +133,12 @@ public class APIService extends ParentService implements IAPIService{
     }
 
     private DatabaseResponse push(String sub, String data, boolean isMIME) {
-        int order = orderNumber.incrementAndGet();
+        int order = database.updateAndGetOrder(sub);
         return pushCommon(sub, data, isMIME,  () -> MensageFormater.updateMessage(data, isMIME, order), order);
     }
 
     private DatabaseResponse push(String sub, String data, boolean isMIME, byte[] file, String filename) {
-        int order = orderNumber.incrementAndGet();
+        int order = database.updateAndGetOrder(sub);
         return pushCommon(sub, data, isMIME,() -> MensageFormater.updateMessage(file, filename, order), order);
     }
 

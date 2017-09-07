@@ -19,14 +19,16 @@ namespace SyncTests
             {
                 try
                 {
-                    controller.PutValue((s) =>
-                    {
-                        new Thread(() =>
+                    controller.PutValue(
+                        "t1",
+                        (s) =>
                         {
-                            Thread.Sleep(2000);
-                            controller.UpdateStateOfUpload(2);
-                        }).Start();
-                    });
+                            new Thread(() =>
+                            {
+                                Thread.Sleep(2000);
+                                controller.UpdateStateOfUpload(2);
+                            }).Start();
+                        });
                 }
                 finally
                 {
@@ -36,14 +38,8 @@ namespace SyncTests
 
             arr[1] = new Thread(() =>
             {
-                try
-                {
-                    res = controller.PutValue(1) == 2;
-                }
-                finally
-                {
-                    controller.Wake();
-                }
+
+                    res = controller.PutValue("t2", 2) == 1;
             });
 
             arr[0].Start();
@@ -67,14 +63,16 @@ namespace SyncTests
             {
                 try
                 {
-                    var n = controller.PutValue((s) =>
-                    {
-                        new Thread(() =>
+                    var n = controller.PutValue(
+                        "t1",
+                        (s) =>
                         {
-                            Thread.Sleep(2000);
-                            controller.RemoveUpload(s);
-                        }).Start();
-                    });
+                            new Thread(() =>
+                            {
+                                Thread.Sleep(2000);
+                                controller.RemoveUpload(s);
+                            }).Start();
+                        });
                 }
                 finally
                 {
@@ -84,14 +82,8 @@ namespace SyncTests
 
             arr[1] = new Thread(() =>
             {
-                try
-                {
-                    res = controller.PutValue(1) == 1;
-                }
-                finally
-                {
-                    controller.Wake();
-                }
+                var a =controller.PutValue("t2", 1);
+                res = a == 0;
             });
 
             arr[0].Start();
@@ -104,50 +96,6 @@ namespace SyncTests
 
         }
 
-        [TestMethod]
-        public void ShouldFailOnTimeout()
-        {
-            ClipboardController controller = new ClipboardController();
-
-            bool res = false;
-            Thread[] arr = new Thread[2];
-            arr[0] = new Thread(() =>
-            {
-                try
-                {
-                    var n = controller.PutValue((s) => new Thread(() =>
-                    {
-                        Thread.Sleep(2000);
-                        controller.RemoveUpload(s);
-                    }).Start());
-                }
-                finally
-                {
-                    controller.Wake();
-                }
-            });
-
-            arr[1] = new Thread(() =>
-            {
-                try
-                {
-                    res = controller.PutValue(1) == 1;
-                }
-                finally
-                {
-                    controller.Wake();
-                }
-            });
-
-            arr[0].Start();
-            arr[1].Start();
-
-            arr[0].Join();
-            arr[1].Join();
-
-            Assert.IsTrue(res);
-
-        }
 
         [TestMethod]
         public void ShouldSuccedOnAppLessThanServer()
@@ -161,7 +109,7 @@ namespace SyncTests
             {
                 try
                 {
-                    res = controller.PutValue(2) == 1;
+                    res = controller.PutValue("t1", 2) == 1;
                 }
                 finally
                 {
@@ -189,12 +137,14 @@ namespace SyncTests
             {
                 try
                 {
-                    var n = controller.PutValue((s) => new Thread(() =>
-                    {
+                    var n = controller.PutValue(
+                        "t1",
+                        (s) => new Thread(() =>
+                        {
 
-                        Thread.Sleep(2000);
-                        controller.UpdateStateOfUpload(3);
-                    }).Start());
+                            Thread.Sleep(2000);
+                            controller.UpdateStateOfUpload(2);
+                        }).Start());
                 }
                 finally
                 {
@@ -204,26 +154,13 @@ namespace SyncTests
 
             arr[1] = new Thread(() =>
             {
-                try
-                {
-                    res1 = controller.PutValue(1) == 2;
-                }
-                finally
-                {
-                    controller.Wake();
-                }
+                res1 = controller.PutValue("t2", 1) == 0;
             });
 
             arr[2] = new Thread(() =>
             {
-                try
-                {
-                    res2 = controller.PutValue(2) == 2;
-                }
-                finally
-                {
-                    controller.Wake();
-                }
+                res2 = controller.PutValue("t3", 3) == 1;
+
             });
 
             arr[0].Start();
@@ -250,11 +187,13 @@ namespace SyncTests
             {
                 try
                 {
-                    controller.PutValue((s) => new Thread(() =>
-                    {
-                        Thread.Sleep(2000);
-                        controller.UpdateStateOfUpload(2);
-                    }).Start());
+                    controller.PutValue(
+                        "t1",
+                        (s) => new Thread(() =>
+                        {
+                            Thread.Sleep(2000);
+                            controller.UpdateStateOfUpload(2);
+                        }).Start());
                 }
                 finally
                 {
@@ -264,26 +203,12 @@ namespace SyncTests
 
             arr[1] = new Thread(() =>
             {
-                try
-                {
-                    res1 = controller.PutValue(1) == 2;
-                }
-                finally
-                {
-                    controller.Wake();
-                }
+                res1 = controller.PutValue("t2", 1) == 0;
             });
 
             arr[2] = new Thread(() =>
             {
-                try
-                {
-                    res2 = controller.PutValue(3) == 1;
-                }
-                finally
-                {
-                    controller.Wake();
-                }
+                res2 = controller.PutValue("t3", 3) == 1;
             });
 
             arr[0].Start();

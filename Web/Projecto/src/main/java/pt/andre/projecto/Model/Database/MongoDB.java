@@ -106,6 +106,7 @@ public class MongoDB implements IDatabase {
             document.put("id", sub);
             document.put("value", data);
             document.put("isMIME", isMIME);
+            document.put("order", order);
 
             collection.updateOne(wrapper.getAccountFilter(), new Document("$set", document));
 
@@ -140,7 +141,7 @@ public class MongoDB implements IDatabase {
             List<User> userList = new LinkedList<>();
 
             users.find(accountFilter)
-                 .map(document -> new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients")))
+                 .map(document -> new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients"), document.getInteger("order")))
                  .into(userList);
 
             //If we dont find an account return immediately.We do this so we can handle login/create account on our native app
@@ -167,6 +168,7 @@ public class MongoDB implements IDatabase {
             document.put("id", sub);
             document.put("mobileClients", new ArrayList<BasicDBObject>());
             document.put("desktopClients", new ArrayList<BasicDBObject>());
+            document.put("order", 0);
             mongoDatabase.getCollection(USER_COLLECTION.getName()).insertOne(document);
 
             document = new Document();
@@ -317,7 +319,7 @@ public class MongoDB implements IDatabase {
             final User[] user = new User[1];
             contentDocument.find(accountFilter)
                     .forEach((Block<Document>) (
-                            document) -> user[0] = new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients"))
+                            document) -> user[0] = new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients"), document.getInteger("order"))
                     );
 
             return func.apply(new UserWrapper(user[0], accountFilter), contentDocument);
@@ -342,8 +344,38 @@ public class MongoDB implements IDatabase {
                 return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
             });
         } catch (Exception e) {
+            logger.error(TAG + "Error on registering device");
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
     }
 
+    @Override
+    public int updateAndGetOrder(String user) {
+        try{
+            transformationToUserDatabase(user, (wrapper, collection) -> {
+                logger.info(TAG + "increase order");
+
+                BasicDBObject updateCommand = new BasicDBObject("$inc", new BasicDBObject("order", 1));
+
+                collection.updateOne(wrapper.getAccountFilter(), updateCommand);
+
+                return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
+            });
+
+
+            final int[] ret = {0};
+            transformationToUserDatabase(user, (wrapper, collection) -> {
+                logger.info(TAG + "returning order" + wrapper.getUser().getOrder());
+
+                ret[0] = wrapper.getUser().getOrder();
+                return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
+            });
+
+            return ret[0];
+        }catch (Exception e){
+            logger.error(TAG + "Error storing updated order number");
+        }
+
+        return 0;
+    }
 }

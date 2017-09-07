@@ -140,15 +140,16 @@ namespace ProjectoESeminario.Services
                     if
                     (
                         clipboardController
-                            .PutValue((p) =>
-                                {
-                                    new Thread(() =>
-                                    {
-                                        upload.Invoke();
-                                        Thread.Sleep(5000);
-                                        clipboardController.RemoveUpload(p);
-                                    }).Start();
-                                })
+                            .PutValue(text, 
+                                      (p) =>
+                                            {
+                                            new Thread(() =>
+                                            {
+                                                upload.Invoke();
+                                                Thread.Sleep(5000);
+                                                clipboardController.RemoveUpload(p);
+                                            }).Start();
+                                        })
                     )
                     {
                         runOnSuccess.Invoke(text);
@@ -178,7 +179,9 @@ namespace ProjectoESeminario.Services
                     if
                     (
                         clipboardController
-                            .PutValue((p) =>
+                            .PutValue(
+                                text,
+                                (p) =>
                                 {
                                     new Thread(() =>
                                     {
@@ -218,7 +221,7 @@ namespace ProjectoESeminario.Services
             {
                 try
                 {
-                    int value = clipboardController.PutValue(order);
+                    int value = clipboardController.PutValue(text, order);
                     
                     //We changed value
                     if (value == 1)
@@ -274,7 +277,7 @@ namespace ProjectoESeminario.Services
 
         public void UpdateClipboard(Image image, string path)
         {
-            clipboardController.IncrementIgnore();
+            clipboardController.AddToIgnoreQueue(path);
 
             OnCopy(
             (s) => { return;},
@@ -290,7 +293,7 @@ namespace ProjectoESeminario.Services
 
         public void UpdateClipboard(string text)
         {
-            clipboardController.IncrementIgnore();
+            clipboardController.AddToIgnoreQueue(text);
 
             OnCopy(
                 (s) => { return; },

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\
+C:\Users\Diogo\Desktop\1617-2-LI41N-G28-master\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\
 ProjectoESeminario
 none
 false
 DEBUG;TRACE
-C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\App.xaml
+C:\Users\Diogo\Desktop\1617-2-LI41N-G28-master\Windows\ProjectoESeminario\ProjectoESeminario\App.xaml
 101637710546
 
-51-2095643474
-95-1264693853
+51519386287
+95610679164
 View\About\AboutWindow.xaml;View\About\About_Item.xaml;View\History\Category_Detailed\History_Detail.xaml;View\History\Category_Detailed\History_Image_Item.xaml;View\History\Category_Detailed\History_Text_Item.xaml;View\History\Category\History_Item.xaml;View\LoginWindow.xaml;View\SettingsWindow.xaml;View\Settings\HistoryControl.xaml;View\Settings\PreferencesControl.xaml;
 
-True
+False
 

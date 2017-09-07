@@ -18,5 +18,6 @@ public interface IDatabase {
     List<DeviceWrapper> getMobileDevices(String sub);
     List<DeviceWrapper> getDesktopDevices(String sub);
 
+    int updateAndGetOrder(String user);
     boolean removeDevice(String sub, String deviceIdentifier, boolean isMobile);
 }

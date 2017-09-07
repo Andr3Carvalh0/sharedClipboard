@@ -7,12 +7,11 @@ namespace ProjectoESeminario.Controller.State
     public class ClipboardController
     {
         private readonly Object nLock;
-        private long order_number;
+        private long order_number = -1;
 
         //Used for the sync problems discuted on the paper.Use pair object to facilitate the cancelation
         private readonly LinkedList<Pair> sentRequestsQueue;
         private readonly LinkedList<String> ignoreQueue;
-
 
         //Helper class
         public class Pair
@@ -84,7 +83,6 @@ namespace ProjectoESeminario.Controller.State
 
                 var node = sentRequestsQueue.AddLast(new Pair(text));
                 startTimer.Invoke(node);
-                long order = order_number;
 
                 do
                 {
@@ -100,10 +98,17 @@ namespace ProjectoESeminario.Controller.State
                         return false;
                     }
 
-                    if (node == sentRequestsQueue.First && node.Value.isWake())
+                    if (node == sentRequestsQueue.First && node.Value.isWake() && !node.Value.ToRemove())
                     {
                         sentRequestsQueue.Remove(node);
-                        return order_number != order;
+
+                        if (ignoreQueue.Contains(text))
+                        {
+                            ignoreQueue.Remove(text);
+                            return false;
+                        }
+
+                        return true;
                     }
 
                 } while (true);

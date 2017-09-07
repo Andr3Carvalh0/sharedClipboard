@@ -17,14 +17,10 @@ public class User {
     //List of the user's firebase ids.One id corresponds to a different mobile device
     private List<Document> desktopClients;
 
-    //order of request
-    private int order;
-
-    public User(String id, List<Document> mobileClients, List<Document> desktopClients, int order) {
+    public User(String id, List<Document> mobileClients, List<Document> desktopClients) {
         this.id = id;
         this.desktopClients = desktopClients;
         this.mobileClients = mobileClients;
-        this.order = order;
     }
 
     public String getId() {
@@ -37,9 +33,5 @@ public class User {
 
     public List<Document> getDesktopClients() {
         return desktopClients;
-    }
-
-    public int getOrder(){
-        return order;
     }
 }

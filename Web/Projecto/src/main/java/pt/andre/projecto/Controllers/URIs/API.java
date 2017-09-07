@@ -81,19 +81,19 @@ public class API implements IAPI {
     * */
     @Override
     @PostMapping("/api/pushMIME")
-    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String sub) {
+    public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String sub, @RequestParam String device) {
         logger.info(TAG + "Push MIME method");
 
         try {
-            return push(sub, file.getBytes(), file.getOriginalFilename());
+            return push(sub, file.getBytes(), file.getOriginalFilename(), device);
         } catch (IOException e) {
             return ResponseEntity.badRequest().build();
         }
     }
 
     @Override
-    public ResponseEntity push(String token, byte[] file, String filename) {
-        DatabaseResponse resp = service.push(token, file, filename);
+    public ResponseEntity push(String token, byte[] file, String filename, String device) {
+        DatabaseResponse resp = service.push(token, file, filename, device);
         logger.info(TAG + "pushMIME: response will have the following code:" + resp.getResponseCode());
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
@@ -106,10 +106,10 @@ public class API implements IAPI {
     * */
     @Override
     @RequestMapping(value = "/api/push", method = RequestMethod.PUT)
-    public ResponseEntity push(@RequestHeader("Authorization") String sub, @RequestParam String data) {
+    public ResponseEntity push(@RequestHeader("Authorization") String sub, @RequestParam String data, @RequestParam String device) {
         logger.info(TAG + "push method");
 
-        final DatabaseResponse resp = service.push(sub, data);
+        final DatabaseResponse resp = service.push(sub, data, device);
 
         logger.info(TAG + "Push: response will have the following code:" + resp.getResponseCode());
 

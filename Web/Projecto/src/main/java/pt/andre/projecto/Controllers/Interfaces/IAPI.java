@@ -10,9 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Map;
 
 public interface IAPI {
-    ResponseEntity push(String token, String data);
-    ResponseEntity push(MultipartFile file, String token);
-    ResponseEntity push(String token, byte[] file, String filename);
+    ResponseEntity push(String token, String data, String device);
+    ResponseEntity push(MultipartFile file, String token, String device);
+    ResponseEntity push(String token, byte[] file, String filename, String device);
     ResponseEntity pull(String token);
     ResponseEntity createAccount(String token);
     ResponseEntity authenticate(String token);

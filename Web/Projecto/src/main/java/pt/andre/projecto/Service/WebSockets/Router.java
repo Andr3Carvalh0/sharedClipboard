@@ -36,7 +36,7 @@ public class Router {
 
         JSONObject jsonObj;
         try {
-            final ResponseEntity push = connectionManager.getAPI().push(json.getString("sub"), json.getString("data"));
+            final ResponseEntity push = connectionManager.getAPI().push(json.getString("sub"), json.getString("data"), json.getString("device"));
 
             jsonObj = new JSONObject((String) push.getBody());
 
@@ -56,7 +56,7 @@ public class Router {
 
         JSONObject jsonObj;
         try {
-            final ResponseEntity push = connectionManager.getAPI().push(json.getString("sub"), Base64.getDecoder().decode(json.getString("data")), json.getString("filename"));
+            final ResponseEntity push = connectionManager.getAPI().push(json.getString("sub"), Base64.getDecoder().decode(json.getString("data")), json.getString("filename"), json.getString("device"));
             jsonObj = new JSONObject((String) push.getBody());
 
             jsonObj.put("action", "report");

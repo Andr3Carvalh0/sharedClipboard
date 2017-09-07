@@ -43,8 +43,8 @@ public class APIService extends ParentService implements IAPIService{
     * @param data: the user textual data
     * */
     @Override
-    public DatabaseResponse push(String sub, String data) {
-        return this.push(sub, data, false);
+    public DatabaseResponse push(String sub, String data, String device) {
+        return this.push(sub, data, false, device);
     }
 
 
@@ -55,13 +55,13 @@ public class APIService extends ParentService implements IAPIService{
     * @param data: the user textual data
     * */
     @Override
-    public DatabaseResponse push(String sub, byte[] file, String filename) {
+    public DatabaseResponse push(String sub, byte[] file, String filename, String device) {
         String result = storeFile(sub, file, filename);
 
         if(result == null)
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
 
-        return this.push(sub, result, true, file, filename);
+        return this.push(sub, result, true, file, filename, device);
     }
 
     /*
@@ -132,29 +132,32 @@ public class APIService extends ParentService implements IAPIService{
         return multimediaHandler.store(sub, file, filename);
     }
 
-    private DatabaseResponse push(String sub, String data, boolean isMIME) {
+    private DatabaseResponse push(String sub, String data, boolean isMIME, String device) {
         int order = database.updateAndGetOrder(sub);
-        return pushCommon(sub, data, isMIME,  () -> MensageFormater.updateMessage(data, isMIME, order), order);
+        return pushCommon(sub, data, isMIME,  () -> MensageFormater.updateMessage(data, isMIME, order), order, device);
     }
 
-    private DatabaseResponse push(String sub, String data, boolean isMIME, byte[] file, String filename) {
+    private DatabaseResponse push(String sub, String data, boolean isMIME, byte[] file, String filename, String device) {
         int order = database.updateAndGetOrder(sub);
-        return pushCommon(sub, data, isMIME,() -> MensageFormater.updateMessage(file, filename, order), order);
+        return pushCommon(sub, data, isMIME,() -> MensageFormater.updateMessage(file, filename, order), order, device);
     }
 
-    private DatabaseResponse pushCommon(String sub, String data, boolean isMIME, Callable<String> message, int order) {
+    private DatabaseResponse pushCommon(String sub, String data, boolean isMIME, Callable<String> message, int order, String device) {
 
         DatabaseResponse push = database.push(sub, data, isMIME, order);
 
         logger.info(TAG + "Sharing with devices");
 
         final String[] mobileDevices = database.getMobileDevices(sub)
-                .stream().map(DeviceWrapper::getId)
+                .stream()
+                .map(DeviceWrapper::getId)
+                .filter((d) -> !d.equals(device))
                 .toArray(String[]::new);
 
         final String[] desktopDevices = database.getDesktopDevices(sub)
                 .stream()
                 .map(DeviceWrapper::getId)
+                .filter((d) -> !d.equals(device))
                 .toArray(String[]::new);
 
         String desktop_message;

@@ -5,6 +5,7 @@ using ProjectoESeminario.Controller.Communication.Utils;
 using ProjectoESeminario.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO.Packaging;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -181,9 +182,10 @@ namespace ProjectoESeminario.Services
         /// </summary>
         /// <param name="user">user id</param>
         /// <param name="text">the text copied</param>
-        public void HandleUpload(string user, string text)
+        /// <param name="device">the device id</param>
+        public void HandleUpload(string user, string text, string device)
         {
-            handler.HandleUpload(user, text);
+            handler.HandleUpload(user, text, device);
         }
 
         /// <summary>
@@ -192,9 +194,10 @@ namespace ProjectoESeminario.Services
         /// <param name="user">user id</param>
         /// <param name="file">the file</param>
         /// <param name="filename">the name of the file</param>
-        public void HandleUploadMime(string user, byte[] file, string filename)
+        /// <param name="device">the device id</param>
+        public void HandleUploadMime(string user, byte[] file, string filename, string device)
         {
-            handler.HandleUploadMime(user, file, filename);
+            handler.HandleUploadMime(user, file, filename, device);
         }
 
         /// <summary>

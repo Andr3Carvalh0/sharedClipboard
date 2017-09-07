@@ -25,6 +25,7 @@ namespace ProjectoESeminario.Services
         private readonly ClipboardController clipboardController;
         private readonly ICache cache;
         private readonly String user;
+        private readonly String device;
         private readonly ISettingsController application;
 
         public ParentListener(String socketURL, String userID, String deviceID, ISettingsController settingsController)
@@ -34,6 +35,7 @@ namespace ProjectoESeminario.Services
             this.clipboardController = ClipboardControllerFactory.getSingleton();
             this.cache = new Cache();
             this.user = userID;
+            this.device = deviceID;
             this.supportedFormats.Add("jpg", ImageFormat.Jpeg);
             this.application = settingsController;
         }
@@ -68,7 +70,7 @@ namespace ProjectoESeminario.Services
         {
             OnCopy((s) =>
                 {
-                    clipboardListener.UpdateClipboard(file.file);
+                    clipboardListener.UpdateClipboard(file.path, file.file);
                     cache.Store(file);
                 },
                 (s) =>
@@ -86,7 +88,7 @@ namespace ProjectoESeminario.Services
         public void OnCopy(string text)
         {
             OnCopy(
-                () => clipboardWebSocketListener.HandleUpload(user, text), 
+                () => clipboardWebSocketListener.HandleUpload(user, text, device), 
                 (s) => cache.Store(s), 
                 (s) => { return;},
                 text);
@@ -112,7 +114,7 @@ namespace ProjectoESeminario.Services
 
 
                 OnCopy(
-                    () => clipboardWebSocketListener.HandleUploadMime(user, image, tmp[tmp.Length - 1]),
+                    () => clipboardWebSocketListener.HandleUploadMime(user, image, tmp[tmp.Length - 1], device),
                     (s) => cache.Store(ImageDecoder.decode(image, tmp[tmp.Length - 1])),
                     (s) => { return;},
                     path
@@ -197,8 +199,6 @@ namespace ProjectoESeminario.Services
                     {
                         runOnFailure.Invoke(text);
                     }
-
-
                 }
                 finally
                 {
@@ -219,23 +219,17 @@ namespace ProjectoESeminario.Services
         {
             new Thread(() =>
             {
-                try
-                {
-                    int value = clipboardController.PutValue(text, order);
-                    
-                    //We changed value
-                    if (value == 1)
-                        change.Invoke(text);
+                int value = clipboardController.PutValue(text, order);
 
-                    //We only need to save it onto the history
-                    if (value == 2)
-                        save.Invoke(text);
-
-                }
-                finally
+                if (value == 1)
                 {
-                    clipboardController.Wake();
+                    change.Invoke(text);
+                    return;
                 }
+
+                if(value == 2)
+                    save.Invoke(text);     
+
             }).Start();
         }
 
@@ -283,7 +277,7 @@ namespace ProjectoESeminario.Services
             (s) => { return;},
             (s) =>
             {
-                clipboardListener.UpdateClipboard(image);
+                clipboardListener.UpdateClipboard(path, image);
                 Notify(Properties.Resources.COPIED_IMAGE);
             },
             path

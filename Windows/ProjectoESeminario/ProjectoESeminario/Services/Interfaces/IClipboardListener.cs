@@ -5,8 +5,8 @@ namespace ProjectoESeminario.Services.Interfaces
 {
     public interface IClipboardListener
     {
-        void UpdateClipboard(String text);
-        void UpdateClipboard(Image image);
+        void UpdateClipboard(string text);
+        void UpdateClipboard(string path, Image image);
         void Start();
         void Stop();
     }

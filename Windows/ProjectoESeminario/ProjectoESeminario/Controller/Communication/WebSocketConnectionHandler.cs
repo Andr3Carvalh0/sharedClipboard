@@ -55,9 +55,10 @@ namespace ProjectoESeminario.Communication
         /// </summary>
         /// <param name="user">The user id(sub)</param>
         /// <param name="text">The string to upload to the server</param>
-        public void HandleUpload(string user, string text)
+        /// <param name="device">The device id</param>
+        public void HandleUpload(string user, string text, string device)
         {
-            String formattedBody = JsonConvert.SerializeObject(new UploadJSONWrapper(user, text));
+            String formattedBody = JsonConvert.SerializeObject(new UploadJSONWrapper(user, text, device));
             try { 
                 ws.SendAsync(formattedBody, null);
                 onUpload.Invoke(text);
@@ -73,9 +74,10 @@ namespace ProjectoESeminario.Communication
         /// <param name="user">The user id(sub)</param>
         /// <param name="file">The file to upload</param>
         /// <param name="filename">The file name</param>
-        public void HandleUploadMime(string user, byte[] file, string filename)
+        /// <param name="device">The device id</param>
+        public void HandleUploadMime(string user, byte[] file, string filename, string device)
         {
-            String formattedBody = JsonConvert.SerializeObject(new UploadMimeJSONWrapper(user, Convert.ToBase64String(file), filename));
+            String formattedBody = JsonConvert.SerializeObject(new UploadMimeJSONWrapper(user, Convert.ToBase64String(file), filename, device));
             try { 
                 ws.SendAsync(formattedBody, null);
                 onUpload.Invoke(filename);

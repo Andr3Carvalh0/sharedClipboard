@@ -11,6 +11,8 @@ namespace ProjectoESeminario.Services
         private readonly String TAG = "Portugal: ClipboardHandler";
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IParentListener parent;
+        private string lastCopied = "";
+
 
         public ClipboardListener(IParentListener parent)
         {
@@ -67,7 +69,7 @@ namespace ProjectoESeminario.Services
         public void UpdateClipboard(string text)
         {
             log.Debug(TAG + "copying text to clipboard");
-
+            lastCopied = text;
             Invoke((Action)(() => Clipboard.SetText(text)));
         }
         
@@ -75,9 +77,10 @@ namespace ProjectoESeminario.Services
         /// Sets a image to the system clipboard
         /// </summary>
         /// <param name="image">the value to set, as the new value to the clipboard</param>
-        public void UpdateClipboard(Image image)
+        public void UpdateClipboard(string path, Image image)
         {
             log.Debug(TAG + "copying image to clipboard");
+            lastCopied = path;
 
             Invoke((Action)(() => Clipboard.SetImage(image)));
         }
@@ -90,7 +93,11 @@ namespace ProjectoESeminario.Services
         {
             log.Debug(TAG + " It was text");
             string text = (string)iData.GetData(DataFormats.Text);
-            parent.OnCopy(text);
+
+            if(!lastCopied.Equals(text))
+                parent.OnCopy(text);
+
+            lastCopied = text;
         }
 
         /// <summary>
@@ -101,7 +108,11 @@ namespace ProjectoESeminario.Services
         {
             log.Debug(TAG + " It could be an format that we support");
             String image_path = ((string[])iData.GetData(DataFormats.FileDrop))[0];
-            parent.OnCopyMime(image_path);
+
+            if(!lastCopied.Equals(image_path))
+                parent.OnCopyMime(image_path);
+
+            lastCopied = image_path;
         }
 
         /// <summary>

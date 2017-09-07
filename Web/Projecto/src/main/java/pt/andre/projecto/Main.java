@@ -17,7 +17,7 @@ import pt.andre.projecto.Model.Database.Interfaces.IDatabase;
 import pt.andre.projecto.Model.Database.MongoDB;
 import pt.andre.projecto.Model.Database.Interfaces.IMultimediaHandler;
 import pt.andre.projecto.Model.Database.MultimediaHandler;
-import pt.andre.projecto.Service.GoogleService;
+import pt.andre.projecto.Service.Utils.GoogleService;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 import pt.andre.projecto.Service.Interfaces.IGoogleService;
 import pt.andre.projecto.Service.Interfaces.IServerService;

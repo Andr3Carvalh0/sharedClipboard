@@ -141,7 +141,7 @@ public class MongoDB implements IDatabase {
             List<User> userList = new LinkedList<>();
 
             users.find(accountFilter)
-                 .map(document -> new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients"), document.getInteger("order")))
+                 .map(document -> new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients")))
                  .into(userList);
 
             //If we dont find an account return immediately.We do this so we can handle login/create account on our native app
@@ -168,14 +168,13 @@ public class MongoDB implements IDatabase {
             document.put("id", sub);
             document.put("mobileClients", new ArrayList<BasicDBObject>());
             document.put("desktopClients", new ArrayList<BasicDBObject>());
-            document.put("order", 0);
             mongoDatabase.getCollection(USER_COLLECTION.getName()).insertOne(document);
 
             document = new Document();
             document.put("id", sub);
             document.put("value", FIRST_TIME_CONTENT_MESSAGE);
             document.put("isMIME", false);
-
+            document.put("order", 0);
             mongoDatabase.getCollection(CONTENT_COLLECTION.getName()).insertOne(document);
 
             return authenticate(sub);
@@ -299,7 +298,7 @@ public class MongoDB implements IDatabase {
 
             contentDocument.find(accountFilter)
                     .forEach((Block<Document>) (
-                            document) -> content[0] = new Content(document.getString("id"), document.getString("value"), document.getBoolean("isMIME"))
+                            document) -> content[0] = new Content(document.getString("id"), document.getString("value"), document.getBoolean("isMIME"), document.getInteger("order"))
                     );
 
             if(content[0] == null)
@@ -319,7 +318,7 @@ public class MongoDB implements IDatabase {
             final User[] user = new User[1];
             contentDocument.find(accountFilter)
                     .forEach((Block<Document>) (
-                            document) -> user[0] = new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients"), document.getInteger("order"))
+                            document) -> user[0] = new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients"))
                     );
 
             return func.apply(new UserWrapper(user[0], accountFilter), contentDocument);
@@ -352,7 +351,7 @@ public class MongoDB implements IDatabase {
     @Override
     public int updateAndGetOrder(String user) {
         try{
-            transformationToUserDatabase(user, (wrapper, collection) -> {
+            transformationToContentDatabase(user, (wrapper, collection) -> {
                 logger.info(TAG + "increase order");
 
                 BasicDBObject updateCommand = new BasicDBObject("$inc", new BasicDBObject("order", 1));
@@ -364,10 +363,10 @@ public class MongoDB implements IDatabase {
 
 
             final int[] ret = {0};
-            transformationToUserDatabase(user, (wrapper, collection) -> {
-                logger.info(TAG + "returning order" + wrapper.getUser().getOrder());
+            transformationToContentDatabase(user, (wrapper, collection) -> {
+                logger.info(TAG + "returning order" + wrapper.getContent().getOrder());
 
-                ret[0] = wrapper.getUser().getOrder();
+                ret[0] = wrapper.getContent().getOrder();
                 return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
             });
 

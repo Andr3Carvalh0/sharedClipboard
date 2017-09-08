@@ -39,11 +39,12 @@
 
         <service
             android:name=".Services.ClipboardEventHandler"
-            android:exported="false"></service>
+            android:exported="false"/>
 
         <service
             android:name=".Services.CopyMenuListener"
             android:exported="false" />
+
         <service android:name=".Services.FirebaseMessageHandler">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

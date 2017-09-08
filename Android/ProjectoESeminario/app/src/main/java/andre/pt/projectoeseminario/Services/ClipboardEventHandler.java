@@ -18,19 +18,12 @@ import andre.pt.projectoeseminario.Controller.State.ClipboardController;
 /**
  * Handles what to do when, the firebase service receives an notification or we copied some value.
 */
-public class ClipboardEventHandler extends IntentService {
+public class ClipboardEventHandler extends Service {
     private static final String TAG = "Portugal:ClipHandler";
     private HashMap<String, BiConsumer<Intent, ClipboardController>> action_router;
 
-
     public ClipboardEventHandler() {
         super("ClipboardEventHandler");
-    }
-
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
     }
 
     /**
@@ -87,32 +80,35 @@ public class ClipboardEventHandler extends IntentService {
     }
 
     private void onCopy(String text, String user, String device, ClipboardController clipboardController){
-        boolean[] hasResp = {false};
+    	Context ctx = this;
+    	new Thread(() -> {
+	        boolean[] hasResp = {false};
 
-        APIRequest mApi = new APIRequest(this);
-        try{
-            if(clipboardController.putValue(text, (pair) ->
-                    mApi.pushTextInformation(user,
-                            text,
-                            device,
-                            o -> {
-                                clipboardController.updateStateOfUpload(Long.parseLong((String)o));
-                                hasResp[0] = true;
+	        APIRequest mApi = new APIRequest(ctx);
+	        try{
+	            if(clipboardController.putValue(text, (pair) ->
+	                    mApi.pushTextInformation(user,
+	                            text,
+	                            device,
+	                            o -> {
+	                                clipboardController.updateStateOfUpload(Long.parseLong((String)o));
+	                                hasResp[0] = true;
 
-                            },
-                            () -> {
-                                clipboardController.removeUpload(pair);
-                                hasResp[0] = true;
-                            })
-            )){
-                ((Projecto)getApplication()).storeContent(text);
-            }}finally {
-                clipboardController.wake();
-            }
-
-
-        while (!hasResp[0]){}
+	                            },
+	                            () -> {
+	                                clipboardController.removeUpload(pair);
+	                                hasResp[0] = true;
+	                            })
+	            )){
+	                ((Projecto)getApplication()).storeContent(text);
+	            }}finally {
+	                clipboardController.wake();
+	            }
+	        while (!hasResp[0]){}
+	   
+	    }).run();
     }
+
 
     private void onReceived(String text, int order, ClipboardController clipboardController){
         int value = clipboardController.PutValue(text, order);
@@ -146,7 +142,7 @@ public class ClipboardEventHandler extends IntentService {
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         final ClipboardController clipboardController = ((Projecto)getApplication()).getClipboardController();
 
         action_router = new HashMap<>();
@@ -163,5 +159,8 @@ public class ClipboardEventHandler extends IntentService {
         }catch (Exception e){
             //Nothing to do. Invalid request
         }
+
+        //In case of low memory tells the OS to not bother to recreate this service
+        return START_NOT_STICKY;
     }
 }

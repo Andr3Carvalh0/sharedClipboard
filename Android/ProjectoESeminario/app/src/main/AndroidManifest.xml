@@ -7,10 +7,10 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
+        android:name=".Projecto"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".Projecto"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -38,6 +38,10 @@
         </receiver>
 
         <service
+            android:name=".Services.ClipboardEventHandler"
+            android:exported="false"></service>
+
+        <service
             android:name=".Services.CopyMenuListener"
             android:exported="false" />
         <service android:name=".Services.FirebaseMessageHandler">
@@ -45,10 +49,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".Services.ClipboardEventHandler"
-            android:enabled="true"
-            android:exported="true" />
 
         <activity
             android:name=".View.Activities.ClipboardContentChooser"
@@ -61,6 +61,7 @@
             android:authorities="andre.pt.projectoeseminario"
             android:enabled="true"
             android:exported="true" />
+
 
     </application>
 

@@ -19,6 +19,7 @@ public class Projecto extends Application {
     private Preferences preferences;
     private ClipboardController clipboardController;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -100,5 +101,9 @@ public class Projecto extends Application {
 
     public ClipboardController getClipboardController() {
         return clipboardController;
+    }
+
+    public String getDevice(){
+        return preferences.getStringPreference(Preferences.FIREBASEID);
     }
 }

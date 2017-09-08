@@ -81,30 +81,31 @@ public class APIRequest {
      * @param information the value to push
      */
     public void pushTextInformation(String token, String information, String device, Consumer onSuccess, Runnable onFail){
-        mAPI.push(token, information, device).enqueue(new Callback<ResponseBody>() {
+        mAPI.push(token, information, device).enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 if(response.code() > 300) {
                     Toast.makeText(ctx, ctx.getString(R.string.cannot_upload), Toast.LENGTH_SHORT).show();
                     onFail.run();
                 }
 
                 try {
-                    JSONObject resp = new JSONObject(response.body().toString());
-                    onSuccess.accept(resp.get("order"));
+                    String a = response.body();
+                    JSONObject resp = new JSONObject(response.body());
+                    JSONObject resp1 = new JSONObject(resp.get("data").toString());
+
+                    onSuccess.accept(resp1.get("order").toString());
                 } catch (JSONException e) {
                     onFail.run();
                 }
-
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(ctx, ctx.getString(R.string.cannot_upload), Toast.LENGTH_SHORT).show();
                 onFail.run();
             }
         });
-
     }
 
     /**

@@ -15,7 +15,7 @@ public interface IAPI {
     String deviceRegister = "registerDevice";
 
     @PUT(push)
-    Call<ResponseBody> push(@Header("Authorization") String token, @Query("data") String data, @Query("device") String device);
+    Call<String> push(@Header("Authorization") String token, @Query("data") String data, @Query("device") String device);
 
     @POST(accountManagement)
     Call<String> authenticate(@Header("Authorization") String token);

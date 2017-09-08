@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -47,7 +48,6 @@ public class CopyMenuListener extends Service {
                         Intent intent = new Intent(ctx, ClipboardEventHandler.class);
                         intent.putExtra("action", "store");
                         intent.putExtra("content", text);
-                        intent.putExtra("deviceID", deviceID);
                         intent.putExtra("upload", true);
                         intent.putExtra("token", userToken);
 
@@ -60,4 +60,9 @@ public class CopyMenuListener extends Service {
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println();
+    }
 }

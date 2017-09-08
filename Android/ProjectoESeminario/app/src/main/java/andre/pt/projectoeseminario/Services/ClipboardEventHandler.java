@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
-
 import java.util.HashMap;
 import java.util.function.BiConsumer;
 import andre.pt.projectoeseminario.Controller.Preferences;
@@ -107,52 +105,72 @@ public class ClipboardEventHandler extends Service {
             return;
 
         final String content = intent.getStringExtra("content");
+        final int order = intent.getIntExtra("order", 0);
         final boolean isMIME = intent.getBooleanExtra("isMIME", false);
         final boolean upload = intent.getBooleanExtra("upload", false);
         final String token = intent.getStringExtra("token");
+        final String device = intent.getStringExtra("device");
         APIRequest mApi = new APIRequest(getApplicationContext());
 
+
+        if(upload){
+            onCopy(content, token, device, clipboardController, mApi);
+            return;
+        }
+
+        if(!isMIME)
+            onReceived(content, order, clipboardController);
+    }
+
+    private void onCopy(String text, String user, String device, ClipboardController clipboardController, APIRequest mApi){
         try {
-            if (clipboardController.putValue(content)) {
-                Log.v(TAG, "onHandleIntent");
-
-                //Came from device (locally)
-                if (upload) {
-                    ((Projecto)getApplication()).storeContent(content);
-                    mApi.pushTextInformation(token, content, this::stopSelf);
-                    return;
-                }
-
-                //Came from the server
-                if (!isMIME) {
-                    ((Projecto)getApplication()).storeContent(content);
-                    handleTextContent(getApplicationContext(), content);
-                    return;
-                }
+            if(clipboardController.putValue(text, (pair) ->
+                mApi.pushTextInformation(user,
+                                         text,
+                                         device,
+                                         o -> clipboardController.updateStateOfUpload(Long.parseLong((String)o)),
+                                         () -> clipboardController.removeUpload(pair))
+            )){
+                ((Projecto)getApplication()).storeContent(text);
             }
-        } catch (InterruptedException e) {
 
-        } finally {
+        }finally {
             clipboardController.wake();
-
-            if(!upload)
-                this.stopSelf();
+            this.stopSelf();
         }
     }
 
+    private void onReceived(String text, int order, ClipboardController clipboardController){
+        try {
+            int value = clipboardController.PutValue(text, order);
+
+            if (value == 1)
+            {
+                handleTextContent(getApplicationContext(), text);
+                ((Projecto)getApplication()).storeContent(text);
+                return;
+            }
+
+            if(value == 2)
+                ((Projecto)getApplication()).storeContent(text);
+
+        }finally {
+            this.stopSelf();
+        }
+    }
+
+    //Called when we copy from history
     private void handleSwitch(Intent intent, ClipboardController clipboardController) {
         final String content = intent.getStringExtra("content");
 
-        try {
-            if (clipboardController.putValue(content)) {
-                Log.v(TAG, "onHandleIntent");
+        clipboardController.addToIgnoreQueue(content);
 
+        try {
+            if(!clipboardController.putValue(content, (pair) -> {return;})){
                 handleTextContent(getApplicationContext(), content);
             }
-        } catch (InterruptedException e) {
 
-        } finally {
-            clipboardController.wake();
+        }finally {
             this.stopSelf();
         }
     }

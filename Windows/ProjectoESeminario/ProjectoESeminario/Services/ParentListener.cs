@@ -179,34 +179,18 @@ namespace ProjectoESeminario.Services
                 try
                 {
                     if
-                    (
-                        clipboardController
-                            .PutValue(
-                                text,
-                                (p) =>
-                                {
-                                    new Thread(() =>
-                                    {
-                                        Thread.Sleep(500);
-                                        clipboardController.RemoveUpload(p);
-                                    }).Start();
-                                })
-                    )
+                        (clipboardController.PutValue(text, (p) => { return; }))
                     {
                         runOnSuccess.Invoke(text);
+                        return;
                     }
-                    else
-                    {
-                        runOnFailure.Invoke(text);
-                    }
+                    runOnFailure.Invoke(text);
                 }
                 finally
                 {
                     clipboardController.Wake();
                 }
             }).Start();
-
-
         }
 
         /// <summary>

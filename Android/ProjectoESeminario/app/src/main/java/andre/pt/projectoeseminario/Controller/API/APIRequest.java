@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.Build;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.function.Consumer;
 
@@ -67,8 +70,8 @@ public class APIRequest {
      * @param token the user id
      * @param information the value to push
      */
-    public void pushTextInformation(String token, String information){
-        this.pushTextInformation(token, information, () -> {return;});
+    public void pushTextInformation(String token, String information, String device){
+        this.pushTextInformation(token, information, device, (s) -> {return;}, () -> {return;});
 
     }
 
@@ -77,20 +80,28 @@ public class APIRequest {
      * @param token the user id
      * @param information the value to push
      */
-    public void pushTextInformation(String token, String information, Runnable runnable){
-        mAPI.push(token, information).enqueue(new Callback<ResponseBody>() {
+    public void pushTextInformation(String token, String information, String device, Consumer onSuccess, Runnable onFail){
+        mAPI.push(token, information, device).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.code() > 300)
+                if(response.code() > 300) {
                     Toast.makeText(ctx, ctx.getString(R.string.cannot_upload), Toast.LENGTH_SHORT).show();
+                    onFail.run();
+                }
 
-                runnable.run();
+                try {
+                    JSONObject resp = new JSONObject(response.body().toString());
+                    onSuccess.accept(resp.get("order"));
+                } catch (JSONException e) {
+                    onFail.run();
+                }
+
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(ctx, ctx.getString(R.string.cannot_upload), Toast.LENGTH_SHORT).show();
-                runnable.run();
+                onFail.run();
             }
         });
 

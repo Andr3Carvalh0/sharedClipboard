@@ -1,32 +1,35 @@
 package andre.pt.projectoeseminario.Controller.State;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Consumer;
 
 /**
  * Helper so we can now when we copied new content.
  * This class is thread-safe
  */
 public class ClipboardController {
+
     private Lock nLock;
-    private String clipboard_value;
-    private List<Pair> queue;
-    private HashMap<String, String> history;
+    private final List<Pair> sentRequestsQueue;
+    private final List<String> ignoreQueue;
+    private long orderNumber = -1;
 
     //Helper class
-    private class Pair {
+    public class Pair {
         private String value;
-        private boolean finished;
+        private boolean wake;
+        private boolean remove;
         private Condition condition;
 
         public Pair(String value, Condition condition) {
             this.value = value;
             this.condition = condition;
-            this.finished = false;
+            this.wake = false;
+            this.remove = false;
         }
 
         public String getValue() {
@@ -37,20 +40,27 @@ public class ClipboardController {
             return condition;
         }
 
-        public boolean isFinished() {
-            return finished;
+        public void Wake() {
+            this.wake = true;
         }
 
-        public void finish() {
-            this.finished = true;
+        public void Remove() {
+            this.remove = true;
+        }
+
+        public boolean isWake() {
+            return wake;
+        }
+
+        public boolean toRemove() {
+            return remove;
         }
     }
 
     public ClipboardController(String initialValue){
-        nLock = new ReentrantLock();
-        queue = new LinkedList<>();
-        this.clipboard_value = initialValue;
-        history = new HashMap<>();
+        this.nLock = new ReentrantLock();
+        this.sentRequestsQueue = new LinkedList<>();
+        this.ignoreQueue = new LinkedList<>();
 
     }
 
@@ -61,13 +71,8 @@ public class ClipboardController {
         nLock.lock();
 
         try {
-            if(queue.size() > 0){
-                queue.get(0).finish();
-                queue.get(0).getCondition().signal();
-
-            }
-
-
+            if(sentRequestsQueue.size() > 0)
+                sentRequestsQueue.get(0).getCondition().signal();
         }finally {
             nLock.unlock();
         }
@@ -78,51 +83,133 @@ public class ClipboardController {
      * Changes to the new value, if it is different that the old value
      * @param value the copied text
      * @return boolean indicating weather we changed value or not.
-     * @throws InterruptedException
      */
-    public boolean putValue(String value) throws InterruptedException {
+    public boolean putValue(String value, Consumer<Pair> startTimer) {
         nLock.lock();
 
         try {
-            if(value.equals(clipboard_value) && queue.size() == 0)
+            if (ignoreQueue.contains(value))
+            {
+                ignoreQueue.remove(value);
                 return false;
-
-            //Queue is empty we can alter the value without waiting
-            if(queue.size() == 0 && !value.equals(clipboard_value)){
-                clipboard_value = value;
-                return true;
             }
 
-            Pair pair = new Pair(value, nLock.newCondition());
-            queue.add(pair);
+            Pair node = new Pair(value, nLock.newCondition());
+            sentRequestsQueue.add(node);
+            startTimer.accept(node);
 
-            do{
-                try {
-                    pair.condition.await();
+            do
+            {
+                try
+                {
+                    node.getCondition().await();
+                }
+                catch (InterruptedException e) {}
 
-                }catch (InterruptedException e){
-                    if(pair.isFinished()){
-                        clipboard_value = value;
-                        queue.remove(pair);
-                        return true;
+                if (node.toRemove())
+                {
+                    sentRequestsQueue.remove(node);
+                    return false;
+                }
 
+                if (node == sentRequestsQueue.get(0) && node.isWake() && !node.toRemove())
+                {
+                    sentRequestsQueue.remove(node);
+
+                    if (ignoreQueue.contains(value))
+                    {
+                        ignoreQueue.remove(value);
+                        return false;
                     }
-                    queue.remove(pair);
-                    throw e;
-                }
 
-                if(pair.isFinished()){
-                    clipboard_value = value;
-                    queue.remove(pair);
                     return true;
-
                 }
 
-            }while (true);
-
+            } while (true);
         }finally {
             nLock.unlock();
         }
 
+    }
+
+
+    //return 0 -> Didnt change
+    //return 1 -> Did change, we need to update history
+    //return 2 -> Old request, we need to update history
+    public int PutValue(String text, long order_received)
+    {
+        nLock.lock();
+
+        try {
+            //When we dont have any pending request
+            if (sentRequestsQueue.size() == 0)
+                return AvaliateAndUpdateOrder(order_received, orderNumber, text);
+
+            //Even though we didnt finish the requests we can be sure that the request received is more recent
+            // Than our sent requests.
+            return AvaliateAndUpdateOrder(order_received, orderNumber + sentRequestsQueue.size(), text);
+
+        }finally {
+            nLock.unlock();
+        }
+    }
+
+    private int AvaliateAndUpdateOrder(long received, long actual, String text)
+    {
+        if (received == actual)
+            return 0;
+
+        if (received < actual)
+            return 2;
+
+        orderNumber = received;
+        ignoreQueue.add(text);
+        return 1;
+    }
+
+    public void updateStateOfUpload(long order)
+    {
+        nLock.lock();
+
+        try {
+            if(orderNumber < order)
+                orderNumber = order;
+
+            if (sentRequestsQueue.size() > 0)
+            {
+                Pair node = sentRequestsQueue.get(0);
+                ignoreQueue.add(node.getValue());
+                node.Wake();
+                node.getCondition().signal();
+            }
+
+        }finally {
+            nLock.unlock();
+        }
+    }
+
+    public void removeUpload(Pair node)
+    {
+        nLock.lock();
+
+        try {
+            ignoreQueue.add(node.getValue());
+            node.Remove();
+            node.condition.signal();
+
+        }finally {
+            nLock.unlock();
+        }
+    }
+
+    public void addToIgnoreQueue(String text)
+    {
+        nLock.lock();
+
+        try{
+            ignoreQueue.add(text);
+        }finally {
+            nLock.unlock();
+        }
     }
 }

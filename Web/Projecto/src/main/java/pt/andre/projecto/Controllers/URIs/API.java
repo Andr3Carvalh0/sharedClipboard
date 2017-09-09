@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.Interfaces.IAPI;
 import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
+import pt.andre.projecto.Output.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
 import java.io.IOException;
@@ -164,7 +165,9 @@ public class API implements IAPI {
     @Override
     @RequestMapping(value = "/api/socket", method = RequestMethod.GET)
     public ResponseEntity getWebSocketPort() {
-        return ResponseEntity.ok(WEBSOCKET_PROTOCOL + SERVER_URI.replace("www.", "") + "/desktop_socket");
+        final DatabaseResponse resp = ResponseFormater.displaySuccessfulInformation((WEBSOCKET_PROTOCOL + SERVER_URI.replace("www.", "") + "/desktop_socket"));
+
+        return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 
     private ResponseEntity registerDesktopDevice(String sub, String deviceIdentifier, String deviceName) {

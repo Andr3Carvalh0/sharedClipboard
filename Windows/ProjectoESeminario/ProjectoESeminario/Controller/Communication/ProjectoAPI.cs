@@ -80,7 +80,8 @@ namespace ProjectoESeminario.Controller.Communication
 
         public async Task<HttpResponseMessage> getSocketURL()
         {
-            return await httpClient.GetAsync(mainServer + getSocket_URL);
+            var rsp = await httpClient.GetAsync(mainServer + getSocket_URL);
+            await rsp.Content.ReadAsStringAsync();
         }
     }
 }

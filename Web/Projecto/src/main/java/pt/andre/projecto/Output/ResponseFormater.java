@@ -105,17 +105,25 @@ public class ResponseFormater {
      * Used for cases like, when we have to return information to the user
      * EG: user id, contented that he copied, etc...
      */
-    public static DatabaseResponse displayInformation(String message){
-        return new DatabaseResponseText(VALID_REQUEST, message);
+    public static DatabaseResponse displaySuccessfulInformation(String message){
+        final DatabaseResponseText tmp = new DatabaseResponseText(VALID_REQUEST, message);
+
+        JSONObject js = new JSONObject(VALID_REQUEST);
+        JSONObject js1 = new JSONObject();
+        js1.put("data", message);
+        js.put("data", js1);
+
+        tmp.setResponseMessage(js.toString());
+        return tmp;
     }
 
-    public static DatabaseResponse displayInformation(String message, boolean isMime){
+    public static DatabaseResponse displaySuccessfulInformation(String message, boolean isMime){
         String res = MensageFormater.updateMessage(message, isMime, -1);
 
         return new DatabaseResponseText(VALID_REQUEST, res);
     }
 
-    public static DatabaseResponse displayInformation(byte[] content){
+    public static DatabaseResponse displaySuccessfulInformation(byte[] content){
         return new DatabaseResponseMultimedia(VALID_REQUEST, content);
     }
 }

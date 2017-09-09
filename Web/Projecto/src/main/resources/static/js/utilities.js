@@ -19,7 +19,7 @@ function authenticate(auth) {
         },
         contentType: 'application/x-www-form-urlencoded',
         success: function(result) {
-            getUserDevices(result)
+            getUserDevices(JSON.parse(result).data.data)
         },
         statusCode: {
             400: function() {

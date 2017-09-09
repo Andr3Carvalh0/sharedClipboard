@@ -122,7 +122,7 @@ public class MongoDB implements IDatabase {
     @Override
     public DatabaseResponse pull(String sub) {
         logger.info(TAG + "pulling user info");
-        return transformationToContentDatabase(sub, (wrapper, collection) -> ResponseFormater.displayInformation( wrapper.getContent().getValue(), wrapper.getContent().isMIME()));
+        return transformationToContentDatabase(sub, (wrapper, collection) -> ResponseFormater.displaySuccessfulInformation( wrapper.getContent().getValue(), wrapper.getContent().isMIME()));
     }
 
     @Override
@@ -151,7 +151,7 @@ public class MongoDB implements IDatabase {
             }
 
             logger.info(TAG + "valid user");
-            return ResponseFormater.displayInformation(userList.get(0).getId());
+            return ResponseFormater.displaySuccessfulInformation(userList.get(0).getId());
 
         } catch (Exception e) {
             logger.error(TAG + "cannot communicate with DB");

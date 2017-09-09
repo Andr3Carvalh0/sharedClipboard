@@ -54,7 +54,7 @@ public class MultimediaHandler implements IMultimediaHandler {
 
         try {
             final byte[] ret = IOUtils.toByteArray(new FileInputStream(new File(PARENT_DIRECTORY + encryptedSUB + "/" + file)));
-            return ResponseFormater.displayInformation(ret);
+            return ResponseFormater.displaySuccessfulInformation(ret);
 
         } catch (IOException ex) {
             logger.error(TAG, "Cannot read file!");

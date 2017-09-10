@@ -28,11 +28,11 @@ namespace ProjectoESeminario.Services
         private readonly String device;
         private readonly ISettingsController application;
 
-        public ParentListener(String socketURL, String userID, String deviceID, ISettingsController settingsController)
+        public ParentListener(String socketURL, String userID, String deviceID, long order, ISettingsController settingsController)
         {
             this.clipboardListener = new ClipboardListener(this);
             this.clipboardWebSocketListener = new ClipboardWebSocketListener(socketURL, userID, deviceID, this);
-            this.clipboardController = ClipboardControllerFactory.getSingleton();
+            this.clipboardController = ClipboardControllerFactory.getSingleton(order);
             this.cache = new Cache();
             this.user = userID;
             this.device = deviceID;
@@ -272,6 +272,11 @@ namespace ProjectoESeminario.Services
         private void Notify(string text)
         {
             MessageBox.Show(text);
+        }
+
+        public void SaveOrder()
+        {
+            Properties.Settings.Default.order = clipboardController.GetOrder();
         }
     }
 }

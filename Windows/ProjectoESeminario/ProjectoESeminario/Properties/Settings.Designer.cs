@@ -70,5 +70,17 @@ namespace ProjectoESeminario.Properties {
                 this["initOnStartup"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public long order {
+            get {
+                return ((long)(this["order"]));
+            }
+            set {
+                this["order"] = value;
+            }
+        }
     }
 }

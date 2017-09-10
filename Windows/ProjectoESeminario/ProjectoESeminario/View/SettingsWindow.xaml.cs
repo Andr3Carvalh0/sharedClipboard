@@ -35,20 +35,20 @@ namespace ProjectoESeminario.View
         private HistoryControl historyController;
 
         //CTOR
-        public SettingsWindow() : this(Properties.Settings.Default.sub, Properties.Settings.Default.deviceID)
+        public SettingsWindow() : this(Properties.Settings.Default.sub, Properties.Settings.Default.deviceID, Properties.Settings.Default.order)
         {}
 
-        public SettingsWindow(String sub, String deviceID)
+        public SettingsWindow(String sub, String deviceID, long order)
         {
             InitializeComponent();
             
             this.sub = sub;
             this.deviceID = deviceID;
             
-            Init();
+            Init(order);
         }
 
-        private async void Init()
+        private async void Init(long order)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace ProjectoESeminario.View
                 this.socketURL = await new SettingsController().GetSocketURL();
                 
                 //Warm up services
-                listenerController = new ParentListener(socketURL, sub, deviceID, this);
+                listenerController = new ParentListener(socketURL, sub, deviceID, order, this);
 
                 HISTORY_ITEMS = new LinkedList<History_Item>();
                 //prep history categories

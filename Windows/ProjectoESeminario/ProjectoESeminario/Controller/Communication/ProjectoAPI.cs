@@ -1,4 +1,5 @@
-﻿using ProjectoESeminario.Controller.Communication.Interfaces;
+﻿using Newtonsoft.Json;
+using ProjectoESeminario.Controller.Communication.Interfaces;
 using ProjectoESeminario.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -80,8 +81,7 @@ namespace ProjectoESeminario.Controller.Communication
 
         public async Task<HttpResponseMessage> getSocketURL()
         {
-            var rsp = await httpClient.GetAsync(mainServer + getSocket_URL);
-            await rsp.Content.ReadAsStringAsync();
+            return await httpClient.GetAsync(mainServer + getSocket_URL);      
         }
     }
 }

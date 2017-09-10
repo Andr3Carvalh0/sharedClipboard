@@ -1,4 +1,4 @@
-package pt.andre.projecto.Output;
+package pt.andre.projecto.Output.Interfaces;
 
 import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
 

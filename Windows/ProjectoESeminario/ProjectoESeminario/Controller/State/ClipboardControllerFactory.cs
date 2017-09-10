@@ -7,9 +7,9 @@ namespace ProjectoESeminario.Controller.State
         private static ClipboardController clipboardController;
 
 
-        public static ClipboardController getSingleton()
+        public static ClipboardController getSingleton(long order)
         {
-            return clipboardController ?? (clipboardController = new ClipboardController());
+            return clipboardController ?? (clipboardController = new ClipboardController(order));
         }
 
     }

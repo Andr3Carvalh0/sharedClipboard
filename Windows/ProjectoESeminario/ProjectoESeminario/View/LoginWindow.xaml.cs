@@ -48,7 +48,10 @@ namespace ProjectoESeminario.View
                     MessageDialogStyle.AffirmativeAndNegative);
 
                 if (result == MessageDialogResult.Affirmative)
-                    HandleSuccessfulLogin(await controller.HandleCreateAccountAsync(token));
+                {
+                    var rsp = await controller.HandleCreateAccountAsync(token);
+                    HandleSuccessfulLogin(rsp.id, rsp.order);
+                }
             });
             handleServerResponse.Add(System.Net.HttpStatusCode.InternalServerError, async () =>
             {
@@ -56,7 +59,7 @@ namespace ProjectoESeminario.View
             });
         }
 
-        private void HandleSuccessfulLogin(String sub)
+        private void HandleSuccessfulLogin(String sub, long order)
         {
             String GUID = Guid.NewGuid().ToString().ToUpper();
 
@@ -68,7 +71,7 @@ namespace ProjectoESeminario.View
             Properties.Settings.Default.Reload();
 
      
-            SettingsWindow settings = new SettingsWindow(sub, GUID);
+            SettingsWindow settings = new SettingsWindow(sub, GUID, order);
             Application.Current.MainWindow = settings;
             this.Close();
             settings.Show();
@@ -90,7 +93,8 @@ namespace ProjectoESeminario.View
                 String idToken = credential.Token.IdToken;
                 token = idToken;
 
-                HandleSuccessfulLogin(await controller.HandleLoginAsync(idToken));
+                var rsp = await controller.HandleLoginAsync(idToken);
+                HandleSuccessfulLogin(rsp.id, rsp.order);
             }
             catch (Exception ex)
             {

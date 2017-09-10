@@ -11,5 +11,7 @@ namespace ProjectoESeminario.Services.Interfaces
         void UpdateClipboard(string text);
         string[] Pull(string category);
         string[] Pull();
+
+        void SaveOrder();
     }
 }

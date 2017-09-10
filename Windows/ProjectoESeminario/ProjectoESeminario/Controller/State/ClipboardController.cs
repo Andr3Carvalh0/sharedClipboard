@@ -53,11 +53,12 @@ namespace ProjectoESeminario.Controller.State
             }
         }
 
-        public ClipboardController()
+        public ClipboardController(long order)
         {
             nLock = new Object();
             sentRequestsQueue = new LinkedList<Pair>();
             ignoreQueue = new LinkedList<String>();
+            order_number = order;
         }
 
         public void Wake()
@@ -183,5 +184,9 @@ namespace ProjectoESeminario.Controller.State
             }
         }
         
+        public long GetOrder()
+        {
+            return order_number;
+        }
     }
 }

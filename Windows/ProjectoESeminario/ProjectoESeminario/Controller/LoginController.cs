@@ -1,4 +1,5 @@
-﻿using ProjectoESeminario.Controller.Communication;
+﻿using Newtonsoft.Json;
+using ProjectoESeminario.Controller.Communication;
 using ProjectoESeminario.Exceptions;
 using System;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace ProjectoESeminario.Controller
             this.mAPI = new ProjectoAPI();
         }
 
-        public async Task<String> HandleCreateAccountAsync(String token)
+        public async Task<LoginItem> HandleCreateAccountAsync(String token)
         {
             log.Debug(TAG + " method HandleCreateAccount called!");
 
@@ -32,9 +33,13 @@ namespace ProjectoESeminario.Controller
 
             }
 
-            var responseBody = await response.Content.ReadAsStringAsync();
-            
-            return responseBody;
+            var rsp = await response.Content.ReadAsStringAsync();
+
+            var json = JsonConvert.DeserializeObject<dynamic>(rsp);
+
+            LoginItem ret = new LoginItem() { id = json.data.id, order = json.data.order };
+
+            return ret;
         }
 
         public async void registerDevice(String sub, String GUID)
@@ -49,7 +54,7 @@ namespace ProjectoESeminario.Controller
             
         }
 
-        public async Task<String> HandleLoginAsync(String token)
+        public async Task<LoginItem> HandleLoginAsync(String token)
         {
             log.Debug(TAG + " method HandleLoginAsync called!");
 
@@ -61,7 +66,20 @@ namespace ProjectoESeminario.Controller
                 throw new WebExceptions(response.StatusCode);
             }
 
-           return await response.Content.ReadAsStringAsync();
+            var rsp = await response.Content.ReadAsStringAsync();
+
+            var json = JsonConvert.DeserializeObject<dynamic>(rsp);
+
+            LoginItem ret = new LoginItem() { id = json.data.id, order = json.data.order };
+
+            return ret;
+        }
+
+
+        public class LoginItem
+        {
+            public long order { get; set; }
+            public string id { get; set; }
         }
     }
 }

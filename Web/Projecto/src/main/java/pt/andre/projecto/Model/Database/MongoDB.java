@@ -151,7 +151,16 @@ public class MongoDB implements IDatabase {
             }
 
             logger.info(TAG + "valid user");
-            return ResponseFormater.displaySuccessfulInformation(userList.get(0).getId());
+            HashMap<String, String> rsp = new HashMap<>();
+            rsp.put("id", userList.get(0).getId());
+
+            transformationToContentDatabase(userList.get(0).getId(), (c, co) -> {
+               rsp.put("order", c.getContent().getOrder() + "");
+                return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
+            });
+
+
+            return ResponseFormater.displaySuccessfulInformation(rsp);
 
         } catch (Exception e) {
             logger.error(TAG + "cannot communicate with DB");

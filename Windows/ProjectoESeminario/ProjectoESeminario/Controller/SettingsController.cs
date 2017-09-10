@@ -1,4 +1,5 @@
-﻿using ProjectoESeminario.Controller.Communication;
+﻿using Newtonsoft.Json;
+using ProjectoESeminario.Controller.Communication;
 using ProjectoESeminario.Exceptions;
 using System;
 using System.Threading.Tasks;
@@ -32,7 +33,12 @@ namespace ProjectoESeminario.Controller
                 throw new WebExceptions(response.StatusCode);
             }
 
-            return await response.Content.ReadAsStringAsync();
+
+            var rsp = await response.Content.ReadAsStringAsync();
+
+            var json = JsonConvert.DeserializeObject<dynamic>(rsp);
+
+            return json.data.data;
         }
 
     }

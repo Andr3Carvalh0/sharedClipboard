@@ -11,7 +11,7 @@ namespace SyncTests
         [TestMethod]
         public void ShouldSucced()
         {
-            ClipboardController controller = new ClipboardController();
+            ClipboardController controller = new ClipboardController(0);
 
             bool res = false;
             Thread[] arr = new Thread[2];
@@ -55,7 +55,7 @@ namespace SyncTests
         [TestMethod]
         public void ShouldSuccedOnTimeout()
         {
-            ClipboardController controller = new ClipboardController();
+            ClipboardController controller = new ClipboardController(0);
 
             bool res = false;
             Thread[] arr = new Thread[2];
@@ -100,7 +100,7 @@ namespace SyncTests
         [TestMethod]
         public void ShouldSuccedOnAppLessThanServer()
         {
-            ClipboardController controller = new ClipboardController();
+            ClipboardController controller = new ClipboardController(0);
 
             bool res = false;
             Thread[] arr = new Thread[1];
@@ -128,7 +128,7 @@ namespace SyncTests
         [TestMethod]
         public void MultipleReceivedRequests()
         {
-            ClipboardController controller = new ClipboardController();
+            ClipboardController controller = new ClipboardController(0);
 
             bool res1 = false;
             bool res2 = false;
@@ -178,7 +178,7 @@ namespace SyncTests
         [TestMethod]
         public void MultipleReceivedRequestsOneWithHigherOrder()
         {
-            ClipboardController controller = new ClipboardController();
+            ClipboardController controller = new ClipboardController(0);
 
             bool res1 = false;
             bool res2 = false;

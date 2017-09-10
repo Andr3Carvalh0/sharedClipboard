@@ -3,6 +3,10 @@ package pt.andre.projecto.Output;
 import org.json.JSONObject;
 import pt.andre.projecto.Model.Utils.DefaultHashMap;
 import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
+import pt.andre.projecto.Output.Interfaces.DatabaseResponseMultimedia;
+import pt.andre.projecto.Output.Interfaces.DatabaseResponseText;
+
+import java.util.HashMap;
 
 /*
 * Used to convert MongoDB errors to a more user friendly messages
@@ -111,6 +115,22 @@ public class ResponseFormater {
         JSONObject js = new JSONObject(VALID_REQUEST);
         JSONObject js1 = new JSONObject();
         js1.put("data", message);
+        js.put("data", js1);
+
+        tmp.setResponseMessage(js.toString());
+        return tmp;
+    }
+
+    public static DatabaseResponse displaySuccessfulInformation(HashMap<String, String> message){
+        final DatabaseResponseText tmp = new DatabaseResponseText(VALID_REQUEST, "");
+
+        JSONObject js = new JSONObject(VALID_REQUEST);
+        JSONObject js1 = new JSONObject();
+
+        for (String key : message.keySet()) {
+            js1.put(key, message.get(key));
+        }
+
         js.put("data", js1);
 
         tmp.setResponseMessage(js.toString());

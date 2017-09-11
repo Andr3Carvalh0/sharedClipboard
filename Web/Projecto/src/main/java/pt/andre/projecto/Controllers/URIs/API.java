@@ -29,9 +29,6 @@ public class API implements IAPI {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: API ";
-    private final String SERVER_URI = System.getenv("SERVER");
-    private final String SERVER_PROTOCOL = System.getenv("SERVER_PROTOCOL");
-    private final String WEBSOCKET_PROTOCOL = System.getenv("WEBSOCKET_PROTOCOL");
 
     /*
     * Creates a new user account.
@@ -165,8 +162,7 @@ public class API implements IAPI {
     @Override
     @RequestMapping(value = "/api/socket", method = RequestMethod.GET)
     public ResponseEntity getWebSocketPort() {
-        final DatabaseResponse resp = ResponseFormater.displaySuccessfulInformation((WEBSOCKET_PROTOCOL + SERVER_URI.replace("www.", "") + "/desktop_socket"));
-
+        DatabaseResponse resp = service.getSocket();
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 

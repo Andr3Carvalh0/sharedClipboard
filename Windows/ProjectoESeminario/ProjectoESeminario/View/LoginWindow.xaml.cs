@@ -67,6 +67,7 @@ namespace ProjectoESeminario.View
 
             Properties.Settings.Default.deviceID = GUID;
             Properties.Settings.Default.sub = sub;
+            Properties.Settings.Default.order = order;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 

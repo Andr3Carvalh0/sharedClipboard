@@ -222,3 +222,4 @@ C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\Projecto
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\ProjectoESeminario.application
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\ProjectoESeminario.exe
 C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\ProjectoESeminario.pdb
+C:\Faculdade\PS\Windows\ProjectoESeminario\ProjectoESeminario\obj\Debug\ProjectoESeminario.csprojResolveAssemblyReference.cache

@@ -33,6 +33,10 @@ public class APIService extends ParentService implements IAPIService{
     @Autowired
     private WebSocketService webSocketService;
 
+    private final String SERVER_URI = System.getenv("SERVER");
+    private final String SERVER_PROTOCOL = System.getenv("SERVER_PROTOCOL");
+    private final String WEBSOCKET_PROTOCOL = System.getenv("WEBSOCKET_PROTOCOL");
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: APIService ";
 
@@ -121,6 +125,12 @@ public class APIService extends ParentService implements IAPIService{
     @Override
     public DatabaseResponse handleMIMERequest(String encryptedSUB, String sub, String file) {
         return multimediaHandler.pull(encryptedSUB, sub, file);
+    }
+
+    @Override
+    public DatabaseResponse getSocket() {
+        return ResponseFormater.displaySuccessfulInformation((WEBSOCKET_PROTOCOL + SERVER_URI.replace("www.", "") + "/desktop_socket"));
+
     }
 
     /*

@@ -12,4 +12,6 @@ public interface IAPIService extends IParentService {
     DatabaseResponse createAccount(String token);
     DatabaseResponse authenticate(String token);
     DatabaseResponse handleMIMERequest(String encryptedSUB, String sub, String file);
+
+    DatabaseResponse getSocket();
 }

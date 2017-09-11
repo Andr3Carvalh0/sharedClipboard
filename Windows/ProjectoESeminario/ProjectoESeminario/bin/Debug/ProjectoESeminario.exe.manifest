@@ -170,7 +170,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>a91Q90WJZNE6kBlGEu1V7GubIuTjk3CxohB+AXhOLg8=</dsig:DigestValue>
+        <dsig:DigestValue>ZrzrQ4BP/h8aZo/1doi2Aa+1rWWX2pmvU/cRgrvrPrs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -351,13 +351,13 @@
       <dsig:DigestValue>kVjE08qb7ukQT/+hlEZNacctiwzW7aL9DP2pFkGWzUs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="ProjectoESeminario.exe.config" size="3227">
+  <file name="ProjectoESeminario.exe.config" size="3240">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>hHjM4g+PWqPyblolKM8WM777/I4K9/sqEDtyXdCGMec=</dsig:DigestValue>
+      <dsig:DigestValue>0hC9HI4+GK+DCPhnrdMtEIib4NnKhA4SZvi9pNHmQEw=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

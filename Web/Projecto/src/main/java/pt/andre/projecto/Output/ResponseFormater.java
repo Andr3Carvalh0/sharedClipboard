@@ -112,7 +112,7 @@ public class ResponseFormater {
     public static DatabaseResponse displaySuccessfulInformation(String message){
         final DatabaseResponseText tmp = new DatabaseResponseText(VALID_REQUEST, message);
 
-        JSONObject js = new JSONObject(VALID_REQUEST);
+        JSONObject js = new JSONObject(VALID_REQUEST_MESSAGE);
         JSONObject js1 = new JSONObject();
         js1.put("data", message);
         js.put("data", js1);
@@ -124,7 +124,7 @@ public class ResponseFormater {
     public static DatabaseResponse displaySuccessfulInformation(HashMap<String, String> message){
         final DatabaseResponseText tmp = new DatabaseResponseText(VALID_REQUEST, "");
 
-        JSONObject js = new JSONObject(VALID_REQUEST);
+        JSONObject js = new JSONObject(VALID_REQUEST_MESSAGE);
         JSONObject js1 = new JSONObject();
 
         for (String key : message.keySet()) {

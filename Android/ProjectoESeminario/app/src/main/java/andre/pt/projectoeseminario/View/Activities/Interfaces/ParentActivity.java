@@ -101,8 +101,17 @@ public abstract class ParentActivity extends AppCompatActivity {
         mPreferences.saveStringPreference(key, value);
     }
 
+
+    protected void saveLongPreference(String key, long value){
+        mPreferences.saveLongPreference(key, value);
+    }
+
     protected int getIntPreference(String key){
        return mPreferences.getIntPreference(key);
+    }
+
+    protected long getLongPreference(String key){
+        return mPreferences.getLongPreference(key);
     }
 
     protected boolean getBooleanPreference(String key){

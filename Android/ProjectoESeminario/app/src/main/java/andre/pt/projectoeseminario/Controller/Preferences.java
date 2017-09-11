@@ -14,6 +14,7 @@ public class Preferences {
     public static String FIREBASEID = "firebaseID";
     public static String NOTIFICATION_STATE = "show_notification";
     public static String SETUPSHOWN = "afterBinding";
+    public static String ORDER = "order";
     private SharedPreferences.Editor editor;
     private SharedPreferences shared;
 
@@ -41,6 +42,13 @@ public class Preferences {
         return shared.getInt(key, 0);
     }
 
+
+    public void saveLongPreference(String key, long value) {
+        editor.putLong(key, value);
+        editor.apply();
+    }
+
+
     public boolean getBooleanPreference(String key){
         return shared.getBoolean(key, false);
     }
@@ -48,6 +56,11 @@ public class Preferences {
     public String getStringPreference(String key) {
         return shared.getString(key, null);
     }
+
+    public long getLongPreference(String key) {
+        return shared.getLong(key, 0);
+    }
+
 
     public void clearAll(){
         editor.clear();

@@ -25,8 +25,8 @@ public class Projecto extends Application {
         super.onCreate();
         this.cache = new Cache(getApplicationContext(), getContentResolver());
         this.preferences = new Preferences(getApplicationContext());
-        this.clipboardController = new ClipboardController("Welcome!");
     }
+
 
     /**
      * Handles the logout process.
@@ -100,10 +100,16 @@ public class Projecto extends Application {
 
 
     public ClipboardController getClipboardController() {
+        if(clipboardController == null)
+            clipboardController = new ClipboardController(preferences.getLongPreference(Preferences.ORDER));
         return clipboardController;
     }
 
     public String getDevice(){
         return preferences.getStringPreference(Preferences.FIREBASEID);
+    }
+
+    public void saveOrder(long order){
+        preferences.saveLongPreference(Preferences.ORDER, order);
     }
 }

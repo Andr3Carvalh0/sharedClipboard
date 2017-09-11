@@ -57,7 +57,7 @@ public class ClipboardController {
         }
     }
 
-    public ClipboardController(String initialValue){
+    public ClipboardController(long order){
         this.nLock = new ReentrantLock();
         this.sentRequestsQueue = new LinkedList<>();
         this.ignoreQueue = new LinkedList<>();
@@ -211,5 +211,9 @@ public class ClipboardController {
         }finally {
             nLock.unlock();
         }
+    }
+
+    public long getOrder(){
+        return orderNumber;
     }
 }

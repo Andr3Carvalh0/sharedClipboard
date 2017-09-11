@@ -59,10 +59,4 @@ public class CopyMenuListener extends Service {
             }
         });
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        System.out.println();
-    }
 }

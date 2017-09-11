@@ -1,11 +1,13 @@
 package andre.pt.projectoeseminario.Services;
 
-import android.app.IntentService;
+import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import java.util.HashMap;
 import java.util.function.BiConsumer;
@@ -22,9 +24,6 @@ public class ClipboardEventHandler extends Service {
     private static final String TAG = "Portugal:ClipHandler";
     private HashMap<String, BiConsumer<Intent, ClipboardController>> action_router;
 
-    public ClipboardEventHandler() {
-        super("ClipboardEventHandler");
-    }
 
     /**
      * Stores the text into the device's clipboard
@@ -46,7 +45,11 @@ public class ClipboardEventHandler extends Service {
      * @param clipboardController
      */
     private void handleRemove(Intent intent, ClipboardController clipboardController){
-        ((Projecto)getApplication()).logOut();
+        try{
+            ((Projecto)getApplication()).logOut();
+        }finally {
+            this.stopSelf();
+        }
     }
 
     /**
@@ -80,59 +83,57 @@ public class ClipboardEventHandler extends Service {
     }
 
     private void onCopy(String text, String user, String device, ClipboardController clipboardController){
-    	Context ctx = this;
-    	new Thread(() -> {
-	        boolean[] hasResp = {false};
 
-	        APIRequest mApi = new APIRequest(ctx);
+    	new Thread(() -> {
 	        try{
+                APIRequest mApi = new APIRequest(this);
 	            if(clipboardController.putValue(text, (pair) ->
 	                    mApi.pushTextInformation(user,
 	                            text,
 	                            device,
-	                            o -> {
-	                                clipboardController.updateStateOfUpload(Long.parseLong((String)o));
-	                                hasResp[0] = true;
-
-	                            },
-	                            () -> {
-	                                clipboardController.removeUpload(pair);
-	                                hasResp[0] = true;
-	                            })
-	            )){
+	                            o -> clipboardController.updateStateOfUpload(Long.parseLong((String)o)),
+	                            () -> clipboardController.removeUpload(pair))))
+	            {
 	                ((Projecto)getApplication()).storeContent(text);
-	            }}finally {
-	                clipboardController.wake();
 	            }
-	        while (!hasResp[0]){}
-	   
-	    }).run();
+	        }finally {
+                clipboardController.wake();
+                this.stopSelf();
+            }
+	    }).start();
     }
-
 
     private void onReceived(String text, int order, ClipboardController clipboardController){
         int value = clipboardController.PutValue(text, order);
 
-        if (value == 1)
-        {
-            handleTextContent(getApplicationContext(), text);
-            ((Projecto)getApplication()).storeContent(text);
-            return;
+        try {
+            if (value == 1)
+            {
+                handleTextContent(getApplicationContext(), text);
+                ((Projecto)getApplication()).storeContent(text);
+                return;
+            }
+
+            if(value == 2)
+                ((Projecto)getApplication()).storeContent(text);
+
+        }finally {
+            this.stopSelf();
         }
-
-        if(value == 2)
-            ((Projecto)getApplication()).storeContent(text);
-
     }
 
     //Called when we copy from history
     private void handleSwitch(Intent intent, ClipboardController clipboardController) {
-        final String content = intent.getStringExtra("content");
+        try {
+            final String content = intent.getStringExtra("content");
 
-        //This one to let
-        clipboardController.addToIgnoreQueue(content);
+            //This one to let
+            clipboardController.addToIgnoreQueue(content);
 
-        handleTextContent(getApplicationContext(), content);
+            handleTextContent(getApplicationContext(), content);
+        }finally {
+            this.stopSelf();
+        }
     }
 
     @Nullable

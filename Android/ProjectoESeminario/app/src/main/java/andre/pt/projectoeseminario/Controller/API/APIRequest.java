@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import andre.pt.projectoeseminario.Controller.API.Interface.Responses.IAuthenticate;
@@ -28,7 +29,7 @@ public class APIRequest {
     private IAPI mAPI;
     private IParentRequest iResponse;
     private Context ctx;
-    private HashMap<Integer, Consumer<String>> respondeHandler;
+    private HashMap<Integer, BiConsumer<String, Long>> respondeHandler;
 
     public APIRequest(Context ctx){
         this(null, ctx);
@@ -40,9 +41,9 @@ public class APIRequest {
         this.ctx = ctx;
         this.respondeHandler = new HashMap<>();
 
-        respondeHandler.put(200, (user) -> ((IAuthenticate)iResponse).handleSuccessfullyLogin(user));
-        respondeHandler.put(400, (user) -> ((IAuthenticate)iResponse).handleNonExistingAccount());
-        respondeHandler.put(409, (user) -> iResponse.handleError(getResourceString(R.string.Error409_Title), getResourceString(R.string.Error409_Message)));
+        respondeHandler.put(200, (user, order) -> ((IAuthenticate)iResponse).handleSuccessfullyLogin(user, order));
+        respondeHandler.put(400, (user, nothing) -> ((IAuthenticate)iResponse).handleNonExistingAccount());
+        respondeHandler.put(409, (user, nothing) -> iResponse.handleError(getResourceString(R.string.Error409_Title), getResourceString(R.string.Error409_Message)));
     }
 
     /**
@@ -121,16 +122,26 @@ public class APIRequest {
                 iResponse.hideProgressDialog();
 
                 if(response.body() != null){
-                    handleHTTPResponse(response.code(), response.body());
+                    try {
+                        JSONObject resp = new JSONObject(response.body());
+                        String id = resp.getJSONObject("data").getString("id");
+                        long order = resp.getJSONObject("data").getLong("order");
+
+                        handleHTTPResponse(response.code(), id, order);
+
+                    } catch (JSONException e) {
+                        handleHTTPResponse(500, null, -1);
+                    }
+
                 }else{
-                    handleHTTPResponse(response.code(), null);
+                    handleHTTPResponse(response.code(), null, -1);
                 }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 iResponse.hideProgressDialog();
-                handleHTTPResponse(500, null);
+                handleHTTPResponse(500, null, -1);
             }
         });
 
@@ -149,16 +160,25 @@ public class APIRequest {
                 iResponse.hideProgressDialog();
 
                 if(response.body() != null){
-                    handleHTTPResponse(response.code(), response.body());
+                    try {
+                        JSONObject resp = new JSONObject(response.body());
+                        String id = resp.getJSONObject("data").getString("id");
+                        long order = resp.getJSONObject("data").getLong("order");
+
+                        handleHTTPResponse(response.code(), id, order);
+
+                    } catch (JSONException e) {
+                        handleHTTPResponse(500, null, -1);
+                    }
                 }else{
-                    handleHTTPResponse(response.code(), null);
+                    handleHTTPResponse(response.code(), null, -1);
                 }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 iResponse.hideProgressDialog();
-                handleHTTPResponse(500, null);
+                handleHTTPResponse(500, null, -1);
             }
         });
     }
@@ -168,9 +188,9 @@ public class APIRequest {
      * @param code the code that the request returned
      * @param user the user id
      */
-    private void handleHTTPResponse(int code, String user){
+    private void handleHTTPResponse(int code, String user, long order){
         if(respondeHandler.containsKey(code)) {
-            respondeHandler.get(code).accept(user);
+            respondeHandler.get(code).accept(user, order);
             return;
         }
 

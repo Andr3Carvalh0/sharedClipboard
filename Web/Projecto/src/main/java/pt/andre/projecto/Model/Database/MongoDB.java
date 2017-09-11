@@ -16,8 +16,10 @@ import pt.andre.projecto.Model.DTOs.Wrappers.ContentWrapper;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
 import pt.andre.projecto.Model.DTOs.Wrappers.UserWrapper;
 import pt.andre.projecto.Model.Database.Interfaces.IDatabase;
+import pt.andre.projecto.Model.Database.Interfaces.IPendingRequests;
 import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Output.ResponseFormater;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -27,7 +29,7 @@ import java.util.stream.Stream;
 /**
  * Implementation of the Database Interface using MongoDB
  */
-public class MongoDB implements IDatabase {
+public class MongoDB implements IDatabase, IPendingRequests {
 
     public static final String MOBILE_CLIENTS = "mobileClients";
     private static final String DESKTOP_CLIENTS = "desktopClients";
@@ -37,6 +39,7 @@ public class MongoDB implements IDatabase {
     private final MongoDatabase mongoDatabase;
     private final static DatabaseOption USER_COLLECTION = new DatabaseOption("users", "id");
     private final static DatabaseOption CONTENT_COLLECTION = new DatabaseOption("content", "id");
+    private final static DatabaseOption PENDINGREQUESTS_COLLECTION = new DatabaseOption("pending", "id");
     private final static String FIRST_TIME_CONTENT_MESSAGE = "Welcome!";
 
 
@@ -69,7 +72,7 @@ public class MongoDB implements IDatabase {
         MongoClient mongoClient = new MongoClient(uri);
 
         mongoDatabase = mongoClient.getDatabase(uri.getDatabase());
-        initializeCollections(USER_COLLECTION, CONTENT_COLLECTION);
+        initializeCollections(USER_COLLECTION, CONTENT_COLLECTION, PENDINGREQUESTS_COLLECTION);
 
     }
 
@@ -186,6 +189,11 @@ public class MongoDB implements IDatabase {
             document.put("order", 0);
             mongoDatabase.getCollection(CONTENT_COLLECTION.getName()).insertOne(document);
 
+            document = new Document();
+            document.put("id", sub);
+            document.put("devices", new ArrayList<BasicDBObject>());
+            mongoDatabase.getCollection(PENDINGREQUESTS_COLLECTION.getName()).insertOne(document);
+
             return authenticate(sub);
         } catch (Exception e) {
             if (e.getMessage().contains("duplicate key")) {
@@ -234,66 +242,52 @@ public class MongoDB implements IDatabase {
         }
     }
 
-    private List<DeviceWrapper> getDevices(String sub, Function<UserWrapper, List<Document>> func, boolean isMobile) {
+    @Override
+    public int updateAndGetOrder(String user) {
+        try{
+            transformationToContentDatabase(user, (wrapper, collection) -> {
+                logger.info(TAG + "increase order");
 
-        final List<Document> res = new LinkedList<>();
+                BasicDBObject updateCommand = new BasicDBObject("$inc", new BasicDBObject("order", 1));
 
-        transformationToUserDatabase(sub,
-                (wrapper, collection) -> {
-                    res.addAll(func.apply(wrapper));
-                    return null;
-                }
-        );
+                collection.updateOne(wrapper.getAccountFilter(), updateCommand);
 
-        return res.stream()
-                  .map(document -> new DeviceWrapper(document.getString("_main"), document.getString("name"), isMobile, sub))
-                  .collect(Collectors.toList());
+                return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
+            });
+
+
+            final int[] ret = {0};
+            transformationToContentDatabase(user, (wrapper, collection) -> {
+                logger.info(TAG + "returning order" + wrapper.getContent().getOrder());
+
+                ret[0] = wrapper.getContent().getOrder();
+                return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
+            });
+
+            return ret[0];
+        }catch (Exception e){
+            logger.error(TAG + "Error storing updated order number");
+        }
+
+        return 0;
     }
 
-    /**
-     * Checks if the default collections are created.If not, delegates the creation of the same
-     */
-    private void initializeCollections(DatabaseOption... collections) {
-        logger.info(TAG + "initializing Collection");
+    @Override
+    public List<String> getPendingRequests(String sub, String device) {
+        return null;
+    }
 
-        String[] existingCollections = Iterables.toArray(getExistingCollections(), String.class);
-
-        Arrays.stream(collections)
-                .filter(collection -> checkIfCollectionAlreadyExists(collection.getName(), Arrays.stream(existingCollections)))
-                .forEach(this::createCollection);
+    @Override
+    public void addRequest(String sub, String device, String message) {
 
     }
 
-    /**
-     * Handles the creation of one collection @param collection
-     */
-    private void createCollection(DatabaseOption collection) {
-        logger.info(TAG + "creating Collection");
-        mongoDatabase.createCollection(collection.getName());
-        mongoDatabase.getCollection(collection.getName()).createIndex(new Document(collection.getPrimaryKey(), 1), new IndexOptions().unique(true));
+    @Override
+    public void removeAllRequests(String sub, String device) {
+
     }
 
-    /**
-     * Checks if the collection named @param collection exists.
-     *
-     * @param existingCollections : the existing collections
-     */
-    private boolean checkIfCollectionAlreadyExists(String collection, Stream<String> existingCollections) {
-        logger.info(TAG + "checking if Collection:" + collection + " exists");
-
-        return existingCollections
-                .filter(collection::equals)
-                .count() == 0;
-    }
-
-    private Iterable<String> getExistingCollections() {
-        return mongoDatabase.listCollectionNames();
-    }
-
-    public MongoDatabase getMongoDatabase() {
-        return mongoDatabase;
-    }
-
+    //Utils
     /*
     * Gets the item in the Content Table.
     * From the obtain value, e can do operations, using the @param func
@@ -336,13 +330,72 @@ public class MongoDB implements IDatabase {
         }
     }
 
+    private DatabaseResponse transformationToPendingDatabase(String sub, BiFunction<UserWrapper, MongoCollection, DatabaseResponse> func) {
+        throw new NotImplementedException();
+    }
+
+    /**
+     * Handles the creation of one collection @param collection
+     */
+    private void createCollection(DatabaseOption collection) {
+        logger.info(TAG + "creating Collection");
+        mongoDatabase.createCollection(collection.getName());
+        mongoDatabase.getCollection(collection.getName()).createIndex(new Document(collection.getPrimaryKey(), 1), new IndexOptions().unique(true));
+    }
+
+    /**
+     * Checks if the collection named @param collection exists.
+     *
+     * @param existingCollections : the existing collections
+     */
+    private boolean checkIfCollectionAlreadyExists(String collection, Stream<String> existingCollections) {
+        logger.info(TAG + "checking if Collection:" + collection + " exists");
+
+        return existingCollections
+                .filter(collection::equals)
+                .count() == 0;
+    }
+
+    private Iterable<String> getExistingCollections() {
+        return mongoDatabase.listCollectionNames();
+    }
+
+    /**
+     * Checks if the default collections are created.If not, delegates the creation of the same
+     */
+    private void initializeCollections(DatabaseOption... collections) {
+        logger.info(TAG + "initializing Collection");
+
+        String[] existingCollections = Iterables.toArray(getExistingCollections(), String.class);
+
+        Arrays.stream(collections)
+                .filter(collection -> checkIfCollectionAlreadyExists(collection.getName(), Arrays.stream(existingCollections)))
+                .forEach(this::createCollection);
+
+    }
+
+    private List<DeviceWrapper> getDevices(String sub, Function<UserWrapper, List<Document>> func, boolean isMobile) {
+
+        final List<Document> res = new LinkedList<>();
+
+        transformationToUserDatabase(sub,
+                (wrapper, collection) -> {
+                    res.addAll(func.apply(wrapper));
+                    return null;
+                }
+        );
+
+        return res.stream()
+                .map(document -> new DeviceWrapper(document.getString("_main"), document.getString("name"), isMobile, sub))
+                .collect(Collectors.toList());
+    }
 
     private DatabaseResponse registerDevice(String sub, String device, String type, String deviceName) {
         try {
             return transformationToUserDatabase(sub, (wrapper, collection) -> {
 
                 logger.info(TAG + "attempting to add device to user account");
-                BasicDBObject document = new BasicDBObject("_main", device);
+                BasicDBObject document = new BasicDBObject("main", device);
                 document.append("name", deviceName);
 
                 BasicDBObject updateCommand = new BasicDBObject("$addToSet", new BasicDBObject(type, document));
@@ -357,33 +410,4 @@ public class MongoDB implements IDatabase {
         }
     }
 
-    @Override
-    public int updateAndGetOrder(String user) {
-        try{
-            transformationToContentDatabase(user, (wrapper, collection) -> {
-                logger.info(TAG + "increase order");
-
-                BasicDBObject updateCommand = new BasicDBObject("$inc", new BasicDBObject("order", 1));
-
-                collection.updateOne(wrapper.getAccountFilter(), updateCommand);
-
-                return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
-            });
-
-
-            final int[] ret = {0};
-            transformationToContentDatabase(user, (wrapper, collection) -> {
-                logger.info(TAG + "returning order" + wrapper.getContent().getOrder());
-
-                ret[0] = wrapper.getContent().getOrder();
-                return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
-            });
-
-            return ret[0];
-        }catch (Exception e){
-            logger.error(TAG + "Error storing updated order number");
-        }
-
-        return 0;
-    }
 }

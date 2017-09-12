@@ -31,12 +31,14 @@
             android:name=".View.Activities.SettingsActivity"
             android:theme="@style/AppThemeWhite" />
 
-        <receiver android:name=".BroadcastReceiver.AutoStart">
+        <receiver
+            android:name=".BroadcastReceiver.BootCompletedReceiver"
+            android:enabled="true"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
         <service
             android:name=".Services.ClipboardEventHandler"
             android:exported="false"/>

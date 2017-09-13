@@ -163,7 +163,7 @@ namespace ProjectoESeminario.View
             StopApplication(Properties.Resources.DEVICE_REMOVED);
         }
 
-        public async void StopApplication(string message)
+        public void StopApplication(string message)
         {
             this.Dispatcher.Invoke(async () =>
             {

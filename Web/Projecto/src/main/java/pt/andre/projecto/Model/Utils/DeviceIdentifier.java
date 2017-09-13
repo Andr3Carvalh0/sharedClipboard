@@ -10,6 +10,7 @@ public class DeviceIdentifier {
         devices = new DefaultHashMap<>(new Device("WIN", "Windows",  false));
         devices.put("Macintosh", new Device("OSX", "Mac",  true));
         devices.put("Windows", new Device("WIN", "Windows", true));
+        devices.put("Linux", new Device("WIN", "Android", true));
 
     }
 

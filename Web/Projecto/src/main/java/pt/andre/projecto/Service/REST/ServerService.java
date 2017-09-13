@@ -10,12 +10,14 @@ import pt.andre.projecto.Controllers.URIs.FirebaseService;
 import pt.andre.projecto.Controllers.URIs.WebSocketService;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
 import pt.andre.projecto.Model.Database.Interfaces.IDatabase;
+import pt.andre.projecto.Model.Utils.DefaultHashMap;
 import pt.andre.projecto.Model.Utils.Device;
 import pt.andre.projecto.Model.Utils.DeviceIdentifier;
 import pt.andre.projecto.Output.MensageFormater;
 import pt.andre.projecto.Service.Interfaces.IServerService;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -26,6 +28,7 @@ import java.util.Properties;
 public class ServerService extends ParentService implements IServerService{
     private String CLIENT_SECRET_ID;
 
+    private DefaultHashMap<String, String> FILES_TO_DOWNLOAD;
     @Autowired
     private IDatabase database;
 
@@ -40,6 +43,10 @@ public class ServerService extends ParentService implements IServerService{
     public ServerService(){
         try {
             Properties props = PropertiesLoaderUtils.loadProperties(resource);
+            this.FILES_TO_DOWNLOAD = new DefaultHashMap<>("");
+            FILES_TO_DOWNLOAD.put("Windows", props.getProperty("WindowsApp"));
+            FILES_TO_DOWNLOAD.put("Android", props.getProperty("AndroidApp"));
+
             this.CLIENT_SECRET_ID = props.getProperty("googleID");
 
             logger.info(TAG, "Loaded successfully Google ID from props file.");
@@ -75,6 +82,7 @@ public class ServerService extends ParentService implements IServerService{
         model.put("OS_Name", currentDevice.getOS_Friendly_Name());
         model.put("isSupported", currentDevice.isSupported());
         model.put("GoogleID", CLIENT_SECRET_ID);
+        model.put("Application", FILES_TO_DOWNLOAD.get(currentDevice.getOS_Friendly_Name()));
 
         return "index";
     }

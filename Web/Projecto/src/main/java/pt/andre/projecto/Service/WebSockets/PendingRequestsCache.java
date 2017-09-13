@@ -42,6 +42,7 @@ public class PendingRequestsCache {
             user_devices = pending_messages.get(user);
         }
 
+        database.removeAllRequests(user, device);
         return user_devices.get(device);
 
     }

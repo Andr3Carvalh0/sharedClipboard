@@ -103,11 +103,6 @@ namespace ProjectoESeminario.Controller.State
                     {
                         sentRequestsQueue.Remove(node);
 
-                        if (ignoreQueue.Contains(text))
-                        {
-                            ignoreQueue.Remove(text);
-                            return false;
-                        }
 
                         return true;
                     }

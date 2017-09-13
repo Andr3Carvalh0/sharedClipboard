@@ -163,14 +163,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProjectoESeminario.exe" size="430104">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProjectoESeminario.exe" size="430616">
       <assemblyIdentity name="ProjectoESeminario" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ZrzrQ4BP/h8aZo/1doi2Aa+1rWWX2pmvU/cRgrvrPrs=</dsig:DigestValue>
+        <dsig:DigestValue>lno1XF1WdSO8SS9q9gKoxBRNg3l2Ddq1XsYzwzIR9SE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -351,13 +351,13 @@
       <dsig:DigestValue>kVjE08qb7ukQT/+hlEZNacctiwzW7aL9DP2pFkGWzUs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="ProjectoESeminario.exe.config" size="3240">
+  <file name="ProjectoESeminario.exe.config" size="3306">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>0hC9HI4+GK+DCPhnrdMtEIib4NnKhA4SZvi9pNHmQEw=</dsig:DigestValue>
+      <dsig:DigestValue>M2ZmV0RDpaPD5APrNY047yp07qhSy9ZEmkl8KINrD60=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

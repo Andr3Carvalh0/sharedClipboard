@@ -165,9 +165,12 @@ namespace ProjectoESeminario.View
 
         public async void StopApplication(string message)
         {
+            this.Dispatcher.Invoke(async () =>
+            {
+                await this.ShowMessageAsync("", message);
+                Exit(null, null);
+            });
 
-            await this.ShowMessageAsync("", message);
-            Exit(null, null);
         }
 
         /// <summary>

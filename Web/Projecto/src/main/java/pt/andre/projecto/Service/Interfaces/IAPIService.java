@@ -14,4 +14,5 @@ public interface IAPIService extends IParentService {
     DatabaseResponse handleMIMERequest(String encryptedSUB, String sub, String file);
 
     DatabaseResponse getSocket();
+
 }

@@ -97,6 +97,7 @@ function reset(){
 }
 
 function handleDelete(id, isMobile, sub) {
+    console.log(sub)
     $.ajax({
         type: 'DELETE',
         url: '/devices?deviceIdentifier=' + id + '&isMobile=' + isMobile,

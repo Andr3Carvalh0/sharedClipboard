@@ -94,13 +94,16 @@ public class ServerService extends ParentService implements IServerService{
         if(!result)
             return "error";
 
-        notifyRemovedDevice(sub, deviceIdentifier);
+        notifyRemovedDevice(sub, deviceIdentifier, isMobile);
 
         return getDevicesWithSub(model, sub);
     }
 
-    public void notifyRemovedDevice(String sub, String deviceID){
-        webSocketService.notify(sub, MensageFormater.expel(), deviceID);
+    public void notifyRemovedDevice(String sub, String deviceID, boolean isMobile){
+        if(!isMobile) {
+            webSocketService.notify(sub, MensageFormater.expel(), deviceID);
+            return;
+        }
         firebaseService.notify(sub, MensageFormater.expel(), deviceID);
     }
 

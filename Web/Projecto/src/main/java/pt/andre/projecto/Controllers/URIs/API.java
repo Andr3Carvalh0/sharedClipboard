@@ -166,6 +166,7 @@ public class API implements IAPI {
         return ResponseEntity.status(resp.getResponseCode()).body(resp.getResponseMessage());
     }
 
+
     private ResponseEntity registerDesktopDevice(String sub, String deviceIdentifier, String deviceName) {
         logger.info(TAG + "RegisterDevice method");
         final DatabaseResponse resp = service.registerDesktopDevice(sub, deviceIdentifier, deviceName);

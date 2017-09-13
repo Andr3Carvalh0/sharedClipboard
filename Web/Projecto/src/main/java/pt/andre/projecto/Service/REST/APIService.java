@@ -13,6 +13,7 @@ import pt.andre.projecto.Output.MensageFormater;
 import pt.andre.projecto.Output.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -132,6 +133,7 @@ public class APIService extends ParentService implements IAPIService{
         return ResponseFormater.displaySuccessfulInformation((WEBSOCKET_PROTOCOL + SERVER_URI.replace("www.", "") + "/desktop_socket"));
 
     }
+
 
     /*
     * Used when the user pushed a MIME file to the server.

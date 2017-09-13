@@ -1,5 +1,6 @@
 package pt.andre.projecto.Model.Database;
 
+import com.google.common.base.Functions;
 import com.google.common.collect.Iterables;
 import com.mongodb.*;
 import com.mongodb.client.MongoCollection;
@@ -11,9 +12,11 @@ import org.bson.conversions.Bson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.andre.projecto.Model.DTOs.Content;
+import pt.andre.projecto.Model.DTOs.PendingRequest;
 import pt.andre.projecto.Model.DTOs.User;
 import pt.andre.projecto.Model.DTOs.Wrappers.ContentWrapper;
 import pt.andre.projecto.Model.DTOs.Wrappers.DeviceWrapper;
+import pt.andre.projecto.Model.DTOs.Wrappers.PendingRequestWrapper;
 import pt.andre.projecto.Model.DTOs.Wrappers.UserWrapper;
 import pt.andre.projecto.Model.Database.Interfaces.IDatabase;
 import pt.andre.projecto.Model.Database.Interfaces.IPendingRequests;
@@ -227,7 +230,7 @@ public class MongoDB implements IDatabase, IPendingRequests {
             transformationToUserDatabase(sub, (wrapper, collection) -> {
 
                 logger.info(TAG + "attempting to remove device to user account");
-                BasicDBObject document = new BasicDBObject("_main", deviceIdentifier);
+                BasicDBObject document = new BasicDBObject("main", deviceIdentifier);
 
                 BasicDBObject updateCommand = new BasicDBObject("$pull", new BasicDBObject(type, document));
 
@@ -274,17 +277,49 @@ public class MongoDB implements IDatabase, IPendingRequests {
 
     @Override
     public List<String> getPendingRequests(String sub, String device) {
-        return null;
+        final List<String>[] toRet = new List[1];
+
+        transformationToPendingDatabase(sub, (wrapper, collection) ->{
+
+            final List<Document> devices = wrapper.getContent().getValues()
+                    .stream()
+                    .filter(s -> s.get("name").equals(device))
+                    .collect(Collectors.toList());
+
+
+            toRet[0] = (List<String>) devices.get(0).get("messages");
+
+
+            if(toRet[0].size() == 0)
+                toRet[0] = new LinkedList<>();
+
+            return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
+        });
+
+        return toRet[0];
     }
 
     @Override
     public void addRequest(String sub, String device, String message) {
+        transformationToPendingDatabase(sub, (wrapper, collection) ->{
+            BasicDBObject document = new BasicDBObject("devices.$.messages", message);
+            BasicDBObject updateCommand = new BasicDBObject("$addToSet", document);
+            collection.updateOne(new Document().append("id", sub).append("devices.name",device), updateCommand);
+
+            return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
+        });
 
     }
 
     @Override
     public void removeAllRequests(String sub, String device) {
+        transformationToPendingDatabase(sub, (wrapper, collection) ->{
+            BasicDBObject document = new BasicDBObject("devices.$.messages", new ArrayList<BasicDBObject>());
+            BasicDBObject updateCommand = new BasicDBObject("$set", document);
+            collection.updateOne(new Document().append("id", sub).append("devices.name",device), updateCommand);
 
+            return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
+        });
     }
 
     //Utils
@@ -297,17 +332,14 @@ public class MongoDB implements IDatabase, IPendingRequests {
             final MongoCollection<Document> contentDocument = mongoDatabase.getCollection(CONTENT_COLLECTION.getName());
             Bson accountFilter = Filters.eq("id", sub);
 
-            final Content[] content = new Content[1];
+            final Content content = contentDocument.find(accountFilter)
+                    .map(document -> new Content(document.getString("id"), document.getString("value"), document.getBoolean("isMIME"), document.getInteger("order")))
+                    .first();
 
-            contentDocument.find(accountFilter)
-                    .forEach((Block<Document>) (
-                            document) -> content[0] = new Content(document.getString("id"), document.getString("value"), document.getBoolean("isMIME"), document.getInteger("order"))
-                    );
-
-            if(content[0] == null)
+            if(content == null)
                 return ResponseFormater.createResponse(ResponseFormater.NO_ACCOUNT);
 
-            return func.apply(new ContentWrapper(content[0], accountFilter), contentDocument);
+            return func.apply(new ContentWrapper(content, accountFilter), contentDocument);
         } catch (Exception e) {
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
@@ -318,20 +350,30 @@ public class MongoDB implements IDatabase, IPendingRequests {
             final MongoCollection<Document> contentDocument = mongoDatabase.getCollection(USER_COLLECTION.getName());
             Bson accountFilter = Filters.eq("id", sub);
 
-            final User[] user = new User[1];
-            contentDocument.find(accountFilter)
-                    .forEach((Block<Document>) (
-                            document) -> user[0] = new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients"))
-                    );
+            final User user = contentDocument.find(accountFilter)
+                            .map((document) -> new User(document.getString("id"), (List<Document>) document.get("mobileClients"), (List<Document>) document.get("desktopClients")))
+                            .first();
 
-            return func.apply(new UserWrapper(user[0], accountFilter), contentDocument);
+            return func.apply(new UserWrapper(user, accountFilter), contentDocument);
         } catch (Exception e) {
             return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
         }
     }
 
-    private DatabaseResponse transformationToPendingDatabase(String sub, BiFunction<UserWrapper, MongoCollection, DatabaseResponse> func) {
-        throw new NotImplementedException();
+    private DatabaseResponse transformationToPendingDatabase(String sub, BiFunction<PendingRequestWrapper, MongoCollection, DatabaseResponse> func) {
+        try {
+            final MongoCollection<Document> pendingDocument = mongoDatabase.getCollection(PENDINGREQUESTS_COLLECTION.getName());
+            Bson accountFilter = Filters.eq("id", sub);
+
+            final PendingRequest requests = pendingDocument.find(accountFilter)
+                    .map(document -> new PendingRequest(
+                            document.getString("id"),
+                            ((List<Document>) document.get("devices")))).first();
+
+            return func.apply(new PendingRequestWrapper(requests, accountFilter), pendingDocument);
+        } catch (Exception e) {
+            return ResponseFormater.createResponse(ResponseFormater.EXCEPTION);
+        }
     }
 
     /**
@@ -386,12 +428,26 @@ public class MongoDB implements IDatabase, IPendingRequests {
         );
 
         return res.stream()
-                .map(document -> new DeviceWrapper(document.getString("_main"), document.getString("name"), isMobile, sub))
+                .map(document -> new DeviceWrapper(document.getString("main"), document.getString("name"), isMobile, sub))
                 .collect(Collectors.toList());
     }
 
     private DatabaseResponse registerDevice(String sub, String device, String type, String deviceName) {
         try {
+            transformationToPendingDatabase(sub, (wrapper, collection) -> {
+
+                logger.info(TAG + "attempting to add device to user account");
+                BasicDBObject document = new BasicDBObject("name", device);
+                document.append("messages", new ArrayList<BasicDBObject>());
+
+                BasicDBObject updateCommand = new BasicDBObject("$addToSet", new BasicDBObject("devices", document));
+
+                collection.updateOne(wrapper.getAccountFilter(), updateCommand);
+
+                return ResponseFormater.createResponse(ResponseFormater.SUCCESS);
+            });
+
+
             return transformationToUserDatabase(sub, (wrapper, collection) -> {
 
                 logger.info(TAG + "attempting to add device to user account");

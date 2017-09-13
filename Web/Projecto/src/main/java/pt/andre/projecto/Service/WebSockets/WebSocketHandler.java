@@ -13,6 +13,7 @@ import pt.andre.projecto.Controllers.Interfaces.IAPI;
 import pt.andre.projecto.Service.WebSockets.Interfaces.IConnectionManager;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -21,6 +22,9 @@ public class WebSocketHandler extends TextWebSocketHandler implements IConnectio
 
     @Autowired
     private IAPI api;
+
+    @Autowired
+    private PendingRequestsCache cache;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String TAG = "Portugal: WebSocketHandler ";
@@ -32,9 +36,6 @@ public class WebSocketHandler extends TextWebSocketHandler implements IConnectio
 
     //Map where the key is the session id, and the value is the user sub
     private ConcurrentHashMap<String, InformationWrapper> connections_by_id;
-
-    //Map where the key is the user sub, value is a map where key is device id, and value is a list of pending messages
-    private ConcurrentHashMap<String, ConcurrentHashMap<String, ConcurrentLinkedQueue<String>>> pending_messages;
 
     private Router router;
 
@@ -59,7 +60,6 @@ public class WebSocketHandler extends TextWebSocketHandler implements IConnectio
     public WebSocketHandler(){
         connections = new ConcurrentHashMap<>();
         connections_by_id = new ConcurrentHashMap<>();
-        pending_messages = new ConcurrentHashMap<>();
         router = new Router(this);
     }
 
@@ -121,33 +121,22 @@ public class WebSocketHandler extends TextWebSocketHandler implements IConnectio
 
             final ConcurrentLinkedQueue<WebSocketSession> webSocketSession = connections.get(sub).get(device);
 
-            if (webSocketSession.size() == 0) {
-                pending_messages.computeIfAbsent(sub, s -> new ConcurrentHashMap<>());
-                pending_messages.get(sub).computeIfAbsent(device, s -> new ConcurrentLinkedQueue<>());
-                pending_messages.get(sub).get(device).add(message);
-                return;
-            }
+            if (webSocketSession.size() == 0)
+                throw new NullPointerException("Device isnt connect");
+
 
             webSocketSession
                     .forEach(s -> send(message, device, s));
 
         }catch (NullPointerException e){
             logger.info(TAG + "the user doesnt have any devices");
-            pending_messages.computeIfAbsent(sub, s -> new ConcurrentHashMap<>());
-            pending_messages.get(sub).computeIfAbsent(device, s -> new ConcurrentLinkedQueue<>());
-            pending_messages.get(sub).get(device).add(message);
-
+            cache.addToPendingRequests(sub, device, message);
         }
     }
 
     private void handlePendingMessages(String sub, String device, WebSocketSession socket) {
         logger.info(TAG + "Attempting to send pending messages to device: " + device);
-        final ConcurrentHashMap<String, ConcurrentLinkedQueue<String>> user_devices = pending_messages.get(sub);
-
-        if(user_devices == null)
-            return;
-
-        final ConcurrentLinkedQueue<String> messages_list = user_devices.get(device);
+        final ConcurrentLinkedQueue<String> messages_list = cache.getPendingMessages(sub, device);
 
         logger.info(TAG + "Pending messages to device: " + device + ": " + messages_list.size());
 

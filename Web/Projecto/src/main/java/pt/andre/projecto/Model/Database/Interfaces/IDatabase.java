@@ -20,4 +20,6 @@ public interface IDatabase {
 
     int updateAndGetOrder(String user);
     boolean removeDevice(String sub, String deviceIdentifier, boolean isMobile);
+
+
 }

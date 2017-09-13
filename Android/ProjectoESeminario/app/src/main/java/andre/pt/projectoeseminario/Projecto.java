@@ -35,13 +35,7 @@ public class Projecto extends Application {
     public void logOut(){
         preferences.clearAll();
         preferences.saveBooleanPreference(Preferences.SERVICERUNNING, false);
-
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.logout_title))
-                .setMessage(getString(R.string.logout_message))
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.PositiveButton_Title), (dialog, which) -> System.exit(0))
-                .show();
+        System.exit(0);
     }
 
     /**

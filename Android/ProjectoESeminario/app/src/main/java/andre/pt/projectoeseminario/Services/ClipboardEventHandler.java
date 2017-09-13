@@ -5,9 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import java.util.HashMap;
 import java.util.function.BiConsumer;
@@ -104,7 +102,7 @@ public class ClipboardEventHandler extends Service {
     }
 
     private void onReceived(String text, int order, ClipboardController clipboardController){
-        int value = clipboardController.PutValue(text, order);
+        int value = clipboardController.putValue(text, order);
 
         try {
             if (value == 1)

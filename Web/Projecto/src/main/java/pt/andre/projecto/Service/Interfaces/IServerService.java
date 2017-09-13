@@ -15,5 +15,5 @@ public interface IServerService extends IParentService {
 
     String deleteDevice(Map<String, Object> model, String sub, String deviceIdentifier, boolean isMobile);
 
-    public void notifyRemovedDevice(String sub, String deviceID);
+    void notifyRemovedDevice(String sub, String deviceID, boolean isMobile);
 }

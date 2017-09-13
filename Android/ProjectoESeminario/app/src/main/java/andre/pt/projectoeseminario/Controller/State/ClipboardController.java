@@ -115,12 +115,7 @@ public class ClipboardController {
                 if (node == sentRequestsQueue.get(0) && node.isWake() && !node.toRemove())
                 {
                     sentRequestsQueue.remove(node);
-
-                    if (ignoreQueue.contains(value))
-                    {
-                        ignoreQueue.remove(value);
-                        return false;
-                    }
+                    ignoreQueue.add(value);
 
                     return true;
                 }
@@ -136,25 +131,25 @@ public class ClipboardController {
     //return 0 -> Didnt change
     //return 1 -> Did change, we need to update history
     //return 2 -> Old request, we need to update history
-    public int PutValue(String text, long order_received)
+    public int putValue(String text, long order_received)
     {
         nLock.lock();
 
         try {
             //When we dont have any pending request
             if (sentRequestsQueue.size() == 0)
-                return AvaliateAndUpdateOrder(order_received, orderNumber, text);
+                return evaluateAndUpdateOrder(order_received, orderNumber, text);
 
             //Even though we didnt finish the requests we can be sure that the request received is more recent
             // Than our sent requests.
-            return AvaliateAndUpdateOrder(order_received, orderNumber + sentRequestsQueue.size(), text);
+            return evaluateAndUpdateOrder(order_received, orderNumber + sentRequestsQueue.size(), text);
 
         }finally {
             nLock.unlock();
         }
     }
 
-    private int AvaliateAndUpdateOrder(long received, long actual, String text)
+    private int evaluateAndUpdateOrder(long received, long actual, String text)
     {
         if (received == actual)
             return 0;
@@ -178,7 +173,6 @@ public class ClipboardController {
             if (sentRequestsQueue.size() > 0)
             {
                 Pair node = sentRequestsQueue.get(0);
-                ignoreQueue.add(node.getValue());
                 node.Wake();
                 node.getCondition().signal();
             }

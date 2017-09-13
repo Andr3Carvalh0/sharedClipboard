@@ -20,7 +20,11 @@ public class FirebaseMessageHandler extends FirebaseMessagingService {
             String action = String.valueOf(remoteMessage.getData().get("action"));
             final Boolean isMIME = Boolean.valueOf(remoteMessage.getData().get("isMIME"));
             final String content = remoteMessage.getData().get("content");
-            final int order = Integer.parseInt(remoteMessage.getData().get("order"));
+            int order = 0;
+
+            try{
+                order = Integer.parseInt(remoteMessage.getData().get("order"));
+            }catch (Exception e){}
 
             Intent intent = new Intent(this, ClipboardEventHandler.class);
             intent.putExtra("action", action);

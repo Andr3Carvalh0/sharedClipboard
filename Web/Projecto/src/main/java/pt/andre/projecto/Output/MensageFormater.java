@@ -1,6 +1,7 @@
 package pt.andre.projecto.Output;
 
 import org.json.JSONObject;
+
 import java.util.Base64;
 
 public class MensageFormater {

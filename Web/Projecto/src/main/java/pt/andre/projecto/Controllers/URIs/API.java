@@ -9,12 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pt.andre.projecto.Controllers.Interfaces.IAPI;
 import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
-import pt.andre.projecto.Output.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
 import java.io.IOException;
 import java.util.Base64;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @AutoConfigureBefore

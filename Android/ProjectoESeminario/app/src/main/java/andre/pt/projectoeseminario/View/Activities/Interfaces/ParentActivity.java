@@ -5,9 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-
 import andre.pt.projectoeseminario.Controller.Preferences;
-import andre.pt.projectoeseminario.Projecto;
 import andre.pt.projectoeseminario.R;
 
 public abstract class ParentActivity extends AppCompatActivity {
@@ -120,18 +118,6 @@ public abstract class ParentActivity extends AppCompatActivity {
 
     protected String getStringPreference(String key){
         return mPreferences.getStringPreference(key);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((Projecto)getApplication()).setVisible();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        ((Projecto)getApplication()).setInvisible();
     }
 
 }

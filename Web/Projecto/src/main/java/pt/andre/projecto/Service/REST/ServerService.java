@@ -17,7 +17,6 @@ import pt.andre.projecto.Output.MensageFormater;
 import pt.andre.projecto.Service.Interfaces.IServerService;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;

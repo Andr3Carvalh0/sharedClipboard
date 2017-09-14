@@ -5,11 +5,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import andre.pt.projectoeseminario.Controller.Classifiers.Classifiers;
 import andre.pt.projectoeseminario.Controller.Data.ContentProvider.ResourcesContentProviderContent;
 

@@ -5,16 +5,12 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.andre.projecto.Controllers.Interfaces.INotify;
 
-
 import java.util.Objects;
-
-import static java.lang.Thread.sleep;
 
 /*
 * Class dedicated to handle the push of new information to the user mobile devices.

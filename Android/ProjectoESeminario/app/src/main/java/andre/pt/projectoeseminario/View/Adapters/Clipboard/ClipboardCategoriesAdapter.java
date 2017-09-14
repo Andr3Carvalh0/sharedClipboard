@@ -13,9 +13,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import andre.pt.projectoeseminario.View.Adapters.ParentAdapter;
 import andre.pt.projectoeseminario.Controller.Data.ContentProvider.ResourcesContentProviderContent;
 import andre.pt.projectoeseminario.R;
+import andre.pt.projectoeseminario.View.Adapters.ParentAdapter;
 
 /**
  * Adapter to add the elements & click events to the history fragment

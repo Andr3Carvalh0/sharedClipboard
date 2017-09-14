@@ -13,7 +13,6 @@ import pt.andre.projecto.Controllers.Interfaces.IAPI;
 import pt.andre.projecto.Service.WebSockets.Interfaces.IConnectionManager;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 

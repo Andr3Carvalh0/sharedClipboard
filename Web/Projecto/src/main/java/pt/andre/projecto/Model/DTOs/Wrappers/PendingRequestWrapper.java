@@ -1,7 +1,6 @@
 package pt.andre.projecto.Model.DTOs.Wrappers;
 
 import org.bson.conversions.Bson;
-import pt.andre.projecto.Model.DTOs.Content;
 import pt.andre.projecto.Model.DTOs.PendingRequest;
 
 /*

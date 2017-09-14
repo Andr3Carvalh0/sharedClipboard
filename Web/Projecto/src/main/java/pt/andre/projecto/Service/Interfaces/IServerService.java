@@ -1,6 +1,5 @@
 package pt.andre.projecto.Service.Interfaces;
 
-import org.springframework.web.bind.annotation.RequestHeader;
 import pt.andre.projecto.Model.Utils.DeviceIdentifier;
 
 import java.util.Map;

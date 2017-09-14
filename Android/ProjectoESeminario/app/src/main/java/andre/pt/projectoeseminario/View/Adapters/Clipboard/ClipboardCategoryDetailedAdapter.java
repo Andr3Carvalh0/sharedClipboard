@@ -7,9 +7,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import java.util.function.Consumer;
-import andre.pt.projectoeseminario.View.Adapters.ParentAdapter;
+
 import andre.pt.projectoeseminario.R;
+import andre.pt.projectoeseminario.View.Adapters.ParentAdapter;
 
 /**
  *   Shows the elements of the text/contacts

@@ -14,17 +14,15 @@ import org.springframework.web.socket.server.standard.ServletServerContainerFact
 import pt.andre.projecto.Controllers.URIs.FirebaseService;
 import pt.andre.projecto.Controllers.URIs.WebSocketService;
 import pt.andre.projecto.Model.Database.Interfaces.IDatabase;
-import pt.andre.projecto.Model.Database.Interfaces.IPendingRequests;
-import pt.andre.projecto.Model.Database.MongoDB;
 import pt.andre.projecto.Model.Database.Interfaces.IMultimediaHandler;
+import pt.andre.projecto.Model.Database.MongoDB;
 import pt.andre.projecto.Model.Database.MultimediaHandler;
-import pt.andre.projecto.Service.Utils.GoogleService;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 import pt.andre.projecto.Service.Interfaces.IGoogleService;
 import pt.andre.projecto.Service.Interfaces.IServerService;
 import pt.andre.projecto.Service.REST.APIService;
 import pt.andre.projecto.Service.REST.ServerService;
-import pt.andre.projecto.Service.WebSockets.PendingRequestsCache;
+import pt.andre.projecto.Service.Utils.GoogleService;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -83,7 +81,14 @@ public class Main {
 
     @Bean
     public IDatabase createDatabase(){
-        return System.getenv("MONGO_USER") == null ? new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), "Projecto") : new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), System.getenv("MONGO_DATABASE"), System.getenv("MONGO_USER"), System.getenv("MONGO_PASSWORD"));
+        return System.getenv("MONGO_USER") == null
+                ? new MongoDB(System.getenv("MONGO_HOST"), System.getenv("MONGO_PORT"), System.getenv("MONGO_DATABASE"))
+                : new MongoDB(
+                        System.getenv("MONGO_HOST"),
+                        System.getenv("MONGO_PORT"),
+                        System.getenv("MONGO_DATABASE"),
+                        System.getenv("MONGO_USER"),
+                        System.getenv("MONGO_PASSWORD"));
     }
 
     @Bean

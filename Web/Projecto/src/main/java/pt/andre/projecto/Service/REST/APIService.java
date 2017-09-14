@@ -13,9 +13,7 @@ import pt.andre.projecto.Output.MensageFormater;
 import pt.andre.projecto.Output.ResponseFormater;
 import pt.andre.projecto.Service.Interfaces.IAPIService;
 
-import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /*
 * Service that handles every action to our API URLs

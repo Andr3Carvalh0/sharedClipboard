@@ -3,9 +3,10 @@ package andre.pt.projectoeseminario.View.Activities;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
-import andre.pt.projectoeseminario.View.Activities.Interfaces.ParentActivity;
+
 import andre.pt.projectoeseminario.Controller.Preferences;
 import andre.pt.projectoeseminario.R;
+import andre.pt.projectoeseminario.View.Activities.Interfaces.ParentActivity;
 
 /**
  * Splash Activity. Used to decide which activity to launch

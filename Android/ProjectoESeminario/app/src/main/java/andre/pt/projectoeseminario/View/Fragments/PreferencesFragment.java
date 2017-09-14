@@ -8,14 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+
 import java.util.HashMap;
 
-import andre.pt.projectoeseminario.View.Adapters.Entities.Preference;
-import andre.pt.projectoeseminario.View.Adapters.Settings.PreferencesAdapter;
-import andre.pt.projectoeseminario.View.Activities.Interfaces.SettingsActions;
-import andre.pt.projectoeseminario.View.Fragments.Interfaces.ParentFragment;
 import andre.pt.projectoeseminario.Controller.Preferences;
 import andre.pt.projectoeseminario.R;
+import andre.pt.projectoeseminario.View.Activities.Interfaces.SettingsActions;
+import andre.pt.projectoeseminario.View.Adapters.Entities.Preference;
+import andre.pt.projectoeseminario.View.Adapters.Settings.PreferencesAdapter;
+import andre.pt.projectoeseminario.View.Fragments.Interfaces.ParentFragment;
 
 /**
  * Fragment that is shown in the SettingsActivity.

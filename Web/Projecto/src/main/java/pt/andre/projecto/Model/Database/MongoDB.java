@@ -1,8 +1,10 @@
 package pt.andre.projecto.Model.Database;
 
-import com.google.common.base.Functions;
 import com.google.common.collect.Iterables;
-import com.mongodb.*;
+import com.mongodb.BasicDBObject;
+import com.mongodb.Function;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
@@ -22,7 +24,6 @@ import pt.andre.projecto.Model.Database.Interfaces.IDatabase;
 import pt.andre.projecto.Model.Database.Interfaces.IPendingRequests;
 import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
 import pt.andre.projecto.Output.ResponseFormater;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -466,4 +467,7 @@ public class MongoDB implements IDatabase, IPendingRequests {
         }
     }
 
+    public MongoDatabase getMongoDatabase() {
+        return mongoDatabase;
+    }
 }

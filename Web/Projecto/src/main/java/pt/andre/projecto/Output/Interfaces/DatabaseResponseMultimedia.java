@@ -1,7 +1,5 @@
 package pt.andre.projecto.Output.Interfaces;
 
-import pt.andre.projecto.Output.Interfaces.DatabaseResponse;
-
 /*
 * Represents the object of the response that we will deliver
 * */

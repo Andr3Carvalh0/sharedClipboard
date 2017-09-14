@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+import andre.pt.projectoeseminario.R;
 import andre.pt.projectoeseminario.View.Adapters.Entities.Preference;
 import andre.pt.projectoeseminario.View.Adapters.ParentAdapter;
-import andre.pt.projectoeseminario.R;
 
 /**
  * Represents one preference Item that will be shown by the RecyclerView

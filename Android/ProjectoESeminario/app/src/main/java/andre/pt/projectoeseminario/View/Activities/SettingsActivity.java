@@ -16,19 +16,20 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 
-import andre.pt.projectoeseminario.View.Activities.Interfaces.ParentActivity;
-import andre.pt.projectoeseminario.View.Adapters.Fragments.TabViewPager;
 import andre.pt.projectoeseminario.Controller.API.APIRequest;
-import andre.pt.projectoeseminario.View.Activities.Interfaces.SettingsActions;
 import andre.pt.projectoeseminario.Controller.Preferences;
 import andre.pt.projectoeseminario.Projecto;
 import andre.pt.projectoeseminario.R;
 import andre.pt.projectoeseminario.Services.CopyMenuListener;
+import andre.pt.projectoeseminario.View.Activities.Interfaces.ParentActivity;
+import andre.pt.projectoeseminario.View.Activities.Interfaces.SettingsActions;
+import andre.pt.projectoeseminario.View.Adapters.Fragments.TabViewPager;
 
 public class SettingsActivity extends ParentActivity implements TabLayout.OnTabSelectedListener, SettingsActions {
     private static final String TAG = "Portugal:Preferences";

@@ -4,11 +4,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import andre.pt.projectoeseminario.View.Activities.Interfaces.SettingsActions;
 import andre.pt.projectoeseminario.View.Fragments.HistoryFragment;
 import andre.pt.projectoeseminario.View.Fragments.Interfaces.IHistory;
 import andre.pt.projectoeseminario.View.Fragments.Interfaces.ParentFragment;
 import andre.pt.projectoeseminario.View.Fragments.PreferencesFragment;
-import andre.pt.projectoeseminario.View.Activities.Interfaces.SettingsActions;
 
 /**
  * TabViewPager: Its the parent view of the History/Settings tab of the SettingsActivity

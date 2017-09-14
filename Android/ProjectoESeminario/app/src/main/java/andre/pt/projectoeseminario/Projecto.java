@@ -14,7 +14,6 @@ import andre.pt.projectoeseminario.Controller.State.ClipboardController;
  * Contains useful methods to the activities/services
  */
 public class Projecto extends Application {
-    private boolean visible = true;
     private ICache cache;
     private Preferences preferences;
     private ClipboardController clipboardController;
@@ -57,23 +56,6 @@ public class Projecto extends Application {
 
                 })
                 .show();
-    }
-
-
-    /**
-     * Changes the application state to visible.
-     * Useful for when we invoke the logout method
-     */
-    public void setVisible(){
-        visible = true;
-    }
-
-    /**
-     * Changes the application state to invisible.
-     * Useful for when we invoke the logout method
-     */
-    public void setInvisible(){
-        visible = false;
     }
 
     /**

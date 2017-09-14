@@ -13,8 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.function.Consumer;
 
-import andre.pt.projectoeseminario.View.Adapters.ParentAdapter;
 import andre.pt.projectoeseminario.R;
+import andre.pt.projectoeseminario.View.Adapters.ParentAdapter;
 
 /**
  *   Shows the elements of the links

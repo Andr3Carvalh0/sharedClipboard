@@ -1,6 +1,7 @@
 package pt.andre.projecto.Model.DTOs;
 
 import org.bson.Document;
+
 import java.util.List;
 
 public class PendingRequest {

@@ -2,9 +2,9 @@ package andre.pt.projectoeseminario.Services;
 
 import android.content.Intent;
 import android.util.Log;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import andre.pt.projectoeseminario.Controller.Preferences;
 
 /**
  * Service that handles all the messages that come from the firebase server

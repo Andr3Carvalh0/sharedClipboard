@@ -1,18 +1,18 @@
 package andre.pt.projectoeseminario.View.Activities;
 
 
-import android.support.v4.app.FragmentManager;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
+import andre.pt.projectoeseminario.R;
 import andre.pt.projectoeseminario.View.Activities.Interfaces.ParentActivity;
 import andre.pt.projectoeseminario.View.Fragments.HistoryFragment;
-import andre.pt.projectoeseminario.R;
 
 /**
  * Handles the history floating window

@@ -7,12 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+
 import java.util.HashMap;
 import java.util.function.BiConsumer;
-import andre.pt.projectoeseminario.Controller.Preferences;
-import andre.pt.projectoeseminario.Projecto;
+
 import andre.pt.projectoeseminario.Controller.API.APIRequest;
+import andre.pt.projectoeseminario.Controller.Preferences;
 import andre.pt.projectoeseminario.Controller.State.ClipboardController;
+import andre.pt.projectoeseminario.Projecto;
 
 
 /**

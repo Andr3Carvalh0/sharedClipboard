@@ -76,7 +76,7 @@ public class API implements IAPI {
     * @param deviceIdentifier: String to identify the device that made the request
     * */
     @Override
-    @PostMapping("/api/pushMIME")
+    @PostMapping("/api/push")
     public ResponseEntity push(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String sub, @RequestParam String device) {
         logger.info(TAG + "Push MIME method");
 

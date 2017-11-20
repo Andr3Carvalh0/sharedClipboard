@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/Article">
+	<head>
+        <title>Projecto e Seminário</title>
+		<script src="https://apis.google.com/js/api:client.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/uikit.min.js"></script>
+		<link rel="icon" type="image/x-icon" href="ThisIsntTotallyAFavIcon.ico">
+		<link rel="stylesheet" href="css/uikit.min.css">
+		<script src="js/uikit-icons.min.js"></script>
+        <script src="js/utilities.js"></script>
+		<script>
+            var googleUser = {};
+            var startApp = function() {
+                gapi.load('auth2', function(){
+                    // Retrieve the singleton for the GoogleAuth library and set up the client.
+                    auth2 = gapi.auth2.init({
+                        client_id: 'XXX.apps.googleusercontent.com',
+                        cookiepolicy: 'single_host_origin',
+                        // Request scopes in addition to 'profile' and 'email'
+                        //scope: 'additional_scope'
+                    });
+                    attachSignin(document.getElementById('signinButton'));
+                });
+            };
+
+            function attachSignin(element) {
+                auth2.attachClickHandler(element, {},
+                    function(googleUser) {
+                        onSignIn(googleUser)
+                    }, function(error) {
+                        alert(JSON.stringify(error, undefined, 2));
+                    });
+            }
+		</script>
+
+	</head>
+	<body>
+		<nav class="uk-navbar-container" uk-navbar>
+			<div class="uk-navbar-left uk-light" style="width: 100%; background-color: #323232">
+				<div class="uk-navbar-left">
+					<a style="height: 56px;font-size: 120%;" onclick="return false;" class="uk-navbar-item uk-logo">Projecto e Seminario</a>
+				</div>
+				<div class="uk-navbar-right">
+					<a id="signinButton" style="height: 56px;font-size: 95%;" onclick="return false;" class="uk-navbar-item" uk-toggle>Account Settings</a>
+				</div>
+			</div>
+		</nav>
+		<div>
+            {{>preferencesModal}}
+            {{>accountModal}}
+            <!-- Body -->
+			<br/>
+			<img src="images/Main_{{OS}}.png" style="width:100%;max-width: 812px;float: left;padding-top: 12px">
+			<div style="width:100%">
+				<h1 style="padding-top: 32px;">{{Link_2_The_Past}}</h1>
+				<p style="margin-right: 24px">
+					With {{Link_2_The_Past}} you can copy text or documents from your {{OS_Name}} computer and paste it directly into your Android device, or vice-versa.
+					It just works!
+				</p>
+				<br/>
+                {{#isSupported}}
+                    {{>supportedOSButtons}}
+                {{/isSupported}}
+                {{^isSupported}}
+                    {{>unsupportedOSButtons}}
+                {{/isSupported}}
+			</div>
+
+			<a id='hackyMChacky' hidden='hidden' href="#preferences_Modal" onclick='return false' class="uk-button uk-button-primary tm-button-primary" uk-toggle>
+				<span uk-icon="icon: user" class="uk-margin-small-right uk-icon"></span>
+				<span class="uk-text-middle">sign up</span>
+			</a>
+
+            <a id='createAccount' hidden='hidden' href="#accountModal" onclick='return false' class="uk-button uk-button-primary tm-button-primary" uk-toggle>
+                <span uk-icon="icon: user" class="uk-margin-small-right uk-icon"></span>
+                <span class="uk-text-middle">sign up</span>
+            </a>
+
+
+		</div>
+
+		<script>
+            function onSignIn(googleUser) {
+                console.log("called!")
+                $.getScript("js/utilities.js", function(){
+                    authenticate(googleUser.getAuthResponse().id_token)
+                });
+            }
+		</script>
+
+		<script>startApp()</script>
+	</body>
+</html>
